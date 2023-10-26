@@ -183,7 +183,7 @@ Error generating stack: `+i.message+`
   }
   /* flex-wrap: wrap; */
   @media (max-width: 912px) {
-    padding-top: 200px;
+    padding-top: 150px;
     height: 40vh !important;
     background: url(${Rp});
     background-repeat: no-repeat;
@@ -191,7 +191,7 @@ Error generating stack: `+i.message+`
     background-size: cover;
   }
   @media (max-width: 768px) {
-    padding-top: 100px;
+    padding-top: 80px;
     height: 50vh !important;
     background: url(${Rp});
     background-repeat: no-repeat;
