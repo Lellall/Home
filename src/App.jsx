@@ -46,7 +46,7 @@ const Cover = styled(Container)`
   }
   /* flex-wrap: wrap; */
   @media (max-width: 912px) {
-    padding-top: 200px;
+    padding-top: 150px;
     height: 40vh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
@@ -54,7 +54,7 @@ const Cover = styled(Container)`
     background-size: cover;
   }
   @media (max-width: 768px) {
-    padding-top: 100px;
+    padding-top: 80px;
     height: 50vh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
