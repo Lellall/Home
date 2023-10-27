@@ -1,10 +1,14 @@
-import { useState } from "react";
 import "./App.css";
 import PrimarySearchAppBar from "./navbar";
 import { Button, Container, Typography } from "@mui/material";
 import BG from "../assets/BG.svg";
 import Mobile from "../assets/mobile.svg";
 import styled from "styled-components";
+import CustomerTypes from './components/CustomerTypes'
+import Services from './components/Services'
+import MissionStatement from './components/MissionStatement'
+import Footer from './components/Footer'
+
 
 const Cover = styled(Container)`
   /* background-color: red; */
@@ -97,10 +101,27 @@ export const RoundButton = styled(Button)`
   }
 `;
 
-// const Hea
-
 function App() {
-  // const [count, setCount] = useState(0);
+  const services = [
+    {
+      id: 1,
+      title: "Groceries",
+      subtext: "All your essentials, all in one place.",
+      imageUrl: "/assets/groceries.svg",
+    },
+    {
+      id: 2,
+      title: "Delivery",
+      subtext: "Your groceries delivered with minutes to your doorstep",
+      imageUrl: "/assets/delivery.svg",
+    },
+    {
+      id: 3,
+      title: "Vendors",
+      subtext: "Trusted vendors giving a 100% quality",
+      imageUrl: "/assets/vendors.svg",
+    },
+  ];
 
   return (
     <>
@@ -129,6 +150,12 @@ function App() {
           </RoundButton>
         </div>
       </Cover>
+      <div>
+        <CustomerTypes />
+        <Services services={services} />
+        <MissionStatement/>
+      <Footer />
+      </div>
     </>
   );
 }

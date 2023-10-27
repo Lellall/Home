@@ -1,4 +1,3 @@
-"use client";
 
 import styled from "styled-components";
 
@@ -43,16 +42,98 @@ export const Container = styled.div`
 `;
 export const ColContainer = styled(FlexContainer)`
   flex-direction: column;
+  background: ${(props) => (props.bgColor ? props.bgColor : "#fff")}
 `;
 
 export const StyledImage = styled.img`
   height: ${(props) => (props.height ? props.height : "550px")};
   width: ${(props) => (props.width ? props.width : "550px")};
   margin: ${(props) => (props.margin ? props.margin : 0)};
+  // background: red !important;
+  // object-fit: contain;
+  object-fit: cover;
+
+  @media (max-width: 912px) {
+    width: ${(props) => (props.tabletWidth ? props.tabletWidth : "150px")};
+    height: ${(props) => (props.tabletHeight ? props.tabletHeight : "150px")};
+    display: ${(props) => (props.tabletDisplay ? props.tabletDisplay : "block")};
+  }
 
   @media (max-width: 768px) {
-    width: ${(props) => (props.minWidth ? props.minWidth : "150px")};
-    height: ${(props) => (props.minHeight ? props.minHeight : "150px")};
-    margin: ${(props) => (props.minMargin ? props.minMargin : 0)};
+    width: ${(props) => (props.mobileWidth ? props.mobileWidth : "150px")};
+    height: ${(props) => (props.mobileHeight ? props.mobileHeight : "150px")};
+    margin: ${(props) => (props.mobileMargin ? props.mobileMargin : 0)};
+    display: ${(props) => (props.mobileDisplay ? props.mobileDisplay : "block")};
+    // object-fit: contain;
   }
 `;
+
+// export const calcViewMode = () => {
+//   let viewWidth = window.innerWidth;
+//   if (600 > viewWidth) {
+//     return "mobile";
+//   } else if (900 > viewWidth) {
+//     return "tablet";
+//   } else {
+//     return "desktop";
+//   }
+// };
+
+// export const Grid = styled.div`
+// 	width: 100%;
+// 	display: grid;
+// 	grid-template-columns: ${(props) => props.default};
+// 	${(props) =>
+// 		props.pad &&
+// 		css`
+// 			padding: ${(props) => props.pad};
+// 		`}
+// 	${(props) =>
+// 		props.margin &&
+// 		css`
+// 			margin: ${(props) => props.margin};
+// 		`}
+// 	${(props) =>
+// 		props.background &&
+// 		css`
+// 			background: ${(props) => props.background};
+// 		`}
+
+// 	${(props) =>
+// 		props.padHorizontal &&
+// 		css`
+// 			grid-column-gap: ${(props) => props.padHorizontal};
+// 		`}
+
+//   ${(props) =>
+// 		props.padVertical &&
+// 		css`
+// 			grid-row-gap: ${(props) => props.padVerical};
+// 		`}
+
+//   grid-gap: ${(props) => props.gap};
+// 	${(props) =>
+// 		props.autoRow &&
+// 		css`
+// 			grid-auto-rows: ${(props) => props.autoRow};
+// 		`}
+
+// 	${(props) =>
+// 		props.desktop &&
+// 		calcViewMode() === 'desktop' &&
+// 		css`
+// 			grid-template-columns: ${(props) => props.desktop};
+// 		`}
+//   ${(props) =>
+// 		props.tablet &&
+// 		calcViewMode() === 'tablet' &&
+// 		css`
+// 			grid-template-columns: ${(props) => props.tablet};
+// 		`}
+//   ${(props) =>
+// 		props.mobile &&
+// 		calcViewMode() === 'mobile' &&
+// 		css`
+// 			grid-template-columns: ${(props) => props.mobile};
+// 		`}
+// `;

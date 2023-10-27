@@ -1,102 +1,324 @@
-"use client";
-
 import styled from "styled-components";
-import Image from "next/image";
-import { SemiRoundButton } from "./Button/Button";
-import { CenteredText, SubText, Heading } from "./Text/Text";
-import { Wrapper, Container, FlexContainer } from "./Container/Container";
+import { RoundedButton } from "./Button/Button";
+import { FlexContainer, StyledImage } from "./Container/Container";
 import { StyledInput } from "./Input/Input";
+import { Container, Typography } from "@mui/material";
+import { CenteredText } from "./Services";
 
 const InputContainer = styled(FlexContainer)`
   background: #fff;
   border-radius: 8px;
+
+`;
+
+const SubText = styled(Typography)`
+  font-size: 16px !important;
+  font-weight: 400 !important;
+  line-height: 24px !important;
+  text-align: center !important;
 `;
 
 const ColoredText = styled(SubText)`
-  color: #9a9ea6;
-  margin: 10px 0;
+  text-align: inherit !important;
+  @media (max-width: 768px) {
+    font-size: ${(props) => (props.mobileSize ? props.mobileSize : "14px")} !important;
+  }
 `;
 
-const StyledHr = styled.hr`
+const Wrapper = styled(Container)`
+  display: flex !important;
+  max-width: 1439px !important;
+  width: 100% !important;
+  padding-bottom: 0px !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 57px !important;
+  flex-shrink: 0 !important;
+  background: #0e5d37 !important;
+
+  @media (max-width: 912px) {
+  }
+  @media (max-width: 768px) {
+    gap: 20px !important;
+  }
+`;
+
+const Cover = styled.div`
+  display: flex;
+  padding: 60px 0px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px dashed #fff;
   width: 100%;
-  color: #fff;
-  margin: 8px 0;
-  border: 1px dashed;
+
+  @media (max-width: 768px) {
+    padding: 30px 20px;
+  }
 `;
-//minFontsize="12px"
+const ColContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+
+  @media (max-width: 912px) {
+  }
+
+  @media (max-width: 768px) {
+    padding: 0px;
+    gap: 8px;
+  }
+
+`;
+
+const CoverContainer = styled.div`
+  display: flex;
+  width: 36%;
+  max-width: 750px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+
+  @media (max-width: 912px) {
+    width: 65%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0px 25px;
+    gap: 20px;
+  }
+`;
+
+const ButtomContainer = styled.div`
+  display: flex;
+  align-items: flex-start !important;
+  flex-direction: row !important;
+  gap: 80px !important;
+  width: 80%;
+  margin: 0 auto;
+  justify-content: space-between;
+
+  @media (max-width: 912px) {
+    gap: 60px !important;
+    flex-direction: column !important;
+    width: 85%;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column !important;
+    align-items: center;
+    padding: 15px 0px;
+    justify-content: center;
+    gap: 30px !important;
+    width: 90%;
+  }
+`;
+
+const TextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 30px;
+  width: 48%;
+
+  @media (max-width: 912px) {
+    width: 80%;
+    margin: 0 auto;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+  }
+`;
+
+const NavContainer = styled.div`
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+
+  @media (max-width: 768px) {
+    align-items: center;
+    gap: 10px;
+  }
+`;
+
+const SubHeading = styled(Typography)`
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 22px !important;
+`;
+
+const InnerContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 10px;
+  width: 45% !important;
+
+  @media (max-width: 912px) {
+    width: 88% !important;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+    width: 100% !important;
+  }
+`;
+const NavItems = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    padding: 0px 15px;
+    gap: 15px;
+    align-self: stretch;
+  }
+`;
+
+const Heading = styled(Typography)`
+font-size: 24px !important;
+font-weight: 700 !important;
+line-height: 35px !important;
+text-align: center !important;
+display: none;
+
+@media (max-width: 912px) {
+  display: block;
+  text-align: center !important;
+}
+@media (max-width: 768px) {
+  display: block;
+  text-align: center !important;
+}
+`
+
 const Footer = () => {
+  const navColumns = [
+    {
+      id: 1,
+      heading: "About",
+      subTexts: [
+        "About us",
+        "Blog",
+        "Careers",
+        "Sign up as a driver",
+        "Sign up as a vendor",
+      ],
+    },
+    {
+      id: 2,
+      heading: "Support",
+      subTexts: [
+        "Contact us",
+        "Online Chat",
+        "Whatsapp",
+        "Telegram",
+        "Ticketing",
+      ],
+    },
+    {
+      id: 3,
+      heading: "FAQ",
+      subTexts: [
+        "Account",
+        "Manage Deliveries",
+        "Orders",
+        "Payments",
+        "Returns",
+      ],
+    },
+  ];
   return (
-    <Wrapper bgColor="#0e5d37">
-      <Container padding="35px">
-        <CenteredText textcolor="#fff">Newsletter</CenteredText>
-        <SubText margin="14px 0" textcolor="#fff" minMargin="14px 0">
-          Be the first one to know about discounts, offers and events weekly in
-          your mailbox. Unsubscribe whenever you like with one click.
-        </SubText>
-        <InputContainer padding="5px" width="72%" minWidth="75%" minPadding="4px">
-          <FlexContainer margin="0 12px" padding="0" width="auto" minWidth="20%" minPadding="0px">
-            <Image src="/images/mail.svg" height={20} width={20} alt="mail" />
-            <StyledInput type="text" placeholder="Enter your email" />
-          </FlexContainer>
-          <SemiRoundButton>Submit</SemiRoundButton>
-        </InputContainer>
-      </Container>
-      <StyledHr />
+    <Wrapper>
+      <Cover>
+        <CoverContainer>
+          <ColContainer>
+            <CenteredText color="#fff">Newsletter</CenteredText>
+            <SubText color="#fff">
+              Be the first one to know about discounts, offers and events weekly
+              in your mailbox. Unsubscribe whenever you like with one click.
+            </SubText>
+          </ColContainer>
 
-      <FlexContainer padding="35px" flexDirection="column">
-        <Container width="40%" margin="0">
-          <Heading textcolor="#fff" fontsize="24px">
-            Lellall
-          </Heading>
-
-          <ColoredText>
-            We ara a lorem ipsum dolor sit amet, consectetur adipiscing elit,
-            sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-            nisi ut aliquip ex ea commodo consequat... Read More
+          <InputContainer
+            padding="5px"
+            width="100%"
+            minWidth="100%"
+            minPadding="4px"
+          >
+            <FlexContainer
+              margin="0 12px"
+              padding="0"
+              width="auto"
+              minWidth="20%"
+              minPadding="0px"
+            >
+              <img src="/assets/mail.svg" alt="mail" />
+              <StyledInput type="text" placeholder="Enter your email" />
+            </FlexContainer>
+            <RoundedButton outlined round variant="contained">
+              Submit
+            </RoundedButton>
+          </InputContainer>
+        </CoverContainer>
+      </Cover>
+      <ButtomContainer>
+        <TextContainer>
+          <StyledImage
+            alt="lellall"
+            src="/assets/lellall.svg"
+            height="23px"
+            width="120px"
+            tabletDisplay="none"
+            mobileDisplay="none"
+          />
+          <Heading color="#fff">Léllall</Heading>
+          <ColoredText
+            color="#9a9ea6"
+          >
+            Léllall, an all-in-one On-demand store, aimed at disrupting the way
+            people shop by revolutionizing the online retail industry and
+            setting new standards in customer satisfaction, product diversity,
+            and technological innovation. Our dream is to redefine convenience,
+            accessibility, and the overall shopping experience.
           </ColoredText>
-        </Container>
-        <FlexContainer padding="5px" width="55%" margin="0" minWidth="88%">
-          <Container padding="0" margin="0">
-            <Heading fontsize="16px" textcolor="#fff">
-              About
-            </Heading>
-
-            <ColoredText>About us</ColoredText>
-            <ColoredText>Blog</ColoredText>
-            <ColoredText>Careers</ColoredText>
-            <ColoredText>Sign up as a driver</ColoredText>
-            <ColoredText>Sign up as a vendor</ColoredText>
-          </Container>
-          <Container padding="0" margin="0">
-            <Heading fontsize="16px" textcolor="#fff">
-              Support
-            </Heading>
-
-            <ColoredText>Contact us</ColoredText>
-            <ColoredText>Online Chat</ColoredText>
-            <ColoredText>Whatsapp</ColoredText>
-            <ColoredText>Telegram</ColoredText>
-            <ColoredText>Ticketing</ColoredText>
-          </Container>
-          <Container padding="0" margin="0">
-            <Heading fontsize="16px" textcolor="#fff">
-              FAQ
-            </Heading>
-
-            <ColoredText>Account</ColoredText>
-            <ColoredText>Manage Deliveries</ColoredText>
-            <ColoredText>Orders</ColoredText>
-            <ColoredText>Payments</ColoredText>
-            <ColoredText>Returns</ColoredText>
-          </Container>
-        </FlexContainer>
-      </FlexContainer>
-      <CenteredText textcolor="#9a9ea6" fontsize="16px" minFontsize="14px">
-        © 2023, All Rights Reserved
-      </CenteredText>
+        </TextContainer>
+        <InnerContainer>
+          {navColumns.map((column) => (
+            <NavContainer key={column.id}>
+              <SubHeading color="#fff">{column.heading}</SubHeading>
+              <NavItems>
+                {column.subTexts.map((text, i) => (
+                  <ColoredText
+                    key={i}
+                    color="#9a9ea6"
+                    mobileSize="12px"
+                  >
+                    {text}
+                  </ColoredText>
+                ))}
+              </NavItems>
+            </NavContainer>
+          ))}
+        </InnerContainer>
+      </ButtomContainer>
+      <SubText color="#9a9ea6">© 2023, All Rights Reserved</SubText>
     </Wrapper>
   );
 };
 
 export default Footer;
+
