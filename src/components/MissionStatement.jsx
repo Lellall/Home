@@ -41,7 +41,9 @@ const MissionStatement = () => {
         mobileHeight="300px"
         tabletWidth="665px"
         tabletHeight="540px"
-        // mobileMargin="0 auto"
+        mobileMargin="0 auto"
+        tabletMargin="0 auto"
+        objectFit="contain"
       />
     </Wrapper>
   );

@@ -8,7 +8,6 @@ import { CenteredText } from "./Services";
 const InputContainer = styled(FlexContainer)`
   background: #fff;
   border-radius: 8px;
-
 `;
 
 const SubText = styled(Typography)`
@@ -20,8 +19,15 @@ const SubText = styled(Typography)`
 
 const ColoredText = styled(SubText)`
   text-align: inherit !important;
+
+  @media (max-width: 912px) {
+    text-align: center !important;
+  }
+
   @media (max-width: 768px) {
-    font-size: ${(props) => (props.mobileSize ? props.mobileSize : "14px")} !important;
+    font-size: ${(props) =>
+      props.mobileSize ? props.mobileSize : "14px"} !important;
+    text-align: center !important;
   }
 `;
 
@@ -37,9 +43,12 @@ const Wrapper = styled(Container)`
   background: #0e5d37 !important;
 
   @media (max-width: 912px) {
+    gap: 5px !important;
+    padding-bottom: 30px !important;
   }
   @media (max-width: 768px) {
-    gap: 20px !important;
+    gap: 5px !important;
+    padding-bottom: 10px !important;
   }
 `;
 
@@ -64,14 +73,10 @@ const ColContainer = styled.div`
   align-items: center;
   gap: 12px;
 
-  @media (max-width: 912px) {
-  }
-
   @media (max-width: 768px) {
     padding: 0px;
     gap: 8px;
   }
-
 `;
 
 const CoverContainer = styled.div`
@@ -107,6 +112,7 @@ const ButtomContainer = styled.div`
     gap: 60px !important;
     flex-direction: column !important;
     width: 85%;
+    margin-bottom: 30px;
   }
   @media (max-width: 768px) {
     flex-direction: column !important;
@@ -129,6 +135,7 @@ const TextContainer = styled.div`
     width: 80%;
     margin: 0 auto;
     align-items: center;
+    gap: 12px;
   }
   @media (max-width: 768px) {
     justify-content: center;
@@ -189,21 +196,21 @@ const NavItems = styled.div`
 `;
 
 const Heading = styled(Typography)`
-font-size: 24px !important;
-font-weight: 700 !important;
-line-height: 35px !important;
-text-align: center !important;
-display: none;
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  line-height: 35px !important;
+  text-align: center !important;
+  display: none;
 
-@media (max-width: 912px) {
-  display: block;
-  text-align: center !important;
-}
-@media (max-width: 768px) {
-  display: block;
-  text-align: center !important;
-}
-`
+  @media (max-width: 912px) {
+    display: block;
+    text-align: center !important;
+  }
+  @media (max-width: 768px) {
+    display: block;
+    text-align: center !important;
+  }
+`;
 
 const Footer = () => {
   const navColumns = [
@@ -257,14 +264,14 @@ const Footer = () => {
             padding="5px"
             width="100%"
             minWidth="100%"
-            minPadding="4px"
+            mobilePadding="4px"
           >
             <FlexContainer
               margin="0 12px"
               padding="0"
               width="auto"
               minWidth="20%"
-              minPadding="0px"
+              mobilePadding="0px"
             >
               <img src="/assets/mail.svg" alt="mail" />
               <StyledInput type="text" placeholder="Enter your email" />
@@ -286,15 +293,24 @@ const Footer = () => {
             mobileDisplay="none"
           />
           <Heading color="#fff">Léllall</Heading>
-          <ColoredText
-            color="#9a9ea6"
-          >
+          <ColoredText color="#9a9ea6">
             Léllall, an all-in-one On-demand store, aimed at disrupting the way
             people shop by revolutionizing the online retail industry and
             setting new standards in customer satisfaction, product diversity,
             and technological innovation. Our dream is to redefine convenience,
             accessibility, and the overall shopping experience.
           </ColoredText>
+          <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
+            <a>
+              <img src="/assets/facebook.svg" />
+            </a>
+            <a>
+              <img src="/assets/youtube.svg" />
+            </a>
+            <a>
+              <img src="/assets/whatsapp.svg" />
+            </a>
+          </div>
         </TextContainer>
         <InnerContainer>
           {navColumns.map((column) => (
@@ -302,11 +318,7 @@ const Footer = () => {
               <SubHeading color="#fff">{column.heading}</SubHeading>
               <NavItems>
                 {column.subTexts.map((text, i) => (
-                  <ColoredText
-                    key={i}
-                    color="#9a9ea6"
-                    mobileSize="12px"
-                  >
+                  <ColoredText key={i} color="#9a9ea6" mobileSize="12px">
                     {text}
                   </ColoredText>
                 ))}
@@ -321,4 +333,3 @@ const Footer = () => {
 };
 
 export default Footer;
-
