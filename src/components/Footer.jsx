@@ -155,6 +155,7 @@ const NavContainer = styled.div`
   @media (max-width: 768px) {
     align-items: center;
     gap: 10px;
+    border-bottom: 1px dashed #fff;
   }
 `;
 
@@ -195,22 +196,22 @@ const NavItems = styled.div`
   }
 `;
 
-const Heading = styled(Typography)`
-  font-size: 24px !important;
-  font-weight: 700 !important;
-  line-height: 35px !important;
-  text-align: center !important;
-  display: none;
+// const Heading = styled(Typography)`
+//   font-size: 24px !important;
+//   font-weight: 700 !important;
+//   line-height: 35px !important;
+//   text-align: center !important;
+//   display: none;
 
-  @media (max-width: 912px) {
-    display: block;
-    text-align: center !important;
-  }
-  @media (max-width: 768px) {
-    display: block;
-    text-align: center !important;
-  }
-`;
+//   @media (max-width: 912px) {
+//     display: block;
+//     text-align: center !important;
+//   }
+//   @media (max-width: 768px) {
+//     display: block;
+//     text-align: center !important;
+//   }
+// `;
 
 const Footer = () => {
   const navColumns = [
@@ -289,10 +290,11 @@ const Footer = () => {
             src="/assets/lellall.svg"
             height="23px"
             width="120px"
-            tabletDisplay="none"
-            mobileDisplay="none"
+            mobileHeight="23px"
+            mobileWidth="120px"
+            tabletHeight="23px"
+            tabletWidth="120px"
           />
-          <Heading color="#fff">Léllall</Heading>
           <ColoredText color="#9a9ea6">
             Léllall, an all-in-one On-demand store, aimed at disrupting the way
             people shop by revolutionizing the online retail industry and
@@ -301,14 +303,20 @@ const Footer = () => {
             accessibility, and the overall shopping experience.
           </ColoredText>
           <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-            <a>
-              <img src="/assets/facebook.svg" />
+           <a href='https://www.linkedin.com/company/l%C3%A9llall/about/' target='blank'>
+              <img src="/assets/linkedin.svg" />
             </a>
-            <a>
-              <img src="/assets/youtube.svg" />
+            <a href='https://twitter.com/Lellall_ng' target='blank'>
+              <img src="/assets/twitter.svg" />
             </a>
-            <a>
-              <img src="/assets/whatsapp.svg" />
+            <a href='https://www.instagram.com/lellall_ng' target='blank'>
+              <img src="/assets/instagram.svg" />
+            </a>
+            <a href='https://tiktok.com/lellall_ng' target='blank'>
+              <img src="/assets/tiktok.svg" />
+            </a>
+            <a href='https://facebook.com/lellall_ng' target='blank'>
+            <img src="/assets/facebook.svg" />
             </a>
           </div>
         </TextContainer>

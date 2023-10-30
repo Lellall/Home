@@ -30,7 +30,7 @@ export const Text = styled(Typography)`
   line-height: 46px !important;
 
   @media (max-width: 912px) {
-    font-size: 24px !important;
+    font-size: ${(props) => (props.tablet ? props.tablet : "24px")} !important;
     line-height: 35px !important;
   }
   @media (max-width: 768px) {
@@ -168,7 +168,7 @@ const CustomerTypes = () => {
         <Text variant="h3" color="#2F313F">
           Get all you need with a click of a button
         </Text>
-        <FlexContainer width="40%" mobile="100%" tablet="65%">
+        <FlexContainer width="45%" mobile="100%" tablet="75%">
           {customerTypeNames.map((name, index) => (
             <RoundedButton
               key={index}

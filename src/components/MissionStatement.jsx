@@ -23,12 +23,7 @@ const MissionStatement = () => {
       <ColContainer>
       <CenteredText>Our Mission</CenteredText>
         <Text color="rgba(18, 29, 43, 0.60)">
-          Lellall is on a mission to revolutionize the shopping experience. We
-          are offering a better alternative for the Nigerian market place. No
-          hassle, no fuss, all your needs delivered to you whenever and wherever
-          you want. Starting in the heart of Nigeria, we are committed to
-          expanding all across Nigerian, until our name is on the lips of every
-          Nigerian.
+        Léllall is on a mission to revolutionize the shopping experience. We are  offering a better alternative for the Nigerian market place.  No hassle, no fuss, all your needs delivered to you whenever and wherever you want. Starting in the heart of Nigeria, we are committed to expanding all across Nigeria, until our name is on the lips of every Nigerian.
         </Text>
       </ColContainer>
       <StyledImage

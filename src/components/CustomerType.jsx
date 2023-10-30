@@ -149,7 +149,7 @@ const CustomerType = ({ customer, showType }) => {
         tabletHeight="454px"
       />
       <ColContainer>
-        <Text variant="h3" color="#2F313F">
+        <Text variant="h3" color="#2F313F" tablet="20px">
           {customer.title}
         </Text>
         <OptionsContainer>
