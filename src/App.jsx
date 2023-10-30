@@ -112,7 +112,7 @@ function App() {
     {
       id: 2,
       title: "Delivery",
-      subtext: "Your groceries delivered with minutes to your doorstep",
+      subtext: "Your groceries delivered within minutes to your doorstep",
       imageUrl: "/assets/delivery.svg",
     },
     {
