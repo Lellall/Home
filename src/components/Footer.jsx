@@ -104,14 +104,14 @@ const ButtomContainer = styled.div`
   align-items: flex-start !important;
   flex-direction: row !important;
   gap: 80px !important;
-  width: 80%;
+  width: 85%;
   margin: 0 auto;
   justify-content: space-between;
 
   @media (max-width: 912px) {
     gap: 60px !important;
     flex-direction: column !important;
-    width: 85%;
+    width: 90%;
     margin-bottom: 30px;
   }
   @media (max-width: 768px) {
@@ -120,7 +120,7 @@ const ButtomContainer = styled.div`
     padding: 15px 0px;
     justify-content: center;
     gap: 30px !important;
-    width: 90%;
+    width: 100%;
   }
 `;
 
@@ -195,24 +195,6 @@ const NavItems = styled.div`
     align-self: stretch;
   }
 `;
-
-// const Heading = styled(Typography)`
-//   font-size: 24px !important;
-//   font-weight: 700 !important;
-//   line-height: 35px !important;
-//   text-align: center !important;
-//   display: none;
-
-//   @media (max-width: 912px) {
-//     display: block;
-//     text-align: center !important;
-//   }
-//   @media (max-width: 768px) {
-//     display: block;
-//     text-align: center !important;
-//   }
-// `;
-
 const Footer = () => {
   const navColumns = [
     {
