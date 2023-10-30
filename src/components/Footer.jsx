@@ -35,7 +35,7 @@ const Wrapper = styled(Container)`
   display: flex !important;
   max-width: 1439px !important;
   width: 100% !important;
-  padding-bottom: 0px !important;
+  padding: 0px !important;
   flex-direction: column !important;
   align-items: center !important;
   gap: 57px !important;
@@ -63,7 +63,7 @@ const Cover = styled.div`
   width: 100%;
 
   @media (max-width: 768px) {
-    padding: 30px 20px;
+    padding: 30px 20px !important;
   }
 `;
 const ColContainer = styled.div`
@@ -93,9 +93,10 @@ const CoverContainer = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 100%;
-    padding: 0px 25px;
+    width: 82%;
+    padding: 0px 25px !important;
     gap: 20px;
+    // background:red;
   }
 `;
 
@@ -141,7 +142,7 @@ const TextContainer = styled.div`
     justify-content: center;
     align-items: center;
     gap: 12px;
-    width: 100%;
+    width: 96%;
   }
 `;
 
@@ -204,8 +205,8 @@ const Footer = () => {
         "About us",
         "Blog",
         "Careers",
-        "Sign up as a driver",
         "Sign up as a vendor",
+        "Sign up as a courier",
       ],
     },
     {
