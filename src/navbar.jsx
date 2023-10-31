@@ -96,7 +96,6 @@ export default function PrimarySearchAppBar() {
           <Box sx={{ flexGrow: 1 }} />
           <Box alignItems="center" edge="end"></Box>
           <Box sx={{ flexGrow: 1 }} />
-          <MenuItem>Abuja</MenuItem>
           <Box sx={{ display: { xs: "none", sm: "block", md: "block" } }}>
             <MenuItem>
               <RoundButton outlined variant="contained">

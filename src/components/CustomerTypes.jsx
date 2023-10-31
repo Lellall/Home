@@ -58,14 +58,14 @@ const FlexContainer = styled(Container)`
   align-items: center !important;
   width: ${(props) => (props.width ? props.width : "100%")} !important;
   margin: ${(props) => (props.margin ? props.margin : "0 auto")};
-  padding: ${(props) => (props.padding ? props.padding : 0)};
+  padding: ${(props) => (props.padding ? props.padding : 0)} !important;
   gap: ${(props) => (props.gap ? props.gap : "15px")} !important;
 
   @media (max-width: 912px) {
     width: ${(props) => (props.tablet ? props.tablet : "100%")} !important;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     width: ${(props) => (props.mobile ? props.mobile : "100%")} !important;
     
   }
@@ -75,6 +75,7 @@ const RoundedButton = styled(Button)`
   text-transform: none !important;
   color: ${(props) => (props.textColor ? props.textColor : "#fff")} !important;
   background: ${(props) => (props.bgColor ? props.bgColor : "#0E5D37")} !important;
+  border-radius: 31px !important;
 
   @media (max-width: 768px) {
     font-size: 12px !important;
@@ -93,7 +94,7 @@ const CustomerTypes = () => {
           id: 1,
           subTitle: "Wide Selection",
           subText:
-            "Lellaill boasts a vast and diverse range of products, including items that may be difficult to find in local stores. You can access a global marketplace with a wide variety of brands and styles.",
+            "Léllall boasts a vast and diverse range of products, including items that may be difficult to find in local stores. You can access a global marketplace with a wide variety of brands and styles.",
         },
         {
           id: 2,
@@ -168,7 +169,7 @@ const CustomerTypes = () => {
         <Text variant="h3" color="#2F313F">
           Get all you need with a click of a button
         </Text>
-        <FlexContainer width="45%" mobile="100%" tablet="75%">
+        <FlexContainer width="40%" mobile="90%" tablet="52%">
           {customerTypeNames.map((name, index) => (
             <RoundedButton
               key={index}

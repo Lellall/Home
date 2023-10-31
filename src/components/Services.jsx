@@ -18,13 +18,15 @@ const ServiceContainer = styled.div`
   box-shadow: 0px 6px 10px 0px #2f313f1a;
 
   @media (max-width: 912px) {
-    max-width: 240px !important;
+    max-width: 220px !important;
     height: 150px;
+    padding: 14px;
   }
 
-  @media (max-width: 768px) {
-    max-width: 180px!important;
-    max-height: 120px!important;
+  @media (max-width: 600px) {
+    max-width: 230px !important;
+    max-height: 120px !important;
+    margin: 0 auto;
     padding: 14px;
   }
 `;
@@ -53,15 +55,13 @@ const Wrapper = styled.div`
   background: #eafef1;
 
   @media (max-width: 912px) {
-    padding: 40px 10px !important;
+    padding: 40px 0px !important;
     gap: 20px !important;
   }
 
   @media (max-width: 768px) {
-    padding: 20px 10px !important;
-    gap: 10px;
+    padding: 20px 0px !important;
     width: 100% !important;
-    overflow-x: hidden !important;
   }
 `;
 
@@ -73,6 +73,7 @@ const ColContainer = styled(Container)`
   align-self: flex-start !important;
   width: 65% !important;
   padding: 0 !important;
+
 `;
 
 export const CenteredText = styled(Typography)`
@@ -93,23 +94,6 @@ export const CenteredText = styled(Typography)`
   }
 `;
 
-const GridContainer = styled.div`
-  @media (max-width: 768px) {
-    display: none;
-  }
-`;
-const FlexContainer = styled.div`
-  display: none;
-
-  @media (max-width: 768px) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 15px;
-    width: 100%;
-    overflow-x: scroll;
-  }
-`;
 const ImageContainer = styled.div`
   align-self: flex-end;
   height: 60%;
@@ -123,10 +107,9 @@ const Services = ({ services }) => {
   return (
     <Wrapper>
       <CenteredText>Our Services</CenteredText>
-      <GridContainer>
-        <Grid container spacing={{ xs: 2, md: 2, lg: 3}}>
+        <Grid container spacing={{ xs: 1, sm: 1, md: 2, lg: 3}}>
           {services.map((service) => (
-            <Grid key={service.id} xs={4} lg={4} md={4}>
+            <Grid key={service.id} xs={12} sm={4} lg={4} md={4}>
               <ServiceContainer>
                 <ColContainer>
                   <Text color="#2F313F">{service.title}</Text>
@@ -143,34 +126,14 @@ const Services = ({ services }) => {
                     objectFit="contain"
                     tabletWidth="105px"
                     tabletHeight="93px"
+                    mobileWidth="100px"
+                    mobileHeight="60px"
                   />
                 </ImageContainer>
               </ServiceContainer>
             </Grid>
           ))}
         </Grid>
-      </GridContainer>
-      <FlexContainer>
-        {services.map((service) => (
-          <ServiceContainer key={service.id}>
-            <ColContainer>
-              <Text color="#2F313F">{service.title}</Text>
-              <SubText color="rgba(18, 29, 43, 0.60)">
-                {service.subtext}
-              </SubText>
-            </ColContainer>
-            <ImageContainer>
-              <StyledImage
-                src={service.imageUrl}
-                alt={service.title}
-                mobileWidth="100px"
-                mobileHeight="60px"
-                objectFit="contain"
-              />
-            </ImageContainer>
-          </ServiceContainer>
-        ))}
-      </FlexContainer>
     </Wrapper>
   );
 };

@@ -96,7 +96,6 @@ const CoverContainer = styled.div`
     width: 82%;
     padding: 0px 25px !important;
     gap: 20px;
-    // background:red;
   }
 `;
 
@@ -115,7 +114,7 @@ const ButtomContainer = styled.div`
     width: 90%;
     margin-bottom: 30px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     flex-direction: column !important;
     align-items: center;
     padding: 15px 0px;
@@ -153,7 +152,7 @@ const NavContainer = styled.div`
   align-items: flex-start;
   gap: 20px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     align-items: center;
     gap: 10px;
     border-bottom: 1px dashed #fff;
@@ -178,7 +177,7 @@ const InnerContainer = styled.div`
     width: 88% !important;
     margin: 0 auto;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     flex-direction: column;
     width: 100% !important;
   }
@@ -189,7 +188,7 @@ const NavItems = styled.div`
   align-items: flex-start;
   gap: 12px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     flex-direction: row;
     padding: 0px 15px;
     gap: 15px;

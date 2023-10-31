@@ -4,17 +4,15 @@ import { Button, Container, Typography } from "@mui/material";
 import BG from "../assets/BG.svg";
 import Mobile from "../assets/mobile.svg";
 import styled from "styled-components";
-import CustomerTypes from './components/CustomerTypes'
-import Services from './components/Services'
-import MissionStatement from './components/MissionStatement'
-import Footer from './components/Footer'
-
+import CustomerTypes from "./components/CustomerTypes";
+import Services from "./components/Services";
+import MissionStatement from "./components/MissionStatement";
+import Footer from "./components/Footer";
 
 const Cover = styled(Container)`
-  /* background-color: red; */
   background: url(${BG});
   background-repeat: no-repeat;
-  overflow-x: hidden;
+  overflow-x: hidden !important;
   background-size: cover;
   height: 80vh !important;
   margin: 0 !important;
@@ -29,11 +27,10 @@ const Cover = styled(Container)`
     left: 0;
     width: 100%;
     height: 80vh;
-    background-color: rgba(
-      0,
-      0,
-      0,
-      0.5
+    background-color: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.2) 0%,
+      rgba(0, 0, 0, 0.2) 100%
     );
     @media (max-width: 912px) {
       height: 40vh;
@@ -93,9 +90,14 @@ const SubText = styled(Typography)`
   }
 `;
 export const RoundButton = styled(Button)`
-  /* border-radius: 50px !important; */
+  border-radius: 31px !important;
   background-color: #0e5d37 !important;
   text-transform: none !important;
+  display: flex;
+  // padding: 12px 30px !important;
+  justify-content: center;
+  align-items: center;
+  gap: 8px !important;
   @media (max-width: 768px) {
     /* padding: inherit !important; */
   }
@@ -147,14 +149,15 @@ function App() {
           </SubText>
           <RoundButton outlined round variant="contained">
             Visit our store
+            <img src="/assets/happyemoji.svg" alt="happy" />
           </RoundButton>
         </div>
       </Cover>
       <div>
         <CustomerTypes />
         <Services services={services} />
-        <MissionStatement/>
-      <Footer />
+        <MissionStatement />
+        <Footer />
       </div>
     </>
   );
