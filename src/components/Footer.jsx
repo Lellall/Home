@@ -284,21 +284,27 @@ const Footer = () => {
             and technological innovation. Our dream is to redefine convenience,
             accessibility, and the overall shopping experience.
           </ColoredText>
-          <div style={{ display: 'flex', flexDirection: 'row', gap: '10px' }}>
-           <a href='https://www.linkedin.com/company/l%C3%A9llall/about/' target='blank'>
+          <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+            <a
+              href="https://www.linkedin.com/company/l%C3%A9llall/about/"
+              target="blank"
+            >
               <img src="/assets/linkedin.svg" />
             </a>
-            <a href='https://twitter.com/Lellall_ng' target='blank'>
+            <a href="https://twitter.com/Lellall_ng" target="blank">
               <img src="/assets/twitter.svg" />
             </a>
-            <a href='https://www.instagram.com/lellall_ng' target='blank'>
+            <a href="https://www.instagram.com/lellall_ng" target="blank">
               <img src="/assets/instagram.svg" />
             </a>
-            <a href='https://tiktok.com/lellall_ng' target='blank'>
+            <a href="https://www.tiktok.com/@lellall_ng" target="blank">
               <img src="/assets/tiktok.svg" />
             </a>
-            <a href='https://facebook.com/lellall_ng' target='blank'>
-            <img src="/assets/facebook.svg" />
+            <a
+              href="https://www.facebook.com/profile.php?id=100091527516585"
+              target="blank"
+            >
+              <img src="/assets/facebook.svg" />
             </a>
           </div>
         </TextContainer>

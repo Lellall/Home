@@ -48,7 +48,7 @@ const Cover = styled(Container)`
   /* flex-wrap: wrap; */
   @media (max-width: 912px) {
     padding-top: 150px;
-    height: 40vh !important;
+    height: 50vh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
     overflow-x: hidden;
