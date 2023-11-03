@@ -42,7 +42,7 @@ export const Container = styled.div`
 `;
 export const ColContainer = styled(FlexContainer)`
   flex-direction: column;
-  background: ${(props) => (props.bgColor ? props.bgColor : "#fff")}
+  background: ${(props) => (props.bgColor ? props.bgColor : "#fff")};
 `;
 
 export const StyledImage = styled.img`

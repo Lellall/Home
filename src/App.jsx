@@ -1,5 +1,4 @@
 import "./App.css";
-import PrimarySearchAppBar from "./navbar";
 import { Button, Container, Typography } from "@mui/material";
 import BG from "../assets/BG.svg";
 import Mobile from "../assets/mobile.svg";
@@ -8,6 +7,7 @@ import CustomerTypes from "./components/CustomerTypes";
 import Services from "./components/Services";
 import MissionStatement from "./components/MissionStatement";
 import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
 
 const Cover = styled(Container)`
   background: url(${BG});
@@ -32,11 +32,11 @@ const Cover = styled(Container)`
       rgba(0, 0, 0, 0.2) 0%,
       rgba(0, 0, 0, 0.2) 100%
     );
-    @media (max-width: 912px) {
-      height: 40vh;
+    @media (max-width: 900px) {
+      height: 55vh;
     }
-    @media (max-width: 768px) {
-      height: 50vh;
+    @media (max-width: 600px) {
+      height: 55vh;
     }
   }
 
@@ -84,25 +84,44 @@ const SubText = styled(Typography)`
     font-size: 16px !important;
     font-weight: 300 !important;
   }
-  @media (max-width: 768px) {
-    font-size: 18px !important;
+  @media (max-width: 600px) {
+    font-size: 14px !important;
     font-weight: 300 !important;
   }
 `;
 export const RoundButton = styled(Button)`
   border-radius: 31px !important;
-  background-color: #0e5d37 !important;
+  background-color: ${(props) =>
+    props.bgColor ? props.bgColor : "#0e5d37"} !important;
+  color: ${(props) => (props.textColor ? props.textColor : "")} !important;
   text-transform: none !important;
   display: flex;
-  // padding: 12px 30px !important;
   justify-content: center;
+  padding: ${(props) => (props.pad ? props.pad : "12px 30px")} !important;
   align-items: center;
   gap: 8px !important;
-  @media (max-width: 768px) {
-    /* padding: inherit !important; */
+  font-size: ${(props) => (props.size ? props.size : "14px")} !important;
+  
+  @media (max-width: 900px) {
+    font-size: ${(props) => (props.tabletSize ? props.tabletSize : "14px")} !important;
+    padding: ${(props) => (props.tabletPad ? props.tabletPad : "10px 30px")} !important;
+  }
+
+  @media (max-width: 600px) {
+    font-size: ${(props) => (props.mobileSize ? props.mobileSize : "14px")} !important;
+    padding: ${(props) => (props.mobilePad ? props.mobilePad : "12px 25px")} !important;
   }
 `;
-
+const ButtonText = styled.p`
+  font-size: 18px;
+  color: #fff;
+  @media (max-width: 900px) {
+    font-size: 16px;
+  }
+  @media (max-width: 600px) {
+    font-size: 14px;
+  }
+`;
 function App() {
   const services = [
     {
@@ -127,8 +146,7 @@ function App() {
 
   return (
     <>
-      <PrimarySearchAppBar />
-
+      <Navbar />
       <Cover maxWidth="false">
         <Text
           color="#fff"
@@ -147,10 +165,22 @@ function App() {
             <br /> Place an order wherever you are and get your delivery within
             minutes.
           </SubText>
-          <RoundButton outlined round variant="contained">
-            Visit our store
-            <img src="/assets/happyemoji.svg" alt="happy" />
-          </RoundButton>
+          <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
+            <RoundButton outlined round variant="contained" size="18px" tabletSize="16px" mobileSize="14px">
+              Download Our App
+            </RoundButton>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "5px",
+                alignItems: "center",
+              }}
+            >
+              <ButtonText>Visit our store</ButtonText>
+              <img src="/assets/arrow-right.svg" alt="happy" />
+            </div>
+          </div>
         </div>
       </Cover>
       <div>

@@ -24,7 +24,7 @@ const ColoredText = styled(SubText)`
     text-align: center !important;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     font-size: ${(props) =>
       props.mobileSize ? props.mobileSize : "14px"} !important;
     text-align: center !important;
@@ -314,7 +314,7 @@ const Footer = () => {
               <SubHeading color="#fff">{column.heading}</SubHeading>
               <NavItems>
                 {column.subTexts.map((text, i) => (
-                  <ColoredText key={i} color="#9a9ea6" mobileSize="12px">
+                  <ColoredText key={i} color="#9a9ea6" mobileSize="10px">
                     {text}
                   </ColoredText>
                 ))}
