@@ -33,7 +33,7 @@ const Cover = styled(Container)`
       rgba(0, 0, 0, 0.2) 100%
     );
     @media (max-width: 900px) {
-      height: 55vh;
+      height: 65vh;
     }
     @media (max-width: 600px) {
       height: 55vh;
@@ -48,15 +48,15 @@ const Cover = styled(Container)`
   /* flex-wrap: wrap; */
   @media (max-width: 912px) {
     padding-top: 150px;
-    height: 50vh !important;
+    height: 65vh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
     overflow-x: hidden;
     background-size: cover;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     padding-top: 80px;
-    height: 50vh !important;
+    height: 55vh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
     overflow-x: hidden;
@@ -119,7 +119,7 @@ const ButtonText = styled.p`
     font-size: 16px;
   }
   @media (max-width: 600px) {
-    font-size: 14px;
+    font-size: 12px;
   }
 `;
 function App() {
@@ -166,7 +166,7 @@ function App() {
             minutes.
           </SubText>
           <div style={{ display: "flex", flexDirection: "row", gap: "10px" }}>
-            <RoundButton outlined round variant="contained" size="18px" tabletSize="16px" mobileSize="14px">
+            <RoundButton outlined round variant="contained" size="18px" tabletSize="16px" mobileSize="12px">
               Download Our App
             </RoundButton>
             <div
