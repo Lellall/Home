@@ -95,9 +95,12 @@ export default function PrimarySearchAppBar() {
           </Typography>
           <Box sx={{ flexGrow: 1 }} />
           <Box alignItems="center" edge="end"></Box>
-          <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: "none", sm: "block", md: "block" } }}>
+          <Box sx={{ flexGrow: 1, background: 'red' }} />
+          <Box sx={{ display: { xs: "none", sm: "block", md: "block" },  background: 'red' }}>
             <MenuItem>
+            <RoundButton outlined variant="contained">
+            Download Our App
+              </RoundButton>
               <RoundButton outlined variant="contained">
                 Sign up
               </RoundButton>

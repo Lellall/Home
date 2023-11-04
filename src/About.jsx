@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
-import Grid from '@mui/material/Unstable_Grid2';
+import styled from "styled-components";
+import Grid from "@mui/material/Unstable_Grid2";
 import {
     ColContainer,
     Container,
@@ -43,7 +44,7 @@ const About = () => {
             </FlexContainer>
             <ColContainer bgColor="#EAFEF1">
                 <p>Our Core Values</p>
-                <Grid container spacing={2}>
+                <Grid container spacing={{ xs: 1, sm: 1, md: 2, lg: 3}}>
                     <Grid xs={12} sm={4} md={4}>
                         <img src="/assets/details.svg" alt="icons" />
                         <p>Meticulous Attention to Detail</p>
