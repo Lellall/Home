@@ -169,7 +169,7 @@ const CustomerTypes = () => {
         <Text variant="h3" color="#2F313F">
           Get all you need with a click of a button
         </Text>
-        <FlexContainer width="40%" mobile="90%" tablet="52%">
+        <FlexContainer width="40%" mobile="96%" tablet="52%">
           {customerTypeNames.map((name, index) => (
             <RoundedButton
               key={index}
