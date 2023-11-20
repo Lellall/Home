@@ -122,7 +122,7 @@ const ButtonText = styled.p`
     font-size: 12px;
   }
 `;
-function App() {
+function Landing() {
   const services = [
     {
       id: 1,
@@ -193,4 +193,4 @@ function App() {
   );
 }
 
-export default App;
+export default Landing;
