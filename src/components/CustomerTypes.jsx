@@ -67,21 +67,31 @@ const FlexContainer = styled(Container)`
 
   @media (max-width: 600px) {
     width: ${(props) => (props.mobile ? props.mobile : "100%")} !important;
-    
   }
 `;
 
 const RoundedButton = styled(Button)`
   text-transform: none !important;
   color: ${(props) => (props.textColor ? props.textColor : "#fff")} !important;
-  background: ${(props) => (props.bgColor ? props.bgColor : "#0E5D37")} !important;
+  background: ${(props) =>
+    props.bgColor ? props.bgColor : "#0E5D37"} !important;
   border-radius: 31px !important;
 
   @media (max-width: 768px) {
-    font-size: 12px !important;
-    padding: 5px !important;
+    font-size: 10px !important;
+    padding: 5px 10px !important;
   }
-
+`;
+const SpaceTitle = styled.div`
+  ${'' /* clip-path: polygon(0 0, 100% 0%, 85% 100%, 0% 100%); */}
+  padding: 10px;
+  width: 70%;
+  border-radius: 8px;
+  box-shadow: 2px 4px 5px 0px rgba(0,0,0,0.25);
+  color: #ccc;
+  background: #fff;
+  ${'' /* margin-top:-100px;
+  z-index:100; */}
 `;
 
 const CustomerTypes = () => {
@@ -166,9 +176,11 @@ const CustomerTypes = () => {
   return (
     <Wrapper>
       <ColContainer>
-        <Text variant="h3" color="#2F313F">
-          Get all you need with a click of a button
-        </Text>
+        <SpaceTitle>
+            <Text variant="h3" >
+              Get all you need with a click of a button
+            </Text>
+        </SpaceTitle>
         <FlexContainer width="40%" mobile="96%" tablet="52%">
           {customerTypeNames.map((name, index) => (
             <RoundedButton

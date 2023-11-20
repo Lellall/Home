@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import styled from "styled-components";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 import {
     ColContainer,
     Container,

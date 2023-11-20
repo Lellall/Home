@@ -24,6 +24,6 @@ export const SubText = styled.p`
 
   @media (max-width: 768px) {
     margin: ${(props) => (props.minMargin ? props.minMargin : 0)};
-    font-size: ${(props) => (props.minFontsize ? props.minFontsize : "14px")};
+    font-size: ${(props) => (props.minFontsize ? props.minFontsize : "10px")};
   }
 `;
