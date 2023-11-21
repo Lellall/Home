@@ -155,7 +155,7 @@ export const RoundButton = styled(Button)`
     font-size: 10px !important;
   }
   @media only screen and (max-width: 500px){
-    padding: 5px 7px !important;
+    padding: 5px 20px !important;
     font-size: 8px !important;
   }
 
@@ -183,11 +183,12 @@ const Contained = styled.div`
   position: relative;
   @media (max-width: 500px) {
     padding-top: 150px;
-    min-height: 60dvh !important;
+    min-height: 40dvh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
     overflow-x: hidden;
-    background-size: contain;
+    background-size: cover;
+    border-radius: 0px;
   }
   
   &::before {
@@ -198,11 +199,12 @@ const Contained = styled.div`
     width: 100%;
     z-index: 1;
     height: 80vh;
+    border-radius: none;
     /* clip-path: polygon(0 0, 100% 0%, 61% 100%, 0% 100%); */
     background-color: #f06d0657;
     @media only screen and (max-width: 500px){
       background-color: #00000099;
-      border-radius: 0;
+      border-radius: 0px;
 }
   }
   overflow-y: hidden;
