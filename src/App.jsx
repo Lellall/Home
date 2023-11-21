@@ -18,6 +18,8 @@ import VerticalTabs from "./Promote";
 import RecipeReviewCard from "./cardSamp";
 import TabComponent, { ModTitleMain, TitleMain } from "./components/Tabs";
 import NewProducts from "./Surface";
+import MissionCards from "./cardSamp";
+import Stores from "./FavStores";
 
 export const Text = styled(Typography)`
   margin-top: 10px !important;
@@ -279,19 +281,15 @@ width: 100%;
 export const CardCover = styled.div`
   display: flex;
   margin: 25px 70px;
-  flex: 1;
   justify-content: center;
   align-items: center;
-  /* background: #fff; */
-  align-self: center;
   border-radius: 20px;
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  @media screen and (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    margin: 25px 20px;
+  }
 `;
 
 export const Card = styled.div`
@@ -299,45 +297,50 @@ export const Card = styled.div`
     width: 100px;
     height: 100px;
   }
+
   h4 {
-    margin-top: 80px;
-    font-size: 9px;
+    margin-top: 15px; /* Adjusted margin for smaller screens */
+    font-size: 12px;
     font-weight: 300;
     color: #000;
     text-transform: uppercase;
     border-bottom: 1px solid orange;
     cursor: pointer;
   }
+
   background: #fff;
   width: 275px;
   margin: 5px;
-  display: flex;
-  flex: 1;
   padding: 0 10px;
   justify-content: space-between;
+  
   &:not(:last-child) {
     border-right: 1px solid #e7e7e7;
   }
+
   .title {
     margin: 0 0 10px 20px;
     color: #003f5f;
     font-size: 10px;
     font-style: normal;
     font-weight: 500;
+
     h1 {
       font-weight: bolder;
       font-size: 20px;
       margin-top: 7px;
     }
   }
-  @media screen (max-width) : 768px: {
-    border-right: 1px solid #e7e7e7;
+
+  @media screen and (max-width: 768px) {
+    width: 100%; /* Full width for smaller screens */
+    border-right: none; /* Remove border for smaller screens */
   }
+
   @media screen and (max-width: 500px) {
     border-radius: 0;
   }
 `;
-
 const CenterBox = styled.div`
 
   margin: 25px 70px;
@@ -353,108 +356,6 @@ const CenterBox = styled.div`
    padding; 20px;
    border-radius; 50PX;
    ${"" /* color: orange; */}
-`;
-
-const ItemList = styled.div`
-  margin: 10px 70px;
-  display: flex;
-  flex: 1;
-  /* justify-content: space-around; */
-`;
-
-const Item = styled.div`
-  /* width: 360px;
-  height: 202px; */
-  margin: 5px;
-  /* padding: 10px; */
-  /* border-radius: 20px;
-  background: #fff;
-  box-shadow: 0px 3px 25px 0px rgba(93, 70, 121, 0.07); */
-`;
-const HeaderCard = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-  padding: 10px 5px;
-  color: #000;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 25px; /* 96.154% */
-  letter-spacing: 0.26px;
-`;
-
-const ImgBG = styled.div`
-  width: 100%;
-  height: 50%;
-  background: url("https://s3-alpha-sig.figma.com/img/4d00/8443/c510e9971d8a4cbcc07f36e2a2036578?Expires=1700438400&Signature=jkQkZdR9kM9DKqE8JBI9VzBmUPF6zNyPd6~372ZlSOt9yIyouujsvQxmKAeKj92U5sB6xIVXYQiBlVyfKye~o9O54CxQdmEzzvh4n18KKQX6fvk5km1lNB~eaAn9HzrjbGS5CWiXoB5OdP9uxXutiRGnzwbo42mWWev7RDHqZSFAHUJ0fp0Yq3OpHnfiUGps8vhu~h1vI2aWJjdS3SCQvA5~9~ZHb~OSD3Ks8Pe0fhno6lbHv8~s5J-jTnMeCs2OxcRN4Ir6UiFn5FePmR0BIECHXvWctcuh4QHFumbtg9x794TC4Z-HRRp68Qy3LzbyNcA6SFWnBRNkeYg4Es8XeQ__&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4");
-  background-repeat: no-repeat;
-  overflow-x: hidden !important;
-  background-size: cover;
-`;
-const Mission = styled.div`
-
-  background-repeat: no-repeat;
-  margin: 100px auto;
-  ${"" /* overflow-x: hidden !important; */}
-  background-size: cover;
-  width: 90%;
-  border-radius: 20px;
-  height: 50vh;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  flex: 1;
-  justify-content: space-between;
-  @media only screen and (max-width: 500px){
-/* text-align: center;
-margin: 0;
-font-size: 19px;
-width: 100%; */
-/* padding-top: 50px; */
-display: none;
-}
-`;
-
-const NumBox = styled.div`
-  border-radius: 10px;
-  // margin: 10px;
-  position: absolute;
-  width: 35%;
-  height: 250px;
-  z-index: 10;
-  background: #FFB000;
-  text-align: center;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-
-`;
-const NumBox1 = styled.div`
- 
-  background: #fff;
-  border-radius: 20px;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  width: 35%;
-  margin: 0 10px;
-`;
-const NumBox2 = styled.div`
-  ${
-    "" /* clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%); */
-  }
- 
-  border-radius:10px;
-  // margin: 10px;
-  position: absolute;
-  ${"" /* top: 50px; */}
-  // right: 0px;
-  ${"" /* left: 50; */}
-  width: 30%;
-  height: 250px;
-  ${"" /* z-index: -10; */}
-  ${"" /* clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */}
-  background: #FFB000;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  
-  ${"" /* box-shadow: 20px 20px 60px #636363, -20px -20px 60px #ff000000; */}
 `;
 
 const MapCover = styled.div`
@@ -611,34 +512,7 @@ function App() {
       <CenterBox>
       <TitleMain> Top Rated Stores</TitleMain>
     </CenterBox>
-     <CardCover>
-      <Card>
-        <div>
-          <img src={One} />
-        </div>
-        <div>
-          <h4>visit store</h4>
-        </div>
-      </Card>
-      <Card>
-        <img src={Two} />
-        <div>
-          <h4>visit store</h4>
-        </div>
-      </Card>
-      <Card>
-        <img src={Three} />
-        <div>
-          <h4>visit store</h4>
-        </div>
-      </Card>
-      <Card>
-        <img src={Four} />
-        <div>
-          <h4>visit store</h4>
-        </div>
-      </Card>
-    </CardCover> 
+    <Stores />
       <CenterBox>
         <TitleMain > Top Trending Products</TitleMain>
       </CenterBox>
@@ -646,7 +520,7 @@ function App() {
       {/* <CardCover style={{ textAlign: "left", color: "black", padding: '20px 0', marginTop:'100px', marginBottom:'0px' }}>
       Join Us in Making It Work: Here's Why You Should Partner with Lellall
     </CardCover> */}
-      <Mission>
+      {/* <Mission>
       <NumBox1>
       <TitleMain
         style={{
@@ -707,7 +581,11 @@ function App() {
       commerce.
       </ModTitleMain>
     </NumBox1>
-      </Mission>
+      </Mission> */}
+      <TitleMain style={{ textAlign: "center", marginTop:'100px', marginBottom:'0px', fontSize:'20px' }}>
+      Join Us in Making It Work: Here's Why You Should Partner with Lellall
+    </TitleMain> 
+      <MissionCards />
       <MapCover>
       <div style={{width: '40%'}}>
       <TitleMain

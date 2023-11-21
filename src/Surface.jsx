@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 const mainColor = '#f06d0657';
@@ -6,31 +7,26 @@ const hoverColor = 'orangeYellow';
 
 export const GlobalStyles = styled.div`
   @import url('https://fonts.googleapis.com/css?family=Poppins:100,300,400,500,600,700,800,800i,900&display=swap');
-
 `;
 
 export const Container = styled.div`
   position: relative;
-  margin:0 70px;
+  margin: 0 auto;
   display: flex;
-  flex: 1;
-  @media screen and (max-width: 768px) {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    margin:20px 30px;
-  }
-
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  width: 100%;
 `;
 
 export const Card = styled.div`
   position: relative;
-  width: 300px;
+  width: 250px;
   height: 420px;
   background: #004225;
   border-radius: 20px;
   overflow: hidden;
-  margin: 0 5px;
+  margin: 0 10px 20px;
 
   &:before {
     content: '';
@@ -53,14 +49,10 @@ export const Card = styled.div`
     position: absolute;
     top: 70%;
     left: 20%;
-    font-size: 4em;
+    font-size: 2em;
     font-weight: 800;
     font-style: italic;
     color: rgba(255, 255, 255, 0.04);
-  }
-
-  @media screen and (max-width: 768px) {
-    margin:10px 0px;
   }
 `;
 
@@ -83,7 +75,7 @@ export const ImgBx = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) rotate(20deg);
-    width: 270px;
+    width: 80%;
   }
 `;
 
@@ -195,107 +187,108 @@ export const ContentBx = styled.div`
     }
   }
 `;
+
 const NewProducts = () => {
-    return (
-      <>
-        <GlobalStyles />
-  
-        <Container>
-          <Card>
-            <ImgBx>
-              <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-            </ImgBx>
-            <ContentBx>
-              <h2>Product Title</h2>
-              <div className="size">
-                <h3>Size:</h3>
-                <span>XS</span>
-                <span>S</span>
-                <span>M</span>
-                <span>L</span>
-              </div>
-              <div className="color">
-                <h3>Color:</h3>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <a href="#">View Details</a>
-            </ContentBx>
-          </Card>
-          <Card>
-            <ImgBx>
-              <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-            </ImgBx>
-            <ContentBx>
-              <h2>Product Title</h2>
-              <div className="size">
-                <h3>Size:</h3>
-                <span>XS</span>
-                <span>S</span>
-                <span>M</span>
-                <span>L</span>
-              </div>
-              <div className="color">
-                <h3>Color:</h3>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <a href="#">View Details</a>
-            </ContentBx>
-          </Card>
-          <Card>
-            <ImgBx>
-              <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-            </ImgBx>
-            <ContentBx>
-              <h2>Product Title</h2>
-              <div className="size">
-                <h3>Size:</h3>
-                <span>XS</span>
-                <span>S</span>
-                <span>M</span>
-                <span>L</span>
-              </div>
-              <div className="color">
-                <h3>Color:</h3>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <a href="#">View Details</a>
-            </ContentBx>
-          </Card>
-          <Card>
-            <ImgBx>
-              <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-            </ImgBx>
-            <ContentBx>
-              <h2>Product Title</h2>
-              <div className="size">
-                <h3>Size:</h3>
-                <span>XS</span>
-                <span>S</span>
-                <span>M</span>
-                <span>L</span>
-              </div>
-              <div className="color">
-                <h3>Color:</h3>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <a href="#">View Details</a>
-            </ContentBx>
-          </Card>
-        </Container>
-      </>
-    );
-  };
-  
-  export default NewProducts;
+  return (
+    <>
+      <GlobalStyles />
+
+      <Container>
+        <Card>
+          <ImgBx>
+            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
+          </ImgBx>
+          <ContentBx>
+            <h2>Product Title</h2>
+            <div className="size">
+              <h3>Size:</h3>
+              <span>XS</span>
+              <span>S</span>
+              <span>M</span>
+              <span>L</span>
+            </div>
+            <div className="color">
+              <h3>Color:</h3>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <a href="#">View Details</a>
+          </ContentBx>
+        </Card>
+        <Card>
+          <ImgBx>
+            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
+          </ImgBx>
+          <ContentBx>
+            <h2>Product Title</h2>
+            <div className="size">
+              <h3>Size:</h3>
+              <span>XS</span>
+              <span>S</span>
+              <span>M</span>
+              <span>L</span>
+            </div>
+            <div className="color">
+              <h3>Color:</h3>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <a href="#">View Details</a>
+          </ContentBx>
+        </Card>
+        <Card>
+          <ImgBx>
+            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
+          </ImgBx>
+          <ContentBx>
+            <h2>Product Title</h2>
+            <div className="size">
+              <h3>Size:</h3>
+              <span>XS</span>
+              <span>S</span>
+              <span>M</span>
+              <span>L</span>
+            </div>
+            <div className="color">
+              <h3>Color:</h3>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <a href="#">View Details</a>
+          </ContentBx>
+        </Card>
+        <Card>
+          <ImgBx>
+            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
+          </ImgBx>
+          <ContentBx>
+            <h2>Product Title</h2>
+            <div className="size">
+              <h3>Size:</h3>
+              <span>XS</span>
+              <span>S</span>
+              <span>M</span>
+              <span>L</span>
+            </div>
+            <div className="color">
+              <h3>Color:</h3>
+              <span></span>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <a href="#">View Details</a>
+          </ContentBx>
+        </Card>
+      </Container>
+    </>
+  );
+};
+
+export default NewProducts;

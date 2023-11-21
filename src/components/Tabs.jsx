@@ -51,6 +51,9 @@ export const TabContainer = styled.div`
   @media only screen and (max-width: 500px){
     width: 80%;
   }
+  @media only screen and (max-width: 1024px ){
+    width: 40%;
+  }
 `;
 
 export const TabButton = styled.button`
