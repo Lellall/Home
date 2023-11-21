@@ -372,7 +372,7 @@ width: 100%;
   padding: 10px;
   border-radius: 50px;
 
-  @media only screen and (max-width: 500px){
+  @media only screen and (max-width: 1024px){
 /* text-align: center;
 margin: 0;
 font-size: 19px;
