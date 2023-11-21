@@ -52,7 +52,7 @@ export const TabContainer = styled.div`
     width: 80%;
   }
   @media only screen and (max-width: 1024px ){
-    width: 40%;
+    width: 60%;
   }
 `;
 
