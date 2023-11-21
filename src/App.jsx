@@ -515,9 +515,9 @@ function App() {
       <TitleMain> Top Rated Stores</TitleMain>
     </CenterBox>
     <Stores />
-      <CenterBox>
-        <TitleMain > Top Trending Products</TitleMain>
-      </CenterBox>
+      
+        <TitleMain style={{ textAlign: "center", margin:'50px 0', marginBottom:'0px', fontSize:'20px' }}> Top Trending Products</TitleMain>
+      
       <NewProducts />
       {/* <CardCover style={{ textAlign: "left", color: "black", padding: '20px 0', marginTop:'100px', marginBottom:'0px' }}>
       Join Us in Making It Work: Here's Why You Should Partner with Lellall
@@ -584,7 +584,7 @@ function App() {
       </ModTitleMain>
     </NumBox1>
       </Mission> */}
-      <TitleMain style={{ textAlign: "center", marginTop:'100px', marginBottom:'0px', fontSize:'20px' }}>
+      <TitleMain style={{ textAlign: "center", margin:'50px 0', marginBottom:'0px', fontSize:'20px' }}>
       Join Us in Making It Work: Here's Why You Should Partner with Lellall
     </TitleMain> 
       <MissionCards />
@@ -615,9 +615,7 @@ function App() {
       </MapCover>
      
       <div>
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-  <path fill="#004225" fill-opacity="1" d="M0,64L1440,256L1440,320L0,320Z"></path>
-</svg>
+     
         <Footer />
       </div>
 

@@ -233,6 +233,7 @@ const Footer = () => {
   ];
   return (
     <Wrapper>
+     
       <Cover>
         <CoverContainer>
           <ColContainer>
