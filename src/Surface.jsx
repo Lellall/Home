@@ -19,7 +19,7 @@ export const Container = styled.div`
   width: 100%;
 `;
 
-export const Card = styled.div`
+export const ProdCard = styled.div`
   position: relative;
   width: 250px;
   height: 420px;
@@ -65,7 +65,7 @@ export const ImgBx = styled.div`
   height: 100%;
   transition: 0.5s;
 
-  ${Card}:hover & {
+  ${ProdCard}:hover & {
     top: 0%;
     transform: translateY(-25%);
   }
@@ -88,7 +88,7 @@ export const ContentBx = styled.div`
   transition: 1s;
   z-index: 90;
 
-  ${Card}:hover & {
+  ${ProdCard}:hover & {
     height: 210px;
   }
 
@@ -109,7 +109,7 @@ export const ContentBx = styled.div`
     opacity: 0;
     visibility: hidden;
 
-    ${Card}:hover & {
+    ${ProdCard}:hover & {
       opacity: 1;
       visibility: visible;
       transition-delay: 0.5s;
@@ -180,7 +180,7 @@ export const ContentBx = styled.div`
     transform: translateY(50px);
     transition: 0.5s;
 
-    ${Card}:hover & {
+    ${ProdCard}:hover & {
       opacity: 1;
       transform: translateY(0px);
       transition-delay: 0.7s;
@@ -194,7 +194,7 @@ const NewProducts = () => {
       <GlobalStyles />
 
       <Container>
-        <Card>
+        <ProdCard>
           <ImgBx>
             <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
           </ImgBx>
@@ -216,76 +216,7 @@ const NewProducts = () => {
             </div>
             <a href="#">View Details</a>
           </ContentBx>
-        </Card>
-        <Card>
-          <ImgBx>
-            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-          </ImgBx>
-          <ContentBx>
-            <h2>Product Title</h2>
-            <div className="size">
-              <h3>Size:</h3>
-              <span>XS</span>
-              <span>S</span>
-              <span>M</span>
-              <span>L</span>
-            </div>
-            <div className="color">
-              <h3>Color:</h3>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <a href="#">View Details</a>
-          </ContentBx>
-        </Card>
-        <Card>
-          <ImgBx>
-            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-          </ImgBx>
-          <ContentBx>
-            <h2>Product Title</h2>
-            <div className="size">
-              <h3>Size:</h3>
-              <span>XS</span>
-              <span>S</span>
-              <span>M</span>
-              <span>L</span>
-            </div>
-            <div className="color">
-              <h3>Color:</h3>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <a href="#">View Details</a>
-          </ContentBx>
-        </Card>
-        <Card>
-          <ImgBx>
-            <img src="http://pngimg.com/uploads/running_shoes/running_shoes_PNG5782.png" />
-          </ImgBx>
-          <ContentBx>
-            <h2>Product Title</h2>
-            <div className="size">
-              <h3>Size:</h3>
-              <span>XS</span>
-              <span>S</span>
-              <span>M</span>
-              <span>L</span>
-            </div>
-            <div className="color">
-              <h3>Color:</h3>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <a href="#">View Details</a>
-          </ContentBx>
-        </Card>
+        </ProdCard>
       </Container>
     </>
   );

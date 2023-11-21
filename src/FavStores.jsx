@@ -10,7 +10,7 @@ const CenteredContainer = styled.div`
   margin: 0 auto;
 `;
 
-const Card = styled.div`
+export const Card = styled.div`
   transition: transform 0.7s;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 500px;
@@ -65,15 +65,6 @@ const Header = styled.header`
 const App = () => {
   return (
     <CenteredContainer>
-      <Card>
-        
-      </Card>
-      <Card>
-        
-      </Card>
-      <Card>
-        
-      </Card>
       <Card>
         
       </Card>

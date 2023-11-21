@@ -42,7 +42,7 @@ export const TabContainer = styled.div`
   margin: 20px auto;
   margin-top: 30px;
   text-align: center;
-  box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+  /* box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */
   justify-content: center;
   border-radius: 8px;
   ${"" /* box-shadow: 2px 4px 5px 0px rgba(0, 0, 0, 0.25); */}
@@ -50,9 +50,10 @@ export const TabContainer = styled.div`
   ${"" /* background: #fff; */}
   @media only screen and (max-width: 500px){
     width: 80%;
+    margin: 50px auto;
   }
   @media only screen and (min-width: 1024px ){
-    width: 90%;
+    width: 50%;
     /* margin:20px auto; */
   }
 `;

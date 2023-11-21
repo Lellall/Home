@@ -1,4 +1,5 @@
 import "./App.css";
+
 import { Button, Container, Typography } from "@mui/material";
 import BG from "../assets/BG.svg";
 import Tab from "../assets/Tab.svg";
@@ -20,6 +21,7 @@ import TabComponent, { ModTitleMain, TitleMain } from "./components/Tabs";
 import NewProducts from "./Surface";
 import MissionCards from "./cardSamp";
 import Stores from "./FavStores";
+import MultipleItems, { MultipleProducts } from "./StoreSlide";
 
 export const Text = styled(Typography)`
   margin-top: 10px !important;
@@ -513,12 +515,12 @@ function App() {
       <TabComponent />
       <CenterBox>
       <TitleMain> Top Rated Stores</TitleMain>
-    </CenterBox>
-    <Stores />
+    </CenterBox>  
+    <MultipleItems />
       
         <TitleMain style={{ textAlign: "center", margin:'50px 0', marginBottom:'0px', fontSize:'20px' }}> Top Trending Products</TitleMain>
       
-      <NewProducts />
+      <MultipleProducts />
       {/* <CardCover style={{ textAlign: "left", color: "black", padding: '20px 0', marginTop:'100px', marginBottom:'0px' }}>
       Join Us in Making It Work: Here's Why You Should Partner with Lellall
     </CardCover> */}
