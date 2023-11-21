@@ -51,8 +51,9 @@ export const TabContainer = styled.div`
   @media only screen and (max-width: 500px){
     width: 80%;
   }
-  @media only screen and (max-width: 1024px ){
-    width: 60%;
+  @media only screen and (min-width: 1024px ){
+    width: 90%;
+    /* margin:20px auto; */
   }
 `;
 
