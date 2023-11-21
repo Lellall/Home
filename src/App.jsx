@@ -183,7 +183,7 @@ const Contained = styled.div`
   position: relative;
   @media (max-width: 500px) {
     padding-top: 150px;
-    min-height: 40dvh !important;
+    min-height: 45dvh !important;
     background: url(${Mobile});
     background-repeat: no-repeat;
     overflow-x: hidden;
