@@ -1,4 +1,3 @@
-// import { Container } from '@mui/material';
 import styled from "styled-components";
 // import { Container, Typography, Button } from "@mui/material";
 
@@ -346,11 +345,10 @@ const StoreImage = styled.div`
     gap: 13px;
   }
 `;
-const AppLayout = () => {
+const Main = () => {
   return (
     <div>
-      {/* <StyledP>hey there</StyledP> */}
-      <StoreBanner shopBG="assets/store-logo.jpg">
+            <StoreBanner shopBG="assets/store-logo.jpg">
         <div className="store-status">
           <p>Open</p>
         </div>
@@ -612,9 +610,7 @@ const AppLayout = () => {
         </StoreDetails>
       </Stores>
     </div>
-  );
-};
+  )
+}
 
-export default AppLayout;
-
-//  style={{width: "15px", height: "14px"}}
+export default Main
