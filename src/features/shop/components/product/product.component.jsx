@@ -1,53 +1,58 @@
 /* eslint-disable react/prop-types */
+import { useState } from "react";
 import {
+  MainContainer,
   ProductContainer,
-  ProductDetails,
+  Product,
   ProductImage,
   ProductName,
   ProductCategory,
   ProductPrice,
   ProductDescription,
 } from "./product.styles";
-const Product = ({ product }) => {
+const SingleProduct = ({ product }) => {
+  const [showQuanity, setShowQuanity] = useState(false);
   return (
-    <ProductContainer>
-      <ProductDetails>
+    <MainContainer>
+      <ProductContainer>
         <Product>
-          <ProductImage BG={product?.image}>
-            <div>
-              <img src="assets/fav.svg" />
+          <div className="details">
+            <ProductImage BG={product?.image}>
+              <div>
+                <img src="assets/fav.svg" />
+              </div>
+            </ProductImage>
+            <div className="container">
+              <div className="name-category">
+                <ProductName>{product?.name}</ProductName>
+                <ProductCategory>{product?.category}</ProductCategory>
+              </div>
+              <div className="price-description">
+                <ProductPrice>₦{product?.price}</ProductPrice>
+                <ProductDescription>{product?.description}</ProductDescription>
+              </div>
             </div>
-          </ProductImage>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              alignSelf: "stretch",
-            }}
-          >
-            <ProductName>{product?.name}</ProductName>
-            <ProductCategory>{product?.category}</ProductCategory>
           </div>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              gap: "5px",
-              alignSelf: "stretch",
-            }}
-          >
-            <ProductPrice>{product?.price}</ProductPrice>
-            <ProductDescription>
-            {product?.description}
-            </ProductDescription>
-          </div>
+          <>
+            {!showQuanity ? (
+              <div
+                className="cart-container"
+                onClick={() => setShowQuanity(true)}
+              >
+                <p>Add To Cart</p>
+                <img src="assets/cart.svg" alt="cart" className='cart'/>
+              </div>
+            ) : (
+              <div className="quantity">
+                <p>Qty</p>
+              </div>
+            )}
+          </>
         </Product>
-        <div className="spacer"></div>
-      </ProductDetails>
-    </ProductContainer>
+      </ProductContainer>
+    </MainContainer>
   );
 };
 
-export default Product;
+export default SingleProduct;
+

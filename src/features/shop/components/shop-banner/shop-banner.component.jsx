@@ -3,8 +3,12 @@ import { ShopBannerBg, SubBanner } from "./shop-banner.styles";
 
 const ShopBanner = ({ shop }) => {
   return (
-    <div>
-      <ShopBannerBg shopBG="assets/store-logo.jpg">
+    <>
+      <ShopBannerBg shopBG="assets/store-logo.jpg" isOpen={true}>
+        <div className="shop-logo-mobile">
+          <img src="/assets/Logo.png" alt={shop?.name} />
+          <p>{shop?.name}</p>
+        </div>
         <div className="shop-status">
           <p>{shop?.status}</p>
         </div>
@@ -28,7 +32,7 @@ const ShopBanner = ({ shop }) => {
         </div>
       </ShopBannerBg>
       <SubBanner />
-    </div>
+    </>
   );
 };
 

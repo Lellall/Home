@@ -6,8 +6,8 @@ export const appPaths = {
     forgotPassword: "/forgot-password",
     landing: "/landing",
 
-    // STORE
-    store: "/store",
-    getStore: (id = ":id") => `/store/${id}`,
+    // SHOP
+    store: "/shop",
+    getStore: (id = ":id") => `/shop/${id}`,
 
 };

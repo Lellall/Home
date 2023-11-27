@@ -19,6 +19,12 @@ export const ShopDetails = styled.div`
   border: 1.763px solid #f0f0f0;
   background: #fff;
   box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08);
+
+  @media (max-width: 600px) {
+    padding: 16px 10px !important;
+    gap: 10px;
+    box-shadow: 5px 7px 20px 0px rgba(32, 56, 85, 0.08);
+  }
 `;
 
 export const Shop = styled.div`
@@ -38,10 +44,11 @@ export const Shop = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 8.813px;
+    /* background: red; */
 
     .name {
       color: #2f313f;
-      font-feature-settings: 'clig' off, 'liga' off;
+      font-feature-settings: "clig" off, "liga" off;
       font-family: Open Sans;
       font-size: 20px;
       font-style: normal;
@@ -56,12 +63,35 @@ export const Shop = styled.div`
     }
     .category {
       color: rgba(18, 29, 43, 0.6);
-      font-feature-settings: 'clig' off, 'liga' off;
+      font-feature-settings: "clig" off, "liga" off;
       font-family: Open Sans;
       font-size: 14px;
       font-style: normal;
       font-weight: 400;
       line-height: 22.915px;
+    }
+    .icon {
+      color: #FFB400;
+    }
+  }
+
+  @media (max-width: 600px) {
+    width: 150px !important;
+
+    .details {
+      width: 151px;
+      gap: 5px;
+
+      .name {
+        font-family: Raleway;
+        font-size: 11px;
+        line-height: 13px;
+      }
+
+      .category {
+        font-size: 8px;
+        line-height: 13px;
+      }
     }
   }
 `;
@@ -72,6 +102,7 @@ export const ShopImage = styled.div`
   background-repeat: no-repeat;
   position: relative;
   border-radius: 8px;
+  object-fit: contain;
 
   .status {
     display: flex;
@@ -82,7 +113,7 @@ export const ShopImage = styled.div`
     right: 0;
     top: 0;
     border-radius: 0px 7.051px 7.051px 7.051px;
-    background: var(--secondary-background-color, #f3f3f8);
+    background: #f3f3f8;
 
     p {
       color: ${(props) => (props.isOpen ? "#00A661" : "#E41749")};
@@ -102,7 +133,6 @@ export const ShopImage = styled.div`
     bottom: 18px;
     border-radius: 176.269px;
     background: #fff;
-
     display: flex;
     width: 70.508px;
     height: 70.508px;
@@ -110,5 +140,42 @@ export const ShopImage = styled.div`
     justify-content: center;
     align-items: center;
     gap: 13px;
+    box-sizing: border-box;
+
+    img {
+      width: 27px;
+      height: 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    width: 150px;
+    height: 150px;
+
+    .status {
+      display: flex;
+      padding: 5px 10px;
+      align-items: flex-start;
+      gap: 10px;
+      p {
+        font-size: 10px;
+        line-height: 13px;
+      }
+    }
+
+    .fav {
+      width: 40px;
+      height: 40px;
+      padding: 7.619px;
+      gap: 7.619px;
+      box-sizing: border-box;
+      right: 14px;
+      bottom: 10px;
+      img {
+        width: 15.238px;
+        height: 13.714px;
+        flex-shrink: 0;
+      }
+    }
   }
 `;
