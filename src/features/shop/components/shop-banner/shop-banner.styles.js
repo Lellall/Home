@@ -106,6 +106,7 @@ export const ShopBannerBg = styled.div`
       font-style: normal;
       font-weight: 700;
       line-height: normal;
+      color: #2F313F;
     }
 
     .info {
@@ -171,7 +172,8 @@ export const SubBanner = styled.div`
   background-size: cover;
   background-color: lightgray;
   position: relative;
-  height: 270px;
+  /* height: 270px; */
+  height: 8.4375rem;
   width: 100%;
   object-fit: contain;
 

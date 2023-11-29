@@ -8,6 +8,14 @@ export const MainContainer = styled.div`
   gap: 80px;
   border-radius: 8px;
 
+  &:hover {
+    box-shadow: 0px 15px 20px 0px rgba(32, 56, 85, 0.15);
+  }
+
+  .quantity-clicked {
+    box-shadow: 0px 15px 20px 0px rgba(32, 56, 85, 0.15);
+  }
+
   p {
     margin: 0 !important;
   }
@@ -39,6 +47,7 @@ export const Product = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   width: 264px;
+
 
   .details {
     display: flex;
@@ -107,23 +116,6 @@ export const Product = styled.div`
       .cart {
         display: block;
     }
-    }
-  }
-
-  .quantity {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    align-self: stretch;
-
-    p {
-      color: #000;
-      font-feature-settings: "clig" off, "liga" off;
-      font-family: Open Sans;
-      font-size: 25px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 34px;
     }
   }
 

@@ -10,11 +10,12 @@ import {
   ProductPrice,
   ProductDescription,
 } from "./product.styles";
+import QuantityCounter from '../quantity-counter/quantity-counter.component';
 const SingleProduct = ({ product }) => {
   const [showQuanity, setShowQuanity] = useState(false);
   return (
     <MainContainer>
-      <ProductContainer>
+      <ProductContainer className={showQuanity ? "quantity-clicked": ""}>
         <Product>
           <div className="details">
             <ProductImage BG={product?.image}>
@@ -43,9 +44,7 @@ const SingleProduct = ({ product }) => {
                 <img src="assets/cart.svg" alt="cart" className='cart'/>
               </div>
             ) : (
-              <div className="quantity">
-                <p>Qty</p>
-              </div>
+              <QuantityCounter/>
             )}
           </>
         </Product>
