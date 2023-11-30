@@ -128,7 +128,7 @@ export const ShopBannerBg = styled.div`
     .shop-status {
       padding: 7.111px 14.222px;
       border-radius: 5.689px;
-      width: 70px;
+      width: 65px;
       top: 26px;
       right: 53px;
 
@@ -177,7 +177,7 @@ export const ShopBannerBg = styled.div`
     .shop-status {
       top: 15px;
       right: 23px;
-      width: 70px;
+      width: 69px;
       box-sizing: border-box;
       padding: 6px 15px;
       border-radius: 8px;
