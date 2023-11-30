@@ -10,12 +10,18 @@ import {
   ProductPrice,
   ProductDescription,
 } from "./product.styles";
+import QuantityCounter from "../quantity-counter/quantity-counter.component";
+import { useResponsiveValue } from "../../../../lib/use-responsive-value";
 const SingleProduct = ({ product }) => {
   const [showQuanity, setShowQuanity] = useState(false);
+  const isMobile = useResponsiveValue({
+    sm: true,
+    md: false,
+  });
   return (
     <MainContainer>
-      <ProductContainer>
-        <Product>
+      <ProductContainer className={showQuanity ? "quantity-clicked" : ""}>
+        <Product stretch={showQuanity ? true : false}>
           <div className="details">
             <ProductImage BG={product?.image}>
               <div>
@@ -33,21 +39,31 @@ const SingleProduct = ({ product }) => {
               </div>
             </div>
           </div>
-          <>
-            {!showQuanity ? (
+          {isMobile ? (
+            <div className="cart-container-mobile">
               <div
-                className="cart-container"
+                className={showQuanity ? "cart-small" : "cart"}
                 onClick={() => setShowQuanity(true)}
               >
-                <p>Add To Cart</p>
-                <img src="assets/cart.svg" alt="cart" className='cart'/>
+                <img src="assets/cart.svg" alt="cart" />
               </div>
-            ) : (
-              <div className="quantity">
-                <p>Qty</p>
-              </div>
-            )}
-          </>
+              {showQuanity && <QuantityCounter />}
+            </div>
+          ) : (
+            <>
+              {!showQuanity ? (
+                <div
+                  className="cart-container"
+                  onClick={() => setShowQuanity(true)}
+                >
+                  <p>Add To Cart</p>
+                  <img src="assets/cart.svg" alt="cart" className="cart" />
+                </div>
+              ) : (
+                <QuantityCounter />
+              )}
+            </>
+          )}
         </Product>
       </ProductContainer>
     </MainContainer>
@@ -55,4 +71,3 @@ const SingleProduct = ({ product }) => {
 };
 
 export default SingleProduct;
-

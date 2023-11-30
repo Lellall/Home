@@ -1,14 +1,5 @@
 import styled from "styled-components";
-
-export const Shops = styled.div`
-  display: flex !important;
-  flex-direction: row !important;
-  padding: 0px 80px 40px 80px;
-  justify-content: space-between;
-  align-items: flex-start;
-  align-self: stretch;
-  flex-wrap: wrap;
-`;
+import { ViewportWidth } from "../../../../utils/enums";
 
 export const ShopDetails = styled.div`
   display: flex;
@@ -20,7 +11,14 @@ export const ShopDetails = styled.div`
   background: #fff;
   box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08);
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    padding: 20.055px 12.535px;
+    gap: 12.535px;
+    border-radius: 5.641px;
+    border: 1.253px solid #f0f0f0;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     padding: 16px 10px !important;
     gap: 10px;
     box-shadow: 5px 7px 20px 0px rgba(32, 56, 85, 0.08);
@@ -44,7 +42,6 @@ export const Shop = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 8.813px;
-    /* background: red; */
 
     .name {
       color: #2f313f;
@@ -55,12 +52,14 @@ export const Shop = styled.div`
       font-weight: 600;
       line-height: 22.915px;
     }
+
     .rating {
       display: flex;
       justify-content: space-between;
       align-items: center;
       align-self: stretch;
     }
+
     .category {
       color: rgba(18, 29, 43, 0.6);
       font-feature-settings: "clig" off, "liga" off;
@@ -71,11 +70,36 @@ export const Shop = styled.div`
       line-height: 22.915px;
     }
     .icon {
-      color: #FFB400;
+      color: #ffb400;
+      font-size: 19.922px;
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    gap: 15.042px;
+    width: 188.02px !important;
+
+    .details {
+      width: 189.274px;
+      gap: 6.267px;
+
+      .name {
+        font-size: 14.102px;
+        line-height: 16.295px;
+      }
+
+      .category {
+        font-size: 10px;
+        line-height: 16.295px;
+      }
+
+      .icon {
+        font-size: 14.167px;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     width: 150px !important;
 
     .details {
@@ -83,7 +107,6 @@ export const Shop = styled.div`
       gap: 5px;
 
       .name {
-        font-family: Raleway;
         font-size: 11px;
         line-height: 13px;
       }
@@ -92,9 +115,14 @@ export const Shop = styled.div`
         font-size: 8px;
         line-height: 13px;
       }
+
+      .icon {
+        font-size: 11.302px;
+      }
     }
   }
 `;
+
 export const ShopImage = styled.div`
   width: 265px;
   height: 265px;
@@ -148,7 +176,40 @@ export const ShopImage = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    width: 188.02px;
+    height: 188.02px;
+    border-radius: 5.014px;
+
+    .status {
+      padding: 6.267px 12.535px;
+      gap: 12.535px;
+      border-radius: 0px 5.014px 5.014px 5.014px;
+
+      p {
+        font-size: 12.535px;
+        line-height: 16.295px;
+      }
+    }
+
+    .fav {
+      width: 50.139px;
+      height: 50.139px;
+      padding: 9.55px;
+      gap: 10px;
+      border-radius: 125.347px;
+      box-sizing: border-box;
+      right: 18px;
+      bottom: 14px;
+
+      img {
+        width: 19.1px;
+        height: 17.19px;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     width: 150px;
     height: 150px;
 
@@ -157,6 +218,7 @@ export const ShopImage = styled.div`
       padding: 5px 10px;
       align-items: flex-start;
       gap: 10px;
+
       p {
         font-size: 10px;
         line-height: 13px;
@@ -171,6 +233,7 @@ export const ShopImage = styled.div`
       box-sizing: border-box;
       right: 14px;
       bottom: 10px;
+
       img {
         width: 15.238px;
         height: 13.714px;

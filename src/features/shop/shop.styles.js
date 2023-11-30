@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ViewportWidth } from '../../utils/enums';
 
 
 export const Products = styled.div`
@@ -10,7 +11,7 @@ export const Products = styled.div`
   align-items: flex-start;
   flex-wrap: wrap;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.sm}px) {
     display: flex;
     // width: 390px;
     padding: 10px 15px;
@@ -20,7 +21,7 @@ export const Products = styled.div`
   }
 `;
 
-export const Stores = styled.div`
+export const Shops = styled.div`
   display: flex !important;
   flex-direction: row !important;
   padding: 0px 80px 40px 80px;

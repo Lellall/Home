@@ -1,5 +1,5 @@
-import { Products, Stores } from "./shop.styles";
-import { ShopCard, ProductCard, ShopBanner } from "./components";
+import { Products } from "./shop.styles";
+import { ProductCard, ShopBanner } from "./components";
 
 const Main = () => {
   const newShop = { name: "Domino’s Pizza", status: "Open" };
@@ -38,12 +38,6 @@ const Main = () => {
     },
   ];
 
-  const shop = {
-    name: "Domino’s Pizza",
-    status: "Open",
-    category: "Health",
-    rating: 4,
-  };
   return (
     <div>
       <ShopBanner shop={newShop} />
@@ -52,14 +46,6 @@ const Main = () => {
           <ProductCard key={product.id} product={product} />
         ))}
       </Products>
-      <Stores>
-        <ShopCard shop={shop} />
-        <ShopCard shop={shop} />
-        <ShopCard shop={shop} />
-        <ShopCard shop={shop} />
-        <ShopCard shop={shop} />
-        <ShopCard shop={shop} />
-      </Stores>
     </div>
   );
 };
