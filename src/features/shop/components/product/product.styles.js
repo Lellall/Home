@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Typography } from "@mui/material";
+import { ViewportWidth } from "../../../../utils/enums";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -19,6 +20,21 @@ export const MainContainer = styled.div`
   p {
     margin: 0 !important;
   }
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    gap: 57.056px;
+    border-radius: 5.706px;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    &:hover {
+      box-shadow: none;
+    }
+
+    .quantity-clicked {
+      box-shadow: none;
+    }
+  }
 `;
 
 export const ProductContainer = styled.div`
@@ -28,11 +44,17 @@ export const ProductContainer = styled.div`
   gap: 18px;
   border-radius: 8px;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    padding: 20.114px 12.571px;
+    gap: 12.571px;
+    border-radius: 5.657px;
+    /* background: #FCFCFC; */
+  }
+  @media (max-width: ${ViewportWidth.sm}px) {
     display: flex;
-    padding-bottom: 0px;
-    padding: 0px;
-    justify-content: space-between;
+    padding: 0px 0px 16px;
+    width: 100%;
+    justify-content: space-between !important;
     align-items: center;
     align-self: stretch;
     border-bottom: 1px solid #ececec;
@@ -47,7 +69,6 @@ export const Product = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   width: 264px;
-
 
   .details {
     display: flex;
@@ -115,45 +136,98 @@ export const Product = styled.div`
 
       .cart {
         display: block;
-    }
+      }
     }
   }
 
-  @media (max-width: 600px) {
+  .cart-container-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-self: ${(props) => (props.stretch ? "stretch" : "center")};
+
+    .cart {
+      display: flex;
+      padding: 8px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      border-radius: 50px;
+      background: #f3f3f8;
+      box-sizing: border-box;
+
+      img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .cart-small {
+      display: flex;
+      padding: 6.444px;
+      justify-content: center;
+      align-items: center;
+      gap: 8.056px;
+      background: #f3f3f8;
+      border-radius: 40.278px;
+      box-sizing: border-box;
+
+      img {
+        width: 16.111px;
+        height: 16.111px;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    height: 364px;
+    width: 189px !important;
+
+    .details {
+      gap: 15px;
+
+      .container {
+        gap: 15px;
+      }
+
+      .price-description {
+        gap: 3.566px;
+      }
+    }
+
+    .cart-container {
+      height: 42.545px;
+      padding: 7.132px;
+      gap: 7.132px;
+      border-radius: 6px;
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     height: auto;
     flex-direction: row;
-    width: 100%;
+    display: flex;
+    width: 100% !important;
+    justify-content: space-between !important;
 
     .details {
       flex-direction: row;
       align-items: flex-start;
       gap: 12px;
 
-     .container {
-      gap: 5px !important;
-      align-items: flex-start;
-    }
+      .container {
+        gap: 5px !important;
+        align-items: flex-start;
+      }
 
       .price-description {
         gap: 0px;
+        word-wrap: break-word !important;
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
       }
     }
-
-    .cart-container {
-      display: none;
-      p {
-        display: none;
-      }
-
-      .cart {
-        display: block;
-    }
-    }
-
-    .quantity {
-      display: none;
-    }
-
   }
 `;
 
@@ -189,9 +263,28 @@ export const ProductImage = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
-    width: 80px !important;
-    height: 80px !important;
+  @media (max-width: ${ViewportWidth.md}px) {
+    width: 189px !important;
+    height: 189px !important;
+    border-radius: 5px;
+
+    div {
+      width: 28.528px;
+      height: 28.528px;
+      padding: 5.434px;
+      gap: 5.434px;
+
+      img {
+        width: 10.868px;
+        height: 9.781px;
+        flex-shrink: 0;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    max-width: 80px !important;
+    max-height: 80px !important;
     border-radius: 10px;
 
     div {
@@ -209,8 +302,12 @@ export const ProductName = styled(Typography)`
   font-weight: 600 !important;
   line-height: 23px !important;
 
-  @media (max-width: 600px) {
-    /* font-family: Raleway; */
+  @media (max-width: ${ViewportWidth.md}px) {
+    font-size: 14.143px !important;
+    line-height: 16.343px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     font-size: 12px !important;
     font-weight: 700 !important;
     line-height: 17px !important;
@@ -226,7 +323,12 @@ export const ProductCategory = styled(Typography)`
   font-weight: 400 !important;
   line-height: 22.915px !important;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    font-size: 10px !important;
+    line-height: 16.343px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     display: none;
   }
 `;
@@ -242,7 +344,7 @@ export const ProductPrice = styled(Typography)`
   line-height: 28px !important;
   text-transform: capitalize !important;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.sm}px) {
     font-size: 16px !important;
     line-height: normal !important;
   }
@@ -258,7 +360,12 @@ export const ProductDescription = styled(Typography)`
   font-weight: 400 !important;
   line-height: normal !important;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
     font-size: 10px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    font-size: 10px !important;
+    text-wrap: wrap !important;
   }
 `;

@@ -1,12 +1,18 @@
 import styled from "styled-components";
 
 import { Typography } from "@mui/material";
+import { ViewportWidth } from '../../../../utils/enums';
 
 export const MainContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    justify-content: center;
+    gap: 6.404px;
+  }
 `;
 
 export const Quantity = styled(Typography)`
@@ -17,12 +23,30 @@ export const Quantity = styled(Typography)`
   font-style: normal !important;
   font-weight: 400 !important;
   line-height: 33.887px !important;
+
+  
+  @media (max-width: ${ViewportWidth.md}px) {
+    font-size: 18px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    font-size: 10.406px !important;
+    line-height: 14.308px !important;
+  }
 `;
 
 export const Counter = styled.div`
   display: flex;
   align-items: flex-start;
   gap: 23.105px;
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    gap: 15px;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    gap: 9.755px;
+  }
 `;
 
 export const Controls = styled.div`
@@ -45,6 +69,18 @@ export const Controls = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: 43.129px;
+
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    display: flex;
+    width: 18.861px;
+    height: 18.861px;
+    padding: 0px 6.504px;
+    gap: 13.007px;
+    color: #000;
+    font-size: 9.105px;
+    line-height: 18.21px;
+  }
 `;
 
 export const CountValue = styled(Typography)`
@@ -56,4 +92,14 @@ export const CountValue = styled(Typography)`
   font-style: normal !important;
   font-weight: 700 !important;
   line-height: 43.129px !important;
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    font-size: 18px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    color: #000 !important;
+    font-size: 10.406px !important;
+    line-height: 18.21px !important;
+  }
 `;

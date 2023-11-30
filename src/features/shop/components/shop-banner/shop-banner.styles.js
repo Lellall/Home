@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import { ViewportWidth } from "../../../../utils/enums";
+
 export const ShopBannerBg = styled.div`
   background: url(${(props) => props.shopBG});
   background-repeat: no-repeat;
@@ -48,6 +50,7 @@ export const ShopBannerBg = styled.div`
     align-items: center;
     border-radius: 73px;
     background: #fff;
+    box-sizing: border-box;
   }
 
   .shop-logo {
@@ -80,9 +83,9 @@ export const ShopBannerBg = styled.div`
     color: #fff;
 
     img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50px;
+      width: 35px;
+      height: 35px;
+      border-radius: 35px;
     }
 
     p {
@@ -106,7 +109,7 @@ export const ShopBannerBg = styled.div`
       font-style: normal;
       font-weight: 700;
       line-height: normal;
-      color: #2F313F;
+      color: #2f313f;
     }
 
     .info {
@@ -119,22 +122,72 @@ export const ShopBannerBg = styled.div`
     }
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    height: 341px;
+    
+    .shop-status {
+      padding: 7.111px 14.222px;
+      border-radius: 5.689px;
+      width: 70px;
+      top: 26px;
+      right: 53px;
+
+      p {
+        font-size: 14.222px;
+        line-height: 16.295px;
+      }
+    }
+
+    .shop-details {
+      padding: 10.667px 28.444px;
+      border-radius: 51.911px;
+      background: #fff;
+    }
+
+    .shop-logo {
+      gap: 10.667px;
+
+      img {
+        width: 38.13px;
+        height: 38.13px;
+        border-radius: 38.13px;
+      }
+
+      p {
+        font-size: 17.067px;
+        line-height: 24.889px;
+      }
+    }
+
+    .shop-info {
+      .info {
+        text-align: center;
+        font-size: 10.667px !important;
+      }
+
+      .detail {
+        font-size: 14.222px !important;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     height: 180px;
 
     .shop-status {
       top: 15px;
-      right: 15px;
-      width: 73px;
+      right: 23px;
+      width: 70px;
       box-sizing: border-box;
-      padding: 4px 22px;
-      border-radius: 30px;
+      padding: 6px 15px;
+      border-radius: 8px;
       border: 1px solid #fff;
       background: #fff;
 
       p {
-        font-size: 12px;
-        font-weight: 400;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 22.915px;
       }
     }
 
@@ -149,7 +202,7 @@ export const ShopBannerBg = styled.div`
     .shop-details {
       bottom: 0;
       background: #f4f4f6;
-      // width: 100%;
+      width: 100%;
       border-radius: 0px;
       padding: 10px 20px;
     }
@@ -172,12 +225,15 @@ export const SubBanner = styled.div`
   background-size: cover;
   background-color: lightgray;
   position: relative;
-  /* height: 270px; */
   height: 8.4375rem;
   width: 100%;
   object-fit: contain;
 
-  @media (max-width: 600px) {
+  @media (max-width: ${ViewportWidth.md}px) {
+    height: 112px;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
     height: 60px;
   }
 `;
