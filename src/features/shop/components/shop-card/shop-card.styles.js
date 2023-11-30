@@ -1,16 +1,6 @@
 import styled from "styled-components";
 import { ViewportWidth } from "../../../../utils/enums";
 
-export const Shops = styled.div`
-  display: flex !important;
-  flex-direction: row !important;
-  padding: 0px 80px 40px 80px;
-  justify-content: space-between;
-  align-items: flex-start;
-  align-self: stretch;
-  flex-wrap: wrap;
-`;
-
 export const ShopDetails = styled.div`
   display: flex;
   padding: 28px 18px !important;
