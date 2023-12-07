@@ -455,7 +455,7 @@ const TextWrapper = styled.div`
   text-align: center;
 `;
 
-function App() {
+export default function Landing() {
   const services = [
     {
       id: 1,
@@ -628,4 +628,3 @@ function App() {
   );
 }
 
-export default App;
