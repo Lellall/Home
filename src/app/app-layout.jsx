@@ -1,11 +1,13 @@
 import { Outlet } from "react-router-dom";
+import { Footer, Navbar } from "../features/ui";
 
 const AppLayout = () => {
   return (
-    <div>
-      <p>hey there</p>
+    <>
+      <Navbar />
       <Outlet />
-    </div>
+      <Footer />
+    </>
   );
 };
 
