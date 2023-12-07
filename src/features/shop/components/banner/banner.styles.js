@@ -12,6 +12,11 @@ export const BannerBg = styled.div`
   width: 100%;
   object-fit: contain;
 
+  .top {
+    background: #FCFCFC;
+    padding: 78px;
+  }
+
   @media (max-width: ${ViewportWidth.md}px) {
     height: 350px;
   }
