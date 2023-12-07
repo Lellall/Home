@@ -19,7 +19,7 @@ const SingleProduct = ({ product }) => {
     md: false,
   });
   return (
-    <MainContainer>
+    <MainContainer >
       <ProductContainer className={showQuanity ? "quantity-clicked" : ""}>
         <Product stretch={showQuanity ? true : false}>
           <div className="details">
@@ -66,7 +66,7 @@ const SingleProduct = ({ product }) => {
           )}
         </Product>
       </ProductContainer>
-    </MainContainer>
+   </MainContainer>
   );
 };
 
