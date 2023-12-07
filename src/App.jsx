@@ -357,8 +357,8 @@ const CenterBox = styled.div`
    border-radius: 8px;
    ${"" /* clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */}
    height: 40px;
-   padding; 20px;
-   border-radius; 50PX;
+   padding: 20px;
+   border-radius: 50px;
    ${"" /* color: orange; */}
 `;
 
