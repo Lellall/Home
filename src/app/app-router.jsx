@@ -4,7 +4,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import AppLayout from "./app-layout";
 import { appPaths } from "./app-paths";
 import Landing from "../App";
-import { Shop } from "../features/shop";
+import { Shop, Shops } from "../features/shop";
 
 
 const theme = createTheme({
@@ -20,6 +20,7 @@ export function AppRouter() {
           <Route path={appPaths.landing} element={<Landing />} />
           {/* SHARED LAYOUT */}
           <Route path="/" element={<AppLayout />}>
+          <Route path="/shops" element={<Shops />} />
             <Route path="/shop" element={<Shop />} />
           </Route>
         </Routes>
