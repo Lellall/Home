@@ -1,13 +1,10 @@
 import styled from "styled-components";
 import { Typography } from "@mui/material";
+import Grid from "@mui/material/Unstable_Grid2";
 import { ViewportWidth } from "../../../../utils/enums";
 
-export const MainContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 80px;
-  border-radius: 8px;
+export const MainContainer = styled(Grid)`
+  border-radius: 8px !important;
 
   &:hover {
     box-shadow: 0px 15px 20px 0px rgba(32, 56, 85, 0.15);
@@ -48,7 +45,6 @@ export const ProductContainer = styled.div`
     padding: 20.114px 12.571px;
     gap: 12.571px;
     border-radius: 5.657px;
-    /* background: #FCFCFC; */
   }
   @media (max-width: ${ViewportWidth.sm}px) {
     display: flex;
@@ -68,7 +64,6 @@ export const Product = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  width: 264px;
 
   .details {
     display: flex;
@@ -182,8 +177,6 @@ export const Product = styled.div`
 
   @media (max-width: ${ViewportWidth.md}px) {
     height: 364px;
-    width: 189px !important;
-
     .details {
       gap: 15px;
 
@@ -208,7 +201,6 @@ export const Product = styled.div`
     height: auto;
     flex-direction: row;
     display: flex;
-    width: 100% !important;
     justify-content: space-between !important;
 
     .details {
@@ -232,8 +224,8 @@ export const Product = styled.div`
 `;
 
 export const ProductImage = styled.div`
-  width: 264.403px;
   height: 264.403px;
+  width: 100%;
   border-radius: 7.051px;
   background: url(${(props) => props.BG});
   background-repeat: no-repeat;
@@ -264,7 +256,6 @@ export const ProductImage = styled.div`
   }
 
   @media (max-width: ${ViewportWidth.md}px) {
-    width: 189px !important;
     height: 189px !important;
     border-radius: 5px;
 
