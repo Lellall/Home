@@ -1,18 +1,10 @@
-import { Banner } from './components'
+import { Banner } from "./components";
 const Main = () => {
-          {/* <Shops>
-      <ShopCard shop={newShop}/>
-      <ShopCard shop={newShop}/>
-      <ShopCard shop={newShop}/>
-      <ShopCard shop={newShop}/>
-
-      </Shops> */}
-  return (
+   return (
     <>
-
-        <Banner/>
+      <Banner />
     </>
-  )
-}
+  );
+};
 
-export default Main
+export default Main;
