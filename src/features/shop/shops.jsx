@@ -1,10 +1,10 @@
-import { Banner } from "./components";
+import { Banner } from './components'
 const Main = () => {
-   return (
+  return (
     <>
-      <Banner />
+        <Banner/>
     </>
-  );
-};
+  )
+}
 
-export default Main;
+export default Main
