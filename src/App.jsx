@@ -628,4 +628,4 @@ function App() {
   );
 }
 
-export default Landing;
+export default App;
