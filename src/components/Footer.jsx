@@ -40,7 +40,7 @@ const Wrapper = styled(Container)`
   align-items: center !important;
   gap: 57px !important;
   flex-shrink: 0 !important;
-  background: #0e5d37 !important;
+  background: #004225 !important;
 
   @media (max-width: 912px) {
     gap: 5px !important;
@@ -233,6 +233,7 @@ const Footer = () => {
   ];
   return (
     <Wrapper>
+     
       <Cover>
         <CoverContainer>
           <ColContainer>

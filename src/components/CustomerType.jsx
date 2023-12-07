@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 
   @media (max-width: 912px) {
     gap: 15px;
+    justify-content: center;
   }
 
   @media (max-width: 600px) {
@@ -30,7 +31,7 @@ const InnerFlexContainer = styled(FlexContainer)`
 const ColoredContainer = styled(Container)`
   border-radius: 100px;
   background: #00a661;
-  padding: 5px !important;
+  padding: 10px !important;
   text-align: center;
   display: flex !important;
   flex-direction: column;
@@ -39,6 +40,8 @@ const ColoredContainer = styled(Container)`
   margin: 0 3px !important;
   height: 30px !important;
   width: 30px !important;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 
   p {
     font-size: 16px;
@@ -90,11 +93,14 @@ export const SubText = styled(Typography)`
   font-size: 18px !important;
   font-weight: 400 !important;
   line-height: 30px !important;
+  margin-top: 5px !important;
+  margin-left: 35px !important;
 
   @media (max-width: 912px) {
     font-size: ${(props) =>
       props.tabletSize ? props.tabletSize : "14px"} !important;
     line-height: 18px !important;
+    margin-left: 25px !important;
   }
 
   @media (max-width: 768px) {
@@ -127,7 +133,6 @@ const OptionsContainer = styled.div`
     gap: 14px !important;
     padding: 0 10px !important;
   }
-
 
   @media (max-width: 768px) {
     gap: 12px !important;
@@ -163,7 +168,11 @@ const CustomerType = ({ customer, showType }) => {
                   {option.subTitle}
                 </Heading>
               </InnerFlexContainer>
-              <SubText color="rgba(18, 29, 43, 0.60)" mobileSize="10px" tabletSize="12px">
+              <SubText
+                color="rgba(18, 29, 43, 0.60)"
+                mobileSize="10px"
+                tabletSize="12px"
+              >
                 {option.subText}
               </SubText>
             </div>
