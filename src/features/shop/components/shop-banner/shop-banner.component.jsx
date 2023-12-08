@@ -4,7 +4,7 @@ import { ShopBannerBg, SubBanner } from "./shop-banner.styles";
 const ShopBanner = ({ shop }) => {
   return (
     <>
-      <ShopBannerBg shopBG="assets/store-logo.jpg" isOpen={true}>
+      <ShopBannerBg shopBG="/assets/store-logo.jpg" isOpen={true}>
         <div className="shop-logo-mobile">
           <img src="/assets/Logo.png" alt={shop?.name} />
           <p>{shop?.name}</p>

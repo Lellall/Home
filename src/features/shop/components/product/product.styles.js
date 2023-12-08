@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Typography } from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 import { ViewportWidth } from "../../../../utils/enums";
 
 export const MainContainer = styled(Grid)`

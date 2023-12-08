@@ -1,4 +1,3 @@
-// import { Shops } from "./shop.styles";
 import { Products, ShopBanner } from "./components";
 
 const Main = () => {

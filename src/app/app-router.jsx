@@ -2,7 +2,7 @@ import { Routes, BrowserRouter, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import AppLayout from "./app-layout";
-import { appPaths } from "./app-paths";
+// import { appPaths } from "./app-paths";
 import Landing from "../App";
 import { Shop, Shops } from "../features/shop";
 
@@ -17,11 +17,11 @@ export function AppRouter() {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <Routes>
-          <Route path={appPaths.landing} element={<Landing />} />
+        <Route path="/" element={<Landing />} />
           {/* SHARED LAYOUT */}
-          <Route path="/" element={<AppLayout />}>
-          <Route path="/shops" element={<Shops />} />
-            <Route path="/shop" element={<Shop />} />
+          <Route path="/shops" element={<AppLayout />}>
+          <Route path="shops" element={<Shops />} />
+            <Route path="shop" element={<Shop />} />
           </Route>
         </Routes>
       </BrowserRouter>
