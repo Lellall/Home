@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Raleway:wght@300;400;500;600;700&display=swap');
 
-  body {
-    margin: 0;
-    overflow-x: hidden;
-  }
+body {
+  margin: 0;
+  overflow-x: hidden;
+  font-family: 'Open Sans', sans-serif;
+  font-family: 'Raleway', sans-serif;
+}
 
-  #root {
-    overflow-x: hidden;
-  }
+#root {
+  overflow-x: hidden;
+}

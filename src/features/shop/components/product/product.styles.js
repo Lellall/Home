@@ -5,14 +5,10 @@ import { ViewportWidth } from "../../../../utils/enums";
 
 export const MainContainer = styled(Grid)`
   border-radius: 8px !important;
-
-  &:hover {
-    box-shadow: 0px 15px 20px 0px rgba(32, 56, 85, 0.15);
-  }
-
-  .quantity-clicked {
-    box-shadow: 0px 15px 20px 0px rgba(32, 56, 85, 0.15);
-  }
+  border: 1.763px solid #f0f0f0 !important;
+  background: #fff !important;
+  box-shadow: 0px 12.339px 35.254px 0px rgba(32, 56, 85, 0.08) !important;
+  
 
   p {
     margin: 0 !important;
@@ -24,35 +20,29 @@ export const MainContainer = styled(Grid)`
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
-    &:hover {
-      box-shadow: none;
-    }
-
-    .quantity-clicked {
-      box-shadow: none;
-    }
+    box-shadow: none;
+    background: transparent !important;
   }
 `;
 
 export const ProductContainer = styled.div`
   display: flex;
-  padding: 28px 18px;
+  padding: 22px 18px;
   align-items: flex-start;
   gap: 18px;
   border-radius: 8px;
 
   @media (max-width: ${ViewportWidth.md}px) {
-    padding: 20.114px 12.571px;
-    gap: 12.571px;
+    padding: 18px 16px;
+    gap: 12px;
     border-radius: 5.657px;
   }
   @media (max-width: ${ViewportWidth.sm}px) {
     display: flex;
-    padding: 0px 0px 16px;
-    width: 100%;
     justify-content: space-between !important;
     align-items: center;
     align-self: stretch;
+    background: none !important;
     border-bottom: 1px solid #ececec;
     border-radius: 0px;
   }
@@ -60,22 +50,22 @@ export const ProductContainer = styled.div`
 
 export const Product = styled.div`
   display: flex;
-  height: 510px;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 15px;
 
   .details {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 21px;
+    gap: 12px;
     align-self: stretch;
 
     .container {
       display: flex;
       flex-direction: column;
-      gap: 21px;
+      gap: 15px;
     }
 
     .name-category {
@@ -96,7 +86,6 @@ export const Product = styled.div`
 
   .cart-container {
     display: flex;
-    height: 60px;
     padding: 10px;
     justify-content: center;
     align-items: center;
@@ -105,33 +94,21 @@ export const Product = styled.div`
     align-self: stretch;
     border-radius: 8px;
     cursor: pointer;
+    background: #f3f3f8;
 
     p {
       color: #f06d06;
       font-feature-settings: "clig" off, "liga" off;
       font-family: Open Sans;
-      font-size: 18px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: 14.652px;
-      display: none;
+      display: block;
     }
 
     .cart {
-      display: none;
-    }
-
-    &:hover {
-      border: 1px solid #ececec;
-      background: #f3f3f8;
-
-      p {
-        display: block;
-      }
-
-      .cart {
-        display: block;
-      }
+      display: block;
     }
   }
 
@@ -176,12 +153,12 @@ export const Product = styled.div`
   }
 
   @media (max-width: ${ViewportWidth.md}px) {
-    height: 364px;
+
     .details {
       gap: 15px;
 
       .container {
-        gap: 15px;
+        gap: 6px;
       }
 
       .price-description {
@@ -190,9 +167,8 @@ export const Product = styled.div`
     }
 
     .cart-container {
-      height: 42.545px;
-      padding: 7.132px;
-      gap: 7.132px;
+      padding: 7px;
+      gap: 7px;
       border-radius: 6px;
     }
   }
