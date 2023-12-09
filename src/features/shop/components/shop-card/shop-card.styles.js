@@ -1,18 +1,16 @@
 import styled from "styled-components";
+import Grid from "@mui/material/Grid";
 import { ViewportWidth } from "../../../../utils/enums";
 
-export const ShopDetails = styled.div`
-  display: flex;
+export const ShopDetails = styled(Grid)`
   padding: 28px 18px !important;
-  align-items: flex-start;
-  gap: 18px;
-  border-radius: 8px;
-  border: 1.763px solid #f0f0f0;
-  background: #fff;
-  box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08);
+  border-radius: 8px !important;
+  border: 1.763px solid #f0f0f0 !important;
+  background: #fff !important;
+  box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08) !important;
 
   @media (max-width: ${ViewportWidth.md}px) {
-    padding: 20.055px 12.535px;
+    padding: 20.055px 12.535px ;
     gap: 12.535px;
     border-radius: 5.641px;
     border: 1.253px solid #f0f0f0;
@@ -30,7 +28,6 @@ export const Shop = styled.div`
   flex-direction: column;
   align-items: flex-start;
   gap: 21.152px;
-  width: 265px !important;
 
   p {
     margin: 0;
@@ -38,7 +35,7 @@ export const Shop = styled.div`
 
   .details {
     display: flex;
-    width: 266.166px;
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: 8.813px;
@@ -77,10 +74,8 @@ export const Shop = styled.div`
 
   @media (max-width: ${ViewportWidth.md}px) {
     gap: 15.042px;
-    width: 188.02px !important;
 
     .details {
-      width: 189.274px;
       gap: 6.267px;
 
       .name {
@@ -100,10 +95,8 @@ export const Shop = styled.div`
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
-    width: 150px !important;
 
     .details {
-      width: 151px;
       gap: 5px;
 
       .name {
@@ -124,7 +117,7 @@ export const Shop = styled.div`
 `;
 
 export const ShopImage = styled.div`
-  width: 265px;
+  width: 100%;
   height: 265px;
   background: url(${(props) => props.BG});
   background-repeat: no-repeat;
@@ -177,7 +170,6 @@ export const ShopImage = styled.div`
   }
 
   @media (max-width: ${ViewportWidth.md}px) {
-    width: 188.02px;
     height: 188.02px;
     border-radius: 5.014px;
 
@@ -210,7 +202,6 @@ export const ShopImage = styled.div`
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
-    width: 150px;
     height: 150px;
 
     .status {

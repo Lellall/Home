@@ -1,6 +1,4 @@
-// import Grid from '@mui/system/Unstable_Grid';
 import Grid from "@mui/material/Grid";
-// import Grid from '@mui/material/Unstable_Grid2';
 import {
   MainContainer,
   StyledProducts,
@@ -33,7 +31,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 2,
@@ -41,7 +39,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 3,
@@ -49,7 +47,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 4,
@@ -57,7 +55,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 5,
@@ -65,7 +63,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 6,
@@ -73,7 +71,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 7,
@@ -81,7 +79,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 8,
@@ -89,7 +87,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 9,
@@ -97,7 +95,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 10,
@@ -105,7 +103,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 11,
@@ -113,7 +111,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 12,
@@ -121,7 +119,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 13,
@@ -129,7 +127,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 14,
@@ -137,7 +135,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 15,
@@ -145,7 +143,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 16,
@@ -153,7 +151,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 17,
@@ -161,7 +159,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 18,
@@ -169,7 +167,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 19,
@@ -177,7 +175,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
     {
       id: 20,
@@ -185,7 +183,7 @@ export default function Products() {
       category: "Health",
       price: "2,400",
       description: "Timex Mens Easy Reader Day-Date Expansion Band Watch",
-      image: "assets/Image.png",
+      image: "/assets/Image.png",
     },
   ];
 

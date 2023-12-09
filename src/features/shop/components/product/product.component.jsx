@@ -12,6 +12,7 @@ import {
 } from "./product.styles";
 import QuantityCounter from "../quantity-counter/quantity-counter.component";
 import { useResponsiveValue } from "../../../../lib/use-responsive-value";
+
 const SingleProduct = ({ product }) => {
   const [showQuanity, setShowQuanity] = useState(false);
   const isMobile = useResponsiveValue({
@@ -25,7 +26,7 @@ const SingleProduct = ({ product }) => {
           <div className="details">
             <ProductImage BG={product?.image}>
               <div>
-                <img src="assets/fav.svg" />
+                <img src="/assets/fav.svg" />
               </div>
             </ProductImage>
             <div className="container">
@@ -45,7 +46,7 @@ const SingleProduct = ({ product }) => {
                 className={showQuanity ? "cart-small" : "cart"}
                 onClick={() => setShowQuanity(true)}
               >
-                <img src="assets/cart.svg" alt="cart" />
+                <img src="/assets/cart.svg" alt="cart" />
               </div>
               {showQuanity && <QuantityCounter />}
             </div>
@@ -57,7 +58,7 @@ const SingleProduct = ({ product }) => {
                   onClick={() => setShowQuanity(true)}
                 >
                   <p>Add To Cart</p>
-                  <img src="assets/cart.svg" alt="cart" className="cart" />
+                  <img src="/assets/cart.svg" alt="cart" className="cart" />
                 </div>
               ) : (
                 <QuantityCounter />

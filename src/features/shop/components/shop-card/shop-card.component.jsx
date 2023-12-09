@@ -6,13 +6,13 @@ const ShopCard = ({ shop }) => {
   return (
     <ShopDetails>
       <Shop>
-        <ShopImage BG="assets/Image.png" isOpen={true}>
+        <ShopImage BG="/assets/Image.png" isOpen={shop?.active}>
           <div className="status">
-            <p>{shop?.status}</p>
+            <p>{shop?.active ? "Open" : "Closed"}</p>
           </div>
           <div className="fav">
             <img
-              src="assets/fav.svg"
+              src="/assets/fav.svg"
             />
           </div>
         </ShopImage>

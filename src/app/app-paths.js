@@ -7,7 +7,7 @@ export const appPaths = {
     landing: "/landing",
 
     // SHOP
-    store: "/shop",
-    getStore: (id = ":id") => `/shop/${id}`,
+    shop: "/shop",
+    getShop: (id = ":id") => `/shop/${id}`,
 
 };
