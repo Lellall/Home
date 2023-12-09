@@ -9,6 +9,8 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
+import { baseApi } from "./base-api";
+
 import { setupListeners } from '@reduxjs/toolkit/query';
 import storage from 'redux-persist/lib/storage';
 
@@ -18,6 +20,7 @@ const persistConfig = {
 };
 const combineReducer = combineReducers({
   //  add  combineReducers
+  [baseApi.reducerPath]: baseApi.reducer,
 });
 const rootReducer = (state, action) => {
   if (action.type === 'clear') {
@@ -37,7 +40,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(baseApi.middleware),
 });
 export const persistor = persistStore(store);
 setupListeners(store.dispatch);

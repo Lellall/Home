@@ -7,7 +7,6 @@ export const MainContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 30px;
-  /* background: red; */
 
   @media (max-width: ${ViewportWidth.sm}px) {
     padding: 21.396px 0px;
@@ -26,7 +25,6 @@ export const CategoryContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
-  /* background: red; */
 
   p {
     margin: 0;
@@ -72,14 +70,11 @@ export const CategoryContainer = styled.div`
     margin-bottom: 6px;
 
     .heading {
-      /* display: none; */
       font-size: 16px;
       line-height: 22px;
       display: flex;
-      /* padding: 10px 15px; */
       justify-content: center;
       align-items: center;
-      /* gap: 10px; */
     }
 
     .categories {
@@ -102,7 +97,6 @@ export const Category = styled.div`
   font-feature-settings: "clig" off, "liga" off;
   font-family: Open Sans;
   font-size: 12px;
-  /* font-size: 0.75rem; */
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -125,7 +119,6 @@ export const Category = styled.div`
 
 export const StyledProducts = styled.div`
   padding: 0px 5rem;
-  /* background: green; */
 
   @media (max-width: ${ViewportWidth.md}px) {
     padding: 0px 2.5rem;

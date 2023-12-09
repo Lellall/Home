@@ -10,19 +10,15 @@ export const BannerBg = styled.div`
   position: relative;
   height: 480px;
   width: 100%;
-  object-fit: contain;
-
-  .top {
-    background: #FCFCFC;
-    padding: 78px;
-  }
+  object-fit: cover;
 
   @media (max-width: ${ViewportWidth.md}px) {
-    height: 350px;
+    height: 300px;
+
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
-    height: 130px;
+    height: 150px;
   }
 `;
 export const SubBanner = styled.div`
