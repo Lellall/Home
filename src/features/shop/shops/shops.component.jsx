@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid";
-
+import { useEffect } from 'react';
+// import { useShopController } from '../use-shop-controller';
 import { Banner, ShopCard } from "../components";
 import {
   MainContainer,
@@ -14,6 +15,7 @@ import {
   Title,
   RecommendationsContainer,
 } from "./shops.styles";
+import axios from 'axios';
 const Main = () => {
   const data = [
     {
@@ -65,8 +67,16 @@ const Main = () => {
       name: "Milk",
     },
   ];
+  // const { shops } = useShopController()
   const customers = ["Become a Vendor", "Become a Driver"];
 
+  // console.log({shops})
+
+  useEffect(() => {
+    // fetch("http://api.dev.lellall.com/shops").then(res => console.log(res)).catch(err => console.log(err))
+    axios.get("http://api.dev.lellall.com/shops").then(res => console.log(res))
+  }, [])
+  
   return (
     <>
       <Banner />
