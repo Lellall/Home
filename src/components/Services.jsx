@@ -1,9 +1,13 @@
 /* eslint-disable react/prop-types */
 import styled from "styled-components";
-import Grid from "@mui/material/Unstable_Grid2";
+import Grid from "@mui/material/Grid";
 import { Typography, Container } from "@mui/material";
 import { SubText } from "./CustomerType";
 import { StyledImage } from "./Container/Container";
+
+const ModSubText = styled(SubText)`
+  margin-left: 0 !important;
+`;
 
 const ServiceContainer = styled.div`
   background: #fff;
@@ -73,7 +77,6 @@ const ColContainer = styled(Container)`
   align-self: flex-start !important;
   width: 65% !important;
   padding: 0 !important;
-
 `;
 
 export const CenteredText = styled(Typography)`
@@ -107,33 +110,36 @@ const Services = ({ services }) => {
   return (
     <Wrapper>
       <CenteredText>Our Services</CenteredText>
-        <Grid container spacing={{ xs: 1, sm: 1, md: 2, lg: 3}}>
-          {services.map((service) => (
-            <Grid key={service.id} xs={12} sm={4} lg={4} md={4}>
-              <ServiceContainer>
-                <ColContainer>
-                  <Text color="#2F313F">{service.title}</Text>
-                  <SubText color="rgba(18, 29, 43, 0.60)">
-                    {service.subtext}
-                  </SubText>
-                </ColContainer>
-                <ImageContainer>
-                  <StyledImage
-                    src={service.imageUrl}
-                    alt={service.title}
-                    height="100%"
-                    width="100%"
-                    objectFit="contain"
-                    tabletWidth="105px"
-                    tabletHeight="93px"
-                    mobileWidth="100px"
-                    mobileHeight="60px"
-                  />
-                </ImageContainer>
-              </ServiceContainer>
-            </Grid>
-          ))}
-        </Grid>
+      <Grid container spacing={{ xs: 1, sm: 1, md: 2, lg: 3 }}>
+        {services.map((service) => (
+          <Grid key={service.id} xs={12} sm={4} lg={4} md={4}>
+            <ServiceContainer>
+              <ColContainer>
+                <Text color="#2F313F">{service.title}</Text>
+                <ModSubText
+                  style={{ marginLeft: "0" }}
+                  color="rgba(18, 29, 43, 0.60)"
+                >
+                  {service.subtext}
+                </ModSubText>
+              </ColContainer>
+              <ImageContainer>
+                <StyledImage
+                  src={service.imageUrl}
+                  alt={service.title}
+                  height="100%"
+                  width="100%"
+                  objectFit="contain"
+                  tabletWidth="105px"
+                  tabletHeight="93px"
+                  mobileWidth="100px"
+                  mobileHeight="60px"
+                />
+              </ImageContainer>
+            </ServiceContainer>
+          </Grid>
+        ))}
+      </Grid>
     </Wrapper>
   );
 };

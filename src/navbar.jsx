@@ -18,7 +18,7 @@ const StyledAppBar = styled.div`
   z-index: 19999 !important;
   background-color: #fff;
   color: #333;
-  padding: 15px 40px;
+  padding: 15px 45px;
   margin: 0;
   @media (max-width: 912px) {
     padding: 15px 30px;
@@ -73,6 +73,9 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
     </Menu>
   );
+  const Logo1 = styled.div`
+    margin-left: 90px;
+  `;
 
   return (
     <>
@@ -80,26 +83,27 @@ export default function PrimarySearchAppBar() {
         style={{
           backgroundColor: "#fff",
           color: "#333",
-          padding: "15px 40px",
+          padding: "15px 45px",
           margin: 0,
         }}
       >
-        <Toolbar>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{ display: { xs: "block", sm: "block" } }}
-          >
+          <Logo1>
             <img src={Logo} alt="Logo" />
-          </Typography>
+          </Logo1>
+        <Toolbar>
+
           <Box sx={{ flexGrow: 1 }} />
           <Box alignItems="center" edge="end"></Box>
-          <Box sx={{ flexGrow: 1, background: 'red' }} />
-          <Box sx={{ display: { xs: "none", sm: "block", md: "block" },  background: 'red' }}>
+          <Box sx={{ flexGrow: 1, background: "red" }} />
+          <Box
+            sx={{
+              display: { xs: "none", sm: "block", md: "block" },
+              background: "red",
+            }}
+          >
             <MenuItem>
-            <RoundButton outlined variant="contained">
-            Download Our App
+              <RoundButton outlined variant="contained">
+                Download Our App
               </RoundButton>
               <RoundButton outlined variant="contained">
                 Sign up
