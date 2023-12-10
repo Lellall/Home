@@ -19,14 +19,14 @@ export const Quantity = styled(Typography)`
   color: #000 !important;
   font-feature-settings: "clig" off, "liga" off !important;
   font-family: Open Sans !important;
-  font-size: 24.645px !important;
+  font-size: 16px !important;
   font-style: normal !important;
-  font-weight: 400 !important;
-  line-height: 33.887px !important;
+  font-weight: 700 !important;
+  line-height: 24px !important;
 
   
   @media (max-width: ${ViewportWidth.md}px) {
-    font-size: 18px !important;
+    font-size: 14px !important;
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
@@ -37,7 +37,7 @@ export const Quantity = styled(Typography)`
 
 export const Counter = styled.div`
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 23.105px;
 
   @media (max-width: ${ViewportWidth.md}px) {
@@ -51,12 +51,11 @@ export const Counter = styled.div`
 
 export const Controls = styled.div`
   display: flex;
-  width: 44.67px;
-  height: 44.67px;
-  padding: 0px 15.403px;
+  width: 20px;
+  height: 30px;
+  padding: 10px 15.403px;
   justify-content: center;
   align-items: center;
-  gap: 30.807px;
   border-radius: 41.589px;
   background: #f3f3f8;
   box-sizing: border-box;
@@ -65,10 +64,9 @@ export const Controls = styled.div`
   text-align: center;
   font-feature-settings: "clig" off, "liga" off;
   font-family: Open Sans;
-  font-size: 21.565px;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 43.129px;
 
 
   @media (max-width: ${ViewportWidth.sm}px) {
@@ -88,13 +86,13 @@ export const CountValue = styled(Typography)`
   text-align: center !important;
   font-feature-settings: "clig" off, "liga" off !important;
   font-family: Raleway !important;
-  font-size: 24.645px !important;
+  font-size: 16px !important;
   font-style: normal !important;
   font-weight: 700 !important;
-  line-height: 43.129px !important;
+  line-height: 24px !important;
 
   @media (max-width: ${ViewportWidth.md}px) {
-    font-size: 18px !important;
+    font-size: 14px !important;
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
