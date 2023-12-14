@@ -4,7 +4,6 @@ export const appPaths = {
     accountVerification: "/account-verification",
     passwordReset: "/reset-request",
     forgotPassword: "/forgot-password",
-    landing: "/landing",
 
     // SHOP
     shop: "/shop",
