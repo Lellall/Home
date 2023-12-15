@@ -1,7 +1,7 @@
 import Grid from "@mui/material/Grid";
-import { useEffect } from 'react';
-// import { useShopController } from '../use-shop-controller';
-import { Banner, ShopCard } from "../components";
+import { useEffect, useState, useRef } from "react";
+import { BiSolidLeftArrow, BiSolidRightArrow } from "react-icons/bi";
+import { Banner, ShopCard, CategoryCard, MiniShopCard } from "../components";
 import {
   MainContainer,
   Heading,
@@ -15,7 +15,9 @@ import {
   Title,
   RecommendationsContainer,
 } from "./shops.styles";
-import axios from 'axios';
+import { Modal } from "../../ui";
+import { useResponsiveValue } from "../../../lib/use-responsive-value";
+import axios from "axios";
 const Main = () => {
   const data = [
     {
@@ -67,23 +69,101 @@ const Main = () => {
       name: "Milk",
     },
   ];
-  // const { shops } = useShopController()
   const customers = ["Become a Vendor", "Become a Driver"];
 
-  // console.log({shops})
-
+  const categories = [
+    {
+      id: 1,
+      name: "Vegetables & Fruits",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 2,
+      name: "Beverages",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 3,
+      name: "Frozen foods",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 4,
+      name: "Groceries & Staples",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 5,
+      name: "Meats & Seafoods",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 6,
+      name: "Breakfast & Dairy",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 7,
+      name: "Electronics",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 8,
+      name: "Phones & Accessories",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 9,
+      name: "Women’s Fashion",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 10,
+      name: "Men’s Fashion",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 11,
+      name: "Kids",
+      image: "/assets/Image.png",
+    },
+    {
+      id: 12,
+      name: "Health",
+      image: "/assets/Image.png",
+    },
+  ];
+  const [showModal, setShowModal] = useState(false);
+  const [shopData, setShopData] = useState([])
   useEffect(() => {
-    // fetch("http://api.dev.lellall.com/shops").then(res => console.log(res)).catch(err => console.log(err))
-    axios.get("http://api.dev.lellall.com/shops").then(res => console.log(res))
-  }, [])
-  
+    axios
+      .get("http://api.dev.lellall.com/shops")
+      .then((res) => setShopData(res.data.data));
+  }, []);
+
+  const sliderRef = useRef();
+
+  const slideLeft = () => {
+    sliderRef.current.scrollLeft = sliderRef.current.scrollLeft - 500;
+  };
+  const slideRight = () => {
+    sliderRef.current.scrollLeft = sliderRef.current.scrollLeft + 500;
+  };
+
+  const isMobile = useResponsiveValue({
+    sm: true,
+    md: false,
+  });
+
   return (
     <>
       <Banner />
       <MainContainer>
         <div className="category-container">
           <Heading>What do you want to buy?</Heading>
-          <CategoryButton>Choose a Category</CategoryButton>
+          <CategoryButton onClick={() => setShowModal(true)}>
+            Choose a Category
+          </CategoryButton>
         </div>
         <ShopsContainer>
           <div className="title-container">
@@ -96,7 +176,7 @@ const Main = () => {
               rowSpacing={{ xs: 2, sm: 3, md: 5 }}
               spacing={{ xs: 2, sm: 4, md: 4 }}
             >
-              {data.map((shop) => (
+              {shopData.map((shop) => (
                 <Grid item xs={6} sm={4} md={4} lg={3} key={shop.id}>
                   <ShopCard shop={shop} />
                 </Grid>
@@ -105,7 +185,6 @@ const Main = () => {
           </div>
         </ShopsContainer>
       </MainContainer>
-
       <EarnContainer>
         <div className="sub-container">
           <div className="text-container">
@@ -133,7 +212,7 @@ const Main = () => {
             rowSpacing={{ xs: 2, sm: 5, md: 5 }}
             spacing={{ xs: 2, sm: 4, md: 4 }}
           >
-            {data.map((shop) => (
+            {shopData.map((shop) => (
               <Grid item xs={6} sm={4} md={4} lg={3} key={shop.id}>
                 <ShopCard shop={shop} />
               </Grid>
@@ -148,8 +227,40 @@ const Main = () => {
       <RecommendationsContainer>
         <div className="title-container">
           <Title color="#2F313F">Recommendations</Title>
+          <p className="link-text">View all</p>
+        </div>
+        <div className="slider-container">
+          <div className="icons" onClick={slideLeft}>
+            <BiSolidLeftArrow className="icon" />
+          </div>
+          {isMobile ? (
+            <div className="slider">
+              {data.slice(0, 4).map((shop) => (
+                <MiniShopCard shop={shop} key={shop.id} />
+              ))}
+            </div>
+          ) : (
+            <div className="slider" ref={sliderRef}>
+              {data.map((shop) => (
+                <MiniShopCard shop={shop} key={shop.id} />
+              ))}
+            </div>
+          )}
+
+          <div className="icons" onClick={slideRight}>
+            <BiSolidRightArrow className="icon" />
+          </div>
         </div>
       </RecommendationsContainer>
+      <Modal isOpen={showModal} closeFunc={setShowModal} title="Categories">
+        <Grid container rowSpacing={{ xs: 3, sm: 3, md: 4 }} spacing={2}>
+          {categories.map((category) => (
+            <Grid item xs={3} sm={3} md={3} lg={3} key={category.id}>
+              <CategoryCard src={category.image} name={category.name} />
+            </Grid>
+          ))}
+        </Grid>
+      </Modal>
     </>
   );
 };

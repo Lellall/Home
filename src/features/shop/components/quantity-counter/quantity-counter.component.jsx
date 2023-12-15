@@ -1,4 +1,4 @@
-import { useCounter } from "./use-quantity-counter";
+/* eslint-disable react/prop-types */
 import {
   MainContainer,
   Quantity,
@@ -6,8 +6,7 @@ import {
   Controls,
   CountValue,
 } from "./quantity-counter.styles";
-const QuantityCounter = () => {
-  const { value, increment, decrement } = useCounter(1);
+const QuantityCounter = ({ value, increment, decrement }) => {
   return (
     <MainContainer>
       <Quantity>Qty:</Quantity>

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { Link } from 'react-router-dom';
 import {
   ShopDetails,
   Shop,
@@ -39,6 +40,7 @@ export const MiniShopCard = ({ shop }) => {
 };
 const ShopCard = ({ shop }) => {
   return (
+    <Link to={`/shop/${shop.id}`}>
     <ShopDetails>
       <Shop>
         <ShopImage BG="/assets/Image.png" isOpen={shop?.active}>
@@ -64,6 +66,7 @@ const ShopCard = ({ shop }) => {
         </div>
       </Shop>
     </ShopDetails>
+    </Link>
   );
 };
 
