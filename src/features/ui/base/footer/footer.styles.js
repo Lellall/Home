@@ -13,6 +13,7 @@ export const NewsLetter = styled(Container)`
   width: 100% !important;
   object-fit: contain !important;
   max-width: 1440px !important;
+  min-width: 100% !important;
 
   .news-letter {
     display: flex !important;
@@ -245,6 +246,8 @@ export const Wrapper = styled(Container)`
   flex-shrink: 0 !important;
   background: #0e5d37 !important;
   box-sizing: border-box;
+  min-width: 100% !important;
+
 
   @media (max-width: ${ViewportWidth.md}px) {
     gap: 5px !important;

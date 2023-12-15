@@ -43,6 +43,10 @@ export const ShopsContainer = styled.div`
   gap: 30px !important;
   align-self: stretch !important;
 
+  p {
+    margin: 0;
+  }
+
   .title-container {
     display: flex;
     padding: 0px 80px;
@@ -87,7 +91,7 @@ export const ShopsContainer = styled.div`
 
       .title {
         font-size: 22px;
-        line-height: 28px; 
+        line-height: 28px;
         text-transform: capitalize;
       }
       .link {
@@ -199,6 +203,7 @@ export const EarnContainer = styled(Container)`
   width: 100% !important;
   object-fit: contain !important;
   max-width: 1440px !important;
+  min-width: 100% !important;
 
   .sub-container {
     display: flex !important;
@@ -386,6 +391,7 @@ export const PopularShops = styled.div`
       font-weight: 400;
       line-height: 42.667px;
       cursor: pointer;
+      margin: 0;
     }
   }
 
@@ -457,5 +463,116 @@ export const RecommendationsContainer = styled.div`
     padding: 10px 80px;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .link-text {
+    display: none;
+  }
+  .slider-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 13px;
+    gap: 10px;
+
+    .icons {
+      border-radius: 5.918px;
+      background: #eee;
+      display: flex;
+      height: 91.728px;
+      justify-content: center;
+      align-items: center;
+      gap: 7.397px;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+
+    .icon {
+      color: #2f313f !important;
+      font-size: 24px;
+    }
+
+    .slider {
+      display: flex;
+      align-items: flex-start;
+      gap: 17.198px;
+      overflow-x: scroll;
+    }
+
+    .slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    /* Hiding scrollbar for IE, Edge and Firefox */
+    .slider {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    padding: 0px 30px 20px 30px;
+    gap: 20px;
+    align-self: stretch;
+
+    .title-container {
+      padding: 6.826px 0px;
+      align-self: stretch;
+    }
+
+    .slider-container {
+      padding: 0px;
+
+      .icons {
+        height: 62.617px;
+        justify-content: center;
+        align-items: center;
+        gap: 5.05px;
+        border-radius: 4.04px;
+        padding: 0 8px;
+      }
+
+      .slider {
+        gap: 11.74px;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    padding: 0px 15px 60px;
+    gap: 15px;
+
+    .title-container {
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: row;
+    }
+
+    .link-text {
+      color: #f06d06;
+      font-feature-settings: "clig" off, "liga" off;
+      font-family: Open Sans;
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 24px;
+      display: block;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .slider-container {
+      .icons {
+        display: none;
+      }
+
+      .slider {
+        align-items: flex-start;
+        gap: 15px;
+        overflow-x: hidden;
+        flex-wrap: wrap;
+        margin: 0 auto;
+      }
+    }
   }
 `;

@@ -54,6 +54,7 @@ export const Product = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 15px;
+  width: 100%;
 
   .details {
     display: flex;
@@ -61,11 +62,13 @@ export const Product = styled.div`
     align-items: flex-start;
     gap: 12px;
     align-self: stretch;
+    width: 100%;
 
     .container {
       display: flex;
       flex-direction: column;
       gap: 15px;
+      width: 100%;
     }
 
     .name-category {
