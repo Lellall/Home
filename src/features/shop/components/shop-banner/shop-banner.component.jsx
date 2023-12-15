@@ -6,7 +6,7 @@ const ShopBanner = ({ shop }) => {
     <>
       <ShopBannerBg shopBG="/assets/store-logo.jpg" isOpen={true}>
         <div className="shop-logo-mobile">
-          <img src="/assets/Logo.png" alt={shop?.name} />
+          <img src={shop?.logoUrl} alt={shop?.name} />
           <p>{shop?.name}</p>
         </div>
         <div className="shop-status">
@@ -14,7 +14,7 @@ const ShopBanner = ({ shop }) => {
         </div>
         <div className="shop-details">
           <div className="shop-logo">
-            <img src="/assets/Logo.png" alt={shop?.name} />
+            <img src={shop?.logoUrl} alt={shop?.name} />
             <p>{shop?.name}</p>
           </div>
           <div className="shop-info">

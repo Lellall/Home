@@ -10,7 +10,7 @@ export const ShopDetails = styled(Grid)`
   box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08) !important;
 
   @media (max-width: ${ViewportWidth.md}px) {
-    padding: 20.055px 12.535px ;
+    padding: 20.055px 12.535px;
     gap: 12.535px;
     border-radius: 5.641px;
     border: 1.253px solid #f0f0f0;
@@ -95,7 +95,6 @@ export const Shop = styled.div`
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
-
     .details {
       gap: 5px;
 
@@ -111,6 +110,116 @@ export const Shop = styled.div`
 
       .icon {
         font-size: 11.302px;
+      }
+    }
+  }
+`;
+
+export const MiniShopImage = styled.div`
+  height: 171.985px;
+  width: 100% !important;
+  background: url(${(props) => props.BG});
+  background-repeat: no-repeat;
+  position: relative;
+  border-radius: 5px;
+  object-fit: contain;
+
+  .status {
+    display: flex;
+    padding: 5.733px 11.466px;
+    align-items: flex-start;
+    gap: 11.466px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 0px 4.586px 4.586px 4.586px;
+    background: #f3f3f8;
+
+    p {
+      color: ${(props) => (props.isOpen ? "#00A661" : "#E41749")};
+      text-align: right;
+      font-feature-settings: "clig" off, "liga" off;
+      font-family: Raleway;
+      font-size: 11.466px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 14.905px;
+    }
+  }
+
+  .fav {
+    position: absolute;
+    right: 24px;
+    bottom: 18px;
+    border-radius: 114.656px;
+    background: #fff;
+    display: flex;
+    width: 45.863px;
+    height: 45.863px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8.736px;
+    box-sizing: border-box;
+    padding: 8.736px;
+
+    img {
+      width: 17.471px;
+      height: 15.724px;
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    height: 150px;
+    border-radius: 3.131px;
+
+    .status {
+      padding: 3.913px 7.827px;
+      gap: 7.827px;
+      border-radius: 0px 3.131px 3.131px 3.131px;
+    }
+
+    .fav {
+      width: 31.308px;
+      height: 31.308px;
+      padding: 5.963px;
+      gap: 5.963px;
+      border-radius: 78.269px;
+      right: 8px;
+
+      img {
+        width: 11.927px;
+        height: 10.734px;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    height: 150px;
+    border-radius: 4px;
+
+    .status {
+      padding: 5px 10px;
+      gap: 10px;
+      border-radius: 0px 4px 4px 4px;
+
+      p {
+        font-size: 10px;
+        line-height: 13px;
+      }
+    }
+
+    .fav {
+      width: 40px;
+      height: 40px;
+      padding: 7.619px;
+      gap: 7.619px;
+      right: 14px;
+
+      img {
+        width: 15.238px;
+        height: 13.714px;
+        flex-shrink: 0;
       }
     }
   }
@@ -229,6 +338,131 @@ export const ShopImage = styled.div`
         width: 15.238px;
         height: 13.714px;
         flex-shrink: 0;
+      }
+    }
+  }
+`;
+
+export const MainContainer = styled.div`
+  display: flex;
+  padding: 18.345px 11.466px;
+  align-items: flex-start;
+  gap: 11.466px;
+  border-radius: 9.173px;
+  border: 1.147px solid #f0f0f0;
+  background: #fff;
+  box-shadow: 5.733px 8.026px 22.931px 0px rgba(32, 56, 85, 0.08);
+  min-width: 171.985px;
+  box-sizing: border-box;
+
+  p {
+    margin: 0;
+  }
+
+  .shop {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 13.759px;
+    width: 100%;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5.733px;
+    width: 100%;
+
+    .name {
+      color: #2f313f;
+      font-feature-settings: "clig" off, "liga" off;
+      font-family: Raleway;
+      font-size: 12.612px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 14.905px;
+    }
+
+    .rating {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      align-self: stretch;
+    }
+
+    .star-icon {
+      color: #ffb400 !important;
+      font-size: 12.958px;
+    }
+    .category {
+      color: rgba(18, 29, 43, 0.6);
+      font-feature-settings: "clig" off, "liga" off;
+      font-family: Open Sans;
+      font-size: 9.173px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 14.905px;
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    padding: 12.523px 7.827px;
+    gap: 7.827px;
+    border-radius: 6.262px;
+    border: 0.783px solid #f0f0f0;
+    box-shadow: 3.913px 5.479px 15.654px 0px rgba(32, 56, 85, 0.08);
+    min-width: 150px;
+
+    .shop {
+      gap: 9.392px;
+    }
+
+    .details {
+      gap: 3.913px;
+      .name {
+        font-size: 10px;
+        line-height: 10.175px;
+      }
+
+      .star-icon {
+        font-size: 9px;
+      }
+
+      .category {
+        font-size: 6.262px;
+        line-height: 10.175px;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    padding: 16px 10px;
+    gap: 10px;
+    border-radius: 8px;
+    border: 1px solid #f0f0f0;
+    box-shadow: 5px 7px 20px 0px rgba(32, 56, 85, 0.08);
+    width: 47%;
+
+    .shop {
+      gap: 12px;
+    }
+
+    .details {
+      gap: 5px;
+
+      .name {
+        font-size: 11px;
+        line-height: 13px;
+      }
+
+      .category {
+        font-size: 8px;
+        line-height: 13px;
+      }
+      .star-icon {
+        width: 11.302px;
+        height: 10.801px;
       }
     }
   }

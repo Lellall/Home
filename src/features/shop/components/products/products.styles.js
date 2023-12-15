@@ -119,6 +119,8 @@ export const Category = styled.div`
 
 export const StyledProducts = styled.div`
   padding: 0px 5rem;
+  width: 100%;
+  box-sizing: border-box;
 
   @media (max-width: ${ViewportWidth.md}px) {
     padding: 0px 2.5rem;

@@ -43,7 +43,6 @@ export const MainContainer = styled(Container)`
   @media (max-width: ${ViewportWidth.md}px) {
     padding: 20px 40px !important;
   }
-
 `;
 
 export const MobileNav = styled(Container)`
@@ -188,7 +187,6 @@ export const StyledSelect = styled.select`
   font-size: 16px;
   font-style: normal;
   line-height: 22px;
-
 `;
 
 export const SubText = styled(Typography)`
@@ -255,5 +253,29 @@ export const Profile = styled.div`
       font-weight: 400;
       line-height: normal;
     }
+  }
+`;
+
+export const QuantityContainer = styled.div`
+  display: flex;
+  width: 13px;
+  height: 13px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  background: #0e5d37;
+  border-radius: 23px;
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  p {
+    color: #fff;
+    font-feature-settings: "clig" off, "liga" off;
+    font-family: Raleway;
+    font-size: 7px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px;
   }
 `;
