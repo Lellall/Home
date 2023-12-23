@@ -2,13 +2,15 @@ import styled from "styled-components";
 import Grid from "@mui/material/Grid";
 import { ViewportWidth } from "../../../../utils/enums";
 
-export const ShopDetails = styled(Grid)`
-  padding: 28px 18px !important;
+export const ShopDetails = styled.div`
+  padding:20px  0px !important;
   border-radius: 8px !important;
-  border: 1.763px solid #f0f0f0 !important;
+  width: ${(props) => props.width ? props.width : '250px'};
+  margin: 0 5px;
+  /* border: 1.763px solid #f0f0f0 !important; */
   background: #fff !important;
   box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08) !important;
-
+  text-decoration: none;
   @media (max-width: ${ViewportWidth.md}px) {
     padding: 20.055px 12.535px;
     gap: 12.535px;
@@ -26,8 +28,8 @@ export const ShopDetails = styled(Grid)`
 export const Shop = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  gap: 21.152px;
+  align-items: center;
+  gap: 15.152px;
 
   p {
     margin: 0;
@@ -37,21 +39,23 @@ export const Shop = styled.div`
     display: flex;
     width: 100%;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     gap: 8.813px;
+    text-decoration: none;
 
     .name {
       color: #2f313f;
       font-feature-settings: "clig" off, "liga" off;
-      font-family: Open Sans;
-      font-size: 20px;
+      /* font-family: Open Sans; */
+      font-size: 16px;
       font-style: normal;
       font-weight: 600;
       line-height: 22.915px;
+      text-align: center;
     }
 
     .rating {
-      display: flex;
+      display: none;
       justify-content: space-between;
       align-items: center;
       align-self: stretch;
@@ -226,10 +230,11 @@ export const MiniShopImage = styled.div`
 `;
 
 export const ShopImage = styled.div`
-  width: 100%;
-  height: 265px;
+  width: 80%;
+  height: 185px;
   background: url(${(props) => props.BG});
   background-repeat: no-repeat;
+  background-position: center;
   position: relative;
   border-radius: 8px;
   object-fit: contain;
@@ -244,32 +249,32 @@ export const ShopImage = styled.div`
     top: 0;
     border-radius: 0px 7.051px 7.051px 7.051px;
     background: #f3f3f8;
-
+    font-size: 8px;
     p {
       color: ${(props) => (props.isOpen ? "#00A661" : "#E41749")};
       text-align: right;
       font-feature-settings: "clig" off, "liga" off;
       font-family: Raleway;
-      font-size: 18px;
+      font-size: 11px;
       font-style: normal;
       font-weight: 600;
-      line-height: 22.915px;
+      line-height: 5.915px;
     }
   }
 
   .fav {
     position: absolute;
-    right: 24px;
+    right: 14px;
     bottom: 18px;
     border-radius: 176.269px;
     background: #fff;
     display: flex;
-    width: 70.508px;
-    height: 70.508px;
+    width: 40.508px;
+    height: 40.508px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 13px;
+    /* gap: 13px; */
     box-sizing: border-box;
 
     img {

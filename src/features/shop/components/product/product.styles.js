@@ -5,7 +5,7 @@ import { ViewportWidth } from "../../../../utils/enums";
 
 export const MainContainer = styled(Grid)`
   border-radius: 8px !important;
-  border: 1.763px solid #f0f0f0 !important;
+  /* border: 1.763px solid #f0f0f0 !important; */
   background: #fff !important;
   box-shadow: 0px 12.339px 35.254px 0px rgba(32, 56, 85, 0.08) !important;
   
@@ -203,10 +203,11 @@ export const Product = styled.div`
 `;
 
 export const ProductImage = styled.div`
-  height: 264.403px;
+  height: 180px;
   width: 100%;
   border-radius: 7.051px;
   background: url(${(props) => props.BG});
+  background-position: center;
   background-repeat: no-repeat;
   position: relative;
   object-fit: contain;

@@ -1,5 +1,9 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import { Products, ShopCard } from './features/shop/components';
+import { useParams } from 'react-router-dom';
+import SingleProduct from './features/shop/components/product/product.component';
 
 const CenteredContainer = styled.div`
     display: flex;
@@ -62,14 +66,25 @@ const Header = styled.header`
   }
 `;
 
-const App = () => {
+const ShopsLanding = () => {
+  // const [shopData, setShopData] = useState([])
+  // const { shopId } = useParams();
+  // useEffect(() => {
+  //   axios
+  //     .get(`http://146.190.153.125/shops`)
+  //     .then((res) => setShopData([...res?.data?.data]));
+  // }, []);
+  // console.log(shopData,'shopData');
   return (
     <CenteredContainer>
-      <Card>
-        
-      </Card>
+      {/* {shopData?.map((shop) =>  <ShopCard product={shop} />)} */}
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
+      <Card></Card>
     </CenteredContainer>
   );
 };
 
-export default App;
+export default ShopsLanding;

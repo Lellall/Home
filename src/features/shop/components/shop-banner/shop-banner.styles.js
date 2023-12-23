@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { ViewportWidth } from "../../../../utils/enums";
 
 export const ShopBannerBg = styled.div`
-  background: url(${(props) => props.shopBG});
+  background: purple;
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: lightgray;
+  background-color: orange;
   position: relative;
   height: 480px;
   width: 100%;
@@ -17,7 +17,7 @@ export const ShopBannerBg = styled.div`
 
   .shop-status {
     width: 92px;
-    padding: 10px 20px;
+    padding: 10px;
     border-radius: 8px;
     position: absolute;
     box-sizing: border-box;
@@ -30,7 +30,7 @@ export const ShopBannerBg = styled.div`
       text-align: center;
       font-feature-settings: "clig" off, "liga" off;
       font-family: Raleway;
-      font-size: 20px;
+      font-size: 11px;
       font-style: normal;
       font-weight: 600;
       line-height: 23px;
@@ -225,7 +225,7 @@ export const SubBanner = styled.div`
   background-size: cover;
   background-color: lightgray;
   position: relative;
-  height: 8.4375rem;
+  height: 3rem;
   width: 100%;
   object-fit: contain;
 

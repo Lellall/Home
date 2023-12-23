@@ -8,6 +8,7 @@ import Landing from "../App";
 import { Shop, Shops } from "../features/shop";
 import reducer from "../reducer/reducer";
 import cartContext from "../AppContext";
+import SplitLogin from "../features/auth/signin/signin";
 
 const theme = createTheme({
   typography: {
@@ -29,6 +30,7 @@ export function AppRouter() {
               <Route index element={<Shops />} />
               <Route path=":shopId" element={<Shop />} />
             </Route>
+            <Route path="/login" element={<SplitLogin />} />
           </Routes>
         </BrowserRouter>
       </cartContext.Provider>

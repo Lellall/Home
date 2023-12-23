@@ -6,10 +6,10 @@ export const MainContainer = styled(Container)`
   display: flex !important;
   width: 100% !important;
   max-width: 1440px !important;
-  padding: 40px 0px !important;
+  padding: 30px 0px !important;
   flex-direction: column !important;
   align-items: flex-start !important;
-  gap: 40px !important;
+  gap: 20px !important;
 
   .category-container {
     display: flex !important;
@@ -40,7 +40,7 @@ export const ShopsContainer = styled.div`
   display: flex !important;
   flex-direction: column !important;
   align-items: flex-start !important;
-  gap: 30px !important;
+  gap: 20px !important;
   align-self: stretch !important;
 
   p {
@@ -77,7 +77,7 @@ export const ShopsContainer = styled.div`
 
   .shops-container {
     display: flex;
-    padding: 0px 80px 40px 80px;
+    padding: 0px 60px 40px 60px;
     justify-content: space-between;
     align-items: flex-start;
     align-self: stretch;

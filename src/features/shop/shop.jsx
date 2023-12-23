@@ -9,10 +9,9 @@ const Main = () => {
   const [shopData, setShopData] = useState([])
   useEffect(() => {
     axios
-      .get(`http://api.dev.lellall.com/shops/${shopId}`)
+      .get(`http://146.190.153.125/shops/${shopId}`)
       .then((res) => setShopData(res.data));
   }, []);
-
   return (
     <>
       <ShopBanner shop={shopData} />
