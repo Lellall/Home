@@ -8,6 +8,7 @@ export const ShopDetails = styled(Grid)`
   border: 1.763px solid #f0f0f0 !important;
   background: #fff !important;
   box-shadow: 8.81344px 12.33882px 35.25377px 0px rgba(32, 56, 85, 0.08) !important;
+  cursor: pointer !important;
 
   @media (max-width: ${ViewportWidth.md}px) {
     padding: 20.055px 12.535px;

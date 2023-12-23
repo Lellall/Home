@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
-import { Link } from 'react-router-dom';
+import { useNavigate  } from 'react-router-dom';
+import { FaStar, FaRegStar } from "react-icons/fa6";
 import {
   ShopDetails,
   Shop,
@@ -7,7 +8,6 @@ import {
   MainContainer,
   MiniShopImage,
 } from "./shop-card.styles";
-import { FaStar, FaRegStar } from "react-icons/fa6";
 
 export const MiniShopCard = ({ shop }) => {
   return (
@@ -39,9 +39,9 @@ export const MiniShopCard = ({ shop }) => {
   );
 };
 const ShopCard = ({ shop }) => {
+  const navigate = useNavigate();
   return (
-    <Link to={`/shop/${shop.id}`}>
-    <ShopDetails>
+    <ShopDetails onClick={() => navigate(`/shop/${shop.id}`)}>
       <Shop>
         <ShopImage BG="/assets/Image.png" isOpen={shop?.active}>
           <div className="status">
@@ -61,12 +61,11 @@ const ShopCard = ({ shop }) => {
               <FaStar className="icon" />
               <FaRegStar className="icon" />
             </div>
-            <p className="category">{shop?.category}</p>
+            <p className="category">{shop?.category?.name}</p>
           </div>
         </div>
       </Shop>
     </ShopDetails>
-    </Link>
   );
 };
 

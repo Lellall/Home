@@ -6,7 +6,7 @@ const AppLayout = () => {
     <>
       <Navbar />
       <Outlet />
-      <Footer />
+      <Footer show={true}/>
     </>
   );
 };
