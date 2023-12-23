@@ -17,7 +17,8 @@ import { useResponsiveValue } from "../lib/use-responsive-value";
 
 const MainContainer = styled(Container)`
   display: flex !important;
-  padding: 40px 60px 200px !important;
+  align-items: flex-start !important;
+  padding: 40px 65px 200px !important;
   gap: 30px !important;
   background: url("/assets/background.svg") !important;
   background-repeat: no-repeat !important;
@@ -46,6 +47,7 @@ const NavContainer = styled(Box)`
   background: #fcfcfc !important;
   box-shadow: 0px 10px 20px 0px rgba(32, 56, 85, 0.15) !important;
   box-sizing: border-box !important;
+  width: 22% !important;
 
   p {
     margin: 0;
@@ -69,7 +71,8 @@ const NavContainer = styled(Box)`
 
     button {
       display: flex;
-      padding: 8px 75px;
+      padding: 8px 0px;
+      width: 100% !important;
       justify-content: center;
       align-items: center;
       gap: 10px;
@@ -87,12 +90,14 @@ const NavContainer = styled(Box)`
   }
 
   @media (max-width: ${ViewportWidth.md}px) {
+    width: 25% !important;
+
     .deactivate {
       padding: 10.734px 11.449px;
       gap: 7.156px;
 
       button {
-        padding: 5.725px 53.669px;
+        padding: 6px 0px;
         gap: 7.156px;
         border-radius: 21.468px;
         font-size: 10px;
