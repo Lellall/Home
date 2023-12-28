@@ -13,7 +13,7 @@ import {
 import { ProductCard, ShopCard } from "../../shop";
 import { Pagination } from "../../ui";
 
-let PageSize = 8;
+let PageSize = 9;
 
 const Main = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -234,9 +234,9 @@ const Main = () => {
               </TabContainer>
               {currentTab === 1 ? (
                 <Content>
-                  <Grid container spacing={1}>
+                  <Grid container spacing={2}>
                     {currentProductsData?.map((product) => (
-                      <Grid item xs={12} sm={4} md={4} lg={3} key={product.id}>
+                      <Grid item xs={12} sm={6} md={6} lg={4} key={product.id}>
                         <ProductCard product={product} />
                       </Grid>
                     ))}
@@ -251,9 +251,9 @@ const Main = () => {
                 </Content>
               ) : (
                 <Content>
-                  <Grid container spacing={1}>
+                  <Grid container spacing={2}>
                     {currentShopsData?.map((shop) => (
-                      <Grid item xs={12} sm={4} md={4} lg={3} key={shop.id}>
+                      <Grid item xs={6} sm={6} md={6} lg={4} key={shop.id}>
                         <ShopCard shop={shop} />
                       </Grid>
                     ))}

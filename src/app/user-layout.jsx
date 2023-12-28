@@ -18,13 +18,14 @@ import { useResponsiveValue } from "../lib/use-responsive-value";
 const MainContainer = styled(Container)`
   display: flex !important;
   align-items: flex-start !important;
-  padding: 40px 65px 200px !important;
+  padding: 40px 60px 200px !important;
   gap: 30px !important;
   background: url("/assets/background.svg") !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-color: lightgray !important;
   min-width: 100% !important;
+  box-sizing: border-box !important;
   max-width: 1431px !important;
 
   @media (max-width: ${ViewportWidth.md}px) {

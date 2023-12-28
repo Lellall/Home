@@ -11,6 +11,15 @@ export const MainContainer = styled(Box)`
   gap: 20px !important;
   flex: 1 0 0 !important;
   align-self: stretch !important;
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    padding: 20.898px 0px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    padding: 0px 0px 21px !important;
+    gap: 0px !important;
+  }
 `;
 
 export const HeadingText = styled(Typography)`
@@ -97,7 +106,10 @@ export const ContentContainer = styled(Box)`
   align-items: center;
   gap: 28.289px;
   width: 100% !important;
-  /* background-color: green !important; */
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    gap: 20.898px !important;
+  }
 `;
 
 export const Content = styled.div`
@@ -105,9 +117,11 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 28.289px;
-  /* width: 100% !important; */
   width: 100%;
   box-sizing: border-box;
-  /* background: red !important; */
   padding: 0 20px !important;
-`
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    gap: 20.898px !important;
+  }
+`;
