@@ -47,7 +47,7 @@ export const EmptyState = styled(Box)`
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  /* padding-top: 60px; */
+  padding-top: 50px !important;
 
   .icon {
     display: flex;
@@ -71,7 +71,40 @@ export const EmptyState = styled(Box)`
       line-height: 38px !important;
     }
   }
-`;
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    .icon {
+      img {
+        width: 180px !important;
+        height: 150px !important;
+      }
+
+      p {
+        font-size: 18px !important;
+        line-height: 28px !important;
+      }
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+
+    .icon {
+      
+      img {
+        width: 150px !important;
+        height: 120px !important;
+      }
+
+      p {
+        font-size: 14px !important;
+        line-height: 22px !important;
+      }
+    }
+  }
+  
+  
+  `;
+
 
 export const TabContainer = styled(Box)`
   display: flex;
@@ -98,6 +131,12 @@ export const StyledButton = styled(Button)`
   border-radius: 0 !important;
   border-bottom: ${(props) =>
     props.active ? "1.886px solid #F06D06" : ""} !important;
+
+
+@media (max-width: ${ViewportWidth.sm}px) {
+  font-size: 14px !important;
+  line-height: 22px !important;
+  }
 `;
 
 export const ContentContainer = styled(Box)`

@@ -34,7 +34,7 @@ export const ModalBody = styled(Box)`
   left: 50% !important;
   transform: translate(-50%, -50%) !important;
   width: 34% !important;
-  padding: 53.933px 26.966px !important;
+  padding: ${(props) => props.pad ? props.pad : "53.933px 26.966px"} !important;
   flex-direction: column !important;
   align-items: flex-start !important;
   gap: 20.225px !important;

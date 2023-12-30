@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import {
   ProfileCircle,
@@ -8,9 +9,9 @@ import {
   Clock,
 } from "iconsax-react";
 import styled from "styled-components";
-import { Box, Container } from "@mui/material";
+import { Box, Container, Typography } from "@mui/material";
 
-import { Footer, Navbar } from "../features/ui";
+import { Footer, Navbar, Modal } from "../features/ui";
 import { appPaths } from "./app-paths";
 import { ViewportWidth } from "../utils/enums";
 import { useResponsiveValue } from "../lib/use-responsive-value";
@@ -87,6 +88,7 @@ const NavContainer = styled(Box)`
       letter-spacing: 0.3px;
       background: #fff;
       font-family: Open Sans;
+      cursor: pointer;
     }
   }
 
@@ -173,7 +175,7 @@ const ContentContainer = styled(Box)`
   border-radius: 8px !important;
   background: #fcfcfc !important;
   box-shadow: 0px 10px 20px 0px rgba(32, 56, 85, 0.15) !important;
-  
+
   p {
     margin: 0;
   }
@@ -209,6 +211,113 @@ const MobileNav = styled(NavLink)`
 MobileNav.defaultProps = {
   className: ({ isActive }) => (isActive ? "active" : ""),
 };
+
+const ModalHeading = styled(Typography)`
+  color: #2f313f !important;
+  text-align: center !important;
+  font-feature-settings: "clig" off, "liga" off !important;
+  font-family: Raleway !important;
+  font-size: 34px !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  line-height: 46px !important;
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    font-size: 24px !important;
+    line-height: 36px !important;
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    font-size: 20px !important;
+    line-height: 22px !important;
+  }
+`;
+
+const ModalContent = styled(Box)`
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  flex-shrink: 0 !important;
+
+  p {
+    margin: 0 !important;
+  }
+
+  .sub-text {
+    color: #2f313f !important;
+    text-align: center !important;
+    font-feature-settings: "clig" off, "liga" off !important;
+    font-family: Open Sans !important;
+    font-size: 22px !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    line-height: 38px !important;
+  }
+
+  .buttons {
+    display: flex !important;
+    padding: 0px 15px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 15px !important;
+    width: 60% !important;
+    margin: 0 auto !important;
+
+    button {
+      display: flex;
+      padding: 12px 0px;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-feature-settings: "clig" off, "liga" off;
+      font-family: Open Sans;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 24px;
+      border-radius: 30px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .danger {
+      background: #e41749;
+      color: #fff;
+    }
+
+    .cancel {
+      background: #f3f3f8;
+      color: #0e5d37;
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.md}px) {
+    .sub-text {
+      font-size: 20px !important;
+      line-height: 22px !important;
+    }
+
+    .buttons {
+      width: 68% !important;
+      gap: 5px;
+    }
+  }
+
+  @media (max-width: ${ViewportWidth.sm}px) {
+    .sub-text {
+      font-size: 16px !important;
+      line-height: 18px !important;
+    }
+
+    .buttons {
+      width: 80% !important;
+      gap: 5px;
+    }
+  }
+`;
 
 const UserLayout = () => {
   const navItems = [
@@ -254,6 +363,8 @@ const UserLayout = () => {
     sm: true,
     md: false,
   });
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <>
       <Navbar />
@@ -269,12 +380,14 @@ const UserLayout = () => {
             ))}
           </div>
           <div className="deactivate">
-            <button>Deactivate Account</button>
+            <button onClick={() => setShowModal(true)}>
+              Deactivate Account
+            </button>
           </div>
         </NavContainer>
         <ContentContainer>
           {isMobile && (
-            <div className='mobile-nav'>
+            <div className="mobile-nav">
               {navItems.map((item) => (
                 <MobileNav key={item.id} to={item.url} end>
                   <p>{item.text}</p>
@@ -286,6 +399,21 @@ const UserLayout = () => {
         </ContentContainer>
       </MainContainer>
       <Footer show={false} />
+      <Modal isOpen={showModal} withCloseButton={false} pad={"20px 10px"}>
+        <ModalContent>
+          <ModalHeading>Are you sure?</ModalHeading>
+          <p className="sub-text">
+            Your account will be deactivated, and all your information will be
+            cleared.
+          </p>
+          <div className="buttons">
+            <button className="danger">Yes, Deactivate Account</button>
+            <button className="cancel" onClick={() => setShowModal(false)}>
+              Cancel
+            </button>
+          </div>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
