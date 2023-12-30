@@ -137,7 +137,7 @@ const Main = () => {
   const [shopData, setShopData] = useState([])
   useEffect(() => {
     axios
-      .get("http://146.190.153.125/shops")
+      .get("http://api.dev.lellall.com/shops")
       .then((res) => setShopData(res.data.data));
   }, []);
 
