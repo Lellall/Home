@@ -9,4 +9,11 @@ export const appPaths = {
     shop: "/shop",
     getShop: (id = ":id") => `/shop/${id}`,
 
+    // USER
+    profile: "/account",
+    myOrders: "my-orders",
+    notification: "notification",
+    favorites: "favorites",
+    discount: "discount",
+    recentlyViewed: "recently-viewed"
 };

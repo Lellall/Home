@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react';
-import {useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { Products, ShopBanner } from "./components";
 import axios from "axios";
 
 const Main = () => {
   const { shopId } = useParams();
 
-  const [shopData, setShopData] = useState([])
+  const [shopData, setShopData] = useState([]);
   useEffect(() => {
     axios
       .get(`http://146.190.153.125/shops/${shopId}`)
@@ -15,7 +15,7 @@ const Main = () => {
   return (
     <>
       <ShopBanner shop={shopData} />
-      <Products products={shopData?.products}/>
+      <Products products={shopData?.products} />
     </>
   );
 };

@@ -45,6 +45,7 @@ const SingleProduct = ({ product }) => {
     dispatch({ type: ACTION_TYPES.ADD, payload: cartItem });
     alert(`Success, you have added ${name} to your cart.`)
   };
+
   return (
     <MainContainer >
       <ProductContainer className={showQuanity ? "quantity-clicked" : ""}>

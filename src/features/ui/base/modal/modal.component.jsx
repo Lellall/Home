@@ -5,11 +5,11 @@ import { Box, Modal } from "@mui/material";
 import { ModalTitle, Header, ModalBody } from "./modal.styles";
 
 export default function Main(props) {
-  const { children, isOpen, closeFunc, title, withCloseButton = true } = props;
+  const { children, isOpen, closeFunc, title, withCloseButton = true, pad } = props;
 
   return (
     <Modal open={isOpen} onClose={closeFunc}>
-      <ModalBody>
+      <ModalBody pad={pad}>
         <Header>
           {title && <ModalTitle>{title}</ModalTitle>}
           {withCloseButton && (
