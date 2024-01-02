@@ -14,6 +14,7 @@ export const NewsLetter = styled(Container)`
   object-fit: contain !important;
   max-width: 1440px !important;
   min-width: 100% !important;
+  display: ${(props) => props.show ? "block" : "none"} !important;
 
   .news-letter {
     display: flex !important;

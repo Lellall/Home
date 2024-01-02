@@ -155,6 +155,8 @@ const Main = () => {
     md: false,
   });
 
+  console.log({shopData})
+
   return (
     <>
       <Banner />
