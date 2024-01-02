@@ -31,7 +31,7 @@ export const MiniShopCard = ({ shop }) => {
               <FaStar className="star-icon" />
               <FaRegStar className="star-icon" />
             </div>
-            <p className="category">{shop?.category}</p>
+            <p className="category">{shop?.category?.name || ''}</p>
           </div>
         </div>
       </div>
@@ -43,9 +43,9 @@ const ShopCard = ({ shop }) => {
   return (
     <ShopDetails onClick={() => navigate(`/shop/${shop.id}`)}>
       <Shop>
-        <ShopImage BG="/assets/Image.png" isOpen={shop?.active}>
+        <ShopImage BG={`${shop?.logoUrl}`} isOpen={shop?.active}>
           <div className="status">
-            <p>{shop?.active ? "Open" : "Closed"}</p>
+            <p>{shop?.status}</p>
           </div>
           <div className="fav">
             <img src="/assets/fav.svg" />
@@ -61,7 +61,7 @@ const ShopCard = ({ shop }) => {
               <FaStar className="icon" />
               <FaRegStar className="icon" />
             </div>
-            <p className="category">{shop?.category?.name}</p>
+            <p className="category">{shop?.category?.name || ''}</p>
           </div>
         </div>
       </Shop>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ViewportWidth } from "../../../../utils/enums";
 
 export const BannerBg = styled.div`
-  background: url("/assets/banner.png");
+  background: url("https://images.pexels.com/photos/2733918/pexels-photo-2733918.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: lightgray;

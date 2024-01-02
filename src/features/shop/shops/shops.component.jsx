@@ -137,8 +137,8 @@ const Main = () => {
   const [shopData, setShopData] = useState([])
   useEffect(() => {
     axios
-      .get("http://api.dev.lellall.com/shops")
-      .then((res) => setShopData(res.data.data));
+      .get("http://146.190.153.125/shops")
+      .then((res) => setShopData(res?.data?.data));
   }, []);
 
   const sliderRef = useRef();
@@ -178,7 +178,7 @@ const Main = () => {
               rowSpacing={{ xs: 2, sm: 3, md: 5 }}
               spacing={{ xs: 2, sm: 4, md: 4 }}
             >
-              {shopData.map((shop) => (
+              {shopData?.map((shop) => (
                 <Grid item xs={6} sm={4} md={4} lg={3} key={shop.id}>
                   <ShopCard shop={shop} />
                 </Grid>
@@ -197,7 +197,7 @@ const Main = () => {
             </SubText>
           </div>
           <ButtonContainer>
-            {customers.map((customer, i) => (
+            {customers?.map((customer, i) => (
               <EarnButton key={i}>{customer} </EarnButton>
             ))}
           </ButtonContainer>

@@ -21,7 +21,7 @@ import TabComponent, { ModTitleMain, TitleMain } from "./components/Tabs";
 import NewProducts from "./Surface";
 import MissionCards from "./cardSamp";
 import Stores from "./FavStores";
-import MultipleItems, { MultipleProducts } from "./StoreSlide";
+import { MultipleProducts,MultipleItems } from "./StoreSlide";
 
 export const Text = styled(Typography)`
   margin-top: 10px !important;
@@ -513,7 +513,7 @@ export default function Landing() {
         </OverlayContent>
       </Contained>
       <TabComponent />
-      <CenterBox>
+      <CenterBox style={{marginBottom:"100px"}}>
       <TitleMain> Top Rated Stores</TitleMain>
     </CenterBox>  
     <MultipleItems />

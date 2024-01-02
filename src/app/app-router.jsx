@@ -9,6 +9,7 @@ import Landing from "../App";
 import { Shop, Shops, Profile, UserNotifications, UserOrders, Favorites } from "../features";
 import reducer from "../reducer/reducer";
 import cartContext from "../AppContext";
+import SplitLogin from "../features/auth/signin/signin";
 
 const theme = createTheme({
   typography: {
@@ -36,6 +37,7 @@ export function AppRouter() {
               <Route path={appPaths.myOrders} element={<UserOrders />} />
               <Route path={appPaths.favorites} element={<Favorites />} />
             </Route>
+            <Route path="/login" element={<SplitLogin />} />
           </Routes>
         </BrowserRouter>
       </cartContext.Provider>
