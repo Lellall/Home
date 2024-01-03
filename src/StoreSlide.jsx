@@ -46,7 +46,7 @@ const MultipleItems = () => {
   const { shopId } = useParams();
   useEffect(() => {
     axios
-      .get(`http://146.190.153.125/shops`)
+      .get(`https://api.dev.lellall.com/shops`)
       .then((res) => setShopData([...res?.data?.data]));
   }, []);
 

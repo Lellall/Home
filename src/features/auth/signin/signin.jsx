@@ -2,28 +2,21 @@ import React, { useEffect, useState } from 'react';
 import {
   Grid,
   Paper,
-  Typography,
-  Input,
-  Button,
   Tabs,
   Tab,
-  IconButton,
-  InputAdornment,
   createTheme,
   ThemeProvider,
   Hidden,
 } from '@mui/material';
-import { Visibility, VisibilityOff, Email } from '@mui/icons-material';
 import * as Yup from 'yup';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 // import { yupResolver } from '@hookform/resolvers';
 import { yupResolver } from '@hookform/resolvers/yup';
 import styled from 'styled-components';
 import axios from 'axios';
 
-import { FaEnvelope, FaLock } from 'react-icons/fa';
 import InputWithIcon from '../../../components/inputs/input.component';
-import {Apple, Facebook, Google, MessageText,Unlock} from 'iconsax-react'
+import {Apple, MessageText,Unlock} from 'iconsax-react'
 import { RoundButton } from '../../../App';
 
 const ActionCover = styled.div`
