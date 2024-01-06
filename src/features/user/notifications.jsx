@@ -125,7 +125,7 @@ const HeadingText = styled(Typography)`
   text-align: center !important;
   font-feature-settings: "clig" off, "liga" off !important;
   font-family: Raleway !important;
-  font-size: 34px !important;
+  font-size: 30px !important;
   font-style: normal !important;
   font-weight: 700 !important;
   line-height: 46px !important;

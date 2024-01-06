@@ -1,23 +1,19 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, } from "react";
 import {
   Grid,
   Paper,
-  Tabs,
-  Tab,
   createTheme,
   ThemeProvider,
   Hidden,
 } from "@mui/material";
-import * as Yup from "yup";
-import { useForm } from "react-hook-form";
-// import { yupResolver } from '@hookform/resolvers';
-import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from "axios";
 
 import InputWithIcon from "../../../components/inputs/input.component";
-import {  MessageText, Unlock } from "iconsax-react";
+import { MessageText, Unlock } from "iconsax-react";
 import { RoundButton } from "../../../App";
+import Logo from "../logo";
 
 const ActionCover = styled.div`
   display: flex;
@@ -26,10 +22,9 @@ const ActionCover = styled.div`
 
   /* width: 450px;
 margin: 20px 32px;  */
-@media only screen and (max-width: 767px) {
-   flex-direction: column-reverse;
-   justify-content: center;
-
+  @media only screen and (max-width: 767px) {
+    flex-direction: column-reverse;
+    justify-content: center;
   }
 `;
 
@@ -50,25 +45,19 @@ const CircleButton = styled.button`
   }
   padding-top: 5%;
   @media only screen and (max-width: 767px) {
-  //  justify-content: center;
-  padding-top:1%  ;
-   }
+    //  justify-content: center;
+    padding-top: 1%;
+  }
 `;
 
 const ModButton = styled(RoundButton)`
   padding: 10px 40px !important;
-  margin-right: 5px;
+  // margin-right: 5px;
   @media only screen and (max-width: 767px) {
     width: 100% !important;
     margin-bottom: 20px !important;
-   }
+  }
 `;
-const ModButtonCircle = styled(RoundButton)`
-  padding: 31px 10px !important;
-  width: 10px !important; /* Set the width and height to create a perfect circle */
-  height: 10px !important;
-`;
-
 // Define the custom theme
 const theme = createTheme({
   palette: {
@@ -94,7 +83,6 @@ const styles = {
     // backgroundColor: theme.palette.primary.main,
     color: "#fff",
     boxShadow: "none",
-    border: "none",
   },
   contain: {
     height: "100dvh",
@@ -118,7 +106,7 @@ const styles = {
   form: {
     display: "flex",
     flexDirection: "column",
-    justifyContent:'center',
+    justifyContent: "center",
     width: "100%",
     // margin:"10px 20px",
     // maxWidth: "100%",
@@ -136,36 +124,17 @@ const styles = {
   },
 };
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  password: Yup.string().required("Password is required"),
-});
-
 const Login = () => {
-  const [activeTab, setActiveTab] = useState(0);
-  const [showPassword, setShowPassword] = useState(false);
 
-  const { control, handleSubmit } = useForm({
-    resolver: yupResolver(
-      Yup.object().shape({
-        email: Yup.string()
-          .email("Invalid email address")
-          .required("Email is required"),
-        password: Yup.string().required("Password is required"),
-      })
-    ),
-  });
-
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm();
+  console.log(errors);
   const onSubmit = (data) => {
+    // Handle form submission logic here using the form data
     console.log(data);
-  };
-
-  const handleTabChange = (event, newValue) => {
-    setActiveTab(newValue);
-  };
-
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
   };
 
   useEffect(() => {
@@ -197,29 +166,18 @@ const Login = () => {
         {/* Right Pane */}
         <Grid item xs={12} md={7}>
           <Paper elevation={3} style={styles.rightPane}>
-            <Tabs
-              value={activeTab}
-              onChange={handleTabChange}
-              indicatorColor="primary"
-              textColor="primary"
-              centered
-              style={styles.tab}
-            >
-              <Tab label="Sign In" />
-              <Tab label="Sign Up" />
-            </Tabs>
+            <Logo />
             <div style={{ marginTop: "20px", textAlign: "center" }}>
               <div
                 style={{
-                  color: "#AAAAAA",
-                  fontWeight: "bold",
-                  marginTop: "10px",
-                  marginLeft: "5px",
                   color: "#333",
-                  fontSize: "18px",
+                  marginLeft: "-10px",
+                  marginTop: "10px",
+                  fontSize:"18px",
+                  fontWeight:"bold"
                 }}
               >
-                {/* Sign In */}
+                Sign In
               </div>
               <div
                 style={{
@@ -228,59 +186,94 @@ const Login = () => {
                   marginTop: "15px",
                 }}
               >
-                Log back into your account with your credentials
+               Log in with your credentials
               </div>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Cover style={{  margin: "60px auto" }}>
-                <InputWithIcon
-                  formMethods={{}}
-                  icon={MessageText}
-                  label="Email"
-                  placeholder="Email"
-                  type="email"
+            <Cover style={{ margin: "60px auto" }}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <Controller
+                  name="email"
+                  control={control}
+                  rules={{
+                    required: "Email is required",
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+                      message: "Invalid email address",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <InputWithIcon
+                      icon={MessageText}
+                      label="Email"
+                      type="email"
+                      placeholder="Enter your email"
+                      {...field}
+                      hasError={errors.email ? true : false}
+                      errorMessage={errors.email && errors.email.message}
+                    />
+                  )}
                 />
-                <InputWithIcon
-                  formMethods={{}}
-                  icon={Unlock}
-                  label="Password"
-                  placeholder="Password"
-                  type="password"
+
+                <Controller
+                  name="password"
+                  control={control}
+                  rules={{
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters long",
+                    },
+                    pattern: {
+                      value: /^(?=.*[!@#$%^&*])/,
+                      message:
+                        "Password must contain at least one special character (!@#$%^&*)",
+                    },
+                  }}
+                  render={({ field }) => (
+                    <InputWithIcon
+                      icon={Unlock}
+                      label="Password"
+                      type="password"
+                      placeholder="Enter your password"
+                      {...field}
+                      hasError={errors.password ? true : false}
+                      errorMessage={errors.password && errors.password.message}
+                    />
+                  )}
                 />
                 <ActionCover
                   style={{
-                    marginBottom: "25px",
+                    margin: "25px 0",
                     cursor: "pointer",
                     fontSize: "14px",
                   }}
                 >
                   <div style={{ color: "#AAAAAA", marginLeft: "5px" }}></div>
-                  <div style={{ color: "red", marginLeft: "5px" }}>
+                  <div style={{ color: "#808080", marginRight: "5px" }}>
                     Forgot password?
                   </div>
                 </ActionCover>
                 <ActionCover>
-                  <div style={{ color: "#AAAAAA", display:"flex" }}>
-                   
-                    <Text> Other sign in options</Text>
+                  <div style={{ color: "#AAAAAA", display: "flex" }}>
+                    <Text style={{fontSize:"12px"}}> Other sign in options</Text>
                     <SocialCover>
                       <CircleButton>
                         <svg
-                         width="28"
-                         height="28"
+                          width="28"
+                          height="28"
                           viewBox="0 0 22 22"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
                         >
                           <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M17.5084 17.5637C18.0492 16.7387 18.2509 16.317 18.6634 15.3912C15.6201 14.2362 15.1342 9.90032 18.1409 8.24115C17.2242 7.08615 15.9317 6.41699 14.7126 6.41699C13.8326 6.41699 13.2276 6.64617 12.6867 6.857C12.2284 7.03117 11.8159 7.18699 11.3026 7.18699C10.7526 7.18699 10.2667 7.01284 9.75339 6.8295C9.19423 6.62784 8.60756 6.41699 7.87422 6.41699C6.50839 6.41699 5.05089 7.25116 4.12506 8.68116C2.82339 10.6978 3.05256 14.4745 5.15173 17.7012C5.9034 18.8562 6.91173 20.1487 8.22256 20.167C8.77256 20.1762 9.13006 20.0112 9.52423 19.837C9.97339 19.6353 10.4592 19.4153 11.3117 19.4153C12.1642 19.4062 12.6409 19.6353 13.0901 19.837C13.4751 20.0112 13.8234 20.1762 14.3642 20.167C15.6934 20.1487 16.7567 18.7187 17.5084 17.5637Z"
                             fill="black"
                           />
                           <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
+                            fillRule="evenodd"
+                            clipRule="evenodd"
                             d="M14.5199 1.83301C14.6666 2.84134 14.2541 3.84052 13.7132 4.53719C13.1357 5.28885 12.1274 5.8755 11.1557 5.83884C10.9816 4.86717 11.4307 3.868 11.9807 3.19883C12.5949 2.4655 13.6307 1.89717 14.5199 1.83301Z"
                             fill="black"
                           />
@@ -314,22 +307,22 @@ const Login = () => {
                       </CircleButton>
                     </SocialCover>
                   </div>
-               
-                    <div>
-                      <ModButton
-                        bgColor="#0E5D37"
-                        textColor="#fff"
-                        outlined
-                        variant="contained"
-                        
-                      >
-                        Sign In
-                      </ModButton>
-                    </div>
-                 
+
+                  <div>
+                    <ModButton
+                      bgColor="#0E5D37"
+                      textColor="#fff"
+                      outlined
+                      variant="contained"
+                      type="submit"
+                      onClick={onSubmit}
+                    >
+                      Sign In
+                    </ModButton>
+                  </div>
                 </ActionCover>
-              </Cover>
-            </form>
+              </form>
+            </Cover>
           </Paper>
         </Grid>
       </Grid>
@@ -340,24 +333,23 @@ const Login = () => {
 export default Login;
 
 const Cover = styled.div`
- 
-  width:450px;
+  width: 450px;
   @media only screen and (max-width: 767px) {
     width: 300px;
   }
 `;
 const SocialCover = styled.div`
-display: flex;
-@media only screen and (max-width: 767px) {
-    width:100%;
-    margin:0;
-   justify-content: center;
+  display: flex;
+  @media only screen and (max-width: 767px) {
+    width: 100%;
+    margin: 0;
+    justify-content: center;
   }
 `;
 
 const Text = styled.div`
   margin: 8px 10px;
   @media only screen and (max-width: 767px) {
-   display: none;
+    display: none;
   }
-`
+`;

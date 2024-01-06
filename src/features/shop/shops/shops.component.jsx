@@ -139,6 +139,9 @@ const Main = () => {
     axios
       .get("https://api.dev.lellall.com/shops")
       .then((res) => setShopData(res?.data?.data));
+    axios
+      .get("https://api.dev.lellall.com/products?page=0&size=10")
+      .then((res) => console.log(res));
   }, []);
 
   const sliderRef = useRef();
@@ -179,7 +182,7 @@ const Main = () => {
               spacing={{ xs: 2, sm: 4, md: 4 }}
             >
               {shopData?.map((shop) => (
-                <Grid item xs={6} sm={4} md={4} lg={3} key={shop.id}>
+                <Grid item xs={4} sm={4} md={4} lg={3} key={shop.id}>
                   <ShopCard shop={shop} />
                 </Grid>
               ))}

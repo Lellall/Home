@@ -10,6 +10,7 @@ import { Shop, Shops, Profile, UserNotifications, UserOrders, Favorites } from "
 import reducer from "../reducer/reducer";
 import cartContext from "../AppContext";
 import SplitLogin from "../features/auth/signin/signin";
+import SignUp from "../features/auth/signup/signup";
 
 const theme = createTheme({
   typography: {
@@ -38,6 +39,7 @@ export function AppRouter() {
               <Route path={appPaths.favorites} element={<Favorites />} />
             </Route>
             <Route path="/login" element={<SplitLogin />} />
+            <Route path="/register" element={<SignUp />} />
           </Routes>
         </BrowserRouter>
       </cartContext.Provider>
