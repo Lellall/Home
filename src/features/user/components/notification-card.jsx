@@ -43,11 +43,11 @@ const Message = styled(Typography)`
     props.active ? "#2F313F" : "rgba(18, 29, 43, 0.6)"} !important;
   font-feature-settings: "clig" off, "liga" off !important;
   font-family: Open Sans !important;
-  font-size: 20px !important;
+  font-size: 13px !important;
   font-style: normal !important;
   font-weight: ${(props) => (props.active ? 700 : 400)} !important;
   line-height: 30px !important;
-
+  cursor: pointer;
   @media (max-width: ${ViewportWidth.md}px) {
     font-size: 14.312px !important;
     line-height: 21.468px !important;

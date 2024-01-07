@@ -11,6 +11,8 @@ import reducer from "../reducer/reducer";
 import cartContext from "../AppContext";
 import SplitLogin from "../features/auth/signin/signin";
 import SignUp from "../features/auth/signup/signup";
+import VerificationPage from "../features/verification/postSignUp";
+import NewShop from "../features/newshop/newShop";
 
 const theme = createTheme({
   typography: {
@@ -40,6 +42,8 @@ export function AppRouter() {
             </Route>
             <Route path="/login" element={<SplitLogin />} />
             <Route path="/register" element={<SignUp />} />
+            <Route path="/success" element={<VerificationPage />} />
+            <Route path="/new-shop" element={<NewShop />} />
           </Routes>
         </BrowserRouter>
       </cartContext.Provider>

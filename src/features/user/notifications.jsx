@@ -7,9 +7,10 @@ const MainContainer = styled(Box)`
   display: flex !important;
   padding: 30px 0px !important;
   flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
+  justify-content: start !important;
+  align-items: start !important;
   gap: 20px !important;
+  margin: 0 auto;
   flex: 1 0 0 !important;
   align-self: stretch !important;
 

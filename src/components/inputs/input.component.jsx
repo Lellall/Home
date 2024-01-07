@@ -20,7 +20,7 @@ const StyledInput = styled.input`
   outline: none;
   color: #808080;
   &::placeholder {
-    color: #ccc;
+    // color: #ccc;
     font-weight: 300;
     font-size: 10px;
   }

@@ -1,11 +1,5 @@
-import { useEffect, } from "react";
-import {
-  Grid,
-  Paper,
-  createTheme,
-  ThemeProvider,
-  Hidden,
-} from "@mui/material";
+import { useEffect } from "react";
+import { Grid, Paper, createTheme, ThemeProvider, Hidden } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 import axios from "axios";
@@ -14,6 +8,12 @@ import InputWithIcon from "../../../components/inputs/input.component";
 import { MessageText, Unlock } from "iconsax-react";
 import { RoundButton } from "../../../App";
 import Logo from "../logo";
+import { getItemFromLocalForage } from "../../../utils/getItem";
+import { ToastContainer, toast } from "react-toastify";
+import useAuth from "../../../app/useAuth";
+import useAuthStore from "../../../app/authStore";
+import { useNavigate } from "react-router-dom";
+import { BaseUrl } from "../../../utils/config";
 
 const ActionCover = styled.div`
   display: flex;
@@ -78,7 +78,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: "20px",
+    // padding: "20px",
     border: "none",
     // backgroundColor: theme.palette.primary.main,
     color: "#fff",
@@ -86,11 +86,15 @@ const styles = {
   },
   contain: {
     height: "100dvh",
-    width: "60dvh",
-    backgroundImage: 'url("/assets/login.svg")', // Replace with the path to your image
+    margin: "0 30px",
+    borderRadius: "8px",
+    // width: "60dvh",
+    backgroundImage: 'url("/assets/newB3.svg")', // Replace with the path to your image
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
+    backgroundPosition: "right",
+    background: "#F06D06",
+    width: "100%",
   },
   rightPane: {
     display: "flex",
@@ -125,7 +129,17 @@ const styles = {
 };
 
 const Login = () => {
+  const navigate = useNavigate();
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/shop");
+    }
+  }, [isAuthenticated, navigate]);
+  const { isLoading, login, googleLogin } = useAuth();
+  const token = getItemFromLocalForage("accessToken");
+  console.log(token);
   const {
     handleSubmit,
     control,
@@ -133,26 +147,15 @@ const Login = () => {
   } = useForm();
   console.log(errors);
   const onSubmit = (data) => {
-    // Handle form submission logic here using the form data
+    login(data);
     console.log(data);
   };
 
-  useEffect(() => {
-    const url = "http://146.190.153.125/shops";
-
-    axios
-      .get(url)
-      .then((response) => {
-        console.log("Status Code:", response.status);
-        console.log("Response Data:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
-  }, []);
+  const googleAuthURL = `${BaseUrl}/oauth2/google/authorize?organization=${'adamawapoly'}&callback_url=${'https://app.safcerts.com/'}adamawapoly&product=36163e9e-1d43-4bf6-b0d3-83bfa7da097c`
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer />
       <Grid container style={styles.container}>
         {/* Left Pane - Hidden on smaller screens */}
         <Hidden smDown mdDown>
@@ -173,8 +176,8 @@ const Login = () => {
                   color: "#333",
                   marginLeft: "-10px",
                   marginTop: "10px",
-                  fontSize:"18px",
-                  fontWeight:"bold"
+                  fontSize: "18px",
+                  fontWeight: "bold",
                 }}
               >
                 Sign In
@@ -186,7 +189,7 @@ const Login = () => {
                   marginTop: "15px",
                 }}
               >
-               Log in with your credentials
+                Log in with your credentials
               </div>
             </div>
             <Cover style={{ margin: "60px auto" }}>
@@ -255,7 +258,10 @@ const Login = () => {
                 </ActionCover>
                 <ActionCover>
                   <div style={{ color: "#AAAAAA", display: "flex" }}>
-                    <Text style={{fontSize:"12px"}}> Other sign in options</Text>
+                    <Text style={{ fontSize: "12px" }}>
+                      {" "}
+                      Other sign in options
+                    </Text>
                     <SocialCover>
                       <CircleButton>
                         <svg
@@ -279,7 +285,10 @@ const Login = () => {
                           />
                         </svg>
                       </CircleButton>
-                      <CircleButton>
+                      <a href={`https://api.dev.lellall.com/auth/oauth2/google/authorize?role=CONSUMER&platform_type=WEB&callback_url=/shop`}>
+
+                     
+                      <CircleButton onClick={googleLogin}>
                         <svg
                           width="28"
                           height="28"
@@ -305,6 +314,7 @@ const Login = () => {
                           />
                         </svg>
                       </CircleButton>
+                      </a>
                     </SocialCover>
                   </div>
 
@@ -316,6 +326,7 @@ const Login = () => {
                       variant="contained"
                       type="submit"
                       onClick={onSubmit}
+                      disabled={isLoading}
                     >
                       Sign In
                     </ModButton>

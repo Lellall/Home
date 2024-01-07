@@ -9,6 +9,9 @@ import InputWithIcon from "../../../components/inputs/input.component";
 import { MessageText, User, Mobile, Unlock } from "iconsax-react";
 import { RoundButton } from "../../../App";
 import Logo from "../logo";
+import useAuthStore from "../../../app/authStore";
+import useAuth from "../../../app/useAuth";
+import { ToastContainer } from "react-toastify";
 
 const ActionCover = styled.div`
   display: flex;
@@ -81,7 +84,7 @@ const styles = {
   contain: {
     height: "100dvh",
     width: "60dvh",
-    backgroundImage: 'url("/assets/login.svg")', // Replace with the path to your image
+    backgroundImage: 'url("/assets/newb3.svg")', // Replace with the path to your image
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -126,33 +129,34 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   console.log(errors);
-  const onSubmit = (data) => {
-    // Handle form submission logic here using the form data
-    console.log(data);
-  };
 
   const password = watch("password", "");
-
-  useEffect(() => {
-    const url = "http://146.190.153.125/shops";
-
-    axios
-      .get(url)
-      .then((response) => {
-        console.log("Status Code:", response.status);
-        console.log("Response Data:", response.data);
-      })
-      .catch((error) => {
-        console.error("Error:", error.message);
-      });
-  }, []);
+  const {
+    isLoading,
+    register,
+  } = useAuth();
+  const onSubmit = async (data) => {
+    const { confirmPassword, ...rest } = data;
+    const formData = {
+      ...rest,
+      platformType: "WEB",
+      role: "CONSUMER",
+    };
+    console.log(rest);
+    try {
+      await register(formData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
+      <ToastContainer />
       <Grid container style={styles.container}>
         {/* Left Pane - Hidden on smaller screens */}
         <Hidden smDown mdDown>
-          <Grid item xs={12} md={5}>
+          <Grid item xs={12} md={6}>
             <Paper elevation={3} style={styles.leftPane}>
               <div style={styles.contain}></div>
             </Paper>
@@ -160,7 +164,7 @@ const Login = () => {
         </Hidden>
 
         {/* Right Pane */}
-        <Grid item xs={12} md={7}>
+        <Grid item xs={12} md={6}>
           <Paper elevation={3} style={styles.rightPane}>
             <Logo />
             <div style={{ marginTop: "20px", textAlign: "center" }}>
@@ -411,6 +415,7 @@ const Login = () => {
                       variant="contained"
                       type="submit"
                       onClick={onSubmit}
+                      loading={isLoading}
                     >
                       Sign Up
                     </ModButton>
