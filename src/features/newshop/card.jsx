@@ -1,19 +1,26 @@
 // ReusableCard.js
 
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const CardWrapper = styled.div`
   position: relative;
+  width: 50%; /* Set width to 50% for six cards in one view */
+  box-sizing: border-box;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
-  width: 200px;
-  margin: 10px;
+  margin-bottom: 16px; /* Add margin for better spacing */
 
   &:hover {
     transform: scale(1.05);
+  }
+
+  @media (max-width: 768px) {
+    width: 180px; 
+    margin-left: 10px;
+    margin-bottom: 16px; /* Adjust margin for better spacing on smaller screens */
   }
 `;
 
@@ -58,7 +65,7 @@ const WishlistIcon = styled.span`
   color: #337ab7;
   cursor: pointer;
   background: white;
-  padding:0 4px;
+  padding: 0 4px;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -98,7 +105,13 @@ const Quantity = styled.span`
   font-size: 14px;
 `;
 
-const ReusableCard = ({ title, price, discount, imageUrl, onAddToWishlist }) => {
+const ReusableCard = ({
+  title,
+  price,
+  discount,
+  imageUrl,
+  onAddToWishlist,
+}) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
@@ -133,7 +146,9 @@ const ReusableCard = ({ title, price, discount, imageUrl, onAddToWishlist }) => 
             <QuantityButton onClick={handleIncrement}>+</QuantityButton>
           </QuantityContainer>
         ) : (
-          <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
+          <AddToCartButton onClick={handleAddToCart}>
+            Add to Cart
+          </AddToCartButton>
         )}
       </CardContent>
     </CardWrapper>
