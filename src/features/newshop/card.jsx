@@ -5,20 +5,21 @@ import styled from "styled-components";
 
 const CardWrapper = styled.div`
   position: relative;
-  width: 50%; /* Set width to 50% for six cards in one view */
+  width: 170px;
   box-sizing: border-box;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease;
   margin-bottom: 16px; /* Add margin for better spacing */
-
+  //   margin: 30px;
+  margin: 20px 0px;
   &:hover {
     transform: scale(1.05);
   }
 
   @media (max-width: 768px) {
-    width: 180px; 
+    width: 180px;
     margin-left: 10px;
     margin-bottom: 16px; /* Adjust margin for better spacing on smaller screens */
   }
@@ -43,7 +44,8 @@ const Title = styled.h2`
 
 const Price = styled.div`
   color: #555;
-  font-size: 14px;
+  font-size: 13px;
+  font-family: sans;
 `;
 
 const Discount = styled.div`
@@ -53,8 +55,9 @@ const Discount = styled.div`
   color: #d9534f;
   font-size: 12px;
   background: white;
-  padding: 4px;
+  padding: 4px 9px;
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const WishlistIcon = styled.span`
@@ -73,12 +76,15 @@ const WishlistIcon = styled.span`
 const AddToCartButton = styled.button`
   border: none;
   outline: none;
-  padding: 8px 12px;
+  padding: 4px 4px;
   color: white;
-  background-color: #000;
+  background-color: #ffb000;
   cursor: pointer;
   font-size: 12px;
   transition: background-color 0.3s ease;
+  margin: 5px 0;
+  border-radius: 8px;
+  width: 100%;
 
   &:hover {
     background-color: #333;
@@ -88,11 +94,13 @@ const AddToCartButton = styled.button`
 const QuantityContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   border-radius: 5px;
   padding: 5px;
+  margin: 0 4px;
+  //   width: 70px;
 `;
 
 const QuantityButton = styled.button`
@@ -132,26 +140,35 @@ const ReusableCard = ({
   };
 
   return (
-    <CardWrapper className="card">
-      <Image src={imageUrl} alt="Product Image" />
-      <CardContent>
-        <WishlistIcon onClick={onAddToWishlist}>&#9734;</WishlistIcon>
-        <Discount>{discount}</Discount>
-        <Title>{title}</Title>
-        <Price>{price}</Price>
-        {addedToCart ? (
-          <QuantityContainer>
-            <QuantityButton onClick={handleDecrement}>-</QuantityButton>
-            <Quantity>{quantity}</Quantity>
-            <QuantityButton onClick={handleIncrement}>+</QuantityButton>
-          </QuantityContainer>
-        ) : (
-          <AddToCartButton onClick={handleAddToCart}>
-            Add to Cart
-          </AddToCartButton>
-        )}
-      </CardContent>
-    </CardWrapper>
+    <div>
+      <CardWrapper className="card">
+        <Image src={imageUrl} alt="Product Image" />
+        <CardContent>
+          {/* <WishlistIcon onClick={onAddToWishlist}>&#10084;</WishlistIcon> */}
+          {/* <Discount>{discount}</Discount> */}
+          <Discount>open</Discount>
+          <Title>{title}</Title>
+          <div style={{ display: "flex", flex: "1", justifyContent:"space-between" }}>
+            <div>
+              <Price>{price}</Price>
+            </div>
+            <div style={{background:'red', padding:"0 4px", borderRadius:'4px', color:'#fff', cursor:"pointer"}}>
+            &#10084;
+              <WishlistIcon onClick={onAddToWishlist}></WishlistIcon>
+            </div>
+          </div>
+          {addedToCart ? (
+            <QuantityContainer>
+              <div onClick={handleDecrement}>-</div>
+              <Quantity>{quantity}</Quantity>
+              <QuantityButton onClick={handleIncrement}>+</QuantityButton>
+            </QuantityContainer>
+          ) : (
+            <AddToCartButton onClick={handleAddToCart}>Add to card</AddToCartButton>
+          )}
+        </CardContent>
+      </CardWrapper>
+    </div>
   );
 };
 

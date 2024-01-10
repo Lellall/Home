@@ -13,6 +13,7 @@ import SplitLogin from "../features/auth/signin/signin";
 import SignUp from "../features/auth/signup/signup";
 import VerificationPage from "../features/verification/postSignUp";
 import NewShop from "../features/newshop/newShop";
+import NewStore from "./newStore";
 
 const theme = createTheme({
   typography: {
@@ -43,7 +44,7 @@ export function AppRouter() {
             <Route path="/login" element={<SplitLogin />} />
             <Route path="/register" element={<SignUp />} />
             <Route path="/success" element={<VerificationPage />} />
-            <Route path="/new-shop" element={<NewShop />} />
+            <Route path="/new-shop" element={<NewStore />} />
           </Routes>
         </BrowserRouter>
       </cartContext.Provider>

@@ -8,7 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 
-const SliderComponent = (dislay) => {
+const General = (dislay) => {
   const unsplashImages = [
     "https://source.unsplash.com/400x300/?cooking",
     "https://source.unsplash.com/400x300/?vegetables",
@@ -41,7 +41,7 @@ const SliderComponent = (dislay) => {
     dots: false,
     infinite: true,
     speed: 100,
-    slidesToShow: 5,
+    slidesToShow: 6,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -100,4 +100,4 @@ const TopSnackerColor = styled.div`
   background: orange;
 `;
 
-export default SliderComponent;
+export default General;

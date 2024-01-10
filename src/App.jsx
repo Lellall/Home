@@ -447,6 +447,23 @@ const TextWrapper = styled.div`
   text-align: center;
 `;
 
+const TopSnacker = styled.div`
+  display: flex;
+  flex: 1;
+  // justify-content: space-between;
+  width: 100vw;
+  margin: 10px 75px;
+`;
+
+const TopSnackerColor = styled.div`
+  width: 20px;
+  border-radius: 4px;
+  background: #FFB000;
+  color: transparent;
+  height: 50px;
+  margin-bottom: 20px;
+`;
+
 export default function Landing() {
   const services = [
     {
@@ -468,13 +485,11 @@ export default function Landing() {
       imageUrl: "/assets/vendors.svg",
     },
   ];
-  const notify = () => toast("Wow so easy!");
+
   return (
     <>
-        <ToastContainer />
+      <ToastContainer />
       <Navbar />
-      <button onClick={notify}>Notify!</button>
-
       <Contained>
         <OverlayContent>
           <HoverBox>
@@ -507,10 +522,11 @@ export default function Landing() {
         </OverlayContent>
       </Contained>
       <TabComponent />
-      <CenterBox style={{ marginBottom: "100px" }}>
-        <TitleMain> Top Rated Stores</TitleMain>
-      </CenterBox>
-      <MultipleItems />
+      <TopSnacker>
+        <TopSnackerColor>heeo</TopSnackerColor>
+        <div style={{marginLeft: '10px', fontSize: '40px', fontWeight:'400', color:'#004225'}}>Today's Pick</div>
+      </TopSnacker>
+      <MultipleProducts />
 
       <TitleMain
         style={{
@@ -521,75 +537,11 @@ export default function Landing() {
         }}
       >
         {" "}
-        Top Trending Products
+        {/* Top Trending Products */}
       </TitleMain>
 
-      <SliderComponent />
-      {/* <CardCover style={{ textAlign: "left", color: "black", padding: '20px 0', marginTop:'100px', marginBottom:'0px' }}>
-      Join Us in Making It Work: Here's Why You Should Partner with Lellall
-    </CardCover> */}
-      {/* <Mission>
-      <NumBox1>
-      <TitleMain
-        style={{
-         fontSize: '20px',
-         textAlign:'center',
-         margin: '20px 20px'
-        }}
-      >
-      Empowering Local & Small Businesses.
-        <br />
-      </TitleMain>
-      <ModTitleMain
-        style={{ fontSize: "11px", textAlign: "center", color: "#0e5d37" }}
-      >
-      Support a community-driven marketplace dedicated to uplifting local
-        businesses. At Lellall, we prioritize and empower small enterprises,
-        fostering economic growth and creating a platform where every
-        purchase makes a positive impact
-      </ModTitleMain>
-    </NumBox1>
-      <NumBox1>
-      <TitleMain
-        style={{
-          fontSize: '20px',
-          textAlign:'center',
-           margin: '20px 20px'
-        }}
-      >
-        Innovative Marketplace Experience.
-        <br />
-      </TitleMain>
-      <ModTitleMain
-        style={{ fontSize: "11px", textAlign: "center", color: "#0e5d37" }}
-      >
-        Explore a cutting-edge platform designed to revolutionize the way
-        you shop, connect, and discover. Discover a seamless and innovative
-        marketplace experience that goes beyond the ordinary.
-      </ModTitleMain>
-    </NumBox1>
-      <NumBox1>
-      <TitleMain
-        style={{
-          fontSize: '20px',
-          textAlign:'center',
-           margin: '20px 20px'
-        }}
-      >
-      Secure Shopping, Trusted Transactions.
-        <br />
-      </TitleMain>
-      <ModTitleMain
-        style={{ fontSize: "11px", textAlign: "center", color: "#0e5d37" }}
-      >
-      At Lellall, we prioritize your security. Enjoy a robust and
-      sophisticated infrastructure for a seamless, worry-free online
-      shopping experience. Shop confidently with every transaction
-      safeguarded, making us your trusted destination for secure online
-      commerce.
-      </ModTitleMain>
-    </NumBox1>
-      </Mission> */}
+      <SliderComponent display={6}/>
+      
       <TitleMain
         style={{
           textAlign: "center",
@@ -598,7 +550,7 @@ export default function Landing() {
           fontSize: "20px",
         }}
       >
-        Join Us in Making It Work: Here's Why You Should Partner with Lellall
+        {/* Join Us in Making It Work: Here's Why You Should Partner with Lellall */}
       </TitleMain>
       <MissionCards />
       <MapCover>
@@ -632,3 +584,7 @@ export default function Landing() {
     </>
   );
 }
+
+
+const centerBtn = styled.div`
+`
