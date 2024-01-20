@@ -1,5 +1,6 @@
 // ReusableCard.js
 
+import { Bookmark } from "iconsax-react";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -105,8 +106,11 @@ const QuantityContainer = styled.div`
 
 const QuantityButton = styled.button`
   border: none;
-  background-color: transparent;
+  background-color: #ffb000;
   cursor: pointer;
+  padding: 0 4px;
+  border-radius: 4px;
+  margin: 0 5px;
 `;
 
 const Quantity = styled.span`
@@ -122,9 +126,16 @@ const ReusableCard = ({
 }) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [cart, setCart] = useState([]);
 
   const handleAddToCart = () => {
-    setAddedToCart(true);
+    if (!addedToCart) {
+      setCart((prevCart) => [
+        ...prevCart,
+        { quantity /* other item details */ },
+      ]);
+      setAddedToCart(true);
+    }
   };
 
   const handleIncrement = () => {
@@ -134,10 +145,21 @@ const ReusableCard = ({
   const handleDecrement = () => {
     if (quantity === 1) {
       setAddedToCart(false);
+
+      // Remove item from cart when quantity becomes less than 1
+      setCart((prevCart) => prevCart.filter((item) => item.quantity > 1));
     } else {
       setQuantity((prevQuantity) => prevQuantity - 1);
     }
   };
+
+  // Additional function to remove item from cart
+  const removeFromCart = () => {
+    setCart((prevCart) => prevCart.filter((item) => item.quantity > 1));
+    setAddedToCart(false);
+  };
+
+  console.log(cart,'c');
 
   return (
     <div>
@@ -148,24 +170,40 @@ const ReusableCard = ({
           {/* <Discount>{discount}</Discount> */}
           <Discount>open</Discount>
           <Title>{title}</Title>
-          <div style={{ display: "flex", flex: "1", justifyContent:"space-between" }}>
+          <div
+            style={{
+              display: "flex",
+              flex: "1",
+              justifyContent: "space-between",
+            }}
+          >
             <div>
               <Price>{price}</Price>
             </div>
-            <div style={{background:'red', padding:"0 4px", borderRadius:'4px', color:'#fff', cursor:"pointer"}}>
-            &#10084;
+            <div
+              style={{
+                // background: "red",
+                padding: "0 4px",
+                borderRadius: "4px",
+                color: "#fff",
+                cursor: "pointer",
+              }}
+            >
+             <Bookmark size="22" color="#FF8A65"/>
               <WishlistIcon onClick={onAddToWishlist}></WishlistIcon>
             </div>
           </div>
-          {addedToCart ? (
+          {/* {addedToCart ? (
             <QuantityContainer>
-              <div onClick={handleDecrement}>-</div>
+              <QuantityButton onClick={handleDecrement}>-</QuantityButton>
               <Quantity>{quantity}</Quantity>
               <QuantityButton onClick={handleIncrement}>+</QuantityButton>
             </QuantityContainer>
           ) : (
-            <AddToCartButton onClick={handleAddToCart}>Add to card</AddToCartButton>
-          )}
+            <AddToCartButton onClick={handleAddToCart}>
+              Add to card
+            </AddToCartButton>
+          )} */}
         </CardContent>
       </CardWrapper>
     </div>

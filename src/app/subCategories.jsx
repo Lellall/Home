@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 // CategoriesList.js
 import React from "react";
 import styled from "styled-components";

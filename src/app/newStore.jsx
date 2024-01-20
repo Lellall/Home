@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Navbar } from "../features";
+import { Footer, Navbar } from "../features";
 import SliderComponent from "../features/newshop/newShop";
 import { MultipleProducts } from "../StoreSlide";
 import CategoriesList from "./categoriesItems";
@@ -129,6 +129,9 @@ const NewStore = () => {
               </div>
             </TopSnacker>
           </div>
+      </div>
+      <div>
+        <Footer />
       </div>
     </>
   );
