@@ -8,6 +8,8 @@ const CardWrapper = styled.div`
   position: relative;
   width: 170px;
   box-sizing: border-box;
+  height: 220px;
+  cursor:pointer;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -163,7 +165,7 @@ const ReusableCard = ({
 
   return (
     <div>
-      <CardWrapper className="card">
+      <CardWrapper className="card" onClick={onAddToWishlist}>
         <Image src={imageUrl} alt="Product Image" />
         <CardContent>
           {/* <WishlistIcon onClick={onAddToWishlist}>&#10084;</WishlistIcon> */}

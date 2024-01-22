@@ -1,41 +1,39 @@
 // SliderComponent.js
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import ReusableCard from "./card";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-const SliderComponent = (dislay) => {
-  const unsplashImages = [
-    "https://source.unsplash.com/400x300/?cooking",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?vegetables",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?onions",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?apples",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?rice",
-    "https://source.unsplash.com/400x300/?kitchen",
-    "https://source.unsplash.com/400x300/?carrot",
-    "https://source.unsplash.com/400x300/?peach",
-    "https://source.unsplash.com/400x300/?potato",
-    "https://source.unsplash.com/400x300/?kitchen",
-    // Add more image URLs as needed
-  ];
+const SliderComponent = () => {
+  const navigate = useNavigate()
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    // Function to fetch data using Axios
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "https://api.dev.lellall.com/products?page=0&size=10"
+        );
+        // Set the fetched data in the state
+        setProducts(response?.data?.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    // Call the fetchData function when the component mounts
+    fetchData();
+  }, []);
+
+  console.log(products,'products');
+
 
   const settings = {
     dots: false,
@@ -45,7 +43,7 @@ const SliderComponent = (dislay) => {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
-    rows: 2,
+    rows: products?.length > 5 ? 2 : 1,
     responsive: [
       {
         breakpoint: 1024,
@@ -72,16 +70,14 @@ const SliderComponent = (dislay) => {
     <div style={{ margin: "0 10px", }}>
 
       <Slider {...settings}>
-        {unsplashImages.map((imageUrl, index) => (
+        {products.map((product, index) => (
           <ReusableCard
             key={index}
-            title={`Product ${index + 1}`}
-            price="N19.99"
+            title={product?.name}
+            price={product?.price}
             discount="20% OFF"
-            imageUrl={imageUrl}
-            onAddToWishlist={() =>
-              console.log(`Added to Wishlist: Product ${index + 1}`)
-            }
+            imageUrl={product?.imageUrl}
+            onAddToWishlist={() => navigate(`product/${product?.id}`)}
           />
         ))}
       </Slider>

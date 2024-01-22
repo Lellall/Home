@@ -189,6 +189,7 @@ const ShopCardNew = styled.div`
 const InnerCard = styled.div`
   position: absolute;
   padding: 30px;
+  border-radius: 0% 100% 100% 0% / 58% 0% 100% 88% ;
   margin: 0;
   width: 60%;
   z-index: 1;
@@ -207,7 +208,7 @@ const InnerCard = styled.div`
   height: 100%;
   // border-radius: 0% 100% 40% 60% / 100% 0% 100% 0%;
   // clip-path: polygon(0 0, 100% 0%, 75% 100%, 0 100%);
-  background-color: #000000c4;
+  background-color: red;
   // background-color: #ffffffcc;
   h1 {
     color: #fff;
