@@ -33,7 +33,6 @@ const Container = styled.div`
 const Categories = styled.div`
   width: 20%;
   backround: red;
-  border-right: 1px solid #ccc;
 `;
 const Products = styled.div`
   width: 80%;
@@ -95,7 +94,7 @@ const NewStore = () => {
                   color: "#004225",
                 }}
               >
-                Browse By Category
+                Browse By Shop Category
               </div>
             <SubCategory />
             <TopSnacker>

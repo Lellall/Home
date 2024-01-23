@@ -19,6 +19,7 @@ import { MultipleProducts, MultipleItems } from "./StoreSlide";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import SliderComponent from "./features/newshop/newShop";
+import ComingSoonPage from "./comingSooon";
 
 export const Text = styled(Typography)`
   margin-top: 10px !important;
@@ -487,101 +488,102 @@ export default function Landing() {
   ];
 
   return (
-    <>
-      <ToastContainer />
-      <Navbar />
-      <Contained>
-        <OverlayContent>
-          <HoverBox>
-            <Text
-              color="#fff"
-              variant="h2"
-              component="div"
-              sx={{ display: { xs: "block", sm: "block" } }}
-            >
-              Shop wherever <br /> you like,
-              <br /> for whatever <br /> you like.
-            </Text>
-            <SubTextCover>
-              <p>
-                Léllall is an all-in-one On-demand store, bringing the market to
-                your doorstep.
-                <br /> Place an order wherever you are and get your delivery
-                within minutes.
-              </p>
-            </SubTextCover>
-            <RoundButton
-              bgColor="#fff"
-              textColor="#000"
-              outlined
-              variant="contained"
-            >
-              Visit our store
-            </RoundButton>
-          </HoverBox>
-        </OverlayContent>
-      </Contained>
-      <TabComponent />
-      <TopSnacker>
-        <TopSnackerColor>heeo</TopSnackerColor>
-        <div style={{marginLeft: '10px', fontSize: '40px', fontWeight:'400', color:'#004225'}}>Today's Pick</div>
-      </TopSnacker>
-      <MultipleProducts />
+    // <>
+    //   <ToastContainer />
+    //   <Navbar />
+    //   <Contained>
+    //     <OverlayContent>
+    //       <HoverBox>
+    //         <Text
+    //           color="#fff"
+    //           variant="h2"
+    //           component="div"
+    //           sx={{ display: { xs: "block", sm: "block" } }}
+    //         >
+    //           Shop wherever <br /> you like,
+    //           <br /> for whatever <br /> you like.
+    //         </Text>
+    //         <SubTextCover>
+    //           <p>
+    //             Léllall is an all-in-one On-demand store, bringing the market to
+    //             your doorstep.
+    //             <br /> Place an order wherever you are and get your delivery
+    //             within minutes.
+    //           </p>
+    //         </SubTextCover>
+    //         <RoundButton
+    //           bgColor="#fff"
+    //           textColor="#000"
+    //           outlined
+    //           variant="contained"
+    //         >
+    //           Visit our store
+    //         </RoundButton>
+    //       </HoverBox>
+    //     </OverlayContent>
+    //   </Contained>
+    //   <TabComponent />
+    //   <TopSnacker>
+    //     <TopSnackerColor>heeo</TopSnackerColor>
+    //     <div style={{marginLeft: '10px', fontSize: '40px', fontWeight:'400', color:'#004225'}}>Today's Pick</div>
+    //   </TopSnacker>
+    //   <MultipleProducts />
 
-      <TitleMain
-        style={{
-          textAlign: "center",
-          margin: "50px 0",
-          marginBottom: "0px",
-          fontSize: "20px",
-        }}
-      >
-        {" "}
-        {/* Top Trending Products */}
-      </TitleMain>
+    //   <TitleMain
+    //     style={{
+    //       textAlign: "center",
+    //       margin: "50px 0",
+    //       marginBottom: "0px",
+    //       fontSize: "20px",
+    //     }}
+    //   >
+    //     {" "}
+    //     {/* Top Trending Products */}
+    //   </TitleMain>
 
-      <SliderComponent display={6}/>
+    //   <SliderComponent display={6}/>
       
-      <TitleMain
-        style={{
-          textAlign: "center",
-          margin: "50px 0",
-          marginBottom: "0px",
-          fontSize: "20px",
-        }}
-      >
-        {/* Join Us in Making It Work: Here's Why You Should Partner with Lellall */}
-      </TitleMain>
-      <MissionCards />
-      <MapCover>
-        <div style={{ width: "40%" }}>
-          <TitleMain style={{ fontSize: "20px", marginLeft: "50px" }}>
-            We're in the Nation's capital and heading to your doorsteps.
-          </TitleMain>
-          <ModTitleMain
-            style={{
-              fontSize: "17px",
-            }}
-          >
-            Léllall is on a mission to revolutionize the shopping experience. We
-            are offering a better alternative for the Nigerian market place. No
-            hassle, no fuss, all your needs delivered to you whenever and
-            wherever you want. Starting in the heart of Nigeria, we are
-            committed to expanding all across Nigeria, until our name is on the
-            lips of every Nigerian.
-          </ModTitleMain>
-        </div>
-        <NGMap></NGMap>
-      </MapCover>
+    //   <TitleMain
+    //     style={{
+    //       textAlign: "center",
+    //       margin: "50px 0",
+    //       marginBottom: "0px",
+    //       fontSize: "20px",
+    //     }}
+    //   >
+    //     {/* Join Us in Making It Work: Here's Why You Should Partner with Lellall */}
+    //   </TitleMain>
+    //   <MissionCards />
+    //   <MapCover>
+    //     <div style={{ width: "40%" }}>
+    //       <TitleMain style={{ fontSize: "20px", marginLeft: "50px" }}>
+    //         We're in the Nation's capital and heading to your doorsteps.
+    //       </TitleMain>
+    //       <ModTitleMain
+    //         style={{
+    //           fontSize: "17px",
+    //         }}
+    //       >
+    //         Léllall is on a mission to revolutionize the shopping experience. We
+    //         are offering a better alternative for the Nigerian market place. No
+    //         hassle, no fuss, all your needs delivered to you whenever and
+    //         wherever you want. Starting in the heart of Nigeria, we are
+    //         committed to expanding all across Nigeria, until our name is on the
+    //         lips of every Nigerian.
+    //       </ModTitleMain>
+    //     </div>
+    //     <NGMap></NGMap>
+    //   </MapCover>
 
-      <div>
-        <Footer />
-      </div>
+    //   <div>
+    //     <Footer />
+    //   </div>
 
-      {/* <CenterBox style={{ textAlign: "left", color: "black" }}>
-        Just In, New Arrivals
-      </CenterBox> */}
-    </>
+    //   {/* <CenterBox style={{ textAlign: "left", color: "black" }}>
+    //     Just In, New Arrivals
+    //   </CenterBox> */}
+    // </>
+    <ComingSoonPage />
   );
 }
 

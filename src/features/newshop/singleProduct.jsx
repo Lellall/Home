@@ -23,11 +23,24 @@ import { Footer, Navbar } from "../ui";
 import { useParams } from "react-router-dom";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
+import useShoppingCart from "../../app/useShoppingCart";
 
 const Product = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const [localProduct, setLocalProduct] = useState(null);
+
+  const foundItem = useShoppingCart
+        .getState()
+        .cart.find((item) => item?.id === localProduct?.id)
+  const {
+    addToCart,
+    removeFromCart,
+    isProductInCart,
+    cart,
+    increaseQuantity,
+    decreaseQuantity,
+  } = useShoppingCart();
 
   useEffect(() => {
     axios
@@ -40,17 +53,27 @@ const Product = () => {
       });
   }, [id]);
 
-  console.log(localProduct, "localProduct");
+  console.log(foundItem, "foundItem");
 
-  const handleIncrement = () => {
-    setCount(count + 1);
-  };
-
-  const handleDecrement = () => {
-    if (count > 0) {
-      setCount(count - 1);
+  const handleToggleCart = () => {
+    if (isProductInCart(localProduct.id)) {
+      removeFromCart(localProduct.id);
+      console.log("Item removed from cart:", localProduct.name);
+    } else {
+      addToCart(localProduct);
+      console.log("Item added to cart:", localProduct.name);
     }
   };
+
+  const handleIncreaseQuantity = () => {
+    increaseQuantity(localProduct.id);
+  };
+
+  const handleDecreaseQuantity = () => {
+    decreaseQuantity(localProduct.id);
+  };
+
+  console.log(localProduct?.qnty, "eeee");
   return (
     <>
       <Navbar />
@@ -80,39 +103,44 @@ const Product = () => {
 
           {/* Product Configuration */}
           <div className="product-configuration">
-            <CableConfig>
-              <CounterContainer>
-                <span>Quantity:</span>
-                <CircleButton
-                  style={{ background: "tomato" }}
-                  disabled={count === 0}
-                  onClick={handleDecrement}
-                >
-                  -
-                </CircleButton>
-                <CountDisplay>{count}</CountDisplay>
-                <CircleButton
-                  style={{ background: "green" }}
-                  onClick={handleIncrement}
-                >
-                  +
-                </CircleButton>
-              </CounterContainer>
-              <CableConfigA href="#">
-                How to configure your headphones
-              </CableConfigA>
-            </CableConfig>
+            {isProductInCart(localProduct?.id) && (
+              <CableConfig>
+                <CounterContainer>
+                  <span>Quantity:</span>
+                  <CircleButton
+                    style={{ background: "tomato" }}
+                    disabled={foundItem?.qnty === 0}
+                    onClick={handleDecreaseQuantity}
+                  >
+                    -
+                  </CircleButton>
+                  <CountDisplay>{Number(foundItem?.qnty)}</CountDisplay>
+
+                  <CircleButton
+                    style={{ background: "green" }}
+                    onClick={handleIncreaseQuantity}
+                  >
+                    +
+                  </CircleButton>
+                </CounterContainer>
+                <CableConfigA href="#">
+                  How to configure your headphones
+                </CableConfigA>
+              </CableConfig>
+            )}
           </div>
           <div className="product-configuration">
-          <CableConfigA href="#">
-            <ProductPriceSpan>
-              {localProduct?.currency} {localProduct?.price}
-            </ProductPriceSpan>
-          </CableConfigA>
+            <CableConfigA href="#">
+              <ProductPriceSpan>
+                {localProduct?.currency} {localProduct?.price}
+              </ProductPriceSpan>
+            </CableConfigA>
           </div>
           <ProductPrice>
-            <CartButton href="#" className="cart-btn">
-              Add to cart
+            <CartButton onClick={handleToggleCart} className="cart-btn">
+              {isProductInCart(localProduct?.id)
+                ? "Remove from Cart"
+                : "Add to Cart"}
             </CartButton>
             <CartButton
               style={{ background: "orange" }}

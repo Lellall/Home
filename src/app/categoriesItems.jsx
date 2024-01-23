@@ -1,15 +1,18 @@
 // CategoriesList.js
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: left;
+  border-right: 0.2px solid #ccc;
+  min-height: 400px;
 `;
 
 const Category = styled.div`
-  border-bottom: 1px solid #ddd;
+  // border-bottom: 1px solid #ddd;
   padding: 10px 0;
   margin: 2px;
   border-radius: 5px;
@@ -19,35 +22,28 @@ const Category = styled.div`
   }
 `;
 
-const categories = [
-  'Electronics',
-  'Clothing',
-  'Books',
-  'Home & Furniture',
-  'Sports & Outdoors',
-  'Health & Beauty',
-//   'Toys & Games',    
-  'Automotive',
-  'Jewelry',
-  'Appliances',
-//   'Office Supplies',
-//   'Pet Supplies',
-  'Grocery',
-  'Music',
-  'Movies',
-  'Shoes',
-  'Watches',
-  'Tools & Home Improvement',
-  'Software',
-  'Fitness & Exercise',
-];
+
 
 const CategoriesList = () => {
+  const [categories, setCategories] = useState([]);
+console.log(categories,'categories');
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('https://api.dev.lellall.com/products/categories');
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
   return (
     <Container>
         <h3>Categories</h3>
       {categories.map((category, index) => (
-        <Category key={index}>{category}</Category>
+        <Category key={category?.id}>{category?.name}</Category>
       ))}
     </Container>
   );

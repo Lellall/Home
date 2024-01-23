@@ -9,28 +9,18 @@ import "slick-carousel/slick/slick-theme.css";
 import styled from "styled-components";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import useProductStore from "../../app/productStore";
 
 const SliderComponent = () => {
   const navigate = useNavigate()
-  const [products, setProducts] = useState([]);
+  const products = useProductStore((state) => state.products);
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
+
+  console.log(products,'products');
 
   useEffect(() => {
-    // Function to fetch data using Axios
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://api.dev.lellall.com/products?page=0&size=10"
-        );
-        // Set the fetched data in the state
-        setProducts(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    // Call the fetchData function when the component mounts
-    fetchData();
-  }, []);
+    fetchProducts();
+  }, [fetchProducts]);
 
   console.log(products,'products');
 
