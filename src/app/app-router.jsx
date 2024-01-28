@@ -16,6 +16,7 @@ import NewShop from "../features/newshop/newShop";
 import NewStore from "./newStore";
 // import SingleProductPage from "../features/newshop/singleProduct";
 import Product from "../features/newshop/singleProduct";
+import CartPage from "../features/newshop/cart";
 
 const theme = createTheme({
   typography: {
@@ -47,6 +48,7 @@ export function AppRouter() {
             <Route path="/register" element={<SignUp />} />
             <Route path="/success" element={<VerificationPage />} />
             <Route path="/new-shop" element={<NewStore />} />
+            <Route path="/cart" element={<CartPage />} />
             <Route path="/new-shop/product/:id" element={<Product />} />
           </Routes>
         </BrowserRouter>

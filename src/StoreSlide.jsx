@@ -97,8 +97,8 @@ const MultipleProducts = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
+          slidesToShow: 1,
+          slidesToScroll: 1,
           infinite: true,
           dots: true,
         },
@@ -106,9 +106,9 @@ const MultipleProducts = () => {
       {
         breakpoint: 600,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 1,
         },
       },
       {
@@ -226,11 +226,15 @@ const InnerCard = styled.div`
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
     border-radius: 0;
     padding: 20px 10px;
+    padding: 20px;
     height: 100%;
     border-radius: 0% 100% 40% 60% / 100% 0% 100% 0%;
+    font-size: 13px;
   }
   @media only screen and (max-width: 500px) {
-    background: transparent;
+    background: red;
+    font-size: 13px;
+    padding: 0 5  0px;
     margin: 0;
     width: 100%;
     height: 100%;
@@ -238,5 +242,6 @@ const InnerCard = styled.div`
     text-align: center;
     /* padding-top: 10px; */
     box-shadow: none;
+    border-radius: 0;
   }
 `;

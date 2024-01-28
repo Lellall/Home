@@ -10,6 +10,8 @@ export const Wrapper = styled(Container)`
   align-self: stretch !important;
   width: 100% !important;
   max-width: 1440px !important;
+  position: sticky !important;
+  top: 0; /* Specify the distance from the top where the sticky element should stick */
 
   .input-container {
     display: flex !important;
@@ -279,3 +281,37 @@ export const QuantityContainer = styled.div`
     line-height: 22px;
   }
 `;
+
+export const SearchInp = styled.input`
+  width: 40%;
+  height:30px;
+  display: flex;
+  padding: 7px 12px 7px 20px;
+  outline: none;
+  border-radius: 4px;
+  background: #f5f5f5;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border:none;
+  &::placeholder {
+    color: #ccc; 
+    // font-style: italic; 
+  }
+
+  position: relative;
+  @media (max-width: ${ViewportWidth.sm}px) {
+    width: 90% !important;
+    // padding: 10px 16px !important;
+  }
+`;
+
+export const Icon = styled.div`
+position: absolute;
+top: 5px;
+left: 5px;
+`
+export const Cover = styled.div`
+position: relative;
+`

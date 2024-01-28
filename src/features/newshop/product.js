@@ -5,17 +5,31 @@ const Container = styled.main`
   margin: 0 auto;
   padding: 15px;
   display: flex;
+  font-family: open sans;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 const LeftColumn = styled.div`
   width: 60%;
   position: relative;
   margin-right: 50px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
 `;
 
 const RightColumn = styled.div`
   width: 35%;
-  //   margin-top: 60px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const LeftColumnImage = styled.img`

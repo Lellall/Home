@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 const CardWrapper = styled.div`
   position: relative;
-  width: 170px;
+  width: 190px;
   box-sizing: border-box;
   height: 220px;
   cursor:pointer;
@@ -22,7 +22,7 @@ const CardWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 180px;
+    width: 150px;
     margin-left: 10px;
     margin-bottom: 16px; /* Adjust margin for better spacing on smaller screens */
   }

@@ -8,42 +8,30 @@ const useShoppingCart = create((set) => {
     cart: storedCart,
     addToCart: (product) =>
       set((state) => {
-        const existingItem = state.cart.find((item) => item.id === product.id);
-
-        if (existingItem) {
-          // Item already in the cart, increase qnty
-          const updatedCart = state.cart.map((item) =>
-            item.id === product.id ? { ...item, qnty: item.qnty + 1 } : item
-          );
-          localStorage.setItem("cart", JSON.stringify(updatedCart));
-          return { cart: updatedCart };
-        } else {
-          // Item not in the cart, add with initial qnty
-          const updatedCart = [...state.cart, { ...product, qnty: 1 }];
-          localStorage.setItem("cart", JSON.stringify(updatedCart));
-          return { cart: updatedCart };
-        }
-      }),
-    removeFromCart: (productId) =>
-      set((state) => {
-        const updatedCart = state.cart.filter((item) => item.id !== productId);
+        const updatedCart = [...state.cart, { ...product, qnty: 1 }];
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return { cart: updatedCart };
       }),
-    increaseQuantity: (productId) =>
+    removeFromCart: (id) =>
       set((state) => {
+        const updatedCart = state.cart.filter((item) => item.productId !== id);
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return { cart: updatedCart };
+      }),
+    increaseQuantity: (id) =>
+      set((state) => {
+        console.log(id, "updatedCart");
         const updatedCart = state.cart.map((item) =>
-          item.id === productId ? { ...item, qnty: item.qnty + 1 } : item
+          item.productId === id ? { ...item, qnty: item.qnty + 1 } : item
         );
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return { cart: updatedCart };
       }),
-    decreaseQuantity: (productId) =>
+    decreaseQuantity: (id) =>
       set((state) => {
+        console.log(id, "updatedCart");
         const updatedCart = state.cart.map((item) =>
-          item.id === productId && item.qnty > 1
-            ? { ...item, qnty: item.qnty - 1 }
-            : item
+          item.productId === id && item.qnty > 1 ? { ...item, qnty: item.qnty - 1 } : item
         );
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return { cart: updatedCart };

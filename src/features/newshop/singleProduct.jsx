@@ -30,9 +30,7 @@ const Product = () => {
   const { id } = useParams();
   const [localProduct, setLocalProduct] = useState(null);
 
-  const foundItem = useShoppingCart
-        .getState()
-        .cart.find((item) => item?.id === localProduct?.id)
+ 
   const {
     addToCart,
     removeFromCart,
@@ -41,6 +39,7 @@ const Product = () => {
     increaseQuantity,
     decreaseQuantity,
   } = useShoppingCart();
+  const foundItem = cart.find((item) => item?.productId === id);
 
   useEffect(() => {
     axios
@@ -53,7 +52,7 @@ const Product = () => {
       });
   }, [id]);
 
-  console.log(foundItem, "foundItem");
+  // console.log(foundItem, "foundItem");
 
   const handleToggleCart = () => {
     if (isProductInCart(localProduct.id)) {
@@ -72,8 +71,18 @@ const Product = () => {
   const handleDecreaseQuantity = () => {
     decreaseQuantity(localProduct.id);
   };
+  function isProductIdExist(id, cart) {
+    for (const product of cart) {
+      if (product.productId === id) {
+        return true; // Found a match
+      }
+    }
+    return false; // No match found
+  }
+  const exists = isProductIdExist(id, cart);
 
-  console.log(localProduct?.qnty, "eeee");
+  console.log(exists, "exists");
+
   return (
     <>
       <Navbar />
@@ -95,7 +104,11 @@ const Product = () => {
             <ProductDescriptionSpan>
               {localProduct?.category?.name}
             </ProductDescriptionSpan>
+            
             <ProductDescriptionH1>{localProduct?.name}</ProductDescriptionH1>
+            <ProductPriceSpan>
+              {localProduct?.currency} {localProduct?.price}
+            </ProductPriceSpan>
             <ProductDescriptionP>
               {localProduct?.description}
             </ProductDescriptionP>
@@ -103,14 +116,14 @@ const Product = () => {
 
           {/* Product Configuration */}
           <div className="product-configuration">
-            {isProductInCart(localProduct?.id) && (
+            {exists && (
               <CableConfig>
                 <CounterContainer>
                   <span>Quantity:</span>
                   <CircleButton
                     style={{ background: "tomato" }}
                     disabled={foundItem?.qnty === 0}
-                    onClick={handleDecreaseQuantity}
+                    onClick={() => decreaseQuantity(id)}
                   >
                     -
                   </CircleButton>
@@ -118,7 +131,7 @@ const Product = () => {
 
                   <CircleButton
                     style={{ background: "green" }}
-                    onClick={handleIncreaseQuantity}
+                    onClick={() => increaseQuantity(id)}
                   >
                     +
                   </CircleButton>
@@ -137,11 +150,23 @@ const Product = () => {
             </CableConfigA>
           </div>
           <ProductPrice>
-            <CartButton onClick={handleToggleCart} className="cart-btn">
-              {isProductInCart(localProduct?.id)
-                ? "Remove from Cart"
-                : "Add to Cart"}
-            </CartButton>
+            {exists && (
+              <CartButton
+                onClick={() => removeFromCart(id)}
+                className="cart-btn"
+              >
+                Remove from Cart
+              </CartButton>
+            )}
+            {!exists && (
+              <CartButton
+                onClick={() => addToCart(localProduct)}
+                className="cart-btn"
+              >
+                Add to Cart
+              </CartButton>
+            )}
+
             <CartButton
               style={{ background: "orange" }}
               href="#"
@@ -149,9 +174,7 @@ const Product = () => {
             >
               Buy Now
             </CartButton>
-            <ProductPriceSpan>
-              {localProduct?.currency} {localProduct?.price}
-            </ProductPriceSpan>
+          
           </ProductPrice>
         </RightColumn>
       </Container>

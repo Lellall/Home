@@ -22,12 +22,14 @@ import {
   ShopNav,
   MobileNav,
   QuantityContainer,
+  SearchInp,
 } from "./navbar.styles";
 import { getItemFromLocalForage } from "../../../../utils/getItem";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import useShoppingCart from "../../../../app/useShoppingCart";
 import useProductStore from "../../../../app/productStore";
+import SearchableList from "./searchble";
 
 const MenuList = styled.div`
   position: relative;
@@ -103,13 +105,7 @@ const Main = () => {
 
   const cartTotal = state.reduce((acc, curr) => acc + curr.quantity, 0);
 
-  const {
-    cart,
-    addToCart,
-    removeFromCart,
-    increaseQuantity,
-    decreaseQuantity,
-  } = useShoppingCart();
+  const { cart } = useShoppingCart();
 
   const navigate = useNavigate();
 
@@ -138,16 +134,8 @@ const Main = () => {
             </div>
           </MobileNav>
           <div className="input-container">
-            <InputContainer>
-              <div className="input">
-                <CgSearch className="icon" />
-                <Input
-                  placeholder="Search"
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                />
-              </div>
-            </InputContainer>
+            <SearchableList
+            />
             <SubContainer>
               {data.map((d, i) => (
                 <ShopNav key={i} active={i === 0}>
@@ -166,12 +154,8 @@ const Main = () => {
               className="logo"
               onClick={() => navigate("/shop")}
             />
-            <InputContainer>
-              <div className="input">
-                <CgSearch className="icon" />
-                <Input placeholder="Search" />
-              </div>
-            </InputContainer>
+             <SearchableList
+            />
             <Nav>
               <ColContainer>
                 <SubText>Delivery to</SubText>
@@ -180,6 +164,7 @@ const Main = () => {
                 </StyledSelect>
               </ColContainer>
               <div
+                onClick={() => navigate("/cart")}
                 style={{ position: "relative", height: "30px", padding: "5px" }}
               >
                 <img
