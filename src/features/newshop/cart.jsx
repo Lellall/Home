@@ -1,5 +1,5 @@
 // CartPage.js
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import useShoppingCart from "../../app/useShoppingCart";
 import {
@@ -12,6 +12,9 @@ import {
 import { Navbar } from "../ui";
 import { AddCircle, MinusCirlce, Trash } from "iconsax-react";
 import { ViewportWidth } from "../../utils/enums";
+import useAuth from "../../app/useAuth";
+import AuthModal from "./authModal";
+import RoundedButton from "./RoundedButton";
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -19,7 +22,7 @@ const CartContainer = styled.div`
   padding: 20px;
   font-family: open sans;
   @media (max-width: ${ViewportWidth.sm}px) {
-    float: center;
+    // float: center;
     width: 100%;
     margin: 0 10px;
     width: 80%;
@@ -41,6 +44,11 @@ const CartTable = styled.table`
     background: #fff;
 
     box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.05);
+    @media (max-width: ${ViewportWidth.sm}px) {
+      // float: center;
+      // width: 100%;
+      display: none;
+    }
   }
 
   padding-bottom: 100px;
@@ -80,6 +88,7 @@ font-size: 13px;
     // margin: 0 10px;
     // width: 80%;
     flex-direction:column;
+    justify-content:center;
 
   }
  
@@ -129,6 +138,11 @@ const FlexContainer = styled.div`
     flex-direction: column;
   }
 `;
+const Title = styled.p`
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
+`;
 
 const CartPage = () => {
   const {
@@ -138,10 +152,26 @@ const CartPage = () => {
     increaseQuantity,
     decreaseQuantity,
   } = useShoppingCart();
+  const { isAuthenticated } = useAuth();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
   );
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCheckoutClick = () => {
+    if (isAuthenticated) {
+      // Logic for handling checkout for authenticated user
+      console.log("Processing checkout...");
+    } else {
+      // Show the modal for sign-in or sign-up
+      setShowModal(true);
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
 
   return (
     <>
@@ -171,7 +201,7 @@ const CartPage = () => {
                         style={{
                           width: "50px",
                           // marginTop: "15px",
-                          marginRight: "15px",
+                          margin: "0 15px",
                         }}
                       />
                     </div>
@@ -180,7 +210,7 @@ const CartPage = () => {
                         style={{
                           // width: "50px",
                           marginTop: "10px",
-                          // marginRight: "15px",
+                          // marginLeft: "15px",
                         }}
                       >
                         {item.name}
@@ -194,7 +224,7 @@ const CartPage = () => {
                 <TableCell>
                   <div>
                     <CounterContainer>
-                      <span>Quantity:</span>
+                      {/* <span>Q</span> */}
                       <CircleButton
                         style={{ background: "tomato" }}
                         disabled={item?.qnty === 0}
@@ -252,18 +282,50 @@ const CartPage = () => {
             </div>
           </ListItem>
           <BtnCover>
-            <CartButton
-              style={{ background: "#F06D06", width: '40%', textAlign:'center', marginTop:'20px' }}
-              href="#"
-              className="cart-btn"
-            >
+            <ModCartButton onClick={handleCheckoutClick} className="cart-btn">
               Proceed to checkout
-            </CartButton>
+            </ModCartButton>
           </BtnCover>
         </TotalContainer>
       </CartContainer>
+      {showModal && (
+        <AuthModal onClose={closeModal}>
+          <Title>Please sign in or sign up to proceed.</Title>
+          <RoundedButton
+            backgroundColor="#0E5D37"
+            // onClick={handleSignIn}
+            // loading={loading}
+            // spaceTop="10px"
+            spaceBottom="10px"
+          >
+            Sign In
+          </RoundedButton>
+          <RoundedButton
+            backgroundColor="#F06D06"
+            onClick={() => console.log("Sign Up")}
+            // loading={loading}
+            spaceTop="10px"
+            spaceBottom="10px"
+          >
+            Sign Up
+          </RoundedButton>
+        </AuthModal>
+      )}
     </>
   );
 };
 
 export default CartPage;
+
+const ModCartButton = styled(CartButton)`
+  background: #f06d06;
+  width: 40%;
+  text-align: center;
+  margin-top: 20px;
+  @media (max-width: ${ViewportWidth.sm}px) {
+    // float: center;
+    width: 100%;
+    // margin: 0 10px;
+    // width: 80%;
+  }
+`;

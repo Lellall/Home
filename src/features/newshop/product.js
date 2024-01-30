@@ -190,6 +190,9 @@ const CartButton = styled.a`
   &:hover {
     background-color: #64af3d;
   }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const CounterContainer = styled.div`
