@@ -15,6 +15,7 @@ const Container = styled.main`
 const LeftColumn = styled.div`
   width: 60%;
   position: relative;
+  max-height: 400px;
   margin-right: 50px;
 
   @media (max-width: 768px) {
@@ -33,10 +34,12 @@ const RightColumn = styled.div`
 `;
 
 const LeftColumnImage = styled.img`
-  width: 100%;
+  width: 600px;
   position: absolute;
-  left: 0;
-  top: 0;
+  max-height: 600px;
+  float:center;
+  right: 50px;
+  top: 30px;
   opacity: 0;
   border-radius: 8px;
   transition: all 0.3s ease;

@@ -12,7 +12,7 @@ import { getItemFromLocalForage } from "../../../utils/getItem";
 import { ToastContainer, toast } from "react-toastify";
 import useAuth from "../../../app/useAuth";
 import useAuthStore from "../../../app/authStore";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BaseUrl } from "../../../utils/config";
 
 const ActionCover = styled.div`
@@ -130,6 +130,8 @@ const styles = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get('ref');  console.log(ref,'ref');
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
@@ -151,7 +153,7 @@ const Login = () => {
     console.log(data);
   };
 
-  const googleAuthURL = `${BaseUrl}/oauth2/google/authorize?organization=${'adamawapoly'}&callback_url=${'https://app.safcerts.com/'}adamawapoly&product=36163e9e-1d43-4bf6-b0d3-83bfa7da097c`
+  const googleAuthURL = `${BaseUrl}/oauth2/google/authorize?organization=${"adamawapoly"}&callback_url=${"https://app.safcerts.com/"}adamawapoly&product=36163e9e-1d43-4bf6-b0d3-83bfa7da097c`;
 
   return (
     <ThemeProvider theme={theme}>
@@ -285,35 +287,35 @@ const Login = () => {
                           />
                         </svg>
                       </CircleButton>
-                      <a href={`https://api.dev.lellall.com/auth/oauth2/google/authorize?role=CONSUMER&platform_type=WEB&callback_url=/shop`}>
-
-                     
-                      <CircleButton onClick={googleLogin}>
-                        <svg
-                          width="28"
-                          height="28"
-                          viewBox="0 0 28 28"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M22.4 14.2057C22.4 13.6271 22.344 13.0297 22.2506 12.4697H14.168V15.7737H18.7973C18.6106 16.8377 17.9946 17.7711 17.08 18.3684L19.8426 20.5151C21.4666 19.0031 22.4 16.8004 22.4 14.2057Z"
-                            fill="#4280EF"
-                          />
-                          <path
-                            d="M14.168 22.5678C16.4826 22.5678 18.424 21.8025 19.8426 20.4958L17.08 18.3678C16.3146 18.8905 15.3253 19.1891 14.168 19.1891C11.928 19.1891 10.0426 17.6771 9.35198 15.6611L6.51465 17.8451C7.97065 20.7385 10.92 22.5678 14.168 22.5678Z"
-                            fill="#34A353"
-                          />
-                          <path
-                            d="M9.35182 15.6423C8.99716 14.5783 8.99716 13.421 9.35182 12.357L6.51449 10.1543C5.30116 12.581 5.30116 15.437 6.51449 17.845L9.35182 15.6423Z"
-                            fill="#F6B704"
-                          />
-                          <path
-                            d="M14.168 8.8293C15.3813 8.81063 16.576 9.2773 17.4533 10.1173L19.8986 7.6533C18.3493 6.1973 16.296 5.4133 14.168 5.43197C10.92 5.43197 7.97065 7.2613 6.51465 10.1546L9.35198 12.3573C10.0426 10.3226 11.928 8.8293 14.168 8.8293Z"
-                            fill="#E54335"
-                          />
-                        </svg>
-                      </CircleButton>
+                      <a
+                        href={`https://api.dev.lellall.com/auth/oauth2/google/authorize?role=CONSUMER&platform_type=WEB&callback_url=/shop`}
+                      >
+                        <CircleButton onClick={googleLogin}>
+                          <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 28 28"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M22.4 14.2057C22.4 13.6271 22.344 13.0297 22.2506 12.4697H14.168V15.7737H18.7973C18.6106 16.8377 17.9946 17.7711 17.08 18.3684L19.8426 20.5151C21.4666 19.0031 22.4 16.8004 22.4 14.2057Z"
+                              fill="#4280EF"
+                            />
+                            <path
+                              d="M14.168 22.5678C16.4826 22.5678 18.424 21.8025 19.8426 20.4958L17.08 18.3678C16.3146 18.8905 15.3253 19.1891 14.168 19.1891C11.928 19.1891 10.0426 17.6771 9.35198 15.6611L6.51465 17.8451C7.97065 20.7385 10.92 22.5678 14.168 22.5678Z"
+                              fill="#34A353"
+                            />
+                            <path
+                              d="M9.35182 15.6423C8.99716 14.5783 8.99716 13.421 9.35182 12.357L6.51449 10.1543C5.30116 12.581 5.30116 15.437 6.51449 17.845L9.35182 15.6423Z"
+                              fill="#F6B704"
+                            />
+                            <path
+                              d="M14.168 8.8293C15.3813 8.81063 16.576 9.2773 17.4533 10.1173L19.8986 7.6533C18.3493 6.1973 16.296 5.4133 14.168 5.43197C10.92 5.43197 7.97065 7.2613 6.51465 10.1546L9.35198 12.3573C10.0426 10.3226 11.928 8.8293 14.168 8.8293Z"
+                              fill="#E54335"
+                            />
+                          </svg>
+                        </CircleButton>
                       </a>
                     </SocialCover>
                   </div>

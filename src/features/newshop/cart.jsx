@@ -15,6 +15,9 @@ import { ViewportWidth } from "../../utils/enums";
 import useAuth from "../../app/useAuth";
 import AuthModal from "./authModal";
 import RoundedButton from "./RoundedButton";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import useOrderStore from "../../app/orderStore";
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -147,31 +150,105 @@ const Title = styled.p`
 const CartPage = () => {
   const {
     cart: cartItems,
-    addToCart,
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
   } = useShoppingCart();
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, accessToken } = useAuth();
+  const { addOrder } = useOrderStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
   );
   const [showModal, setShowModal] = useState(false);
 
-  const handleCheckoutClick = () => {
-    if (isAuthenticated) {
-      // Logic for handling checkout for authenticated user
-      console.log("Processing checkout...");
+  const orderData = cartItems.map((item) => {
+    return {
+      productId: item?.productId,
+      count: item?.qnty,
+      productName: item?.name,
+      price: item?.price * item?.qnty,
+    };
+    // console.log(item);
+  });
+
+  console.log(isAuthenticated, "isAuthenticated");
+
+  const navigate = useNavigate();
+
+  const handleCheckoutClick = async() => {
+    if (isAuthenticated && orderData?.length > 0) {
+      const data = {
+        paymentItems: orderData,
+        address: {
+          streetName: "string",
+          houseNumber: "string",
+          estate: "string",
+          poBox: "string"
+        }
+      };
+  
+      try {
+        const response = await axios.post(
+          "https://api.dev.lellall.com/orders",
+          data
+        );
+  
+        addOrder(response.data);
+  
+        // Optionally, reset form data
+        // setOrderData({
+        //   // Your order data fields here
+        // });
+      } catch (error) {
+        console.error("Error creating order:", error);
+      }
+      return;
     } else {
       // Show the modal for sign-in or sign-up
       setShowModal(true);
     }
   };
+  
 
   const closeModal = () => {
     setShowModal(false);
   };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      // Make POST request with Axios
+      const response = await axios.post(
+        "https://api.dev.lellall.com/orders",
+        orderData,
+        {
+          headers: {
+            Authorization: "Bearer YOUR_ACCESS_TOKEN", // Replace with your actual access token
+          },
+        }
+      );
+
+      // Update Zustand store with the new order
+      addOrder(response.data);
+
+      // Optionally, reset form data
+      // setOrderData({
+      //   // Your order data fields here
+      // });
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+  };
+
+  const handleIncrement = (item) => {
+    if (item.qnty < item.quantity) {
+      increaseQuantity(item.productId)
+    }
+    // alert('out of stock')
+    return;
+  }
 
   return (
     <>
@@ -236,7 +313,7 @@ const CartPage = () => {
 
                       <CircleButton
                         style={{ background: "green" }}
-                        onClick={() => increaseQuantity(item?.productId)}
+                        onClick={() => handleIncrement(item)}
                       >
                         +
                       </CircleButton>
@@ -248,7 +325,7 @@ const CartPage = () => {
                 </TableCell>
                 <TableCell>
                   <CircleButton
-                    onClick={() => removeFromCart(item?.id)}
+                    onClick={() => removeFromCart(item?.productId)}
                     style={{ background: "transparent" }}
                   >
                     <Trash size="22" color="red" />
@@ -293,7 +370,7 @@ const CartPage = () => {
           <Title>Please sign in or sign up to proceed.</Title>
           <RoundedButton
             backgroundColor="#0E5D37"
-            // onClick={handleSignIn}
+            onClick={() => navigate("/login?ref=cart")}
             // loading={loading}
             // spaceTop="10px"
             spaceBottom="10px"
@@ -302,7 +379,7 @@ const CartPage = () => {
           </RoundedButton>
           <RoundedButton
             backgroundColor="#F06D06"
-            onClick={() => console.log("Sign Up")}
+            onClick={() => navigate("/register?ref=cart")}
             // loading={loading}
             spaceTop="10px"
             spaceBottom="10px"
