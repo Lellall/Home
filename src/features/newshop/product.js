@@ -180,7 +180,7 @@ const ProductPriceSpan = styled.span`
 //   margin-right: 20px;
 `;
 
-const CartButton = styled.a`
+const CartButton = styled.button`
   display: inline-block;
   background-color: #7dc855;
   border-radius: 6px;

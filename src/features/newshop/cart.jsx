@@ -155,6 +155,8 @@ const CartPage = () => {
     decreaseQuantity,
   } = useShoppingCart();
   const { isAuthenticated, accessToken } = useAuth();
+  const [isLoading, setLoading] = useState(false);
+
   const { addOrder } = useOrderStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
@@ -169,14 +171,13 @@ const CartPage = () => {
       productName: item?.name,
       price: item?.price * item?.qnty,
     };
-    // console.log(item);
   });
 
   console.log(isAuthenticated, "isAuthenticated");
 
   const navigate = useNavigate();
 
-  const handleCheckoutClick = async() => {
+  const handleCheckoutClick = async () => {
     if (isAuthenticated && orderData?.length > 0) {
       const data = {
         paymentItems: orderData,
@@ -184,71 +185,82 @@ const CartPage = () => {
           streetName: "string",
           houseNumber: "string",
           estate: "string",
-          poBox: "string"
-        }
+          poBox: "string",
+        },
       };
-  
+
       try {
+        setLoading(true);
+
         const response = await axios.post(
           "https://api.dev.lellall.com/orders",
-          data
+          data,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
-  
+        await initiateCheckout(response.data.orderId);
+
         addOrder(response.data);
-  
-        // Optionally, reset form data
-        // setOrderData({
-        //   // Your order data fields here
-        // });
       } catch (error) {
         console.error("Error creating order:", error);
+        setLoading(false);
+      } finally {
+        setLoading(false);
       }
+
       return;
     } else {
       // Show the modal for sign-in or sign-up
+
       setShowModal(true);
     }
   };
-  
 
   const closeModal = () => {
     setShowModal(false);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
+  const initiateCheckout = async (orderId) => {
     try {
-      // Make POST request with Axios
+      setLoading(true);
+
+      // Make a request to the checkout initiate endpoint with the orderId
       const response = await axios.post(
-        "https://api.dev.lellall.com/orders",
-        orderData,
+        "https://api.dev.lellall.com/checkout/initiate",
+        { orderId },
         {
           headers: {
-            Authorization: "Bearer YOUR_ACCESS_TOKEN", // Replace with your actual access token
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
           },
         }
       );
 
-      // Update Zustand store with the new order
-      addOrder(response.data);
+      // Handle the response from the checkout initiate endpoint
+      const { paymentUrl } = response.data;
 
-      // Optionally, reset form data
-      // setOrderData({
-      //   // Your order data fields here
-      // });
+      // Open the payment link in a new tab/window
+      window.location.href = paymentUrl;
     } catch (error) {
-      console.error("Error creating order:", error);
+      setLoading(false);
+
+      console.error("Error initiating checkout:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleIncrement = (item) => {
     if (item.qnty < item.quantity) {
-      increaseQuantity(item.productId)
+      increaseQuantity(item.productId);
     }
     // alert('out of stock')
     return;
-  }
+  };
 
   return (
     <>
@@ -359,7 +371,7 @@ const CartPage = () => {
             </div>
           </ListItem>
           <BtnCover>
-            <ModCartButton onClick={handleCheckoutClick} className="cart-btn">
+            <ModCartButton loading={isLoading} disabled={isLoading} onClick={handleCheckoutClick} className="cart-btn">
               Proceed to checkout
             </ModCartButton>
           </BtnCover>
@@ -394,8 +406,8 @@ const CartPage = () => {
 
 export default CartPage;
 
-const ModCartButton = styled(CartButton)`
-  background: #f06d06;
+const ModCartButton = styled(RoundedButton)`
+  background: red;
   width: 40%;
   text-align: center;
   margin-top: 20px;
