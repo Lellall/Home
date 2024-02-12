@@ -96,14 +96,14 @@ const Main = () => {
   };
 
   const active = false;
-  const { state } = useContext(cartContext);
+  // const { state } = useContext(cartContext);
   const data = ["Store", "Vendors", "Couriers"];
   const isMobile = useResponsiveValue({
     sm: true,
     md: false,
   });
 
-  const cartTotal = state.reduce((acc, curr) => acc + curr.quantity, 0);
+  // const cartTotal = state.reduce((acc, curr) => acc + curr.quantity, 0);
 
   const { cart } = useShoppingCart();
 
@@ -136,13 +136,6 @@ const Main = () => {
           <div className="input-container">
             <SearchableList
             />
-            <SubContainer>
-              {data.map((d, i) => (
-                <ShopNav key={i} active={i === 0}>
-                  {d}
-                </ShopNav>
-              ))}
-            </SubContainer>
           </div>
         </Wrapper>
       ) : (
@@ -174,7 +167,7 @@ const Main = () => {
                 />
                 {
                   <QuantityContainer>
-                    <p>{cart?.length}</p>
+                    <p >{cart?.length}</p>
                   </QuantityContainer>
                 }
               </div>
@@ -188,7 +181,7 @@ const Main = () => {
                   <div className="inactive">
                     <RxAvatar className="icon" />
                     <MenuList>
-                      <p onClick={() => setShow(!show)}>
+                      <p style={{color: '#fff'}} onClick={() => setShow(!show)}>
                         {user !== null ? (
                           `${user?.firstName + " " + user?.lastName}`
                         ) : (
@@ -226,13 +219,7 @@ const Main = () => {
               </Profile>
             </Nav>
           </MainContainer>
-          <SubContainer>
-            {data.map((d, i) => (
-              <ShopNav key={i} active={i === 0}>
-                {d}
-              </ShopNav>
-            ))}
-          </SubContainer>
+         
         </Wrapper>
       )}
     </>

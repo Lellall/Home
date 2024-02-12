@@ -5,6 +5,12 @@ import { MultipleProducts } from "../StoreSlide";
 import CategoriesList from "./categoriesItems";
 import General from "../features/newshop/general";
 import SubCategory from "./subCategories";
+import { useNavigate } from "react-router-dom";
+import useProductStore from "./productStore";
+import { useEffect, useRef, useState } from "react";
+import ReusableCard from "../features/newshop/card";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { ColorRing } from "react-loader-spinner";
 
 const TopSnacker = styled.div`
   display: flex;
@@ -35,6 +41,12 @@ const Container = styled.div`
 `;
 const Categories = styled.div`
   width: 20%;
+  // position: fixed;
+  box-sizing: border-box;
+  min-height: 100vh;
+  background: #fff;
+  top: 10rem;
+  z-index: 1;
   backround: red;
   @media (max-width: 912px) {
     display: none; // Hide the component on screens with a width of 768 pixels or smaller
@@ -43,8 +55,10 @@ const Categories = styled.div`
 const Products = styled.div`
   width: 71%;
   margin-right: 90px;
+  // margin-left: 21%;
   // margin-bottom: 10000px
   backround: red;
+  min-height: 100vh;
   @media (max-width: 912px) {
     width: 100%;
   }
@@ -52,17 +66,51 @@ const Products = styled.div`
 
 const Cover = styled.div`
   margin-top: 50px;
+  margin-bottom: 150px;
+  padding: 20px;
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  padd
 `;
 const Picks = styled.div`
   margin: 10px auto;
   width: 100%;
 `;
+const ContainerInf = styled.div`
+  display: flex;
+  justify-content: center; /* Center the content horizontally */
+  margin: 20px 0px;
+`;
 
 const NewStore = () => {
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const products = useProductStore((state) => state.products);
+  const fetchProducts = useProductStore((state) => state.fetchProducts);
+
+  useEffect(() => {
+    loadNextPage();
+  }, []);
+
+  const loadNextPage = async () => {
+    try {
+      await fetchProducts(page);
+      setPage(page + 1);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  const handleAddToWishlist = (productId) => {
+    navigate(`/product/${productId}`);
+  };
+
   return (
     <>
       <Navbar />
+      <div style={{ marginTop: "10rem" }}></div>
       <Container>
         <Categories>
           <CategoriesList />
@@ -71,12 +119,57 @@ const NewStore = () => {
           <div>
             <MultipleProducts />
           </div>
-          <Cover>
-            <SliderComponent dislay={4} />
-          </Cover>
+          <ContainerInf>
+            <InfiniteScroll
+              style={{ float: "center" }}
+              dataLength={products.length}
+              next={loadNextPage}
+              hasMore={hasMore}
+              loader={
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    // height: "10vh",
+                  }}
+                >
+                  <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{ float: "center" }}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                      "#e15b64",
+                      "#f47e60",
+                      "#f8b26a",
+                      "#abbd81",
+                      "#849b87",
+                    ]}
+                  />
+                </div>
+              }
+              endMessage={<p>No more products</p>}
+            >
+              <Cover>
+                {products.map((product, index) => (
+                  <ReusableCard
+                    key={index}
+                    title={product?.name}
+                    price={product?.price}
+                    discount="20% OFF"
+                    imageUrl={product?.imageUrl}
+                    onAddToWishlist={() => navigate(`product/${product?.id}`)}
+                  />
+                ))}
+              </Cover>
+            </InfiniteScroll>
+          </ContainerInf>
         </Products>
       </Container>
-      <div>
+      {/* <div>
         <div style={{ margin: "1px 20px" }}>
           <TopSnacker>
             <TopSnackerColor>heeo</TopSnackerColor>
@@ -132,8 +225,8 @@ const NewStore = () => {
             </div>
           </TopSnacker>
         </Picks>
-      </div>
-      <div>
+      </div> */}
+      <div style={{ marginTop: "5rem" }}>
         <Footer />
       </div>
     </>

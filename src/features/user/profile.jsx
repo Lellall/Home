@@ -3,6 +3,11 @@ import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { ProfileCard } from "./components";
 import { ViewportWidth } from "../../utils/enums";
+import { useEffect, useState } from "react";
+import { getItemFromLocalForage } from "../../utils/getItem";
+import useAuth from "../../app/useAuth";
+import { EmptyState } from "./my-orders/orders.styles";
+import { LockCircle } from "iconsax-react";
 
 const HeadingContainer = styled(Box)`
   display: flex !important;
@@ -47,38 +52,38 @@ const GridContainer = styled(Box)`
 `;
 
 const Main = () => {
+  const [user, setUser] = useState("");
+  const { isAuthenticated } = useAuth();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const storedItem = await getItemFromLocalForage("user");
+        setUser(storedItem);
+      } catch (error) {
+        console.error("Error retrieving item:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  console.log(user, "nuserav");
   const data = [
     {
       id: 1,
       title: "Account Details",
-      subText: "Jane Doe",
+      subText: `${user?.firstName} ${user?.lastName}`,
       imageSrc: "",
-      subItems: ["Edit"],
-      smallText: "janedoe@gmail.com",
+      subItems: [""],
+      smallText: user?.username,
     },
     {
       id: 2,
       title: "Shipping Address",
       subText: "Default Shipping Address",
       imageSrc: "",
-      subItems: ["Add Address"],
+      subItems: [<button>Add Address</button>],
       smallText: "You have no available address",
-    },
-    {
-      id: 3,
-      title: "Léllall Wallet",
-      subText: "₦2,400",
-      imageSrc: "",
-      subItems: ["Fund Wallet", "History"],
-      smallText: "",
-    },
-    {
-      id: 4,
-      title: "Newsletter Subscription",
-      subText: "",
-      imageSrc: "",
-      subItems: ["Subscribe"],
-      smallText: "You are currently not subscribed to any of our newsletters.",
     },
   ];
   return (
@@ -86,23 +91,33 @@ const Main = () => {
       <HeadingContainer>
         <HeadingText>Account Overview</HeadingText>
       </HeadingContainer>
-      <GridContainer>
-        <Grid container spacing={2}>
-          {data?.map((d, i) => (
-            <Grid item xs={12} sm={6} md={6} lg={6} key={d.id}>
-              <ProfileCard
-                title={d.title}
-                showImage={i === 0}
-                subText={d.subText}
-                subItems={d.subItems}
-                imageSrc={d.imageSrc}
-                smallText={d.smallText}
-                showIcon={i === 2}
-              />
+      {!isAuthenticated ? (
+        <EmptyState>
+          <LockCircle size="62" color="#FF8A65" />
+          <div className="text-container">
+            <p className="bold">Please login to continue</p>
+            <p>Access Restricted: Login Required</p>
+          </div>
+        </EmptyState>
+      ) : (
+        data?.map((d, i) => (
+          <GridContainer>
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={6} md={6} lg={12} key={d.id}>
+                <ProfileCard
+                  title={d.title}
+                  showImage={i === 0}
+                  subText={d.subText}
+                  subItems={d.subItems}
+                  imageSrc={d.imageSrc}
+                  smallText={d.smallText}
+                  showIcon={i === 2}
+                />
+              </Grid>
             </Grid>
-          ))}
-        </Grid>
-      </GridContainer>
+          </GridContainer>
+        ))
+      )}
     </>
   );
 };

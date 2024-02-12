@@ -5,8 +5,10 @@ const Container = styled.main`
   margin: 0 auto;
   padding: 15px;
   display: flex;
+  margin-top: 8rem;
+  margin-bottom: 10rem;
   font-family: open sans;
-
+  max-height: 700px;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -15,7 +17,7 @@ const Container = styled.main`
 const LeftColumn = styled.div`
   width: 60%;
   position: relative;
-  max-height: 400px;
+  max-height: 300px;
   margin-right: 50px;
 
   @media (max-width: 768px) {
@@ -34,10 +36,11 @@ const RightColumn = styled.div`
 `;
 
 const LeftColumnImage = styled.img`
-  width: 600px;
+  // width: 500px;
   position: absolute;
-  max-height: 600px;
-  float:center;
+  overflow: hidden;
+  // max-height: 300px;
+  float:left;
   right: 50px;
   top: 30px;
   opacity: 0;

@@ -178,8 +178,8 @@ const Product = () => {
           </ProductPrice>
         </RightColumn>
       </Container>
-      <div style={{ marginTop: "100px" }}></div>
-      <Footer />
+      <div style={{ marginTop: "5rem" }}></div>
+      <Footer style={{ marginTop: "50rem" }} />
     </>
   );
 };

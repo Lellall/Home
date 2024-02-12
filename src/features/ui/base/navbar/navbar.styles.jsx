@@ -3,15 +3,20 @@ import { Container, Typography, Button } from "@mui/material";
 import { ViewportWidth } from "../../../../utils/enums";
 import { StyledInput } from "../../../../components/Input/Input";
 
-export const Wrapper = styled(Container)`
+export const Wrapper = styled.div`
   display: flex !important;
+  background: #000;
   flex-direction: column !important;
   gap: 10px !important;
   align-self: stretch !important;
   width: 100% !important;
   max-width: 1440px !important;
-  position: sticky !important;
+  position: fixed !important;
+  height: 105px;
+  margin-bottom: 400px !important;
   top: 0; /* Specify the distance from the top where the sticky element should stick */
+  z-index: 1000;
+  // color: #fff;
 
   .input-container {
     display: flex !important;
@@ -36,6 +41,9 @@ export const MainContainer = styled(Container)`
   border-bottom: 1px solid #ececec !important;
   min-width: 100% !important;
   box-sizing: border-box;
+  margin-bottom: 3rem;
+  display: none;
+  // color: #fff !important;
 
   .logo {
     width: 64px !important;
@@ -81,15 +89,7 @@ export const MobileNav = styled(Container)`
 `;
 
 export const SubContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 10px;
-
-  @media (max-width: ${ViewportWidth.sm}px) {
-    padding-bottom: 18px;
-  }
+ 
 `;
 
 export const ShopNav = styled(Button)`
@@ -192,7 +192,7 @@ export const StyledSelect = styled.select`
 `;
 
 export const SubText = styled(Typography)`
-  color: #2f313f !important;
+  // color: #fff !important;
   font-feature-settings: "clig" off, "liga" off !important;
   font-family: Open Sans !important;
   font-size: 12px !important;
@@ -204,6 +204,7 @@ export const Profile = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+  // color: #fff;
 
   p {
     color: #2f313f;
@@ -270,9 +271,10 @@ export const QuantityContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
+  
 
   p {
-    color: #fff;
+    // color: #fff;
     font-feature-settings: "clig" off, "liga" off;
     font-family: Raleway;
     font-size: 7px;
@@ -311,6 +313,8 @@ export const Icon = styled.div`
 position: absolute;
 top: 5px;
 left: 5px;
+// color: #fff !important;
+
 `
 export const Cover = styled.div`
 position: relative;

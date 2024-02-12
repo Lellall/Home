@@ -6,8 +6,8 @@ import styled from "styled-components";
 
 const CardWrapper = styled.div`
   position: relative;
-  width: 165px;
-  max-width: 165px;
+  width: 185px;
+  max-width: 180px;
   box-sizing: border-box;
   height: 220px;
   cursor:pointer;
@@ -17,7 +17,7 @@ const CardWrapper = styled.div`
   transition: transform 0.3s ease;
   margin-bottom: 16px; /* Add margin for better spacing */
   //   margin: 30px;
-  margin: 20px 0px;
+  margin: 20px 10px;
   &:hover {
     transform: scale(1.05);
   }

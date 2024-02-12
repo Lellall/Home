@@ -18,10 +18,14 @@ import RoundedButton from "./RoundedButton";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useOrderStore from "../../app/orderStore";
+import { EmptyState } from "../user/my-orders/orders.styles";
 
 const CartContainer = styled.div`
   //   max-width: 600px;
+ 
+  // background:red;
   margin: 0 70px;
+   margin-top: 10rem;
   padding: 20px;
   font-family: open sans;
   @media (max-width: ${ViewportWidth.sm}px) {
@@ -267,115 +271,134 @@ const CartPage = () => {
       <Navbar />
       <CartContainer>
         <h2>My Cart</h2>
-        <CartTable>
-          <thead>
-            <tr>
-              <TableHeader>Product</TableHeader>
-              <TableHeader>Price</TableHeader>
-              <TableHeader>Quantity</TableHeader>
-              <TableHeader>Subtotal</TableHeader>
-              <TableHeader>Action</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {cartItems?.map((item) => (
-              <TableRow key={item?.id}>
-                <TableCell>
-                  <FlexContainer>
-                    <div>
-                      {" "}
-                      <img
-                        src={item.imageUrl}
-                        alt={item.name}
-                        style={{
-                          width: "50px",
-                          // marginTop: "15px",
-                          margin: "0 15px",
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <div
-                        style={{
-                          // width: "50px",
-                          marginTop: "10px",
-                          // marginLeft: "15px",
-                        }}
-                      >
-                        {item.name}
-                      </div>
-                    </div>
-                  </FlexContainer>
-                </TableCell>
-                <TableCell>
-                  {item?.price} {item?.currency}
-                </TableCell>
-                <TableCell>
-                  <div>
-                    <CounterContainer>
-                      {/* <span>Q</span> */}
-                      <CircleButton
-                        style={{ background: "tomato" }}
-                        disabled={item?.qnty === 0}
-                        onClick={() => decreaseQuantity(item?.productId)}
-                      >
-                        -
-                      </CircleButton>
-                      <CountDisplay>{Number(item?.qnty)}</CountDisplay>
+        {cartItems?.length < 1 ? (
+          <>
+            <EmptyState>
+              <img src="/src/assets/emptycart.svg" alt="favorites" />
+              <div className="text-container">
+                <p className="bold">Empty Cart!</p>
+                <p>Your shopping cart is empty</p>
+              </div>
+            </EmptyState>
+          </>
+        ) : (
+          <div>
+            <CartTable>
+              <thead>
+                <tr>
+                  <TableHeader>Product</TableHeader>
+                  <TableHeader>Price</TableHeader>
+                  <TableHeader>Quantity</TableHeader>
+                  <TableHeader>Subtotal</TableHeader>
+                  <TableHeader>Action</TableHeader>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems?.map((item) => (
+                  <TableRow key={item?.id}>
+                    <TableCell>
+                      <FlexContainer>
+                        <div>
+                          {" "}
+                          <img
+                            src={item.imageUrl}
+                            alt={item.name}
+                            style={{
+                              width: "50px",
+                              // marginTop: "15px",
+                              margin: "0 15px",
+                            }}
+                          />
+                        </div>
+                        <div>
+                          <div
+                            style={{
+                              // width: "50px",
+                              marginTop: "10px",
+                              // marginLeft: "15px",
+                            }}
+                          >
+                            {item.name}
+                          </div>
+                        </div>
+                      </FlexContainer>
+                    </TableCell>
+                    <TableCell>
+                      {item?.price} {item?.currency}
+                    </TableCell>
+                    <TableCell>
+                      <div>
+                        <CounterContainer>
+                          {/* <span>Q</span> */}
+                          <CircleButton
+                            style={{ background: "tomato" }}
+                            disabled={item?.qnty === 0}
+                            onClick={() => decreaseQuantity(item?.productId)}
+                          >
+                            -
+                          </CircleButton>
+                          <CountDisplay>{Number(item?.qnty)}</CountDisplay>
 
+                          <CircleButton
+                            style={{ background: "green" }}
+                            onClick={() => handleIncrement(item)}
+                          >
+                            +
+                          </CircleButton>
+                        </CounterContainer>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      {(item?.price * item?.qnty).toFixed(2)} {item.currency}
+                    </TableCell>
+                    <TableCell>
                       <CircleButton
-                        style={{ background: "green" }}
-                        onClick={() => handleIncrement(item)}
+                        onClick={() => removeFromCart(item?.productId)}
+                        style={{ background: "transparent" }}
                       >
-                        +
+                        <Trash size="22" color="red" />
                       </CircleButton>
-                    </CounterContainer>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  {(item?.price * item?.qnty).toFixed(2)} {item.currency}
-                </TableCell>
-                <TableCell>
-                  <CircleButton
-                    onClick={() => removeFromCart(item?.productId)}
-                    style={{ background: "transparent" }}
-                  >
-                    <Trash size="22" color="red" />
-                  </CircleButton>
-                </TableCell>
-              </TableRow>
-            ))}
-          </tbody>
-        </CartTable>
-        <hr />
-        <TotalContainer>
-          <ListItem>
-            <div>Subtotal:</div>
-            <div>
-              {" "}
-              {subtotal?.toFixed(2)} {cartItems[0]?.currency}
-            </div>
-          </ListItem>
-          <ListItem>
-            <div>Shipping fee:</div>
-            <div>
-              {" "}
-              {subtotal?.toFixed(2)} {cartItems[0]?.currency}
-            </div>
-          </ListItem>
-          <ListItem>
-            <div>Total:</div>
-            <div>
-              {" "}
-              {subtotal?.toFixed(2)} {cartItems[0]?.currency}
-            </div>
-          </ListItem>
-          <BtnCover>
-            <ModCartButton loading={isLoading} disabled={isLoading} onClick={handleCheckoutClick} className="cart-btn">
-              Proceed to checkout
-            </ModCartButton>
-          </BtnCover>
-        </TotalContainer>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </tbody>
+            </CartTable>
+            <hr />
+            <TotalContainer>
+              <ListItem>
+                <div>Subtotal:</div>
+                <div>
+                  {" "}
+                  {subtotal?.toFixed(2)} {cartItems[0]?.currency}
+                </div>
+              </ListItem>
+              <ListItem>
+                <div>Shipping fee:</div>
+                <div>
+                  {" "}
+                  {subtotal?.toFixed(2)} {cartItems[0]?.currency}
+                </div>
+              </ListItem>
+              <ListItem>
+                <div>Total:</div>
+                <div>
+                  {" "}
+                  {subtotal?.toFixed(2)} {cartItems[0]?.currency}
+                </div>
+              </ListItem>
+              <BtnCover>
+                <ModCartButton
+                  loading={isLoading}
+                  disabled={isLoading}
+                  onClick={handleCheckoutClick}
+                  className="cart-btn"
+                >
+                  Proceed to checkout
+                </ModCartButton>
+              </BtnCover>
+            </TotalContainer>
+          </div>
+        )}
       </CartContainer>
       {showModal && (
         <AuthModal onClose={closeModal}>

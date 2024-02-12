@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Slider from "react-slick";
 import { Card } from "./FavStores";
 import NewProducts, { ProdCard } from "./Surface";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { ShopCard } from "./features/shop/components";
 import styled from "styled-components";
@@ -122,13 +122,14 @@ const MultipleProducts = () => {
   };
 
   const [shopsData, setShopsData] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Function to fetch data using Axios
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.dev.lellall.com/shops?page=0&size=10"
+          "https://api.dev.lellall.com/products"
         );
         // Set the fetched data in the state
         setShopsData(response?.data?.data);
@@ -140,6 +141,7 @@ const MultipleProducts = () => {
     // Call the fetchData function when the component mounts
     fetchData();
   }, []);
+  console.log(shopsData,'shopsData');
 
   return (
     <div
@@ -152,11 +154,11 @@ const MultipleProducts = () => {
       <Slider {...settings}>
         {shopsData.map((shop, index) => (
           <div key={index}>
-            <ShopCardNew style={{ backgroundImage: `url(${shop.logoUrl})` }}>
+            <ShopCardNew style={{ backgroundImage: `url(${shop.imageUrl})` }}>
               <InnerCard>
                 <h1>{shop.name}</h1>
-                <p>{shop.category.description}</p>
-                <button >Explore more!</button>
+                <p>{shop?.description}</p>
+                <button onClick={() => navigate(`product/${shop?.id}`)}>Buy Now!</button>
               </InnerCard>
             </ShopCardNew>
           </div>
@@ -178,7 +180,7 @@ const ShopCardNew = styled.div`
   background-position: center;
   // background: tomato;
   background-size: cover;
-  min-height: 55vh;
+  min-height: 60vh;
   margin: 0 10px;
   border-radius: 10px;
   position: relative;
@@ -208,7 +210,7 @@ const InnerCard = styled.div`
   height: 100%;
   // border-radius: 0% 100% 40% 60% / 100% 0% 100% 0%;
   // clip-path: polygon(0 0, 100% 0%, 75% 100%, 0 100%);
-  background-color: red;
+  background-color: #004f0257;
   // background-color: #ffffffcc;
   h1 {
     color: #fff;
@@ -222,7 +224,7 @@ const InnerCard = styled.div`
     line-height: 60px; /* 125% */
     letter-spacing: 1.92px;
   }
-  box-shadow: 20px 20px 60px orange, -20px -20px 60px purple;
+  // box-shadow: 20px 20px 60px orange, -20px -20px 60px purple;
   @media only screen and (min-width: 768px) and (max-width: 1024px) {
     border-radius: 0;
     padding: 20px 10px;
