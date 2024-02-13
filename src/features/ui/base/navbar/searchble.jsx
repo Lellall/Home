@@ -39,6 +39,10 @@ const SearchableListContainer = styled.div`
   left: 30%;
   z-index: 10000000;
   background: #fff;
+  @media (max-width: 912px) {
+   left: 22%;
+   width: 40%;
+  }
 `;
 
 const ListItem = styled.div`
@@ -54,6 +58,9 @@ const ListItem = styled.div`
   color: #000;
   &:hover {
     // background-color: #f0f0f0;
+  }
+  @media (max-width: 912px) {
+    font-size: 9px;
   }
 `;
 

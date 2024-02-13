@@ -60,6 +60,7 @@ padding: 10px;
 &:hover {
   transform: scale(1.1); /* Add the desired hover effect, e.g., scale up */
 }
+
 `;
 
 const Main = () => {
@@ -124,14 +125,69 @@ const Main = () => {
               className="logo"
               onClick={() => navigate("/shop")}
             />
-            <div className="container">
-              <img
-                src="/assets/shopping-cart.svg"
-                alt="cart"
-                className="cart"
-              />
-              <RxHamburgerMenu className="menu" />
-            </div>
+            <Profile style={{
+              marginRight: '2rem'
+            }}>
+            <div
+                onClick={() => navigate("/cart")}
+                style={{ position: "relative", height: "30px", padding: "5px" }}
+              >
+                <img
+                  src="/assets/shopping-cart.svg"
+                  alt="cart"
+                  className="cart"
+                />
+                {
+                  <QuantityContainer>
+                    <p >{cart?.length}</p>
+                  </QuantityContainer>
+                }
+              </div>
+                {active ? (
+                  <div className="active">
+                    <RxAvatar />
+                    <p>Hi Jane</p>
+                  </div>
+                ) : (
+                  <div className="inactive">
+                    <RxAvatar  onClick={() => setShow(!show)} className="icon" />
+                    <MenuList>
+                      <p  onClick={() => setShow(!show)}>
+                        {/* {user !== null ? (
+                          `${user?.firstName + " " + user?.lastName}`
+                        ) : (
+                          <></>
+                        )} */}
+                      </p>
+                      {user !== null && show && (
+                        <MenuListCover>
+                          <ListMenu
+                            onClick={() => callNavigate("/account/my-orders")}
+                          >
+                            My Orders
+                          </ListMenu>
+                          <ListMenu onClick={() => callNavigate("/account")}>
+                            Account
+                          </ListMenu>
+                          <ListMenu
+                            onClick={() => callNavigate("/account/favorites")}
+                          >
+                            Favorites
+                          </ListMenu>
+                          <ListMenu
+                            onClick={() =>
+                              callNavigate("/account/notification")
+                            }
+                          >
+                            Notifications
+                          </ListMenu>
+                          <ListMenu>Logout</ListMenu>
+                        </MenuListCover>
+                      )}
+                    </MenuList>
+                  </div>
+                )}
+              </Profile>
           </MobileNav>
           <div className="input-container">
             <SearchableList
