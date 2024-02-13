@@ -32,7 +32,7 @@ const CardWrapper = styled.div`
     //  margin-left: -20px;
   }
   @media (max-width: 360px) {
-    width: 160px;
+    width: 170px;
     //  margin-left: -20px;
   }
  

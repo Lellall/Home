@@ -153,7 +153,7 @@ const NewStore = () => {
                   }}
                 >
                   <ColorRing
-                    visible={true}
+                    visible={products.length === 0 ? false : true}
                     height="80"
                     width="80"
                     ariaLabel="color-ring-loading"
