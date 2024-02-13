@@ -41,12 +41,12 @@ const Container = styled.div`
 `;
 const Categories = styled.div`
   width: 20%;
-  // position: fixed;
+  position: fixed;
   box-sizing: border-box;
-  min-height: 100vh;
+  // min-height: 100vh;
   background: #fff;
   top: 10rem;
-  z-index: 1;
+  // z-index: -1;
   backround: red;
   @media (max-width: 912px) {
     display: none; // Hide the component on screens with a width of 768 pixels or smaller
@@ -55,12 +55,14 @@ const Categories = styled.div`
 const Products = styled.div`
   width: 71%;
   margin-right: 90px;
-  // margin-left: 21%;
+  margin-left: 21%;
   // margin-bottom: 10000px
   backround: red;
   min-height: 100vh;
   @media (max-width: 912px) {
     width: 100%;
+     margin-left: 0;
+    //  overflow-x: hidden;
   }
 `;
 
@@ -71,7 +73,9 @@ const Cover = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  padd
+  @media (max-width: 912px) {
+   padding:0;
+  }
 `;
 const Picks = styled.div`
   margin: 10px auto;
@@ -81,6 +85,20 @@ const ContainerInf = styled.div`
   display: flex;
   justify-content: center; /* Center the content horizontally */
   margin: 20px 0px;
+  @media (max-width: 912px) {
+    width: 100%;
+    overflow-x: hidden;
+    //  margin-left: -20px;
+  }
+  @media (max-width: 412px) {
+    // width: 100%;
+     margin-left: 0;
+  }
+  @media (max-width: 360px) {
+    width: 100%;
+    //  margin-left: -20px;
+  }
+  
 `;
 
 const NewStore = () => {
@@ -227,7 +245,7 @@ const NewStore = () => {
         </Picks>
       </div> */}
       <div style={{ marginTop: "5rem" }}>
-        <Footer />
+        <Footer style={{zIndex:"2"}} />
       </div>
     </>
   );

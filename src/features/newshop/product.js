@@ -11,6 +11,7 @@ const Container = styled.main`
   max-height: 700px;
   @media (max-width: 768px) {
     flex-direction: column;
+    justify-content: center;
   }
 `;
 
@@ -20,6 +21,11 @@ const LeftColumn = styled.div`
   max-height: 300px;
   margin-right: 50px;
 
+  @media (max-width: 912px) {
+    // width: 100%;
+    // margin-right: 0;
+    // margin-bottom: 20px;
+  }
   @media (max-width: 768px) {
     width: 100%;
     margin-right: 0;
@@ -37,15 +43,25 @@ const RightColumn = styled.div`
 
 const LeftColumnImage = styled.img`
   // width: 500px;
-  position: absolute;
+  // position: absolute;
   overflow: hidden;
   // max-height: 300px;
   float:left;
-  right: 50px;
-  top: 30px;
+  // right: 50px;
+  // top: 30px;
   opacity: 0;
   border-radius: 8px;
   transition: all 0.3s ease;
+  @media (max-width: 912px) {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 50px;
+  }
+  @media (max-width: 768px) {
+    float: center;
+    width: 100%;
+    margin-top: 70px;
+  }
 
   &.active {
     opacity: 1;
@@ -77,6 +93,12 @@ const ProductDescriptionP = styled.p`
   font-weight: 300;
   color: #86939e;
   line-height: 24px;
+  @media (max-width: 912px) {
+    margin-top: 80px;
+  }
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
 `;
 
 const ProductColor = styled.div`
@@ -174,6 +196,13 @@ const ProductPrice = styled.div`
   display: flex;
   justify-content: space-between;
   //   align-items: space;
+  @media (max-width: 912px) {
+    flex-direction: row;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  
 `;
 
 const ProductPriceSpan = styled.span`
@@ -192,12 +221,14 @@ const CartButton = styled.button`
   text-decoration: none;
   padding: 12px 30px;
   transition: all 0.5s;
+  border: none;
 
   &:hover {
     background-color: #64af3d;
   }
   @media (max-width: 768px) {
     width: 100%;
+    margin-top: 10px;
   }
 `;
 

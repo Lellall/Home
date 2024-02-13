@@ -179,9 +179,9 @@ const Main = () => {
                   </div>
                 ) : (
                   <div className="inactive">
-                    <RxAvatar className="icon" />
+                    <RxAvatar  onClick={() => setShow(!show)} className="icon" />
                     <MenuList>
-                      <p style={{color: '#fff'}} onClick={() => setShow(!show)}>
+                      <p  onClick={() => setShow(!show)}>
                         {user !== null ? (
                           `${user?.firstName + " " + user?.lastName}`
                         ) : (

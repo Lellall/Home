@@ -23,10 +23,19 @@ const CardWrapper = styled.div`
   }
 
   @media (max-width: 768px) {
-    width: 150px;
+    width: 160px;
     margin-left: 10px;
     margin-bottom: 16px; /* Adjust margin for better spacing on smaller screens */
   }
+  @media (max-width: 430px) {
+    width: 170px;
+    //  margin-left: -20px;
+  }
+  @media (max-width: 360px) {
+    width: 160px;
+    //  margin-left: -20px;
+  }
+ 
 `;
 
 const Image = styled.img`

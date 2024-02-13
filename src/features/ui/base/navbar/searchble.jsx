@@ -5,7 +5,7 @@ import { ViewportWidth } from "../../../../utils/enums";
 import { useNavigate } from "react-router-dom";
 
 const SearchInp = styled.input`
-  // width: 97.5%;
+  width: 94%;
   height: 30px;
   display: flex;
   padding: 7px 12px 7px 20px;
@@ -30,7 +30,7 @@ const SearchInp = styled.input`
 `;
 
 const SearchableListContainer = styled.div`
-  width: 400px;
+  width: 40%;
   margin-top: 20px;
   position: absolute;
   top: 10px;
@@ -43,17 +43,17 @@ const SearchableListContainer = styled.div`
 
 const ListItem = styled.div`
   padding: 10px;
-  border: 1px solid #ddd;
+  // border: 1px solid #ddd;
   margin-bottom: 5px;
   display: flex;
   flex: 1;
   justify-content: space-between;
   cursor: pointer;
   // width: 100%;
-  background: #000;
-  color: #fff !important;
+  // background: #000;
+  color: #000;
   &:hover {
-    background-color: #f0f0f0;
+    // background-color: #f0f0f0;
   }
 `;
 
@@ -90,12 +90,12 @@ const SearchableList = ({ categories }) => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      <div style={{background:'#000', width:'100%'}}>
+      <div style={{background:'#fff', width:'100%'}}>
 
       {isInputFocused &&
         productsSearched.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
-          <div style={{color:"#fff"}}>{product?.name}</div>
-          <div style={{color:"#fff"}}>NGN{product?.price}</div>
+          <div >{product?.name}</div>
+          <div >NGN{product?.price}</div>
         </ListItem>)}
       </div>
     </SearchableListContainer>

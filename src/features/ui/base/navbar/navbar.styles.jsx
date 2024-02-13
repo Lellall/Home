@@ -5,7 +5,7 @@ import { StyledInput } from "../../../../components/Input/Input";
 
 export const Wrapper = styled.div`
   display: flex !important;
-  background: #000;
+  background: #fff;
   flex-direction: column !important;
   gap: 10px !important;
   align-self: stretch !important;
@@ -274,7 +274,7 @@ export const QuantityContainer = styled.div`
   
 
   p {
-    // color: #fff;
+    color: #fff;
     font-feature-settings: "clig" off, "liga" off;
     font-family: Raleway;
     font-size: 7px;

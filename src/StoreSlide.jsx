@@ -234,7 +234,7 @@ const InnerCard = styled.div`
     font-size: 13px;
   }
   @media only screen and (max-width: 500px) {
-    background: red;
+    // background: red;
     font-size: 13px;
     padding: 0 5  0px;
     margin: 0;
