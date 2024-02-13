@@ -96,7 +96,7 @@ const ContainerInf = styled.div`
   }
   @media (max-width: 360px) {
     width: 100%;
-    //  margin-left: -20px;
+     margin-left: 5px;
   }
   
 `;
