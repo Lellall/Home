@@ -118,7 +118,7 @@ const Product = () => {
           <div className="product-configuration">
             {exists && (
               <CableConfig>
-                <CounterContainer>
+                <CounterContainer style={{paddingBottom: '20px'}}>
                   <span>Quantity:</span>
                   <CircleButton
                     style={{ background: "tomato" }}
@@ -136,9 +136,6 @@ const Product = () => {
                     +
                   </CircleButton>
                 </CounterContainer>
-                <CableConfigA href="#">
-                  How to configure your headphones
-                </CableConfigA>
               </CableConfig>
             )}
           </div>

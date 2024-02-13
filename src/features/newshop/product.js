@@ -51,6 +51,7 @@ const LeftColumnImage = styled.img`
   // top: 30px;
   opacity: 0;
   border-radius: 8px;
+  max-width: 80%;
   transition: all 0.3s ease;
   @media (max-width: 912px) {
     width: 100%;
