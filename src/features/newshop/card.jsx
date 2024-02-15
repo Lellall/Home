@@ -3,6 +3,7 @@
 import { Bookmark } from "iconsax-react";
 import React, { useState } from "react";
 import styled from "styled-components";
+import { formatCurrency } from "../../utils/currencyFormat";
 
 const CardWrapper = styled.div`
   position: relative;
@@ -190,7 +191,7 @@ const ReusableCard = ({
             }}
           >
             <div>
-              <Price>{price}</Price>
+              <Price>{formatCurrency(price)}</Price>
             </div>
             <div
               style={{

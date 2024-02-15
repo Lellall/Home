@@ -19,13 +19,17 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import useOrderStore from "../../app/orderStore";
 import { EmptyState } from "../user/my-orders/orders.styles";
+import useProductStore from "../../app/productStore";
+import BillingAddress from "./BillingAddress";
+import { formatCurrency } from "../../utils/currencyFormat";
+import AlertCards from "./AlertCard";
 
 const CartContainer = styled.div`
   //   max-width: 600px;
- 
+
   // background:red;
   margin: 0 70px;
-   margin-top: 10rem;
+  margin-top: 10rem;
   padding: 20px;
   font-family: open sans;
   @media (max-width: ${ViewportWidth.sm}px) {
@@ -109,12 +113,15 @@ font-size: 13px;
 `;
 
 const TotalContainer = styled.div`
-  float: right;
-  width: 400px;
+  // float: right;
+  // width: 400px;
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
   border-radius: 4px;
   margin-bottom: 100px;
   @media (max-width: ${ViewportWidth.sm}px) {
-    float: center;
+    flex-direction: column;
     width: 100%;
   }
 `;
@@ -145,6 +152,12 @@ const FlexContainer = styled.div`
     flex-direction: column;
   }
 `;
+const TotalCover = styled.div`
+  width: 30%;
+  @media (max-width: ${ViewportWidth.sm}px) {
+    width: 100%;
+  }
+`;
 const Title = styled.p`
   font-size: 14px;
   margin-bottom: 15px;
@@ -162,6 +175,7 @@ const CartPage = () => {
   const [isLoading, setLoading] = useState(false);
 
   const { addOrder } = useOrderStore();
+  const { shppingFee } = useProductStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
@@ -176,8 +190,6 @@ const CartPage = () => {
       price: item?.price * item?.qnty,
     };
   });
-
-  console.log(isAuthenticated, "isAuthenticated");
 
   const navigate = useNavigate();
 
@@ -323,9 +335,7 @@ const CartPage = () => {
                         </div>
                       </FlexContainer>
                     </TableCell>
-                    <TableCell>
-                      {item?.price} {item?.currency}
-                    </TableCell>
+                    <TableCell>{formatCurrency(item?.price)}</TableCell>
                     <TableCell>
                       <div>
                         <CounterContainer>
@@ -349,7 +359,7 @@ const CartPage = () => {
                       </div>
                     </TableCell>
                     <TableCell>
-                      {(item?.price * item?.qnty).toFixed(2)} {item.currency}
+                      {formatCurrency(item?.price * item?.qnty)} {item.currency}
                     </TableCell>
                     <TableCell>
                       <CircleButton
@@ -364,38 +374,50 @@ const CartPage = () => {
               </tbody>
             </CartTable>
             <hr />
+            {!shppingFee && (
+              <AlertCards type="danger">
+                Please search below the location you want your products to be
+                delivered to!
+              </AlertCards>
+            )}
             <TotalContainer>
-              <ListItem>
-                <div>Subtotal:</div>
-                <div>
-                  {" "}
-                  {subtotal?.toFixed(2)} {cartItems[0]?.currency}
-                </div>
-              </ListItem>
-              <ListItem>
-                <div>Shipping fee:</div>
-                <div>
-                  {" "}
-                  {subtotal?.toFixed(2)} {cartItems[0]?.currency}
-                </div>
-              </ListItem>
-              <ListItem>
-                <div>Total:</div>
-                <div>
-                  {" "}
-                  {subtotal?.toFixed(2)} {cartItems[0]?.currency}
-                </div>
-              </ListItem>
-              <BtnCover>
-                <ModCartButton
-                  loading={isLoading}
-                  disabled={isLoading}
-                  onClick={handleCheckoutClick}
-                  className="cart-btn"
-                >
-                  Proceed to checkout
-                </ModCartButton>
-              </BtnCover>
+              <TotalCover>
+                <ListItem>
+                  <BillingAddress />
+                </ListItem>
+              </TotalCover>
+              <TotalCover>
+                <ListItem>
+                  <div>Subtotal:</div>
+                  <div> {formatCurrency(subtotal)}</div>
+                </ListItem>
+                <ListItem>
+                  <div>Delivery fee:</div>
+                  <div>
+                    {" "}
+                    {shppingFee
+                      ? formatCurrency(shppingFee)
+                      : "Add delivery address"}
+                  </div>
+                </ListItem>
+                <ListItem>
+                  <div>Total:</div>
+                  <div>
+                    {" "}
+                    {formatCurrency(Number(shppingFee) + Number(subtotal))}
+                  </div>
+                </ListItem>
+                <BtnCover>
+                  <ModCartButton
+                    loading={isLoading}
+                    disabled={isLoading}
+                    onClick={handleCheckoutClick}
+                    className="cart-btn"
+                  >
+                    Proceed to checkout
+                  </ModCartButton>
+                </BtnCover>
+              </TotalCover>
             </TotalContainer>
           </div>
         )}

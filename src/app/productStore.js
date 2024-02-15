@@ -7,7 +7,9 @@ const useProductStore = create((set) => ({
   products: [],
   productsSearched: [],
   searchTerm: "",
+  shppingFee: "",
   setProducts: (products) => set({ products }),
+  setFee: (fee) => set({ shppingFee: fee }),
   setSearchTerm: (term) => set({ searchTerm: term }),
   fetchProducts: async (page) => {
     try {

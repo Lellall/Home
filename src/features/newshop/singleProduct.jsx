@@ -24,13 +24,13 @@ import { useParams } from "react-router-dom";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
 import useShoppingCart from "../../app/useShoppingCart";
+import { formatCurrency } from "../../utils/currencyFormat";
 
 const Product = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const [localProduct, setLocalProduct] = useState(null);
 
- 
   const {
     addToCart,
     removeFromCart,
@@ -104,10 +104,10 @@ const Product = () => {
             <ProductDescriptionSpan>
               {localProduct?.category?.name}
             </ProductDescriptionSpan>
-            
+
             <ProductDescriptionH1>{localProduct?.name}</ProductDescriptionH1>
             <ProductPriceSpan>
-              {localProduct?.currency} {localProduct?.price}
+              {formatCurrency(localProduct?.price)}
             </ProductPriceSpan>
             <ProductDescriptionP>
               {localProduct?.description}
@@ -118,7 +118,7 @@ const Product = () => {
           <div className="product-configuration">
             {exists && (
               <CableConfig>
-                <CounterContainer style={{paddingBottom: '20px'}}>
+                <CounterContainer style={{ paddingBottom: "20px" }}>
                   <span>Quantity:</span>
                   <CircleButton
                     style={{ background: "tomato" }}
@@ -171,7 +171,6 @@ const Product = () => {
             >
               Buy Now
             </CartButton>
-          
           </ProductPrice>
         </RightColumn>
       </Container>
