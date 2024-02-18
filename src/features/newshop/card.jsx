@@ -7,8 +7,8 @@ import { formatCurrency } from "../../utils/currencyFormat";
 
 const CardWrapper = styled.div`
   position: relative;
-  width: 185px;
-  max-width: 185px;
+  width: 180px;
+  max-width: 180px;
   box-sizing: border-box;
   height: 220px;
   cursor:pointer;
