@@ -15,7 +15,7 @@ const useAuth = () => {
     refreshAccessToken,
     logout,
     checkAuth,
-    googleLogin
+    googleLogin,
   } = useAuthStore();
 
   useEffect(() => {
@@ -27,10 +27,13 @@ const useAuth = () => {
     isAuthenticated,
     isLoading,
     user,
-    login: async (userData) => {
+    login: async (userData, ref) => {
       try {
         await login(userData);
-        navigate('/shop')
+        if (ref) {
+          navigate("/cart");
+        }
+        navigate("/new-shop");
       } catch (error) {
         // Handle login error
       }
@@ -46,7 +49,7 @@ const useAuth = () => {
     register: async (userData) => {
       try {
         await register(userData);
-        navigate('/success')
+        navigate("/success");
       } catch (error) {
         console.log(error, "error");
         // toast.success('yeeeees')
@@ -62,6 +65,8 @@ const useAuth = () => {
     logout: async () => {
       try {
         await logout();
+        navigate("/login");
+        window.location.reload(true);
       } catch (error) {
         // Handle logout error
       }

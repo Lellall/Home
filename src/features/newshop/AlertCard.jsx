@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { ViewportWidth } from "../../utils/enums";
 
 const AlertCard = styled.div`
   padding: 1rem;
@@ -9,6 +10,9 @@ const AlertCard = styled.div`
   color: #721c24;
   background-color: #f8d7da;
   border-color: #f5c6cb;
+  @media (max-width: ${ViewportWidth.sm}px) {
+    font-size: 9px;
+  }
 
   &.success {
     color: #155724;

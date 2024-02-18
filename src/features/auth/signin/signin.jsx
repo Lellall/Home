@@ -52,11 +52,16 @@ const CircleButton = styled.button`
 
 const ModButton = styled(RoundButton)`
   padding: 10px 40px !important;
-  // margin-right: 5px;
   @media only screen and (max-width: 767px) {
     width: 100% !important;
     margin-bottom: 20px !important;
   }
+  ${({ loading }) =>
+    loading &&
+    `
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+`}
 `;
 // Define the custom theme
 const theme = createTheme({
@@ -69,9 +74,10 @@ const theme = createTheme({
 
 const styles = {
   container: {
-    height: "100vh",
+    // height: "100vh",
     margin: 0,
     padding: 0,
+    overFlowY: "hidden",
   },
   leftPane: {
     display: "flex",
@@ -89,11 +95,12 @@ const styles = {
     margin: "0 30px",
     borderRadius: "8px",
     // width: "60dvh",
-    backgroundImage: 'url("/assets/newB3.svg")', // Replace with the path to your image
+    backgroundImage: 'url("src/assets/fresh.svg")', // Replace with the path to your image
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "right",
-    background: "#F06D06",
+    // background: "#F06D06",
+    marginRight: "-2rem",
     width: "100%",
   },
   rightPane: {
@@ -105,7 +112,6 @@ const styles = {
     height: "100%",
     boxShadow: "none",
     border: "none",
-    // width: '60%',
   },
   form: {
     display: "flex",
@@ -131,12 +137,13 @@ const styles = {
 const Login = () => {
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
-  const ref = urlParams.get('ref');  console.log(ref,'ref');
+  const ref = urlParams.get("ref");
+  console.log(ref, "ref");
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/shop");
+      navigate("/new-shop");
     }
   }, [isAuthenticated, navigate]);
   const { isLoading, login, googleLogin } = useAuth();
@@ -149,7 +156,10 @@ const Login = () => {
   } = useForm();
   console.log(errors);
   const onSubmit = (data) => {
-    login(data);
+   if (ref === 'cart') {
+    login(data, ref);
+   }
+   login(data);
     console.log(data);
   };
 
@@ -179,10 +189,10 @@ const Login = () => {
                   marginLeft: "-10px",
                   marginTop: "10px",
                   fontSize: "18px",
-                  fontWeight: "bold",
+                  fontWeight: "300",
                 }}
               >
-                Sign In
+                Login
               </div>
               <div
                 style={{
@@ -328,13 +338,20 @@ const Login = () => {
                       variant="contained"
                       type="submit"
                       onClick={onSubmit}
-                      disabled={isLoading}
+                      loading={isLoading}
                     >
-                      Sign In
+                      {isLoading ? "Signing in...." : "Sign In"}
                     </ModButton>
                   </div>
                 </ActionCover>
               </form>
+              <hr
+                style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}
+              />
+              <div style={{ textAlign: "center", color: "#808080",  }}>
+                <div style={{ color: "#808080", fontSize:'11px',marginBottom:'5px' }}> or</div>
+                <div style={{ color: "#808080", cursor:"pointer" }} onClick={() => navigate('/register')}>Create an Account</div>
+              </div>
             </Cover>
           </Paper>
         </Grid>

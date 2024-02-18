@@ -8,7 +8,7 @@ import { formatCurrency } from "../../utils/currencyFormat";
 const CardWrapper = styled.div`
   position: relative;
   width: 185px;
-  max-width: 180px;
+  max-width: 185px;
   box-sizing: border-box;
   height: 220px;
   cursor:pointer;
@@ -29,7 +29,7 @@ const CardWrapper = styled.div`
     margin-bottom: 16px; /* Adjust margin for better spacing on smaller screens */
   }
   @media (max-width: 430px) {
-    width: 170px;
+    width: 180px;
     //  margin-left: -20px;
   }
   @media (max-width: 360px) {

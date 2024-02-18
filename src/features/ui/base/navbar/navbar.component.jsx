@@ -30,6 +30,8 @@ import { useNavigate } from "react-router-dom";
 import useShoppingCart from "../../../../app/useShoppingCart";
 import useProductStore from "../../../../app/productStore";
 import SearchableList from "./searchble";
+import useAuthStore from "../../../../app/authStore";
+import useAuth from "../../../../app/useAuth";
 
 const MenuList = styled.div`
   position: relative;
@@ -66,7 +68,10 @@ padding: 10px;
 const Main = () => {
   const [show, setShow] = useState(false);
   const [user, setUser] = useState("");
-  console.log(user, "nav");
+  const {
+    logout,
+
+  } = useAuth();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,7 +100,9 @@ const Main = () => {
 
     return () => clearTimeout(delay);
   };
-
+console.log('====================================');
+console.log(user);
+console.log('====================================');
   const active = false;
   // const { state } = useContext(cartContext);
   const data = ["Store", "Vendors", "Couriers"];
@@ -181,7 +188,7 @@ const Main = () => {
                           >
                             Notifications
                           </ListMenu>
-                          <ListMenu>Logout</ListMenu>
+                          <ListMenu onClick={() => logout()}>Logout</ListMenu>
                         </MenuListCover>
                       )}
                     </MenuList>
@@ -266,7 +273,7 @@ const Main = () => {
                           >
                             Notifications
                           </ListMenu>
-                          <ListMenu>Logout</ListMenu>
+                          <ListMenu  onClick={() => logout()}>Logout</ListMenu>
                         </MenuListCover>
                       )}
                     </MenuList>

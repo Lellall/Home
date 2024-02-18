@@ -175,7 +175,7 @@ const CartPage = () => {
   const [isLoading, setLoading] = useState(false);
 
   const { addOrder } = useOrderStore();
-  const { shppingFee } = useProductStore();
+  const { shppingFee, address, positionPoint } = useProductStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
@@ -198,11 +198,13 @@ const CartPage = () => {
       const data = {
         paymentItems: orderData,
         address: {
-          streetName: "string",
+          streetName: address,
           houseNumber: "string",
           estate: "string",
           poBox: "string",
+          region: "WUSE"
         },
+        deliveryPoint: positionPoint,
       };
 
       try {

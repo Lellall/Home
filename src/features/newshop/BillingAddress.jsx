@@ -8,11 +8,15 @@ import styled from "styled-components";
 import useProductStore from "../../app/productStore";
 import InputWithIcon from "../../components/inputs/input.component";
 import { House2, LocationTick, User } from "iconsax-react";
+import { ViewportWidth } from "../../utils/enums";
 
 const StyledInput = styled.div`
   max-width: 400px;
   z-index: 4;
   min-height: 50px;
+  @media (max-width: ${ViewportWidth.sm}px) {
+    width: 100%;
+  }
 `;
 
 const BillingAddress = () => {
@@ -20,8 +24,24 @@ const BillingAddress = () => {
   const lon1 = 7.464775700000001;
   const [customerPosition, setCustomerPosition] = useState("");
   const [value, setValue] = useState(null);
-  const [selectedPlace, setSelectedPlace] = useState(null);
-  const { setFee, shppingFee } = useProductStore();
+  const [formData, setFormData] = useState({
+    landmark: "",
+    house: "",
+  });
+  const {
+    setFee,
+    shppingFee,
+    setAddressInfo,
+    setPositionPoint,
+    address: addd,
+  } = useProductStore();
+
+  const handleInputChange = (name, value) => {
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   function calculateDistance(lat1, lon1, lat2, lon2) {
     // Earth's mean radius in kilometers
@@ -57,12 +77,13 @@ const BillingAddress = () => {
         .then(({ lat, lng }) => {
           const distance = calculateDistance(lat1, lon1, lat, lng);
           setCustomerPosition(distance);
+          setPositionPoint({ latitude: lat, longitude: lng });
           setFee(Number(distance * 200).toFixed(2));
         });
-      console.log(value);
+      setAddressInfo(value.label);
     }
   }, [value]);
-  console.log(shppingFee, "shppingFee");
+  console.log(formData, "addd");
   return (
     <StyledInput>
       {/* <h2>Billing Address</h2> */}
@@ -71,6 +92,7 @@ const BillingAddress = () => {
       </label>
       <div style={{ marginBottom: "5px" }} />
       <GooglePlacesAutocomplete
+        defaultValue="area3 abuja, NIgeria"
         apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
         selectProps={{
           value,
@@ -111,10 +133,9 @@ const BillingAddress = () => {
           label="House or Street No. (Optional)"
           type="text"
           placeholder="House No."
-
-          // {...field}
-          // hasError={errors.firstName ? true : false}
-          // errorMessage={errors.firstName && errors.firstName.message}
+          name="landmark"
+          // value={formData.landmark}
+          onChange={(e) => console.log(e)}
         />
       </div>
       {/* <Autocomplete

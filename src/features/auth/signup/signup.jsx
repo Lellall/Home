@@ -12,6 +12,7 @@ import Logo from "../logo";
 import useAuthStore from "../../../app/authStore";
 import useAuth from "../../../app/useAuth";
 import { ToastContainer } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ActionCover = styled.div`
   display: flex;
@@ -50,11 +51,16 @@ const CircleButton = styled.button`
 
 const ModButton = styled(RoundButton)`
   padding: 10px 40px !important;
-  margin-right: 5px;
   @media only screen and (max-width: 767px) {
     width: 100% !important;
     margin-bottom: 20px !important;
   }
+  ${({ loading }) =>
+    loading &&
+    `
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+`}
 `;
 const theme = createTheme({
   palette: {
@@ -83,11 +89,16 @@ const styles = {
   },
   contain: {
     height: "100dvh",
-    width: "60dvh",
-    backgroundImage: 'url("/assets/newb3.svg")', // Replace with the path to your image
+    margin: "0 30px",
+    borderRadius: "8px",
+    // width: "60dvh",
+    backgroundImage: 'url("src/assets/fresh.svg")', // Replace with the path to your image
     backgroundSize: "contain",
     backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
+    backgroundPosition: "right",
+    // background: "#F06D06",
+    marginRight: "-2rem",
+    width: "100%",
   },
   rightPane: {
     display: "flex",
@@ -128,7 +139,7 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  console.log(errors);
+  const navigate = useNavigate()
 
   const password = watch("password", "");
   const {
@@ -406,6 +417,7 @@ const Login = () => {
                       </CircleButton>
                     </SocialCover>
                   </div>
+                  
 
                   <div>
                     <ModButton
@@ -417,11 +429,18 @@ const Login = () => {
                       onClick={onSubmit}
                       loading={isLoading}
                     >
-                      Sign Up
+                     {isLoading ? "Signing up...." : "Sign up"}
                     </ModButton>
                   </div>
                 </ActionCover>
               </form>
+              <hr
+                style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}
+              />
+              <div style={{ textAlign: "center", color: "#808080",  }}>
+                <div style={{ color: "#808080", fontSize:'11px',marginBottom:'5px' }}> already have an account</div>
+                <div style={{ color: "#808080", cursor:"pointer" }} onClick={() => navigate('/login')}>Sign in</div>
+              </div>
             </Cover>
           </Paper>
         </Grid>
