@@ -37,6 +37,7 @@ const CartContainer = styled.div`
     width: 100%;
     margin: 0 10px;
     width: 80%;
+    margin-top: 5rem;
   }
 `;
 

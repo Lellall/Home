@@ -12,7 +12,7 @@ import { ViewportWidth } from "../../utils/enums";
 
 const StyledInput = styled.div`
   max-width: 400px;
-  z-index: 4;
+  z-index: 1;
   min-height: 50px;
   @media (max-width: ${ViewportWidth.sm}px) {
     width: 100%;
