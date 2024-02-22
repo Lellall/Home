@@ -20,7 +20,7 @@ const SliderComponent = () => {
   const searchParams = new URLSearchParams(location.search);
   const catParam = searchParams.get("cat");
 
-  console.log(catParam, "products");
+  // console.log(catParam, "products");
 
   useEffect(() => {
     fetchProducts();
@@ -63,7 +63,19 @@ const SliderComponent = () => {
     <div style={{ margin: "0 10px" }}>
       {catParam !== "" && products?.length < 1 ? (
         <div>
-          <div>Nothing found on " {catParam} " categories <button style={{background:'transparent', outline:'none', border:'none'}} onClick={() => fetchProducts()}>clear search</button></div>
+          <div>
+            Nothing found on " {catParam} " categories{" "}
+            <button
+              style={{
+                background: "transparent",
+                outline: "none",
+                border: "none",
+              }}
+              onClick={() => fetchProducts()}
+            >
+              clear search
+            </button>
+          </div>
           <EmptyState sty>
             <img
               style={{ width: "200px", height: "200px" }}

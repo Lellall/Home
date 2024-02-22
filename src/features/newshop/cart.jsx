@@ -196,17 +196,39 @@ const CartPage = () => {
 
   const handleCheckoutClick = async () => {
     if (isAuthenticated && orderData?.length > 0) {
+      // const data = {
+      //   paymentItems: orderData,
+      //   address: {
+      //     streetName: address,
+      //     houseNumber: "string",
+      //     estate: "string",
+      //     poBox: "string",
+      //     region: "WUSE",
+      //   },
+      //   distance: 1.,
+      //   deliveryPoint: positionPoint,
+      // };
+
       const data = {
-        paymentItems: orderData,
+        paymentItems: [
+          {
+            productId: "0685ab07-44fc-4327-bddc-e528b3312495",
+            count: 1,
+          },
+        ],
         address: {
-          streetName: address,
-          houseNumber: "string",
-          estate: "string",
-          poBox: "string",
-          region: "WUSE"
+          streetName: "Street 1",
+          houseNumber: "1",
+          apartmentName: "My house",
+          estate: "Avenue",
+          poBox: "3527",
         },
-        deliveryPoint: positionPoint,
-      };
+        deliveryPoint: {
+          latitude: 9.115273316912763,
+          longitude: 7.389204121085887,
+        },
+        distance: 3.0,
+      }
 
       try {
         setLoading(true);
