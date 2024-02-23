@@ -1,5 +1,5 @@
 // CartPage.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useShoppingCart from "../../app/useShoppingCart";
 import {
@@ -23,6 +23,7 @@ import useProductStore from "../../app/productStore";
 import BillingAddress from "./BillingAddress";
 import { formatCurrency } from "../../utils/currencyFormat";
 import AlertCards from "./AlertCard";
+import { BaseUrl } from "../../utils/config";
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -175,13 +176,21 @@ const CartPage = () => {
   const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
   const [isLoading, setLoading] = useState(false);
 
-  const { addOrder } = useOrderStore();
+  const { addOrder,orders, } = useOrderStore();
+  const initStore = useOrderStore((state) => state.init);
+
+  useEffect(() => {
+    // Initialize the store with data from localforage
+    initStore();
+  }, []);
+
   const { shppingFee, address, positionPoint, distance } = useProductStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
   );
   const [showModal, setShowModal] = useState(false);
+  console.log(orders,'orders');
 
   const orderData = cartItems.map((item) => {
     return {
@@ -235,7 +244,7 @@ const CartPage = () => {
         setLoading(true);
 
         const response = await axios.post(
-          "https://api.dev.lellall.com/orders",
+          `${BaseUrl}/orders`,
           data,
           {
             headers: {
@@ -248,7 +257,7 @@ const CartPage = () => {
 
         addOrder(response.data);
         if (response.status === 201) {
-          navigate('/rider')
+          navigate(`/rider?id=${response.data.orderId}`)
         }
       } catch (error) {
         console.error("Error creating order:", error);
@@ -275,7 +284,7 @@ const CartPage = () => {
 
       // Make a request to the checkout initiate endpoint with the orderId
       const response = await axios.post(
-        "https://api.dev.lellall.com/checkout/initiate",
+        `${BaseUrl}/checkout/initiate`,
         { orderId },
         {
           headers: {

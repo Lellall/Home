@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Products, ShopBanner } from "./components";
 import axios from "axios";
+import { BaseUrl } from "../../utils/config";
 
 const Main = () => {
   // const { shopId } = useParams();
@@ -10,7 +11,7 @@ const Main = () => {
   const [shopData, setShopData] = useState([]);
   useEffect(() => {
     axios
-      .get(`https://api.dev.lellall.com/shops/${shopId}`)
+      .get( `${BaseUrl}/shops/${shopId}`)
       .then((res) => setShopData(res.data));
   }, [shopId]);
   return (

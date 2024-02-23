@@ -18,6 +18,7 @@ import {
 import { Modal } from "../../ui";
 import { useResponsiveValue } from "../../../lib/use-responsive-value";
 import axios from "axios";
+import { BaseUrl } from "../../../utils/config";
 const Main = () => {
   const data = [
     {
@@ -137,10 +138,10 @@ const Main = () => {
   const [shopData, setShopData] = useState([])
   useEffect(() => {
     axios
-      .get("https://api.dev.lellall.com/shops")
+      .get(`${BaseUrl}/shops`)
       .then((res) => setShopData(res?.data?.data));
     axios
-      .get("https://api.dev.lellall.com/products?page=0&size=10")
+      .get(`${BaseUrl}/products?page=0&size=10`)
       .then((res) => console.log(res));
   }, []);
 

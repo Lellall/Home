@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useProductStore from "./productStore";
 import { useNavigate } from "react-router-dom";
+import { BaseUrl } from "../utils/config";
 
 const Container = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ const CategoriesList = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.dev.lellall.com/categories/all-categories"
+          `${BaseUrl}/categories/all-categories`
         );
         setCategories(response.data);
       } catch (error) {

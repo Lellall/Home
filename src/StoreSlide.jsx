@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { ShopCard } from "./features/shop/components";
 import styled from "styled-components";
+import { BaseUrl } from "./utils/config";
 
 const MultipleItems = () => {
   const settings = {
@@ -47,7 +48,7 @@ const MultipleItems = () => {
   const { shopId } = useParams();
   useEffect(() => {
     axios
-      .get(`https://api.dev.lellall.com/shops`)
+      .get(`${BaseUrl}/shops`)
       .then((res) => setShopData([...res?.data?.data]));
   }, []);
 
@@ -129,7 +130,7 @@ const MultipleProducts = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://api.dev.lellall.com/products"
+          `${BaseUrl}/products`
         );
         // Set the fetched data in the state
         setShopsData(response?.data?.data);

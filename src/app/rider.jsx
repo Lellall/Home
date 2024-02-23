@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { getItemFromLocalForage } from "../utils/getItem";
 import useAuth from "./useAuth";
+import { BaseUrl } from "../utils/config";
 
 // Styled components for page layout
 const PageContainer = styled.div`
@@ -77,6 +78,31 @@ const LookingForRidersPage = () => {
   const [status, setStatus] = useState("PENDING");
   const { isAuthenticated, accessToken: token, refreshAccessToken } = useAuth();
   const [intervalId, setIntervalId] = useState(null);
+
+  const [riderId, setRiderId] = useState('');
+
+  // const getRiderIdFromUrl = () => {
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+  // useEffect(() => {
+  //   // Function to get query parameter from URL
+  //   const getRiderIdFromUrl = () => {
+  //     const params = new URLSearchParams(window.location.search);
+  //     const id = params.get('id');
+  //     if (id) {
+  //       setRiderId(id);
+  //     } else {
+  //       // Handle case when id parameter is not found
+  //       console.error('Rider ID not found in URL');
+  //     }
+  //   };
+
+  //   getRiderIdFromUrl();
+  // }, []);
+
+  // console.log(riderId,'riderId');
+
   useEffect(() => {
     const interval = setInterval(() => {
       fetchOrderStatus();
@@ -89,7 +115,7 @@ const LookingForRidersPage = () => {
   const fetchOrderStatus = async () => {
     try {
       const response = await axios.get(
-        "https://api.dev.lellall.com/orders/consumer/78ddbebc-9c2d-468e-bca0-746449d44f6a",
+        `${BaseUrl}/orders/consumer/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -100,7 +126,7 @@ const LookingForRidersPage = () => {
 
       if (data.status === "ACCEPTED") {
         clearInterval(intervalId);
-        navigateToInitiate(response.data.orderId);
+        navigateToInitiate(id);
       } else {
         setStatus(data.status);
       }
@@ -114,7 +140,7 @@ const LookingForRidersPage = () => {
 
       // Make a request to the checkout initiate endpoint with the orderId
       const response = await axios.post(
-        "https://api.dev.lellall.com/checkout/initiate",
+        `${BaseUrl}/checkout/initiate`,
         { orderId },
         {
           headers: {
@@ -140,9 +166,6 @@ const LookingForRidersPage = () => {
 
 
   const navigateToInitiate = async(id) => {
-    console.log("====================================");
-    console.log("YAsss");
-    console.log("====================================");
     await initiateCheckout(id);
   };
 

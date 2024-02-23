@@ -239,7 +239,7 @@ const Login = () => {
                       message: "Password must be at least 8 characters long",
                     },
                     pattern: {
-                      value: /^(?=.*[!@#$%^&*])/,
+                      // value: /^(?=.*[!@#$%^&*])/,
                       message:
                         "Password must contain at least one special character (!@#$%^&*)",
                     },
@@ -274,7 +274,7 @@ const Login = () => {
                       {" "}
                       Other sign in options
                     </Text>
-                    <SocialCover>
+                    {/* <SocialCover>
                       <CircleButton>
                         <svg
                           width="28"
@@ -327,7 +327,7 @@ const Login = () => {
                           </svg>
                         </CircleButton>
                       </a>
-                    </SocialCover>
+                    </SocialCover> */}
                   </div>
 
                   <div>

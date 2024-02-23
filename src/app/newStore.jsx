@@ -103,7 +103,7 @@ const ContainerInf = styled.div`
 
 const NewStore = () => {
   const navigate = useNavigate();
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0)
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
