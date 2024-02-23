@@ -76,6 +76,7 @@ const useAuthStore = create((set) => ({
       if (refreshToken) {
         const response = await axios.post(`${BaseUrl}/refresh-token`, {
           refresh_token: refreshToken,
+          role: "CONSUMER"
         });
         const { access_token } = response.data;
         set({ accessToken: access_token });

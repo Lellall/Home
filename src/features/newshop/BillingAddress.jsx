@@ -34,6 +34,7 @@ const BillingAddress = () => {
     setAddressInfo,
     setPositionPoint,
     address: addd,
+    setDistance,
   } = useProductStore();
 
   const handleInputChange = (name, value) => {
@@ -77,6 +78,7 @@ const BillingAddress = () => {
         .then(({ lat, lng }) => {
           const distance = calculateDistance(lat1, lon1, lat, lng);
           setCustomerPosition(distance);
+          setDistance(distance);
           setPositionPoint({ latitude: lat, longitude: lng });
           setFee(Number(distance * 200).toFixed(2));
         });
@@ -92,7 +94,6 @@ const BillingAddress = () => {
       </label>
       <div style={{ marginBottom: "5px" }} />
       <GooglePlacesAutocomplete
-        defaultValue="area3 abuja, NIgeria"
         apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
         selectProps={{
           value,

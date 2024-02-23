@@ -18,6 +18,7 @@ import NewStore from "./newStore";
 import Product from "../features/newshop/singleProduct";
 import CartPage from "../features/newshop/cart";
 import BillingAddress from "../features/newshop/BillingAddress";
+import LookingForRidersPage from "./rider";
 
 const theme = createTheme({
   typography: {
@@ -51,6 +52,7 @@ export function AppRouter() {
             <Route path="/new-shop" element={<NewStore />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/billing" element={<BillingAddress />} />
+            <Route path="/rider" element={<LookingForRidersPage />} />
             <Route path="/new-shop/product/:id" element={<Product />} />
           </Routes>
         </BrowserRouter>

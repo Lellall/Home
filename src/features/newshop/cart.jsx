@@ -172,11 +172,11 @@ const CartPage = () => {
     increaseQuantity,
     decreaseQuantity,
   } = useShoppingCart();
-  const { isAuthenticated, accessToken } = useAuth();
+  const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
   const [isLoading, setLoading] = useState(false);
 
   const { addOrder } = useOrderStore();
-  const { shppingFee, address, positionPoint } = useProductStore();
+  const { shppingFee, address, positionPoint, distance } = useProductStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
@@ -195,40 +195,41 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   const handleCheckoutClick = async () => {
+    refreshAccessToken();
     if (isAuthenticated && orderData?.length > 0) {
-      // const data = {
-      //   paymentItems: orderData,
-      //   address: {
-      //     streetName: address,
-      //     houseNumber: "string",
-      //     estate: "string",
-      //     poBox: "string",
-      //     region: "WUSE",
-      //   },
-      //   distance: 1.,
-      //   deliveryPoint: positionPoint,
-      // };
-
       const data = {
-        paymentItems: [
-          {
-            productId: "0685ab07-44fc-4327-bddc-e528b3312495",
-            count: 1,
-          },
-        ],
+        paymentItems: orderData,
         address: {
-          streetName: "Street 1",
-          houseNumber: "1",
-          apartmentName: "My house",
-          estate: "Avenue",
-          poBox: "3527",
+          streetName: address,
+          houseNumber: "string",
+          estate: "string",
+          poBox: "string",
+          region: "WUSE",
         },
-        deliveryPoint: {
-          latitude: 9.115273316912763,
-          longitude: 7.389204121085887,
-        },
-        distance: 3.0,
-      }
+        distance: Number(distance?.toFixed(1)),
+        deliveryPoint: positionPoint,
+      };
+
+      // const data = {
+      //   paymentItems: [
+      //     {
+      //       productId: "0685ab07-44fc-4327-bddc-e528b3312495",
+      //       count: 1,
+      //     },
+      //   ],
+      //   address: {
+      //     streetName: "Street 1",
+      //     houseNumber: "1",
+      //     apartmentName: "My house",
+      //     estate: "Avenue",
+      //     poBox: "3527",
+      //   },
+      //   deliveryPoint: {
+      //     latitude: 9.115273316912763,
+      //     longitude: 7.389204121085887,
+      //   },
+      //   distance: 3.0,
+      // }
 
       try {
         setLoading(true);
@@ -243,9 +244,12 @@ const CartPage = () => {
             },
           }
         );
-        await initiateCheckout(response.data.orderId);
+        // await initiateCheckout(response.data.orderId);
 
         addOrder(response.data);
+        if (response.status === 201) {
+          navigate('/rider')
+        }
       } catch (error) {
         console.error("Error creating order:", error);
         setLoading(false);

@@ -32,6 +32,11 @@ const CardWrapper = styled.div`
     width: 180px;
     //  margin-left: -20px;
   }
+  @media (max-width: 390px) {
+    width: 170px;
+    margin-left: 10px;
+    margin-bottom: 16px; 
+  }
   @media (max-width: 375px) {
     width: 160px;
     margin-left: 10px;
@@ -178,7 +183,6 @@ const ReusableCard = ({
     setAddedToCart(false);
   };
 
-  console.log(cart,'c');
 
   return (
     <div>

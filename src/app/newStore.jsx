@@ -107,12 +107,6 @@ const NewStore = () => {
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-  const found = products?.map(
-    (prod) => prod?.shop?.id === "cc024e6e-51d4-495e-86e5-ad385bce9e57"
-  );
-  console.log("====================================");
-  console.log(found, "oo");
-  console.log("====================================");
 
   useEffect(() => {
     loadNextPage();
