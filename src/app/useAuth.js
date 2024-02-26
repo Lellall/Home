@@ -33,7 +33,7 @@ const useAuth = () => {
         if (ref) {
           navigate("/cart");
         }
-        navigate("/new-shop");
+        navigate("/");
       } catch (error) {
         // Handle login error
       }

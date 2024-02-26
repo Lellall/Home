@@ -143,7 +143,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/new-shop");
+      navigate("/");
     }
   }, [isAuthenticated, navigate]);
   const { isLoading, login, googleLogin } = useAuth();

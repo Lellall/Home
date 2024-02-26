@@ -130,7 +130,7 @@ console.log('====================================');
               src="/assets/lellall-colored.svg"
               alt="Logo"
               className="logo"
-              onClick={() => navigate("/new-shop")}
+              onClick={() => navigate("/")}
             />
             <Profile style={{
               marginRight: '2rem'
@@ -208,7 +208,7 @@ console.log('====================================');
               src="/assets/lellall-colored.svg"
               alt="Logo"
               className="logo"
-              onClick={() => navigate("/shop")}
+              onClick={() => navigate("/")}
             />
              <SearchableList
             />

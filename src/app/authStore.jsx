@@ -74,8 +74,8 @@ const useAuthStore = create((set) => ({
     try {
       const refreshToken = await localforage.getItem("refreshToken");
       if (refreshToken) {
-        const response = await axios.post(`${BaseUrl}/refresh-token`, {
-          refresh_token: refreshToken,
+        const response = await axios.post(`${BaseUrl}/auth/refresh-token`, {
+          refreshToken: refreshToken,
           role: "CONSUMER"
         });
         const { access_token } = response.data;

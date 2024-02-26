@@ -204,7 +204,7 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   const handleCheckoutClick = async () => {
-    refreshAccessToken();
+    // refreshAccessToken();
     if (isAuthenticated && orderData?.length > 0) {
       const data = {
         paymentItems: orderData,
@@ -429,7 +429,7 @@ const CartPage = () => {
                   <div>Subtotal:</div>
                   <div> {formatCurrency(subtotal)}</div>
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <div>Delivery fee:</div>
                   <div>
                     {" "}
@@ -437,7 +437,7 @@ const CartPage = () => {
                       ? formatCurrency(shppingFee)
                       : "Add delivery address"}
                   </div>
-                </ListItem>
+                </ListItem> */}
                 <ListItem>
                   <div>Total:</div>
                   <div>

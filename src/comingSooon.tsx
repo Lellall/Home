@@ -38,8 +38,8 @@ const ComingSoonPage = () => {
                 </svg>
 
             </Logo>
-            <Title>We are Coming Soon!</Title>
-            <Subtitle>Exciting things are in the works. Stay tuned for updates and surprises!</Subtitle>
+            <Title>We are unavailable at the moment !</Title>
+            <Subtitle>please check back later.</Subtitle>
 
         </Container>
     );

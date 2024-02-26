@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { getItemFromLocalForage } from "../utils/getItem";
 import useAuth from "./useAuth";
 import { BaseUrl } from "../utils/config";
+import { formatCurrency } from "../utils/currencyFormat";
 
 // Styled components for page layout
 const PageContainer = styled.div`
@@ -20,7 +21,7 @@ const PageContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 2.5rem; /* Increase title font size */
+  font-size: 1.5rem; /* Increase title font size */
   margin-bottom: 30px; /* Increase margin */
   text-align: center;
 
@@ -52,9 +53,9 @@ const Timer = styled.span`
 `;
 
 const Message = styled.p`
-  font-size: 1.1rem; /* Increase font size */
+  font-size: 13px; /* Increase font size */
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const RetryButton = styled.button`
@@ -79,29 +80,12 @@ const LookingForRidersPage = () => {
   const { isAuthenticated, accessToken: token, refreshAccessToken } = useAuth();
   const [intervalId, setIntervalId] = useState(null);
 
-  const [riderId, setRiderId] = useState('');
+  const [details, setDetails] = useState();
+  const [summary, setSummary] = useState();
 
   // const getRiderIdFromUrl = () => {
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('id');
-
-  // useEffect(() => {
-  //   // Function to get query parameter from URL
-  //   const getRiderIdFromUrl = () => {
-  //     const params = new URLSearchParams(window.location.search);
-  //     const id = params.get('id');
-  //     if (id) {
-  //       setRiderId(id);
-  //     } else {
-  //       // Handle case when id parameter is not found
-  //       console.error('Rider ID not found in URL');
-  //     }
-  //   };
-
-  //   getRiderIdFromUrl();
-  // }, []);
-
-  // console.log(riderId,'riderId');
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get("id");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -114,16 +98,13 @@ const LookingForRidersPage = () => {
 
   const fetchOrderStatus = async () => {
     try {
-      const response = await axios.get(
-        `${BaseUrl}/orders/consumer/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BaseUrl}/orders/consumer/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = await response.data;
-
+      setDetails(data);
       if (data.status === "ACCEPTED") {
         clearInterval(intervalId);
         navigateToInitiate(id);
@@ -134,6 +115,14 @@ const LookingForRidersPage = () => {
       console.error("Error fetching order status:", error);
     }
   };
+  console.log(details, "details");
+
+  useEffect(() => {
+    if (details !== undefined) {
+      getSummary();
+    }
+  }, [details]);
+
   const initiateCheckout = async (orderId) => {
     try {
       // setLoading(true);
@@ -163,9 +152,40 @@ const LookingForRidersPage = () => {
       // setLoading(false);
     }
   };
+  const getSummary = async () => {
+    try {
+      const data = {
+        items: details.paymentItems,
+        deliveryPoint: details.deliveryPoint,
+      };
+      const response = await axios.post(
+        `${BaseUrl}/checkout/summary`,
+        { items: details.paymentItems, deliveryPoint: details.deliveryPoint },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
+      // Handle the response from the checkout initiate endpoint
+      setSummary(response.data);
 
-  const navigateToInitiate = async(id) => {
+      // Open the payment link in a new tab/window
+      // window.location.href = paymentUrl;
+    } catch (error) {
+      // setLoading(false);
+
+      console.error("Error initiating checkout:", error);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+  console.log(summary, "sum");
+
+  const navigateToInitiate = async (id) => {
     await initiateCheckout(id);
   };
 
@@ -196,31 +216,33 @@ const LookingForRidersPage = () => {
   return (
     <PageContainer>
       <Title>Matching you with a Rider</Title>
-      <Illustration src="src/assets/ride.svg" alt="Illustration" />
+      <Illustration src="src/assets/pena.svg" alt="Illustration" />
       <TimerContainer>
-        {showRetry ? (
-          <>
-            <Message>
-              Oops! We're sorry for the inconvenience, but we couldn't find a
-              rider available to deliver your item at the moment.
-            </Message>
-            <Message>
-              Please check your internet connection and try again later.
-            </Message>
-            <RetryButton onClick={handleRetryClick}>Try Again</RetryButton>
-          </>
-        ) : (
-          <>
-            <Message>
-              We're currently searching for the best available rider to deliver
-              your item. Please do not navigate away from the page.
-            </Message>
-            <Message>
-              This process usually takes just a few moments. Thank you for your
-              patience!
-            </Message>
-            <Timer>Time remaining: {formatTime(timeRemaining)}</Timer>
-          </>
+        <Message>
+          We're currently searching for the best available rider to deliver your
+          item. Please do not navigate away from the page.
+        </Message>
+        <Message>
+          This process usually takes just a few moments. Thank you for your
+          patience!
+        </Message>
+        {summary && (
+             <SummaryContainer>
+             <SummaryHeader>Checkout summary</SummaryHeader>
+             <SummaryItems>
+               {summary?.items.map((item, index) => (
+                 <SummaryItem key={index}>
+                   <ItemName>{item.name}</ItemName>
+                   <ItemDetails>
+                     {/* <ItemCount>{item.count}</ItemCount> */}
+                     <ItemCost>{item.type === 'CHARGE' ? `${formatCurrency(item.totalAmount)}` : `${formatCurrency(item.totalAmount * item.count)}`}</ItemCost>
+                   </ItemDetails>
+                 </SummaryItem>
+               ))}
+             </SummaryItems>
+             <TotalCost>Total: {formatCurrency(summary?.totalCost)}</TotalCost>
+           </SummaryContainer>
+       
         )}
       </TimerContainer>
     </PageContainer>
@@ -228,3 +250,50 @@ const LookingForRidersPage = () => {
 };
 
 export default LookingForRidersPage;
+
+const SummaryContainer = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 20px;
+  width: 300px;
+`;
+
+const SummaryHeader = styled.p`
+  text-align: center;
+`;
+
+const SummaryItems = styled.div`
+  margin-top: 10px;
+`;
+
+const SummaryItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  font-size:13px;
+`;
+
+const ItemName = styled.span`
+  flex: 1;
+`;
+
+const ItemDetails = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const ItemCount = styled.span`
+  margin-right: 10px;
+  font-weight: bold;
+`;
+
+const ItemCost = styled.span`
+  flex: 1;
+  text-align: right;
+`;
+
+const TotalCost = styled.h3`
+  margin-top: 20px;
+  text-align: center;
+`;
