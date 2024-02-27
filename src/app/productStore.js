@@ -11,10 +11,12 @@ const useProductStore = create((set) => ({
   distance: null,
   positionPoint: {},
   shppingFee: "",
+  consumerPhoneNumber: "",
   setProducts: (products) => set({ products }),
   setPositionPoint: (pos) => set({ positionPoint: { ...pos } }),
   setDistance: (pos) => set({ distance: pos }),
   setFee: (fee) => set({ shppingFee: fee }),
+  setPhone: (phone) => set({ consumerPhoneNumber: phone }),
   setAddressInfo: (data) => set({ address: data }),
   setSearchTerm: (term) => set({ searchTerm: term }),
   fetchProducts: async (page) => {

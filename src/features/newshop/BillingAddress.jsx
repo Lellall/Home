@@ -7,7 +7,7 @@ import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 import styled from "styled-components";
 import useProductStore from "../../app/productStore";
 import InputWithIcon from "../../components/inputs/input.component";
-import { House2, LocationTick, User } from "iconsax-react";
+import { House2, LocationTick, Mobile, User } from "iconsax-react";
 import { ViewportWidth } from "../../utils/enums";
 
 const StyledInput = styled.div`
@@ -35,6 +35,7 @@ const BillingAddress = () => {
     setPositionPoint,
     address: addd,
     setDistance,
+    setPhone
   } = useProductStore();
 
   const handleInputChange = (name, value) => {
@@ -130,13 +131,13 @@ const BillingAddress = () => {
       </div>
       <div style={{ marginTop: "10px" }}>
         <InputWithIcon
-          icon={House2}
+          icon={Mobile}
           label="House or Street No. (Optional)"
           type="text"
           placeholder="House No."
           name="landmark"
           // value={formData.landmark}
-          onChange={(e) => console.log(e)}
+          onChange={(e) => setPhone(e.target.value)}
         />
       </div>
       {/* <Autocomplete

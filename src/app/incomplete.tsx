@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { CopyAllOutlined } from '@mui/icons-material';
 import { useIncompleteStore } from './incompleteOrderStore';
 import { Navbar } from '../features';
+import { Button } from '@mui/material';
+import useAvailableOrdersStore from '../features/newshop/availableOrdersStore';
 
 const TableWrapper = styled.div`
   font-family: Arial, sans-serif;
@@ -67,6 +69,7 @@ const InteractiveIcon = styled(CopyAllOutlined)`
   }
 `;
 
+
 const copyToClipboard = (text) => {
   navigator.clipboard.writeText(text);
 };
@@ -84,9 +87,40 @@ const getStatusColor = (status) => {
   }
 };
 
+const formatDateTime = (dateTimeString) => {
+  const date = new Date(dateTimeString);
+
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const hour = String(date.getHours()).padStart(2, '0');
+  const minute = String(date.getMinutes()).padStart(2, '0');
+  const second = String(date.getSeconds()).padStart(2, '0');
+  const millisecond = String(date.getMilliseconds()).padStart(3, '0');
+
+  const formattedDateTime = `${year}-${month}-${day} ${hour}:${minute}:${second}.${millisecond}`;
+
+  return formattedDateTime;
+};
+
 const ProfessionalTable = () => {
   const { incompleteOrders, fetchIncompleteOrders } = useIncompleteStore();
   const intervalIdRef = useRef(null);
+  const [expandedRow, setExpandedRow] = useState(null);
+  const { startPolling, availableOrders, showClaimModal, replyToOrder } = useAvailableOrdersStore();
+  const hasClaim = useAvailableOrdersStore(state => state.hasClaim);
+
+  // useEffect(() => {
+  //   if (hasClaim === false) {
+  //     const stopPolling = startPolling(); // Start polling when component mounts
+
+  //     // Clean up function to stop polling when the component unmounts
+  //     return () => stopPolling();
+  //   }
+  // }, [hasClaim]);
+  console.log('====================================');
+  console.log(availableOrders,'availableOrders');
+  console.log('====================================');
 
   useEffect(() => {
     intervalIdRef.current = setInterval(() => {
@@ -119,7 +153,7 @@ const ProfessionalTable = () => {
             </TableHeadRow>
           </TableHead>
           <TableBody>
-            {data.map((item) => (
+            {incompleteOrders.map((item) => (
               <React.Fragment key={item.id}>
                 <TableRow onClick={() => toggleExpand(item.id)}>
                   <TableDataCell>{item.reference}</TableDataCell>
@@ -129,8 +163,10 @@ const ProfessionalTable = () => {
                   <TableDataCell>{item.amount}</TableDataCell>
                   <TableDataCell>{item.userId}</TableDataCell>
                   <TableDataCell>{item.orderId}</TableDataCell>
-                  <TableDataCell>{item.createdAt}</TableDataCell>
-                  <TableDataCell>{item.updatedAt}</TableDataCell>
+                  <TableDataCell>{formatDateTime(item.createdAt)}</TableDataCell>
+                  <TableDataCell>
+                    <Button>Expand</Button>
+                  </TableDataCell>
                 </TableRow>
                 {expandedRow === item.id && (
                   <ExpandableRow>
@@ -140,12 +176,12 @@ const ProfessionalTable = () => {
                         <ul>
                           {item.items.map((product) => (
                             <li key={product.productId}>
-                              {product.productName} - {product.price}
+                              {product.productName} - N{product.price} - Count: {product.count}
                             </li>
                           ))}
                         </ul>
                       </div>
-                      <InteractiveIcon onClick={() => copyToClipboard(JSON.stringify(item))} />
+                      <InteractiveIcon onClick={() => copyToClipboard(JSON.stringify(item.items))} />
                     </ExpandableDataCell>
                   </ExpandableRow>
                 )}

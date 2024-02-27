@@ -36,7 +36,7 @@ export function AppRouter() {
       <cartContext.Provider value={{ state, dispatch }}>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<NewStore />} />
             {/* SHARED LAYOUT */}
             <Route path={appPaths.shop} element={<AppLayout />}>
               <Route index element={<Shops />} />

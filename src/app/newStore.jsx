@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import ReusableCard from "../features/newshop/card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ColorRing } from "react-loader-spinner";
+import AlertCards from "../features/newshop/AlertCard";
 
 const TopSnacker = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const Container = styled.div`
 `;
 const Categories = styled.div`
   width: 20%;
-  position: fixed;
+  // position: fixed;
   box-sizing: border-box;
   // min-height: 100vh;
   background: #fff;
@@ -55,13 +56,13 @@ const Categories = styled.div`
 const Products = styled.div`
   width: 71%;
   margin-right: 90px;
-  margin-left: 21%;
+  // margin-left: 21%;
   // margin-bottom: 10000px
   backround: red;
   min-height: 100vh;
   @media (max-width: 912px) {
     width: 100%;
-     margin-left: 0;
+    margin-left: 0;
     //  overflow-x: hidden;
   }
 `;
@@ -74,7 +75,7 @@ const Cover = styled.div`
   display: flex;
   flex-wrap: wrap;
   @media (max-width: 912px) {
-   padding:0;
+    padding: 0;
   }
 `;
 const Picks = styled.div`
@@ -92,18 +93,17 @@ const ContainerInf = styled.div`
   }
   @media (max-width: 412px) {
     // width: 100%;
-     margin-left: 0;
+    margin-left: 0;
   }
   @media (max-width: 360px) {
     width: 100%;
-     margin-left: 15px;
+    margin-left: 15px;
   }
-  
 `;
 
 const NewStore = () => {
   const navigate = useNavigate();
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
@@ -129,6 +129,9 @@ const NewStore = () => {
     <>
       <Navbar />
       <div style={{ marginTop: "10rem" }}></div>
+      <AlertCards type="danger">
+      Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
+      </AlertCards>
       <Container>
         <Categories>
           <CategoriesList />
@@ -245,7 +248,7 @@ const NewStore = () => {
         </Picks>
       </div> */}
       <div style={{ marginTop: "5rem" }}>
-        <Footer style={{zIndex:"2"}} />
+        <Footer style={{ zIndex: "2" }} />
       </div>
     </>
   );

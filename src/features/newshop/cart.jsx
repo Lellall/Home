@@ -184,13 +184,13 @@ const CartPage = () => {
     initStore();
   }, []);
 
-  const { shppingFee, address, positionPoint, distance } = useProductStore();
+  const { shppingFee, address, positionPoint, distance ,consumerPhoneNumber} = useProductStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
   );
   const [showModal, setShowModal] = useState(false);
-  console.log(orders,'orders');
+  console.log(consumerPhoneNumber,'consumerPhoneNumber');
 
   const orderData = cartItems.map((item) => {
     return {
@@ -217,6 +217,7 @@ const CartPage = () => {
         },
         distance: Number(distance?.toFixed(1)),
         deliveryPoint: positionPoint,
+        consumerPhoneNumber
       };
 
       // const data = {
@@ -253,12 +254,12 @@ const CartPage = () => {
             },
           }
         );
-        // await initiateCheckout(response.data.orderId);
+        await initiateCheckout(response.data.orderId);
 
         addOrder(response.data);
-        if (response.status === 201) {
-          navigate(`/rider?id=${response.data.orderId}`)
-        }
+        // if (response.status === 201) {
+        //   navigate(`/rider?id=${response.data.orderId}`)
+        // }
       } catch (error) {
         console.error("Error creating order:", error);
         setLoading(false);
