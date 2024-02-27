@@ -42,6 +42,35 @@ const useAuthStore = create((set) => ({
       throw error;
     }
   },
+  adminLogin: async (data) => {
+    try {
+      set({ isLoading: true });
+      const response = await axios.post(`${BaseUrl}/auth/login`, {
+        ...data,
+        role: "ADMIN",
+      });
+
+      const { access_token, refresh_token, user } = response.data;
+      set({
+        accessToken: access_token,
+        refreshToken: refresh_token,
+        isAuthenticated: true,
+        user,
+        isLoading: false,
+      });
+      await localforage.setItem("accessToken", access_token);
+      await localforage.setItem("refreshToken", refresh_token);
+      await localforage.setItem("user", user);
+    } catch (error) {
+      if (error.response) {
+        toast.error(`${error?.message}`, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+      set({ isLoading: false });
+      throw error;
+    }
+  },
 
   register: async (userData) => {
     try {

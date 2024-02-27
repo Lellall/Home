@@ -19,6 +19,8 @@ import Product from "../features/newshop/singleProduct";
 import CartPage from "../features/newshop/cart";
 import BillingAddress from "../features/newshop/BillingAddress";
 import LookingForRidersPage from "./rider";
+import ProfessionalTable from "./incomplete";
+import AdminLogin from "../features/auth/signin/admin";
 
 const theme = createTheme({
   typography: {
@@ -47,12 +49,14 @@ export function AppRouter() {
               <Route path={appPaths.favorites} element={<Favorites />} />
             </Route>
             <Route path="/login" element={<SplitLogin />} />
+            <Route path="/admin" element={<AdminLogin />} />
             <Route path="/register" element={<SignUp />} />
             <Route path="/success" element={<VerificationPage />} />
             <Route path="/new-shop" element={<NewStore />} />
             <Route path="/cart" element={<CartPage />} />
             <Route path="/billing" element={<BillingAddress />} />
             <Route path="/rider" element={<LookingForRidersPage />} />
+            <Route path="/check" element={<ProfessionalTable />} />
             <Route path="/new-shop/product/:id" element={<Product />} />
           </Routes>
         </BrowserRouter>

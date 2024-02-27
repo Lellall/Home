@@ -16,6 +16,7 @@ const useAuth = () => {
     logout,
     checkAuth,
     googleLogin,
+    adminLogin,
   } = useAuthStore();
 
   useEffect(() => {
@@ -34,6 +35,14 @@ const useAuth = () => {
           navigate("/cart");
         }
         navigate("/");
+      } catch (error) {
+        // Handle login error
+      }
+    },
+    adminLogin: async (userData, ref) => {
+      try {
+        await adminLogin(userData);
+        navigate("/check");
       } catch (error) {
         // Handle login error
       }
