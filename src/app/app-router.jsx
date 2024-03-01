@@ -21,6 +21,9 @@ import BillingAddress from "../features/newshop/BillingAddress";
 import LookingForRidersPage from "./rider";
 import ProfessionalTable from "./incomplete";
 import AdminLogin from "../features/auth/signin/admin";
+import AdminLayout from "./admin";
+import OrderForRider from "./orderForRider";
+import TransactionStatusPage from "./transaction";
 
 const theme = createTheme({
   typography: {
@@ -48,6 +51,12 @@ export function AppRouter() {
               <Route path={appPaths.myOrders} element={<UserOrders />} />
               <Route path={appPaths.favorites} element={<Favorites />} />
             </Route>
+            <Route path='/check' element={<AdminLayout />}>
+              <Route index element={<OrderForRider />} />
+              <Route path={appPaths.notification} element={<UserNotifications />} />
+              <Route path={appPaths.myOrders} element={<UserOrders />} />
+              <Route path={appPaths.favorites} element={<Favorites />} />
+            </Route>
             <Route path="/login" element={<SplitLogin />} />
             <Route path="/admin" element={<AdminLogin />} />
             <Route path="/register" element={<SignUp />} />
@@ -58,6 +67,7 @@ export function AppRouter() {
             <Route path="/rider" element={<LookingForRidersPage />} />
             <Route path="/check" element={<ProfessionalTable />} />
             <Route path="/new-shop/product/:id" element={<Product />} />
+            <Route path="/checkout/status" element={<TransactionStatusPage />} />
           </Routes>
         </BrowserRouter>
       </cartContext.Provider>

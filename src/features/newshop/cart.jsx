@@ -256,7 +256,7 @@ const CartPage = () => {
         );
         await initiateCheckout(response.data.orderId);
 
-        addOrder(response.data);
+        // addOrder(response.data);
         // if (response.status === 201) {
         //   navigate(`/rider?id=${response.data.orderId}`)
         // }
