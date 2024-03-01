@@ -217,17 +217,18 @@ const OrderForRider = () => {
                                                 <div>
                                                     <h4>Items</h4>
                                                     <ul>
-                                                        {item.items.map((product) => (
+                                                        {item.items.map((product,idx) => (
                                                             // <li key={product.productId}>
                                                             //     {product.productName} - {formatCurrency(product.price)} - Quantity: {product.count}
                                                             // </li>
                                                             <div key={product.productId}>
-                                                                <p>Name: {product.productName}</p>
+                                                                <p>{idx + 1}:  {product.productName} - ${p.count}</p>
 
                                                             </div>
                                                         ))}
                                                         <p>Address: {item.address?.streetName}, {item.address?.estate}, {item.address?.poBox}</p>
                                                         <p>Phone Number: {item.phoneNumber}</p>
+                                                        <p>Quantity: {item.items.map((p,idx) => `${p?.productName}: ${p.count}`).join(',')}</p>
 
                                                         {/* {item.items.map(product => (
                                                             <div key={order.id}>
