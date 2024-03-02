@@ -9,6 +9,13 @@ import useProductStore from "../../app/productStore";
 import InputWithIcon from "../../components/inputs/input.component";
 import { House2, LocationTick, Mobile, User } from "iconsax-react";
 import { ViewportWidth } from "../../utils/enums";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = Yup.object().shape({
+  location: Yup.string().required("Location is required"),
+});
 
 const StyledInput = styled.div`
   max-width: 400px;
@@ -35,7 +42,8 @@ const BillingAddress = () => {
     setPositionPoint,
     address: addd,
     setDistance,
-    setPhone
+    setPhone,
+    consumerPhoneNumber: phone
   } = useProductStore();
 
   const handleInputChange = (name, value) => {
@@ -87,6 +95,23 @@ const BillingAddress = () => {
     }
   }, [value]);
   console.log(formData, "addd");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  console.log("====================================");
+  console.log(errors, "errorserrors");
+  console.log("====================================");
+
+  const onSubmit = (data) => {
+    console.log(data, "here");
+  };
+
   return (
     <StyledInput>
       {/* <h2>Billing Address</h2> */}
@@ -95,6 +120,8 @@ const BillingAddress = () => {
       </label>
       <div style={{ marginBottom: "5px" }} />
       <GooglePlacesAutocomplete
+      style={{borderColor:"red"}}
+        required
         apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
         selectProps={{
           value,
@@ -117,6 +144,11 @@ const BillingAddress = () => {
         }}
         style={{ width: "300px" }}
       />
+      {value === null && (
+        <span style={{  color: "red", marginBottom:"20px" }}>
+          address is required
+        </span>
+      )}
       <div style={{ marginTop: "10px" }}>
         <InputWithIcon
           icon={LocationTick}
@@ -132,7 +164,7 @@ const BillingAddress = () => {
       <div style={{ marginTop: "10px" }}>
         <InputWithIcon
           icon={Mobile}
-          label="House or Street No. (Optional)"
+          label="Phone Number"
           type="text"
           placeholder="House No."
           name="landmark"
@@ -140,6 +172,11 @@ const BillingAddress = () => {
           onChange={(e) => setPhone(e.target.value)}
         />
       </div>
+      {phone === '' && (
+        <span style={{  color: "red", marginBottom:"20px" }}>
+          phone is required
+        </span>
+      )}
       {/* <Autocomplete
         apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
         onPlaceSelected={(place) => {

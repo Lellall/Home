@@ -24,6 +24,7 @@ import AdminLogin from "../features/auth/signin/admin";
 import AdminLayout from "./admin";
 import OrderForRider from "./orderForRider";
 import TransactionStatusPage from "./transaction";
+import Summary from "./tempSummary";
 
 const theme = createTheme({
   typography: {
@@ -65,6 +66,7 @@ export function AppRouter() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/billing" element={<BillingAddress />} />
             <Route path="/rider" element={<LookingForRidersPage />} />
+            <Route path="/summary" element={<Summary />} />
             <Route path="/check" element={<ProfessionalTable />} />
             <Route path="/new-shop/product/:id" element={<Product />} />
             <Route path="/checkout/status" element={<TransactionStatusPage />} />

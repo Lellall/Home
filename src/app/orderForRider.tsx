@@ -5,11 +5,13 @@ import styled from 'styled-components';
 import { CopyAllOutlined } from '@mui/icons-material';
 import { useIncompleteStore } from './incompleteOrderStore';
 import { Navbar } from '../features';
-import { Button } from '@mui/material';
+import { Button, ListItem } from '@mui/material';
 import useAvailableOrdersStore from '../features/newshop/availableOrdersStore';
 import { ArrowCircleDown } from 'iconsax-react';
 import Select from 'react-select';
 import { formatCurrency } from '../utils/currencyFormat';
+import AuthModal from '../features/newshop/authModal';
+import useAuth from './useAuth';
 
 
 const TableWrapper = styled.div`
@@ -117,36 +119,25 @@ const formatDateTime = (dateTimeString) => {
 
 
 const OrderForRider = () => {
-    const options = [
-        { value: 'apple', label: 'Apple' },
-        { value: 'banana', label: 'Banana' },
-        { value: 'orange', label: 'Orange' },
-        { value: 'grape', label: 'Grape' },
-    ];
 
-    const { incompleteOrders, fetchIncompleteOrders } = useIncompleteStore();
+    const { incompleteOrders, fetchIncompleteOrders, error, completeOrder, showModal, setShowModal, loading } = useIncompleteStore();
     const intervalIdRef = useRef(null);
     const [expandedRow, setExpandedRow] = useState(null);
-    const { startPolling, availableOrders, showClaimModal, replyToOrder } = useAvailableOrdersStore();
-    const hasClaim = useAvailableOrdersStore(state => state.hasClaim);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const { refreshAccessTokenAdmin, logoutAdmin } = useAuth();
     const [selectedRow, setSelectedRow] = useState();
+    // const [showModal, setShowModal] = useState(false);
+    const [orderId, setOrderId] = useState('');
 
-    const handleChange = (selectedOption) => {
-        setSelectedOption(selectedOption);
+    const handleComplete = (id) => {
+        setOrderId(id)
+        setShowModal(true)
     };
 
-    // useEffect(() => {
-    //   if (hasClaim === false) {
-    //     const stopPolling = startPolling(); // Start polling when component mounts
-
-    //     // Clean up function to stop polling when the component unmounts
-    //     return () => stopPolling();
-    //   }
-    // }, [hasClaim]);
-    console.log('====================================');
-    console.log(availableOrders, 'availableOrders');
-    console.log('====================================');
+    useEffect(() => {
+        if (error !== null) {
+            refreshAccessTokenAdmin()
+        }
+    }, [error]);
 
     useEffect(() => {
         intervalIdRef.current = setInterval(() => {
@@ -159,23 +150,14 @@ const OrderForRider = () => {
     }, []);
 
     const toggleExpand = ({ id, ind }) => {
-        console.log('====================================');
-        console.log(ind, 'ind');
-        console.log('====================================');
         setSelectedRow(ind)
         setExpandedRow((prevExpandedRow) => (prevExpandedRow === id ? null : id));
     };
-    const copyInfo = (productName, address, phoneNumber) => {
-        console.log('====================================');
-        console.log(productName, address, phoneNumber, 'productName, address, phoneNumber');
-        console.log('====================================');
-        const info = `Name: ${productName}\nAddress: ${address.streetName}, ${address.estate}, ${address.poBox}\nPhone Number: ${phoneNumber}`;
+    const copyInfo = (customer, productName, address, phoneNumber) => {
+        const info = `Customer: ${customer}\nProducts: ${productName.map((p) => `${p.productName} quantinty:${p.count}`)}\nAddress: ${address.streetName}, ${address.estate}, ${address.poBox}\nPhone Number: ${phoneNumber}`;
         navigator.clipboard.writeText(info);
         alert("Information copied to clipboard!");
     };
-    console.log('====================================');
-    console.log(selectedRow);
-    console.log('====================================');
 
     return (
         <div>
@@ -193,7 +175,7 @@ const OrderForRider = () => {
                         </TableHeadRow>
                     </TableHead>
                     <TableBody>
-                        {incompleteOrders.map((item, ind) => (
+                        {incompleteOrders?.map((item, ind) => (
                             <React.Fragment key={item.id}>
                                 <TableRow onClick={() => toggleExpand({ id: item.id, ind })}>
                                     <TableDataCell>{item.reference}</TableDataCell>
@@ -217,41 +199,22 @@ const OrderForRider = () => {
                                                 <div>
                                                     <h4>Items</h4>
                                                     <ul>
-                                                        {item.items.map((product,idx) => (
-                                                            // <li key={product.productId}>
-                                                            //     {product.productName} - {formatCurrency(product.price)} - Quantity: {product.count}
-                                                            // </li>
+                                                        <ListItem>Customer: {item.customerName}</ListItem>
+                                                        {item.items.map((product, idx) => (
                                                             <div key={product.productId}>
-                                                                <p>{idx + 1}:  {product.productName} - ${p.count}</p>
+                                                                <ListItem>Product {idx + 1}:  {product.productName} - Quantity  {product.count}</ListItem>
 
                                                             </div>
                                                         ))}
-                                                        <p>Address: {item.address?.streetName}, {item.address?.estate}, {item.address?.poBox}</p>
-                                                        <p>Phone Number: {item.phoneNumber}</p>
-                                                        <p>Quantity: {item.items.map((p,idx) => `${p?.productName}: ${p.count}`).join(',')}</p>
-
-                                                        {/* {item.items.map(product => (
-                                                            <div key={order.id}>
-                                                                <p>Amount: {order.amount}</p>
-                                                                <p>Created At: {order.createdAt}</p>
-                                                                <p>Updated At: {order.updatedAt}</p>
-                                                                <p>Address: {order.address?.streetName}, {order.address?.estate}, {order.address?.poBox}</p>
-                                                                <p>Phone Number: {order.phoneNumber}</p>
-                                                            </div>
-                                                        ))} */}
+                                                        <ListItem>Address: {item.address?.streetName}, {item.address?.estate}, {item.address?.ListItemoBox}</ListItem>
+                                                        <ListItem>Phone Number: {item.phoneNumber}</ListItem>
                                                     </ul>
                                                 </div>
                                                 <div style={{ display: "flex" }}>
-                                                    <Select
-                                                        value={selectedOption}
-                                                        onChange={handleChange}
-                                                        options={options}
-                                                        placeholder="Assign a rider"
-                                                    />
-                                                    <Button style={{ height: "40px", marginLeft: "5px" }}>Complete this Order</Button>
+                                                    <Button onClick={() => handleComplete(item.orderId)} style={{ height: "40px", marginLeft: "5px" }}>Complete this Order</Button>
                                                 </div>
                                             </Content>
-                                            <InteractiveIcon onClick={() => copyInfo(incompleteOrders[selectedRow].items.map((i) => i.productName), incompleteOrders[selectedRow].address, incompleteOrders[selectedRow].phoneNumber)} />
+                                            <InteractiveIcon onClick={() => copyInfo(item.customerName, incompleteOrders[selectedRow].items.map((i) => i), incompleteOrders[selectedRow].address, incompleteOrders[selectedRow].phoneNumber)} />
                                         </ExpandableDataCell>
                                     </ExpandableRow>
                                 )}
@@ -260,6 +223,31 @@ const OrderForRider = () => {
                     </TableBody>
                 </Table>
             </TableWrapper>
+            {showModal && (
+                <AuthModal onClose={() => setShowModal(false)}>
+                    <p style={{ marginBottom: "10px" }}>Are sure you want to complete this order?</p>
+                    <Button
+                        backgroundColor="#0E5D37"
+                        onClick={() => setShowModal(false)}
+                        // loading={loading}
+                        // spaceTop="10px"
+                        spaceBottom="10px"
+                    >
+                        No
+                    </Button>
+                    <Button
+                        backgroundColor="#F06D06"
+                        onClick={() => completeOrder(orderId)}
+                        loading={loading}
+                        spaceTop="10px"
+                        spaceBottom="10px"
+                        style={{ backgroundColor: "red", color: 'white', border: "none" }}
+
+                    >
+                        {loading ? 'Completing order...' : "Yes"}
+                    </Button>
+                </AuthModal>
+            )}
         </div>
     )
 }

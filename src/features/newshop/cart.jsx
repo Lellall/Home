@@ -24,6 +24,9 @@ import BillingAddress from "./BillingAddress";
 import { formatCurrency } from "../../utils/currencyFormat";
 import AlertCards from "./AlertCard";
 import { BaseUrl } from "../../utils/config";
+import { toast,ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -190,7 +193,6 @@ const CartPage = () => {
     0
   );
   const [showModal, setShowModal] = useState(false);
-  console.log(consumerPhoneNumber,'consumerPhoneNumber');
 
   const orderData = cartItems.map((item) => {
     return {
@@ -204,42 +206,24 @@ const CartPage = () => {
   const navigate = useNavigate();
 
   const handleCheckoutClick = async () => {
+    if (address === null || consumerPhoneNumber === '') {
+      toast.error("Please ensure all required fields are filled out correctly and try again.", {
+        position: 'top-right',
+      });
+      return;
+    } 
     // refreshAccessToken();
     if (isAuthenticated && orderData?.length > 0) {
       const data = {
         paymentItems: orderData,
         address: {
           streetName: address,
-          houseNumber: "string",
-          estate: "string",
-          poBox: "string",
-          region: "WUSE",
         },
         distance: Number(distance?.toFixed(1)),
         deliveryPoint: positionPoint,
         consumerPhoneNumber
       };
 
-      // const data = {
-      //   paymentItems: [
-      //     {
-      //       productId: "0685ab07-44fc-4327-bddc-e528b3312495",
-      //       count: 1,
-      //     },
-      //   ],
-      //   address: {
-      //     streetName: "Street 1",
-      //     houseNumber: "1",
-      //     apartmentName: "My house",
-      //     estate: "Avenue",
-      //     poBox: "3527",
-      //   },
-      //   deliveryPoint: {
-      //     latitude: 9.115273316912763,
-      //     longitude: 7.389204121085887,
-      //   },
-      //   distance: 3.0,
-      // }
 
       try {
         setLoading(true);
@@ -254,14 +238,23 @@ const CartPage = () => {
             },
           }
         );
-        await initiateCheckout(response.data.orderId);
+        // await initiateCheckout(response.data.orderId);
 
         // addOrder(response.data);
-        // if (response.status === 201) {
-        //   navigate(`/rider?id=${response.data.orderId}`)
-        // }
+        if (response.status === 201) {
+          navigate(`/summary?id=${response.data.orderId}`)
+        }
       } catch (error) {
-        console.error("Error creating order:", error);
+        console.log('====================================');
+        alert(error.response,'err');
+        console.log('====================================');
+        if (error.response.status === 500) {
+          toast.error("Please Try one more time.", {
+            position: 'top-right',
+          });
+          refreshAccessToken()
+
+        }
         setLoading(false);
       } finally {
         setLoading(false);
@@ -313,13 +306,13 @@ const CartPage = () => {
     if (item.qnty < item.quantity) {
       increaseQuantity(item.productId);
     }
-    // alert('out of stock')
     return;
   };
 
   return (
     <>
       <Navbar />
+      <ToastContainer />
       <CartContainer>
         <h2>My Cart</h2>
         {cartItems?.length < 1 ? (
@@ -421,23 +414,15 @@ const CartPage = () => {
             )}
             <TotalContainer>
               <TotalCover>
-                <ListItem>
-                  <BillingAddress />
-                </ListItem>
+                <div>
+                
+                </div>
               </TotalCover>
               <TotalCover>
-                <ListItem>
+              <BillingAddress />
+                {/* <ListItem>
                   <div>Subtotal:</div>
                   <div> {formatCurrency(subtotal)}</div>
-                </ListItem>
-                {/* <ListItem>
-                  <div>Delivery fee:</div>
-                  <div>
-                    {" "}
-                    {shppingFee
-                      ? formatCurrency(shppingFee)
-                      : "Add delivery address"}
-                  </div>
                 </ListItem> */}
                 <ListItem>
                   <div>Total:</div>

@@ -16,6 +16,8 @@ import { Footer, Navbar, Modal } from "../features/ui";
 import { appPaths } from "./app-paths";
 import { ViewportWidth } from "../utils/enums";
 import { useResponsiveValue } from "../lib/use-responsive-value";
+import { useIncompleteStore } from "./incompleteOrderStore";
+import useAuth from "./useAuth";
 
 const MainContainer = styled.div`
   display: flex !important;
@@ -322,6 +324,8 @@ const ModalContent = styled(Box)`
 `;
 
 const AdminLayout = () => {
+  const { logoutAdmin } = useAuth();
+
   const navItems = [
     {
       id: 1,
@@ -381,7 +385,7 @@ const AdminLayout = () => {
             ))}
           </div>
           <div className="deactivate">
-            <button onClick={() => setShowModal(true)}>
+            <button onClick={() => logoutAdmin()}>
              Logout
             </button>
           </div>

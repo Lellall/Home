@@ -13,10 +13,12 @@ const useAuth = () => {
     login,
     register,
     refreshAccessToken,
+    refreshAccessTokenAdmin,
     logout,
     checkAuth,
     googleLogin,
     adminLogin,
+    logoutAdmin
   } = useAuthStore();
 
   useEffect(() => {
@@ -71,10 +73,26 @@ const useAuth = () => {
         // Handle refresh token error
       }
     },
+    refreshAccessTokenAdmin: async () => {
+      try {
+        await refreshAccessTokenAdmin();
+      } catch (error) {
+        // Handle refresh token error
+      }
+    },
     logout: async () => {
       try {
         await logout();
         navigate("/login");
+        window.location.reload(true);
+      } catch (error) {
+        // Handle logout error
+      }
+    },
+    logoutAdmin: async () => {
+      try {
+        await logout();
+        navigate("/admin");
         window.location.reload(true);
       } catch (error) {
         // Handle logout error

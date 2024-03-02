@@ -105,7 +105,24 @@ const useAuthStore = create((set) => ({
       if (refreshToken) {
         const response = await axios.post(`${BaseUrl}/auth/refresh-token`, {
           refreshToken: refreshToken,
-          role: "CONSUMER"
+          role: "CONSUMER",
+        });
+        const { access_token } = response.data;
+        set({ accessToken: access_token });
+        await localforage.setItem("accessToken", access_token);
+      }
+    } catch (error) {
+      console.error("Failed to refresh access token:", error.message);
+      // Handle token refresh failure, possibly redirect to login
+    }
+  },
+  refreshAccessTokenAdmin: async () => {
+    try {
+      const refreshToken = await localforage.getItem("refreshToken");
+      if (refreshToken) {
+        const response = await axios.post(`${BaseUrl}/auth/refresh-token`, {
+          refreshToken: refreshToken,
+          role: "ADMIN",
         });
         const { access_token } = response.data;
         set({ accessToken: access_token });
