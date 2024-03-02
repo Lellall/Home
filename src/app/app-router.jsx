@@ -68,7 +68,7 @@ export function AppRouter() {
             <Route path="/rider" element={<LookingForRidersPage />} />
             <Route path="/summary" element={<Summary />} />
             <Route path="/check" element={<ProfessionalTable />} />
-            <Route path="/new-shop/product/:id" element={<Product />} />
+            <Route path="/product/:id" element={<Product />} />
             <Route path="/checkout/status" element={<TransactionStatusPage />} />
           </Routes>
         </BrowserRouter>

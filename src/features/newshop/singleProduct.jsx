@@ -20,7 +20,7 @@ import {
   CartButton,
 } from "./product";
 import { Footer, Navbar } from "../ui";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
 import useShoppingCart from "../../app/useShoppingCart";
@@ -81,7 +81,7 @@ const Product = () => {
   }
   const exists = isProductIdExist(id, cart);
 
-  console.log(exists, "exists");
+  const navigate = useNavigate()
 
   return (
     <>
@@ -168,8 +168,9 @@ const Product = () => {
               style={{ background: "orange" }}
               href="#"
               className="cart-btn"
+              onClick={() => navigate('/cart')}
             >
-              Buy Now
+             Go to cart
             </CartButton>
           </ProductPrice>
         </RightColumn>

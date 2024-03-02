@@ -26,7 +26,7 @@ import AlertCards from "./AlertCard";
 import { BaseUrl } from "../../utils/config";
 import { toast,ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-
+import empty from '../../assets/emptycart.svg'
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -312,13 +312,13 @@ const CartPage = () => {
   return (
     <>
       <Navbar />
-      <ToastContainer />
+      <ToastContainer />  
       <CartContainer>
         <h2>My Cart</h2>
         {cartItems?.length < 1 ? (
           <>
             <EmptyState>
-              <img src="/src/assets/emptycart.svg" alt="favorites" />
+              <img src={empty} alt="favorites" />
               <div className="text-container">
                 <p className="bold">Empty Cart!</p>
                 <p>Your shopping cart is empty</p>

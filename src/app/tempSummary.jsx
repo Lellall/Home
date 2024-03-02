@@ -6,6 +6,8 @@ import useAuth from "./useAuth";
 import { BaseUrl } from "../utils/config";
 import { formatCurrency } from "../utils/currencyFormat";
 import { Button } from "@mui/material";
+import empty from '../assets/summ.svg'
+
 
 // Styled components for page layout
 const PageContainer = styled.div`
@@ -219,7 +221,7 @@ const Summary = () => {
   return (
     <PageContainer>
       <Title>Below are your order summary </Title>
-      <Illustration src="src/assets/summ.svg" alt="Illustration" />
+      <Illustration src={empty} alt="Illustration" />
       <TimerContainer>
         <Message>You can proceed to pay for the items below thanks.</Message>
         {loadingOne && 'loading summary please wait'}

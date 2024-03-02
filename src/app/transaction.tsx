@@ -5,6 +5,7 @@ import useAuth from './useAuth';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import empty from '../../assets/Guy.svg'
 import { ColorRing } from 'react-loader-spinner';
 
 
@@ -67,7 +68,7 @@ const TransactionStatusPage = () => {
 
     return (
         <Container>
-            <Illustration src='../assets/Guy.svg' alt="Transaction Illustration" />
+            <Illustration src={empty} alt="Transaction Illustration" />
             {loading && <>
                 <ColorRing
                     visible={true}
