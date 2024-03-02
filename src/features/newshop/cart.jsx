@@ -424,14 +424,14 @@ const CartPage = () => {
                   <div>Subtotal:</div>
                   <div> {formatCurrency(subtotal)}</div>
                 </ListItem> */}
-                <ListItem>
+                {/* <ListItem>
                   <div>Total:</div>
                   <div>
                     {" "}
                     {formatCurrency(Number(shppingFee) + Number(subtotal))}
                   </div>
-                </ListItem>
-                <BtnCover>
+                </ListItem> */}
+                <BtnCover style={{marginTop:"10px"}}>
                   <ModCartButton
                     loading={isLoading}
                     disabled={isLoading}

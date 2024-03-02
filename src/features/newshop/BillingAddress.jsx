@@ -145,7 +145,7 @@ const BillingAddress = () => {
         style={{ width: "300px" }}
       />
       {value === null && (
-        <span style={{  color: "red", marginBottom:"20px" }}>
+        <span style={{  color: "red", marginBottom:"20px",fontSize:"11px" }}>
           address is required
         </span>
       )}
@@ -173,8 +173,8 @@ const BillingAddress = () => {
         />
       </div>
       {phone === '' && (
-        <span style={{  color: "red", marginBottom:"20px" }}>
-          phone is required
+        <span style={{  color: "red", marginBottom:"20px",fontSize:"11px" }}>
+          phone number is required
         </span>
       )}
       {/* <Autocomplete

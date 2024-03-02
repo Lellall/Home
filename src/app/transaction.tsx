@@ -4,6 +4,8 @@ import { BaseUrl } from '../utils/config';
 import useAuth from './useAuth';
 import styled from 'styled-components';
 import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+import { ColorRing } from 'react-loader-spinner';
 
 
 const Container = styled.div`
@@ -27,45 +29,80 @@ const Heading = styled.div`
 
 const TransactionStatusPage = () => {
     const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const urlParams = new URLSearchParams(window.location.search);
     const statusParam = urlParams.get('status');
     const txRefParam = urlParams.get('tx_ref');
 
+    const navigate = useNavigate()
 
-    const { accessToken } = useAuth();
-    useEffect(() => {
-        const fetchTransactionStatus = async () => {
-            try {
-                const response = await axios.get(`${BaseUrl}/checkout/status?status=${statusParam}&transactionReference=${txRefParam}`, {
-                    headers: {
-                        Authorization: `Bearer ${accessToken}`
-                    }
-                });
-                const data = response.data;
-                setStatus(data.status);
-                //   setIllustration(data.status === 'successful' ? 'success_illustration.svg' : 'error_illustration.svg');
-            } catch (error) {
-                console.error('Error fetching transaction status:', error);
+    const { accessToken, refreshAccessToken } = useAuth();
+    const fetchTransactionStatus = async () => {
+        try {
+            setLoading(true)
+            const response = await axios.get(`${BaseUrl}/checkout/status?status=${statusParam}&transactionReference=${txRefParam}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`
+                }
+            });
+            const data = response.data;
+            setLoading(false)
+            setStatus(data.status);
+            //   setIllustration(data.status === 'successful' ? 'success_illustration.svg' : 'error_illustration.svg');
+        } catch (error) {
+            if (error.response.status === 500) {
+
+                refreshAccessToken()
+
             }
-        };
+            setLoading(false)
+        }
+    };
+    useEffect(() => {
         if (accessToken) {
             fetchTransactionStatus();
         }
-    }, [statusParam]);
+    }, [statusParam, accessToken]);
 
     return (
         <Container>
             <Illustration src='../assets/Guy.svg' alt="Transaction Illustration" />
-            {status === 'COMPLETED' ? (
+            {loading && <>
+                <ColorRing
+                    visible={true}
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
+                    wrapperStyle={{ float: "center" }}
+                    wrapperClass="color-ring-wrapper"
+                    colors={[
+                        "#e15b64",
+                        "#f47e60",
+                        "#f8b26a",
+                        "#abbd81",
+                        "#849b87",
+                    ]}
+                />
+                <div>
+                    loading please wait....
+                </div>
+            </>}
+            {status === 'COMPLETED' && (
                 <>
                     <Heading>Payment Completed Successful!</Heading>
                     <br />
-                    <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                    <Button onClick={() => navigate('/')} style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
                 </>
-            ) : (
-                <Heading>Error Processing Transaction</Heading>
             )}
+            {status !== 'COMPLETED' && !accessToken && (
+                <>
+                    <Heading>Error Processing Transaction</Heading>
+                    <br />
+                    <Button onClick={() => fetchTransactionStatus()} style={{ height: "40px", marginLeft: "5px" }}>Try again</Button>
+                </>
+            )}
+
         </Container>
     );
 };

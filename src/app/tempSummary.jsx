@@ -96,7 +96,7 @@ const Summary = () => {
 
   const fetchOrderStatus = async () => {
     try {
-      setLoadingOne(true)
+
       const response = await axios.get(`${BaseUrl}/orders/consumer/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -158,10 +158,7 @@ const Summary = () => {
   };
   const getSummary = async () => {
     try {
-      const data = {
-        items: details.paymentItems,
-        deliveryPoint: details.deliveryPoint,
-      };
+      setLoadingOne(true)
       const response = await axios.post(
         `${BaseUrl}/checkout/summary`,
         { items: details.paymentItems, deliveryPoint: details.deliveryPoint },
@@ -175,11 +172,12 @@ const Summary = () => {
 
       // Handle the response from the checkout initiate endpoint
       setSummary(response.data);
-
+      setLoadingOne(false)
       // Open the payment link in a new tab/window
       // window.location.href = paymentUrl;
     } catch (error) {
-      // setLoading(false);
+      refreshAccessToken()
+      setLoadingOne(false)
 
       console.error("Error initiating checkout:", error);
     } finally {
@@ -216,6 +214,7 @@ const Summary = () => {
     const seconds = time % 60;
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
+  console.log(loadingOne,'loadingOne');
 
   return (
     <PageContainer>
@@ -223,7 +222,7 @@ const Summary = () => {
       <Illustration src="src/assets/summ.svg" alt="Illustration" />
       <TimerContainer>
         <Message>You can proceed to pay for the items below thanks.</Message>
-        {loadingOne && 'loading summary pleease wait'}
+        {loadingOne && 'loading summary please wait'}
         {summary && (
           <SummaryContainer>
             <SummaryHeader>Checkout summary</SummaryHeader>
@@ -253,7 +252,7 @@ const Summary = () => {
                 }}
                 onClick={() => initiateCheckout(id)}
               >
-                {loading ? "initializing" : "Proceed to pay now"}
+                {loading ? "initializing... please wait" : "Proceed to pay now"}
               </Button>
             </TotalCost>
           </SummaryContainer>
