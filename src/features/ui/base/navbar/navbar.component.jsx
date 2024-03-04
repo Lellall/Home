@@ -168,26 +168,26 @@ console.log('====================================');
                       </p>
                       {user !== null && show && (
                         <MenuListCover>
-                          <ListMenu
+                          {/* <ListMenu
                             onClick={() => callNavigate("/account/my-orders")}
                           >
                             My Orders
-                          </ListMenu>
-                          <ListMenu onClick={() => callNavigate("/account")}>
+                          </ListMenu> */}
+                          {/* <ListMenu onClick={() => callNavigate("/account")}>
                             Account
-                          </ListMenu>
-                          <ListMenu
+                          </ListMenu> */}
+                          {/* <ListMenu
                             onClick={() => callNavigate("/account/favorites")}
                           >
                             Favorites
-                          </ListMenu>
-                          <ListMenu
+                          </ListMenu> */}
+                          {/* <ListMenu
                             onClick={() =>
                               callNavigate("/account/notification")
                             }
                           >
                             Notifications
-                          </ListMenu>
+                          </ListMenu> */}
                           <ListMenu onClick={() => logout()}>Logout</ListMenu>
                         </MenuListCover>
                       )}
@@ -253,7 +253,7 @@ console.log('====================================');
                       </p>
                       {user !== null && show && (
                         <MenuListCover>
-                          <ListMenu
+                          {/* <ListMenu
                             onClick={() => callNavigate("/account/my-orders")}
                           >
                             My Orders
@@ -272,7 +272,7 @@ console.log('====================================');
                             }
                           >
                             Notifications
-                          </ListMenu>
+                          </ListMenu> */}
                           <ListMenu  onClick={() => logout()}>Logout</ListMenu>
                         </MenuListCover>
                       )}

@@ -25,6 +25,7 @@ import AdminLayout from "./admin";
 import OrderForRider from "./orderForRider";
 import TransactionStatusPage from "./transaction";
 import Summary from "./tempSummary";
+import PrivacyPolicy from "./privacy";
 
 const theme = createTheme({
   typography: {
@@ -67,6 +68,7 @@ export function AppRouter() {
             <Route path="/billing" element={<BillingAddress />} />
             <Route path="/rider" element={<LookingForRidersPage />} />
             <Route path="/summary" element={<Summary />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/check" element={<ProfessionalTable />} />
             <Route path="/new-shop/product/:id" element={<Product />} />
             <Route path="/checkout/status" element={<TransactionStatusPage />} />
