@@ -213,11 +213,14 @@ console.log('====================================');
              <SearchableList
             />
             <Nav>
-              <ColContainer>
+              {/* <ColContainer>
                 <SubText>Delivery to</SubText>
                 <StyledSelect name="location">
                   <option>Abuja</option>
                 </StyledSelect>
+              </ColContainer> */}
+              <ColContainer >
+                <SubText style={{cursor:"pointer"}} onClick={() => navigate('/privacy-policy')}>Privacy Policy</SubText>
               </ColContainer>
               <div
                 onClick={() => navigate("/cart")}
