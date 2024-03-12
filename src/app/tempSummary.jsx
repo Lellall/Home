@@ -96,7 +96,7 @@ const Summary = () => {
 
   const fetchOrderStatus = async () => {
     try {
-      setLoadingOne(true)
+      setLoadingOne(true);
       const response = await axios.get(`${BaseUrl}/orders/consumer/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -111,10 +111,9 @@ const Summary = () => {
         setStatus(data.status);
       }
     } catch (error) {
-      setLoadingOne(false)
+      setLoadingOne(false);
       if (error.response.status === 500) {
-        refreshAccessToken()
-
+        refreshAccessToken();
       }
       console.error("Error fetching order status:", error);
     }
@@ -134,7 +133,7 @@ const Summary = () => {
       // Make a request to the checkout initiate endpoint with the orderId
       const response = await axios.post(
         `${BaseUrl}/checkout/initiate`,
-        { orderId },
+        { orderId, paymentPlatform: "PAYSTACK" },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -223,7 +222,7 @@ const Summary = () => {
       <Illustration src="src/assets/summ.svg" alt="Illustration" />
       <TimerContainer>
         <Message>You can proceed to pay for the items below thanks.</Message>
-        {loadingOne && 'loading summary pleease wait'}
+        {loadingOne && "loading summary pleease wait"}
         {summary && (
           <SummaryContainer>
             <SummaryHeader>Checkout summary</SummaryHeader>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { BaseUrl } from '../utils/config';
 import useAuth from './useAuth';
 import styled from 'styled-components';
-import { Button } from '@mui/material';
+import { Button, CircularProgress } from '@mui/material';
 
 
 const Container = styled.div`
@@ -27,44 +27,66 @@ const Heading = styled.div`
 
 const TransactionStatusPage = () => {
     const [status, setStatus] = useState('');
+    const [loading, setLoading] = useState(true); // State for loading indicator
 
     const urlParams = new URLSearchParams(window.location.search);
     const statusParam = urlParams.get('status');
-    const txRefParam = urlParams.get('tx_ref');
-
+    const txRefParam = urlParams.get('trxref');
 
     const { accessToken } = useAuth();
     useEffect(() => {
+        if (!accessToken) return; // Exit early if accessToken is not available
+
         const fetchTransactionStatus = async () => {
             try {
-                const response = await axios.get(`${BaseUrl}/checkout/status?status=${statusParam}&transactionReference=${txRefParam}`, {
+                const response = await axios.get(`${BaseUrl}/checkout/status?transactionReference=${txRefParam}`, {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
                     }
                 });
                 const data = response.data;
                 setStatus(data.status);
-                //   setIllustration(data.status === 'successful' ? 'success_illustration.svg' : 'error_illustration.svg');
+                setLoading(false); // Set loading to false when data is fetched
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching transaction status:', error);
             }
         };
-        if (accessToken) {
-            fetchTransactionStatus();
-        }
-    }, [statusParam]);
+        fetchTransactionStatus();
+    }, [accessToken, txRefParam]);
 
     return (
         <Container>
-            <Illustration src='../assets/Guy.svg' alt="Transaction Illustration" />
-            {status === 'COMPLETED' ? (
-                <>
-                    <Heading>Payment Completed Successful!</Heading>
-                    <br />
-                    <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
-                </>
+            {loading ? (
+                <CircularProgress />
             ) : (
-                <Heading>Error Processing Transaction</Heading>
+                <>
+
+                    {status === 'COMPLETED' ? (
+                        <>
+                            <Illustration src='../assets/Subs.svg' alt="Transaction Illustration" />
+                            <Heading>Payment completed successful!</Heading>
+                            <br />
+                            <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                        </>
+                    ) : (
+                        status === 'PENDING' ? (
+                            <>
+                                <Illustration src='../assets/payment_pending.svg' alt="Transaction Illustration" />
+                                <Heading>Payment is Pending...</Heading>
+                                <br />
+                                <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                            </>
+                        ) : (
+                            <>
+                                <Illustration src='../assets/payment_failed.svg' alt="Transaction Illustration" />
+                                <Heading>Error Processing Transaction</Heading>
+                                <br />
+                                <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                            </>
+                        )
+                    )}
+                </>
             )}
         </Container>
     );
