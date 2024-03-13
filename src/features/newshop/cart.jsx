@@ -245,9 +245,6 @@ const CartPage = () => {
           navigate(`/summary?id=${response.data.orderId}`)
         }
       } catch (error) {
-        console.log('====================================');
-        alert(error.response,'err');
-        console.log('====================================');
         if (error.response.status === 500) {
           toast.error("Please Try one more time.", {
             position: 'top-right',

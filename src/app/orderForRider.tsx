@@ -156,7 +156,6 @@ const OrderForRider = () => {
     const copyInfo = (customer, productName, address, phoneNumber) => {
         const info = `Customer: ${customer}\nProducts: ${productName.map((p) => `${p.productName} quantinty:${p.count}`)}\nAddress: ${address.streetName}, ${address.estate}, ${address.poBox}\nPhone Number: ${phoneNumber}`;
         navigator.clipboard.writeText(info);
-        alert("Information copied to clipboard!");
     };
 
     return (

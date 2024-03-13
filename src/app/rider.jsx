@@ -204,7 +204,6 @@ const LookingForRidersPage = () => {
   }, [timeRemaining]);
 
   const handleRetryClick = () => {
-    alert("Retry functionality can be implemented here.");
   };
 
   const formatTime = (time) => {

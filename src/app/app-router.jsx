@@ -70,7 +70,7 @@ export function AppRouter() {
             <Route path="/summary" element={<Summary />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/check" element={<ProfessionalTable />} />
-            <Route path="/new-shop/product/:id" element={<Product />} />
+            <Route path="/product/:id" element={<Product />} />
             <Route path="/checkout/status" element={<TransactionStatusPage />} />
           </Routes>
         </BrowserRouter>

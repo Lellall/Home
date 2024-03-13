@@ -20,7 +20,7 @@ import {
   CartButton,
 } from "./product";
 import { Footer, Navbar } from "../ui";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
 import useShoppingCart from "../../app/useShoppingCart";
@@ -30,6 +30,7 @@ const Product = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const [localProduct, setLocalProduct] = useState(null);
+  const navigate = useNavigate()
 
   const {
     addToCart,
@@ -40,6 +41,15 @@ const Product = () => {
     decreaseQuantity,
   } = useShoppingCart();
   const foundItem = cart.find((item) => item?.productId === id);
+
+  const buyNow = () => {
+    if (exists) {
+      navigate('/cart')
+      return
+    }
+    addToCart(localProduct)
+    navigate('/cart')
+  }
 
   useEffect(() => {
     axios
@@ -165,9 +175,10 @@ const Product = () => {
             )}
 
             <CartButton
-              style={{ background: "orange" }}
+              style={{ background: "orange", cursor:"pointer" }}
               href="#"
               className="cart-btn"
+              onClick={buyNow}
             >
               Buy Now
             </CartButton>

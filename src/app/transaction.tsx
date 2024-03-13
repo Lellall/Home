@@ -4,6 +4,7 @@ import { BaseUrl } from '../utils/config';
 import useAuth from './useAuth';
 import styled from 'styled-components';
 import { Button, CircularProgress } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const Container = styled.div`
@@ -32,6 +33,7 @@ const TransactionStatusPage = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const statusParam = urlParams.get('status');
     const txRefParam = urlParams.get('trxref');
+    const navigate = useNavigate()
 
     const { accessToken } = useAuth();
     useEffect(() => {
@@ -67,7 +69,7 @@ const TransactionStatusPage = () => {
                             <Illustration src='../assets/Subs.svg' alt="Transaction Illustration" />
                             <Heading>Payment completed successful!</Heading>
                             <br />
-                            <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                            <Button onClick={() => navigate('/')} style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
                         </>
                     ) : (
                         status === 'PENDING' ? (
@@ -75,14 +77,14 @@ const TransactionStatusPage = () => {
                                 <Illustration src='../assets/payment_pending.svg' alt="Transaction Illustration" />
                                 <Heading>Payment is Pending...</Heading>
                                 <br />
-                                <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                                <Button onClick={() => navigate('/')} style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
                             </>
                         ) : (
                             <>
                                 <Illustration src='../assets/payment_failed.svg' alt="Transaction Illustration" />
                                 <Heading>Error Processing Transaction</Heading>
                                 <br />
-                                <Button style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
+                                <Button onClick={() => navigate('/')} style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
                             </>
                         )
                     )}

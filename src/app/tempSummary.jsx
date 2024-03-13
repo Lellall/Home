@@ -35,43 +35,22 @@ const Title = styled.h1`
 const Illustration = styled.img`
   width: 200px;
   height: auto;
-  // margin-bottom: 30px; /* Increase margin */
 
   @media (max-width: 768px) {
-    width: 80%; /* Adjust image width for smaller screens */
+    width: 80%;
   }
 `;
 
 const TimerContainer = styled.div`
   display: flex;
   align-items: center;
-  flex-direction: column; /* Center items vertically */
-`;
-
-const Timer = styled.span`
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  flex-direction: column;
 `;
 
 const Message = styled.p`
-  font-size: 13px; /* Increase font size */
+  font-size: 13px;
   text-align: center;
   margin-bottom: 10px;
-`;
-
-const RetryButton = styled.button`
-  padding: 12px 24px; /* Increase padding */
-  font-size: 1.1rem; /* Increase font size */
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #0056b3;
-  }
 `;
 
 const Summary = () => {
@@ -79,20 +58,19 @@ const Summary = () => {
   const [showRetry, setShowRetry] = useState(false);
   const [status, setStatus] = useState("PENDING");
   const { isAuthenticated, accessToken: token, refreshAccessToken } = useAuth();
-  const [intervalId, setIntervalId] = useState(null);
-
-  const [details, setDetails] = useState();
-  const [summary, setSummary] = useState();
+  const [details, setDetails] = useState(null);
+  const [summary, setSummary] = useState(null);
   const [loading, setLoading] = useState(false);
   const [loadingOne, setLoadingOne] = useState(false);
 
-  // const getRiderIdFromUrl = () => {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id");
 
   useEffect(() => {
-    fetchOrderStatus();
-  }, []);
+    if (token) {
+      fetchOrderStatus();
+    }
+  }, [token]);
 
   const fetchOrderStatus = async () => {
     try {
@@ -102,26 +80,26 @@ const Summary = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      const data = await response.data;
+      const data = response.data;
       setDetails(data);
+      setLoadingOne(false);
       if (data.status === "ACCEPTED") {
-        clearInterval(intervalId);
-        navigateToInitiate(id);
+        initiateCheckout(id);
       } else {
         setStatus(data.status);
+        setLoadingOne(false);
       }
     } catch (error) {
       setLoadingOne(false);
-      if (error.response.status === 500) {
+      if (error.response && error.response.status === 500) {
         refreshAccessToken();
       }
       console.error("Error fetching order status:", error);
     }
   };
-  console.log(details, "details");
 
   useEffect(() => {
-    if (details !== undefined) {
+    if (details !== null) {
       getSummary();
     }
   }, [details]);
@@ -130,7 +108,6 @@ const Summary = () => {
     try {
       setLoading(true);
 
-      // Make a request to the checkout initiate endpoint with the orderId
       const response = await axios.post(
         `${BaseUrl}/checkout/initiate`,
         { orderId, paymentPlatform: "PAYSTACK" },
@@ -142,25 +119,19 @@ const Summary = () => {
         }
       );
 
-      // Handle the response from the checkout initiate endpoint
       const { paymentUrl } = response.data;
 
-      // Open the payment link in a new tab/window
       window.location.href = paymentUrl;
     } catch (error) {
       setLoading(false);
-
       console.error("Error initiating checkout:", error);
     } finally {
-      // setLoading(false);
+      setLoading(false);
     }
   };
+
   const getSummary = async () => {
     try {
-      const data = {
-        items: details.paymentItems,
-        deliveryPoint: details.deliveryPoint,
-      };
       const response = await axios.post(
         `${BaseUrl}/checkout/summary`,
         { items: details.paymentItems, deliveryPoint: details.deliveryPoint },
@@ -172,24 +143,10 @@ const Summary = () => {
         }
       );
 
-      // Handle the response from the checkout initiate endpoint
       setSummary(response.data);
-
-      // Open the payment link in a new tab/window
-      // window.location.href = paymentUrl;
     } catch (error) {
-      // setLoading(false);
-
-      console.error("Error initiating checkout:", error);
-    } finally {
-      // setLoading(false);
+      console.error("Error fetching summary:", error);
     }
-  };
-
-  console.log(summary, "sum");
-
-  const navigateToInitiate = async (id) => {
-    await initiateCheckout(id);
   };
 
   useEffect(() => {
@@ -207,7 +164,7 @@ const Summary = () => {
   }, [timeRemaining]);
 
   const handleRetryClick = () => {
-    alert("Retry functionality can be implemented here.");
+    // Implement retry logic here
   };
 
   const formatTime = (time) => {
@@ -222,16 +179,15 @@ const Summary = () => {
       <Illustration src="src/assets/summ.svg" alt="Illustration" />
       <TimerContainer>
         <Message>You can proceed to pay for the items below thanks.</Message>
-        {loadingOne && "loading summary pleease wait"}
+        {loadingOne && "Loading summary, please wait..."}
         {summary && (
           <SummaryContainer>
             <SummaryHeader>Checkout summary</SummaryHeader>
             <SummaryItems>
-              {summary?.items.map((item, index) => (
+              {summary.items.map((item, index) => (
                 <SummaryItem key={index}>
                   <ItemName>{item.name}</ItemName>
                   <ItemDetails>
-                    {/* <ItemCount>{item.count}</ItemCount> */}
                     <ItemCost>
                       {item.type === "CHARGE"
                         ? `${formatCurrency(item.totalAmount)}`
@@ -241,7 +197,7 @@ const Summary = () => {
                 </SummaryItem>
               ))}
             </SummaryItems>
-            <TotalCost>Total: {formatCurrency(summary?.totalCost)}</TotalCost>
+            <TotalCost>Total: {formatCurrency(summary.totalCost)}</TotalCost>
             <TotalCost>
               <Button
                 style={{
@@ -251,13 +207,15 @@ const Summary = () => {
                   padding: "5px 10px",
                 }}
                 onClick={() => initiateCheckout(id)}
+                disabled={loading}
               >
-                {loading ? "initializing" : "Proceed to pay now"}
+                {loading ? "Initializing..." : "Proceed to pay now"}
               </Button>
             </TotalCost>
           </SummaryContainer>
         )}
       </TimerContainer>
+      {showRetry && <RetryButton onClick={handleRetryClick}>Retry</RetryButton>}
     </PageContainer>
   );
 };
@@ -296,11 +254,6 @@ const ItemDetails = styled.div`
   align-items: center;
 `;
 
-const ItemCount = styled.span`
-  margin-right: 10px;
-  font-weight: bold;
-`;
-
 const ItemCost = styled.span`
   flex: 1;
   text-align: right;
@@ -309,4 +262,19 @@ const ItemCost = styled.span`
 const TotalCost = styled.h3`
   margin-top: 20px;
   text-align: center;
+`;
+
+const RetryButton = styled.button`
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0056b3;
+  }
 `;
