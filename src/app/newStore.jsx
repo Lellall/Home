@@ -129,9 +129,12 @@ const NewStore = () => {
     <>
       <Navbar />
       <div style={{ marginTop: "10rem" }}></div>
-      {/* <AlertCards type="danger">
-      Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
-      </AlertCards> */}
+      <AlertCards type="danger">
+        We would like to inform you that due to unforeseen circumstances, Wuse
+        Market has been temporarily closed. Consequently, we will not be able to
+        continue our operations until the market reopens. We appreciate your
+        understanding in this matter. Thank you.
+      </AlertCards>
       <Container>
         <Categories>
           <CategoriesList />
