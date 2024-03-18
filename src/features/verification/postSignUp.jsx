@@ -23,6 +23,11 @@ const Subtitle = styled.p`
   @media (max-width: 768px) {
     width: 90%; /* Adjust for smaller screens */
   }
+  /* Highlight spam part */
+  span {
+    color: red; /* or any other color you prefer */
+    font-weight: bold;
+  }
 `;
 
 const Button = styled.button`
@@ -41,11 +46,15 @@ const VerificationPage = () => {
       <Image src={Email} alt="Verification Image" />
       <Subtitle>
         An email verification has been sent to your account. Please click the
-        link to verify your account before making any payment.
+        link to verify your account before making any payment. Also, remember to
+        check your <span>spam</span> or junk folder for the email verification.
+        It might have been filtered there by mistake. Once found, click the link
+        to verify your account before proceeding with any payment.
       </Subtitle>
+
       <RoundButton
         style={{ color: "#fff", fontSize: "10px !important" }}
-        onClick={() => navigate("/shop")}
+        onClick={() => navigate("/cart")}
       >
         Continue Shopping
       </RoundButton>
