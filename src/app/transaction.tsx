@@ -5,6 +5,7 @@ import useAuth from './useAuth';
 import styled from 'styled-components';
 import { Button, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import OrderConfirmation from '../features/verification/message';
 
 
 const Container = styled.div`
@@ -16,7 +17,7 @@ const Container = styled.div`
 `;
 
 const Illustration = styled.img`
- width: 300px;
+ width: 120px;
   height: auto;
 `;
 
@@ -68,7 +69,8 @@ const TransactionStatusPage = () => {
                         <>
                             <Illustration src='../assets/Subs.svg' alt="Transaction Illustration" />
                             <Heading>Payment completed successful!</Heading>
-                            <br />
+                            <br /> 
+                            <OrderConfirmation />
                             <Button onClick={() => navigate('/')} style={{ height: "40px", marginLeft: "5px" }}>Go Home</Button>
                         </>
                     ) : (
