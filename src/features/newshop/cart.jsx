@@ -425,7 +425,7 @@ const CartPage = () => {
                   <div>Total:</div>
                   <div>
                     {" "}
-                    {formatCurrency(Number(shppingFee) + Number(subtotal))}
+                    {formatCurrency(Number(subtotal))}
                   </div>
                 </ListItem>
                 <BtnCover>

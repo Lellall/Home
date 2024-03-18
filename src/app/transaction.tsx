@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BaseUrl } from '../utils/config';
@@ -6,6 +7,7 @@ import styled from 'styled-components';
 import { Button, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import OrderConfirmation from '../features/verification/message';
+import Subs from "../../assets/Subs.svg";
 
 
 const Container = styled.div`
@@ -67,7 +69,7 @@ const TransactionStatusPage = () => {
 
                     {status === 'COMPLETED' ? (
                         <>
-                            <Illustration src='../assets/Subs.svg' alt="Transaction Illustration" />
+                            <Illustration src={Subs} alt="Transaction Illustration" />
                             <Heading>Payment completed successful!</Heading>
                             <br /> 
                             <OrderConfirmation />

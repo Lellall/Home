@@ -135,7 +135,7 @@ const OrderForRider = () => {
 
     useEffect(() => {
         if (error !== null) {
-            refreshAccessTokenAdmin()
+            // refreshAccessTokenAdmin()
         }
     }, [error]);
 
