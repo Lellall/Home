@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from "react";
-// import GooglePlacesAutocomplete from 'react-google-autocomplete';
-import Autocomplete from "react-google-autocomplete";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import DistanceCalculator from "./DistanceCalculator";
 import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
 import styled from "styled-components";
 import useProductStore from "../../app/productStore";
 import InputWithIcon from "../../components/inputs/input.component";
-import { House2, LocationTick, Mobile, User } from "iconsax-react";
-import { ViewportWidth } from "../../utils/enums";
-import { useForm } from "react-hook-form";
-import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-
-const schema = Yup.object().shape({
-  location: Yup.string().required("Location is required"),
-});
-
-const StyledInput = styled.div`
-  max-width: 400px;
-  z-index: 1;
-  min-height: 50px;
-  @media (max-width: ${ViewportWidth.sm}px) {
-    width: 100%;
-  }
+import { Mobile } from "iconsax-react";
+import { Controller, useForm } from "react-hook-form";
+import useAuth from "../../app/useAuth";
+import useShoppingCart from "../../app/useShoppingCart";
+import axios from "axios";
+import AuthModal from "./authModal";
+import RoundedButton from "./RoundedButton";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { BaseUrl } from "../../utils/config";
+const Title = styled.p`
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #333;
 `;
 
 const BillingAddress = () => {
@@ -31,10 +25,13 @@ const BillingAddress = () => {
   const lon1 = 7.464775700000001;
   const [customerPosition, setCustomerPosition] = useState("");
   const [value, setValue] = useState(null);
+  const [mapError, setMapError] = useState(false);
   const [formData, setFormData] = useState({
     landmark: "",
     house: "",
   });
+
+  const navigate = useNavigate();
   const {
     setFee,
     shppingFee,
@@ -43,15 +40,11 @@ const BillingAddress = () => {
     address: addd,
     setDistance,
     setPhone,
-    consumerPhoneNumber: phone
+    address,
+    positionPoint,
+    distance,
+    consumerPhoneNumber,
   } = useProductStore();
-
-  const handleInputChange = (name, value) => {
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
 
   function calculateDistance(lat1, lon1, lat2, lon2) {
     // Earth's mean radius in kilometers
@@ -94,111 +87,206 @@ const BillingAddress = () => {
       setAddressInfo(value.label);
     }
   }, [value]);
-  console.log(formData, "addd");
 
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
+  } = useForm();
+  const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
+  const { cart: cartItems } = useShoppingCart();
+  const [showModal, setShowModal] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
+  const orderData = cartItems.map((item) => {
+    return {
+      productId: item?.productId,
+      count: item?.qnty,
+      productName: item?.name,
+      price: item?.price * item?.qnty,
+    };
   });
 
-  console.log("====================================");
-  console.log(errors, "errorserrors");
-  console.log("====================================");
+  useEffect(() => {
+    if (value !== null) {
+      setMapError(false);
+    }
+  }, [value]);
 
-  const onSubmit = (data) => {
-    console.log(data, "here");
+  const handleCheckoutClick = async () => {
+    const data = {
+      paymentItems: orderData,
+      address: {
+        streetName: address,
+      },
+      distance: Number(distance?.toFixed(1)),
+      deliveryPoint: positionPoint,
+      consumerPhoneNumber,
+    };
+    // if (address === null || consumerPhoneNumber === '') {
+    //   toast.error("Please ensure all required fields are filled out correctly and try again.", {
+    //     position: 'top-right',
+    //   });
+    //   return;
+    // }
+    // refreshAccessToken();
+    if (isAuthenticated && orderData?.length > 0) {
+      const data = {
+        paymentItems: orderData,
+        address: {
+          streetName: address,
+        },
+        distance: Number(distance?.toFixed(1)),
+        deliveryPoint: positionPoint,
+        consumerPhoneNumber,
+      };
+
+      try {
+        setLoading(true);
+        console.log(data, "data");
+        const response = await axios.post(`${BaseUrl}/orders`, data, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
+        });
+        // await initiateCheckout(response.data.orderId);
+
+        // addOrder(response.data);
+        if (response?.status === 201) {
+          navigate(`/summary?id=${response.data.orderId}`);
+        }
+      } catch (error) {
+        if (error?.response?.status === 500) {
+          toast.error("Please Try one more time.", {
+            position: "top-right",
+          });
+          refreshAccessToken();
+        }
+        setLoading(false);
+      } finally {
+        setLoading(false);
+      }
+
+      return;
+    } else {
+      setShowModal(true);
+    }
+  };
+  const onSubmit = async (values) => {
+    console.log(values);
+    if (value === null) {
+      setMapError(true);
+      return
+    }
+    if(!values.phone) {
+      return
+    }
+    await handleCheckoutClick(); 
   };
 
   return (
-    <StyledInput>
-      {/* <h2>Billing Address</h2> */}
-      <label htmlFor="Type your address" style={{ color: "#808080" }}>
-        Type your address
-      </label>
-      <div style={{ marginBottom: "5px" }} />
-      <GooglePlacesAutocomplete
-      style={{borderColor:"red"}}
-        required
-        apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
-        selectProps={{
-          value,
-          onChange: setValue,
-          styles: {
-            input: (provided) => ({
-              ...provided,
-              color: "blue",
-              width: "200px !important",
-            }),
-            option: (provided) => ({
-              ...provided,
-              color: "blue",
-            }),
-            singleValue: (provided) => ({
-              ...provided,
-              color: "blue",
-            }),
-          },
-        }}
-        style={{ width: "300px" }}
-      />
-      {value === null && (
-        <span style={{  color: "red", marginBottom:"20px" }}>
-          address is required
-        </span>
-      )}
-      <div style={{ marginTop: "10px" }}>
-        <InputWithIcon
-          icon={LocationTick}
-          label="Landmark (Optional)"
-          type="text"
-          placeholder="Enter Landmark"
-
-          // {...field}
-          // hasError={errors.firstName ? true : false}
-          // errorMessage={errors.firstName && errors.firstName.message}
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label
+          style={{ fontSize: "13px", color: "#808080", marginBottom: "10px" }}
+        >
+          Search Address
+        </label>
+        <div
+          style={{ fontSize: "13px", color: "#808080", marginBottom: "5px" }}
+        ></div>
+        <div>
+          <GooglePlacesAutocomplete
+            apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
+            selectProps={{
+              value,
+              onChange: setValue,
+              placeholder: "Search address",
+              styles: {
+                control: (provided) => ({
+                  ...provided,
+                  border: mapError ? "1px solid red" : "1px solid initial",
+                  fontSize: "11px",
+                }),
+                input: (provided) => ({
+                  ...provided,
+                  width: "200px !important",
+                  fontSize: "11px",
+                }),
+                option: (provided) => ({
+                  ...provided,
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                }),
+              },
+            }}
+          />
+          {mapError && (
+            <p style={{ color: "red", fontSize: "9px" }}>
+              please enter your delivery address.
+            </p>
+          )}
+        </div>
+        <div
+          style={{ fontSize: "13px", color: "#808080", marginBottom: "15px" }}
+        ></div>
+        <Controller
+          name="phone"
+          control={control}
+          rules={{
+            required: "Phone number is required",
+          }}
+          render={({ field }) => (
+            <InputWithIcon
+              icon={Mobile}
+              label="Phone Number"
+              type="text"
+              placeholder="Enter your phone number"
+              rules={{
+                required: "Phone Number is required",
+              }}
+              {...field}
+              hasError={errors.phone ? true : false}
+              errorMessage={errors.phone && errors.phone.message}
+            />
+          )}
         />
-      </div>
-      <div style={{ marginTop: "10px" }}>
-        <InputWithIcon
-          icon={Mobile}
-          label="Phone Number"
-          type="text"
-          placeholder="House No."
-          name="landmark"
-          // value={formData.landmark}
-          onChange={(e) => setPhone(e.target.value)}
-        />
-      </div>
-      {phone === '' && (
-        <span style={{  color: "red", marginBottom:"20px" }}>
-          phone is required
-        </span>
+        <div
+          style={{ fontSize: "13px", color: "#808080", marginBottom: "15px" }}
+        ></div>
+        <RoundedButton type="submit"
+          backgroundColor="#0E5D37"
+          onClick={onSubmit}
+          spaceBottom="10px"
+          loading={isLoading}
+        >
+          Proceed to checkout
+        </RoundedButton>
+      </form>
+      {showModal && (
+        <AuthModal onClose={() => setShowModal(false)}>
+          <Title>Please sign in or sign up to proceed.</Title>
+          <RoundedButton
+            backgroundColor="#0E5D37"
+            onClick={() => navigate("/login?ref=cart")}
+            spaceBottom="10px"
+          >
+            Sign In
+          </RoundedButton>
+          <RoundedButton
+            backgroundColor="#F06D06"
+            onClick={() => navigate("/register?ref=cart")}
+            spaceTop="10px"
+            spaceBottom="10px"
+          >
+            Sign Up
+          </RoundedButton>
+        </AuthModal>
       )}
-      {/* <Autocomplete
-        apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
-        onPlaceSelected={(place) => {
-          const lat = place.geometry.location.lat();
-          const lng = place.geometry.location.lng();
-          console.log(lat, lng, "uuuuu");
-        }}
-        // onSelect={handlePlaceSelect}
-      /> */}
-      {/* Display extracted address information or use it for further processing */}
-      <div>
-        {/* <h1>Distance between two locations {customerPosition?.toFixed(2)}Km</h1> */}
-        {/* <h1> shipping fee: NGN{Number(customerPosition * 200).toFixed(2)}</h1> */}
-        {/* <DistanceCalculator
-          placeId1="ChIJO8z05G4MThAR8dwgh1dpZyU"
-          placeId2="ChIJGxxbBBMLThARA-kiVbn4pQ8"
-        /> */}
-      </div>
-      {/* <MyComponent /> */}
-      {/* Add other form fields like apartment number, etc. */}
-      {/* <button>Submit</button> */}
-    </StyledInput>
+    </>
   );
 };
 

@@ -403,12 +403,12 @@ const CartPage = () => {
               </tbody>
             </CartTable>
             <hr />
-            {!shppingFee && (
+            {/* {!shppingFee && (
               <AlertCards type="danger">
                 Please search below the location you want your products to be
                 delivered to!
               </AlertCards>
-            )}
+            )} */}
             <TotalContainer>
               <TotalCover>
                 <div>
@@ -416,19 +416,20 @@ const CartPage = () => {
                 </div>
               </TotalCover>
               <TotalCover>
-              <BillingAddress />
-                {/* <ListItem>
-                  <div>Subtotal:</div>
-                  <div> {formatCurrency(subtotal)}</div>
-                </ListItem> */}
-                <ListItem>
+              <ListItem>
                   <div>Total:</div>
                   <div>
                     {" "}
                     {formatCurrency(Number(subtotal))}
                   </div>
                 </ListItem>
-                <BtnCover>
+              <BillingAddress />
+                {/* <ListItem>
+                  <div>Subtotal:</div>
+                  <div> {formatCurrency(subtotal)}</div>
+                </ListItem> */}
+               
+                {/* <BtnCover>
                   <ModCartButton
                     loading={isLoading}
                     disabled={isLoading}
@@ -437,7 +438,7 @@ const CartPage = () => {
                   >
                     Proceed to checkout
                   </ModCartButton>
-                </BtnCover>
+                </BtnCover> */}
               </TotalCover>
             </TotalContainer>
           </div>
