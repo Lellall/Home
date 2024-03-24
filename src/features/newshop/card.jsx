@@ -191,7 +191,7 @@ const ReusableCard = ({
         <CardContent>
           {/* <WishlistIcon onClick={onAddToWishlist}>&#10084;</WishlistIcon> */}
           {/* <Discount>{discount}</Discount> */}
-          <Discount>open</Discount>
+          {/* <Discount>open</Discount> */}
           <Title>{title}</Title>
           <div
             style={{

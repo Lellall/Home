@@ -65,7 +65,7 @@ const CategoriesList = () => {
 
   return (
     <Container>
-      {categories.slice(0, 8).map((category, index) => (
+      {categories?.data?.slice(0, 8).map((category, index) => (
         <div onClick={() => handleCategorySearch(category)} style={{display:"flex", justifyContent:"space-around"}}>
           <Category key={category?.id}>{category?.name} </Category>
           <div>

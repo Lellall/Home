@@ -12,6 +12,7 @@ import ReusableCard from "../features/newshop/card";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { ColorRing } from "react-loader-spinner";
 import AlertCards from "../features/newshop/AlertCard";
+import ModalVerified from "./Welcome";
 
 const TopSnacker = styled.div`
   display: flex;
@@ -107,6 +108,20 @@ const NewStore = () => {
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const closeModal = () => {
+    setModalOpen(false);
+  };
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const user = params.get("user");
+    const token = params.get("token");
+    if (user && token) {
+      setModalOpen(true);
+    }
+  }, []);
 
   useEffect(() => {
     loadNextPage();
@@ -127,6 +142,7 @@ const NewStore = () => {
 
   return (
     <>
+      <ModalVerified show={modalOpen} onClose={closeModal} />
       <Navbar />
       <div style={{ marginTop: "10rem" }}></div>
       {/* <AlertCards type="danger">

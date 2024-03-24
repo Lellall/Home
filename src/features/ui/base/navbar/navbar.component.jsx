@@ -196,10 +196,8 @@ console.log('====================================');
                 )}
               </Profile>
           </MobileNav>
-          <div className="input-container">
-            <SearchableList
+          <SearchableList
             />
-          </div>
         </Wrapper>
       ) : (
         <Wrapper>
