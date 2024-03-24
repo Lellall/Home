@@ -31,7 +31,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const MainContainer = styled(Container)`
+export const MainContainer = styled.div`
   display: flex !important;
   width: 100% !important;
   align-self: stretch !important;
@@ -52,6 +52,11 @@ export const MainContainer = styled(Container)`
 
   @media (max-width: ${ViewportWidth.md}px) {
     padding: 20px 40px !important;
+  }
+  @media (max-width: 768px) {
+    .logo {
+    width: 10px;
+   }
   }
 `;
 

@@ -30,7 +30,7 @@ const SearchInp = styled.input`
 `;
 
 const SearchableListContainer = styled.div`
-  width: 40%;
+  width: 400px;
   margin-top: 20px;
   position: absolute;
   top: 10px;
