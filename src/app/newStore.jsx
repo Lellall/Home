@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Footer } from "../features";
+import { Footer, Navbar } from "../features";
 import SliderComponent from "../features/newshop/newShop";
 import { MultipleProducts } from "../StoreSlide";
 import CategoriesList from "./categoriesItems";
@@ -13,7 +13,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { ColorRing } from "react-loader-spinner";
 import AlertCards from "../features/newshop/AlertCard";
 import ModalVerified from "./Welcome";
-import Navbar from "./Nav";
 
 const TopSnacker = styled.div`
   display: flex;

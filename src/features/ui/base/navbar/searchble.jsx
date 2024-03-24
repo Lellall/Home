@@ -99,7 +99,7 @@ const SearchableList = ({ categories }) => {
       />
       <div style={{background:'#fff', width:'100%'}}>
 
-      {isInputFocused &&
+      {searchTerm.length > 0 &&
         productsSearched.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
           <div >{product?.name}</div>
           <div >NGN{product?.price}</div>
