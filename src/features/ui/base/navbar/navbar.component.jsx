@@ -122,172 +122,173 @@ console.log('====================================');
     setShow(false);
   };
   return (
-    // <>
-    //   {isMobile ? (
-    //     <Wrapper>
-    //       <MobileNav>
-    //         <img
-    //           src="/assets/lellall-colored.svg"
-    //           alt="Logo"
-    //           className="logo"
-    //           onClick={() => navigate("/")}
-    //         />
-    //         <Profile style={{
-    //           marginRight: '2rem'
-    //         }}>
-    //         <div
-    //             onClick={() => navigate("/cart")}
-    //             style={{ position: "relative", height: "30px", padding: "5px" }}
-    //           >
-    //             <img
-    //               src="/assets/shopping-cart.svg"
-    //               alt="cart"
-    //               className="cart"
-    //             />
-    //             {
-    //               <QuantityContainer>
-    //                 <p >{cart?.length}</p>
-    //               </QuantityContainer>
-    //             }
-    //           </div>
-    //             {active ? (
-    //               <div className="active">
-    //                 <RxAvatar />
-    //                 <p>Hi Jane</p>
-    //               </div>
-    //             ) : (
-    //               <div className="inactive">
-    //                 <RxAvatar  onClick={() => setShow(!show)} className="icon" />
-    //                 <MenuList>
-    //                   <p  onClick={() => setShow(!show)}>
-    //                     {/* {user !== null ? (
-    //                       `${user?.firstName + " " + user?.lastName}`
-    //                     ) : (
-    //                       <></>
-    //                     )} */}
-    //                   </p>
-    //                   {user !== null && show && (
-    //                     <MenuListCover>
-    //                       {/* <ListMenu
-    //                         onClick={() => callNavigate("/account/my-orders")}
-    //                       >
-    //                         My Orders
-    //                       </ListMenu> */}
-    //                       {/* <ListMenu onClick={() => callNavigate("/account")}>
-    //                         Account
-    //                       </ListMenu> */}
-    //                       {/* <ListMenu
-    //                         onClick={() => callNavigate("/account/favorites")}
-    //                       >
-    //                         Favorites
-    //                       </ListMenu> */}
-    //                       {/* <ListMenu
-    //                         onClick={() =>
-    //                           callNavigate("/account/notification")
-    //                         }
-    //                       >
-    //                         Notifications
-    //                       </ListMenu> */}
-    //                       <ListMenu onClick={() => logout()}>Logout</ListMenu>
-    //                     </MenuListCover>
-    //                   )}
-    //                 </MenuList>
-    //               </div>
-    //             )}
-    //           </Profile>
-    //       </MobileNav>
-    //       <SearchableList
-    //         />
-    //     </Wrapper>
-    //   ) : (
-     
-    //   )}
-    // </>
-    <Wrapper>
-    <MainContainer>
-      <img
-        src="/assets/lellall-colored.svg"
-        alt="Logo"
-        className="logo"
-        onClick={() => navigate("/")}
-      />
-       <SearchableList
-      />
-      <Nav>
-        {/* <ColContainer>
-          <SubText>Delivery to</SubText>
-          <StyledSelect name="location">
-            <option>Abuja</option>
-          </StyledSelect>
-        </ColContainer> */}
-        <ColContainer >
-          <SubText style={{cursor:"pointer"}} onClick={() => navigate('/privacy-policy')}>Privacy Policy</SubText>
-        </ColContainer>
-        <div
-          onClick={() => navigate("/cart")}
-          style={{ position: "relative", height: "30px", padding: "5px" }}
-        >
-          <img
-            src="/assets/shopping-cart.svg"
-            alt="cart"
-            className="cart"
-          />
-          {
-            <QuantityContainer>
-              <p >{cart?.length}</p>
-            </QuantityContainer>
-          }
-        </div>
-        <Profile>
-          {active ? (
-            <div className="active">
-              <RxAvatar />
-              <p>Hi Jane</p>
-            </div>
-          ) : (
-            <div className="inactive">
-              <RxAvatar  onClick={() => setShow(!show)} className="icon" />
-              <MenuList>
-                <p  onClick={() => setShow(!show)}>
-                  {user !== null ? (
-                    `${user?.firstName + " " + user?.lastName}`
-                  ) : (
-                    <></>
-                  )}
-                </p>
-                {user !== null && show && (
-                  <MenuListCover>
-                    {/* <ListMenu
-                      onClick={() => callNavigate("/account/my-orders")}
-                    >
-                      My Orders
-                    </ListMenu>
-                    <ListMenu onClick={() => callNavigate("/account")}>
-                      Account
-                    </ListMenu>
-                    <ListMenu
-                      onClick={() => callNavigate("/account/favorites")}
-                    >
-                      Favorites
-                    </ListMenu>
-                    <ListMenu
-                      onClick={() =>
-                        callNavigate("/account/notification")
-                      }
-                    >
-                      Notifications
-                    </ListMenu> */}
-                    <ListMenu  onClick={() => logout()}>Logout</ListMenu>
-                  </MenuListCover>
+    <>
+      {isMobile ? (
+        <Wrapper>
+          <MobileNav>
+            <img
+              src="/assets/lellall-colored.svg"
+              alt="Logo"
+              className="logo"
+              onClick={() => navigate("/")}
+            />
+            <Profile style={{
+              marginRight: '2rem'
+            }}>
+            <div
+                onClick={() => navigate("/cart")}
+                style={{ position: "relative", height: "30px", padding: "5px" }}
+              >
+                <img
+                  src="/assets/shopping-cart.svg"
+                  alt="cart"
+                  className="cart"
+                />
+                {
+                  <QuantityContainer>
+                    <p >{cart?.length}</p>
+                  </QuantityContainer>
+                }
+              </div>
+                {active ? (
+                  <div className="active">
+                    <RxAvatar />
+                    <p>Hi Jane</p>
+                  </div>
+                ) : (
+                  <div className="inactive">
+                    <RxAvatar  onClick={() => setShow(!show)} className="icon" />
+                    <MenuList>
+                      <p  onClick={() => setShow(!show)}>
+                        {/* {user !== null ? (
+                          `${user?.firstName + " " + user?.lastName}`
+                        ) : (
+                          <></>
+                        )} */}
+                      </p>
+                      {user !== null && show && (
+                        <MenuListCover>
+                          {/* <ListMenu
+                            onClick={() => callNavigate("/account/my-orders")}
+                          >
+                            My Orders
+                          </ListMenu> */}
+                          {/* <ListMenu onClick={() => callNavigate("/account")}>
+                            Account
+                          </ListMenu> */}
+                          {/* <ListMenu
+                            onClick={() => callNavigate("/account/favorites")}
+                          >
+                            Favorites
+                          </ListMenu> */}
+                          {/* <ListMenu
+                            onClick={() =>
+                              callNavigate("/account/notification")
+                            }
+                          >
+                            Notifications
+                          </ListMenu> */}
+                          <ListMenu onClick={() => logout()}>Logout</ListMenu>
+                        </MenuListCover>
+                      )}
+                    </MenuList>
+                  </div>
                 )}
-              </MenuList>
-            </div>
-          )}
-        </Profile>
-      </Nav>
-    </MainContainer>
-   
-  </Wrapper>
+              </Profile>
+          </MobileNav>
+          <div className="input-container">
+            <SearchableList
+            />
+          </div>
+        </Wrapper>
+      ) : (
+        <Wrapper>
+          <MainContainer>
+            <img
+              src="/assets/lellall-colored.svg"
+              alt="Logo"
+              className="logo"
+              onClick={() => navigate("/")}
+            />
+             <SearchableList
+            />
+            <Nav>
+              {/* <ColContainer>
+                <SubText>Delivery to</SubText>
+                <StyledSelect name="location">
+                  <option>Abuja</option>
+                </StyledSelect>
+              </ColContainer> */}
+              <ColContainer >
+                <SubText style={{cursor:"pointer"}} onClick={() => navigate('/privacy-policy')}>Privacy Policy</SubText>
+              </ColContainer>
+              <div
+                onClick={() => navigate("/cart")}
+                style={{ position: "relative", height: "30px", padding: "5px" }}
+              >
+                <img
+                  src="/assets/shopping-cart.svg"
+                  alt="cart"
+                  className="cart"
+                />
+                {
+                  <QuantityContainer>
+                    <p >{cart?.length}</p>
+                  </QuantityContainer>
+                }
+              </div>
+              <Profile>
+                {active ? (
+                  <div className="active">
+                    <RxAvatar />
+                    <p>Hi Jane</p>
+                  </div>
+                ) : (
+                  <div className="inactive">
+                    <RxAvatar  onClick={() => setShow(!show)} className="icon" />
+                    <MenuList>
+                      <p  onClick={() => setShow(!show)}>
+                        {user !== null ? (
+                          `${user?.firstName + " " + user?.lastName}`
+                        ) : (
+                          <></>
+                        )}
+                      </p>
+                      {user !== null && show && (
+                        <MenuListCover>
+                          {/* <ListMenu
+                            onClick={() => callNavigate("/account/my-orders")}
+                          >
+                            My Orders
+                          </ListMenu>
+                          <ListMenu onClick={() => callNavigate("/account")}>
+                            Account
+                          </ListMenu>
+                          <ListMenu
+                            onClick={() => callNavigate("/account/favorites")}
+                          >
+                            Favorites
+                          </ListMenu>
+                          <ListMenu
+                            onClick={() =>
+                              callNavigate("/account/notification")
+                            }
+                          >
+                            Notifications
+                          </ListMenu> */}
+                          <ListMenu  onClick={() => logout()}>Logout</ListMenu>
+                        </MenuListCover>
+                      )}
+                    </MenuList>
+                  </div>
+                )}
+              </Profile>
+            </Nav>
+          </MainContainer>
+         
+        </Wrapper>
+      )}
+    </>
   );
 };
 
