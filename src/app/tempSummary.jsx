@@ -190,8 +190,8 @@ const Summary = () => {
                   <ItemDetails>
                     <ItemCost>
                       {item.type === "CHARGE"
-                        ? `${formatCurrency(item.totalAmount)}`
-                        : `${formatCurrency(item.totalAmount)}`}
+                        ? `${formatCurrency(item.amount)}`
+                        : `${formatCurrency(item.amount)}`}
                     </ItemCost>
                   </ItemDetails>
                 </SummaryItem>
