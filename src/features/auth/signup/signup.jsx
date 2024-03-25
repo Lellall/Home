@@ -360,7 +360,7 @@ const Login = () => {
                 >
                   <div style={{ color: "#AAAAAA", marginLeft: "5px" }}></div>
                 </ActionCover>
-                <ActionCover>
+                {/* <ActionCover>
                   <div style={{ color: "#AAAAAA", display: "flex" }}>
                     <Text style={{ fontSize: "12px" }}>
                       {" "}
@@ -432,7 +432,7 @@ const Login = () => {
                      {isLoading ? "Signing up...." : "Sign up"}
                     </ModButton>
                   </div>
-                </ActionCover>
+                </ActionCover> */}
               </form>
               <hr
                 style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}

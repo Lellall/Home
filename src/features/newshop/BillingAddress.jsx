@@ -114,7 +114,7 @@ const BillingAddress = () => {
     }
   }, [value]);
 
-  const handleCheckoutClick = async () => {
+  const handleCheckoutClick = async (phone) => {
     const data = {
       paymentItems: orderData,
       address: {
@@ -122,7 +122,7 @@ const BillingAddress = () => {
       },
       distance: Number(distance?.toFixed(1)),
       deliveryPoint: positionPoint,
-      consumerPhoneNumber,
+      consumerPhoneNumber: phone,
     };
     // if (address === null || consumerPhoneNumber === '') {
     //   toast.error("Please ensure all required fields are filled out correctly and try again.", {
@@ -139,7 +139,7 @@ const BillingAddress = () => {
         },
         distance: Number(distance?.toFixed(1)),
         deliveryPoint: positionPoint,
-        consumerPhoneNumber,
+        consumerPhoneNumber: phone,
       };
 
       try {
@@ -183,7 +183,7 @@ const BillingAddress = () => {
     if(!values.phone) {
       return
     }
-    await handleCheckoutClick(); 
+    await handleCheckoutClick(values.phone); 
   };
 
   return (
@@ -238,6 +238,11 @@ const BillingAddress = () => {
           control={control}
           rules={{
             required: "Phone number is required",
+            validate: {
+              validPhoneNumber: value => {
+                return /^[0-9]{11}$/.test(value);
+              }
+            }
           }}
           render={({ field }) => (
             <InputWithIcon

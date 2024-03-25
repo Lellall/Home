@@ -1,7 +1,10 @@
+// @ts-nocheck
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Verify from '../assets/verify.svg'
 import { RoundedButton } from '../components/Button/Button';
+import axios from 'axios';
+import { BaseUrl } from '../utils/config';
 
 const ModalOverlay = styled.div`
   position: fixed;
@@ -62,17 +65,55 @@ const Illustration = styled.img`
 
 const ModalVerified = ({ show, onClose }) => {
     const [verified, setVerified] = useState(false);
+    const [verifiedContent, setVerifiedContent] = useState('Verifying your account...');
+    const [error, setError] = useState(false);
+    console.log('====================================');
+    console.log(error, 'yuiojh');
+    console.log('====================================');
+
+    const errorContent = 'Failed to verify your account at this moment please try again'
+    const successContent = (
+        <>
+            <Illustration src={Verify} alt="Illustration" />
+            <div style={{ fontWeight: 300, marginTop: '10px', fontSize: '25px', textAlign: 'center' }}>Your email account is verified!</div>
+            <p
+                style={{ fontWeight: 300, marginTop: '10px', fontSize: '16px', textAlign: 'center' }}
+            >Welcome to our platform. You can now access exclusive features and content.</p>
+            <RoundedButton
+                onClick={onClose}
+                style={{ padding: "8px 10px" }}
+            >
+                Continue
+            </RoundedButton>
+        </>
+    )
+
 
     useEffect(() => {
         if (show) {
             const params = new URLSearchParams(window.location.search);
             const user = params.get('user');
             const token = params.get('token');
+            const params1 = {
+                user,
+                token
+            };
 
             if (user && token) {
-                setTimeout(() => {
-                    setVerified(true);
-                }, 2000);
+                // setTimeout(() => {
+                //     setVerified(true);
+                // }, 2000);
+
+                axios.put(`${BaseUrl}/users/verify?user=${user}&token=${token}`, null, { params1 })
+                    .then(response => {
+                        console.log(response, 'iii');
+
+                        setVerifiedContent(successContent);
+                    })
+                    .catch(error => {
+                        setError(true)
+                        setVerifiedContent(errorContent);
+                    });
             }
         }
     }, [show]);
@@ -83,7 +124,7 @@ const ModalVerified = ({ show, onClose }) => {
                 <ModalOverlay>
                     <ModalContent>
                         <CloseButton onClick={onClose}>X</CloseButton>
-                        {verified ? (
+                        {/* {verified ? (
                             <>
                                 <Illustration src={Verify} alt="Illustration" />
                                 <div style={{ fontWeight: 300, marginTop: '10px', fontSize: '25px', textAlign: 'center' }}>Your email account is verified!</div>
@@ -92,7 +133,7 @@ const ModalVerified = ({ show, onClose }) => {
                                 >Welcome to our platform. You can now access exclusive features and content.</p>
                                 <RoundedButton
                                     onClick={onClose}
-                                    style={{padding:"8px 10px"}}
+                                    style={{ padding: "8px 10px" }}
                                 >
                                     Continue
                                 </RoundedButton>
@@ -102,7 +143,8 @@ const ModalVerified = ({ show, onClose }) => {
 
                                 <p>Verifying your account...</p>
                             </>
-                        )}
+                        )} */}
+                        {verifiedContent}
                     </ModalContent>
                 </ModalOverlay>
             }
