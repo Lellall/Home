@@ -54,7 +54,7 @@ const VerificationPage = () => {
 
       <RoundButton
         style={{ color: "#fff", fontSize: "10px !important" }}
-        onClick={() => navigate("/cart")}
+        onClick={() => navigate("/")}
       >
         Continue Shopping
       </RoundButton>
