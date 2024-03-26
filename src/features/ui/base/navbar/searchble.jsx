@@ -36,7 +36,7 @@ const SearchableListContainer = styled.div`
   top: 10px;
   // min-height: 400px;
   min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '300px' : '0')};
-
+  display: ${({ searchTerm }) => (searchTerm ? 'block' : 'none')}; /* Forcefully set display property */
   // backg
   left: 30%;
   z-index: 10000000;
@@ -59,6 +59,7 @@ const ListItem = styled.div`
   // background: #000;
   color: #000;
   &:hover {
+    min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '20px' : '0')};
     // background-color: #f0f0f0;
   }
   @media (max-width: 912px) {
@@ -103,7 +104,7 @@ const SearchableList = ({ categories }) => {
       <div style={{background:'#fff', width:'100%'}}>
 
       {searchTerm?.length > 0 &&
-        productsSearched?.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
+        productsSearched?.map((product) => <ListItem  searchTerm={searchTerm}  onClick={() => navigate(`product/${product?.id}`)}>
           <div >{product?.name}</div>
           <div >NGN{product?.price}</div>
         </ListItem>)}
