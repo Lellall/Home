@@ -148,7 +148,7 @@ const NewStore = () => {
       {/* <AlertCards type="danger">
       Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
       </AlertCards> */}
-      <Container>
+      {/* <Container>
         <Categories>
           <CategoriesList />
         </Categories>
@@ -205,7 +205,7 @@ const NewStore = () => {
             </InfiniteScroll>
           </ContainerInf>
         </Products>
-      </Container>
+      </Container> */}
       {/* <div>
         <div style={{ margin: "1px 20px" }}>
           <TopSnacker>
