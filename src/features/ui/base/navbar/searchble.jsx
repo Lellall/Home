@@ -36,7 +36,7 @@ const SearchableListContainer = styled.div`
   top: 10px;
   // min-height: 400px;
   min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '300px' : '0')};
-  display: ${({ searchTerm }) => (searchTerm ? 'block' : 'none')}; /* Forcefully set display property */
+  // display: ${({ searchTerm }) => (searchTerm ? 'block' : 'none')}; /* Forcefully set display property */
   // backg
   left: 30%;
   z-index: 10000000;
@@ -58,8 +58,8 @@ const ListItem = styled.div`
   // width: 100%;
   // background: #000;
   color: #000;
+  min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '20px' : '0')};
   &:hover {
-    min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '20px' : '0')};
     // background-color: #f0f0f0;
   }
   @media (max-width: 912px) {
