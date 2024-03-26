@@ -32,7 +32,6 @@ import useProductStore from "../../../../app/productStore";
 import SearchableList from "./searchble";
 import useAuthStore from "../../../../app/authStore";
 import useAuth from "../../../../app/useAuth";
-import Search from "../../../../app/searchInp";
 
 const MenuList = styled.div`
   position: relative;
@@ -198,7 +197,7 @@ console.log('====================================');
               </Profile>
           </MobileNav>
           <div className="input-container">
-            <Search
+            <SearchableList
             />
           </div>
         </Wrapper>
@@ -211,7 +210,7 @@ console.log('====================================');
               className="logo"
               onClick={() => navigate("/")}
             />
-             <Search
+             <SearchableList
             />
             <Nav>
               {/* <ColContainer>
