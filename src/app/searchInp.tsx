@@ -29,7 +29,7 @@ const SearchResults = styled.div`
   border-radius: 0 0 4px 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2000;
-  display: ${({ searchTerm }) => (searchTerm ? 'block' : 'none')}; /* Forcefully set display property */
+  display: block;
 
 `;
 
