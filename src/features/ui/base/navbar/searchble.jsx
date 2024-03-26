@@ -35,6 +35,8 @@ const SearchableListContainer = styled.div`
   position: absolute;
   top: 10px;
   // min-height: 400px;
+  min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '300px' : '0')};
+
   // backg
   left: 30%;
   z-index: 10000000;
@@ -91,7 +93,7 @@ const SearchableList = ({ categories }) => {
   const navigate = useNavigate()
 
   return (
-    <SearchableListContainer>
+    <SearchableListContainer searchTerm={searchTerm}>
       <SearchInp
         type="text"
         placeholder="What are you looking for?"
@@ -100,8 +102,8 @@ const SearchableList = ({ categories }) => {
       />
       <div style={{background:'#fff', width:'100%'}}>
 
-      {searchTerm.length > 0 &&
-        productsSearched.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
+      {searchTerm?.length > 0 &&
+        productsSearched?.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
           <div >{product?.name}</div>
           <div >NGN{product?.price}</div>
         </ListItem>)}
