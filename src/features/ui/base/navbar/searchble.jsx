@@ -92,7 +92,7 @@ const SearchableList = ({ categories }) => {
   const navigate = useNavigate();
 
   return (
-    <SearchableListContainer show={isInputFocused}>
+    <SearchableListContainer show={searchTerm !== null}>
       <SearchInp
         type="text"
         placeholder="What are you looking for?"
