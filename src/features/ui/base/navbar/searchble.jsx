@@ -58,6 +58,7 @@ const ListItem = styled.div`
   // width: 100%;
   // background: #000;
   color: #000;
+  // display: ${({ searchTerm }) => (searchTerm ? 'flex' : 'block')};
   min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '20px' : '0')};
   &:hover {
     // background-color: #f0f0f0;
