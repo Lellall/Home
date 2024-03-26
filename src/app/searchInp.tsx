@@ -4,6 +4,8 @@ import useProductStore from './productStore';
 
 const SearchContainer = styled.div`
   position: relative;
+  z-index: 2000;
+ 
 `;
 
 const SearchInput = styled.input`
@@ -12,6 +14,8 @@ const SearchInput = styled.input`
   border: 1px solid #ccc;
   border-radius: 4px;
   outline: none;
+  z-index: 2000;
+  background: red;
 `;
 
 const SearchResults = styled.div`
@@ -20,11 +24,12 @@ const SearchResults = styled.div`
   left: 0;
   width: 100%;
   background-color: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid red;
   border-top: none;
   border-radius: 0 0 4px 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 300000;
+  z-index: 2000;
+
 `;
 
 const SearchResultItem = styled.div`
