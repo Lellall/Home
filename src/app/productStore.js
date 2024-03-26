@@ -6,7 +6,7 @@ import { BaseUrl } from "../utils/config";
 const useProductStore = create((set) => ({
   products: [],
   productsSearched: [],
-  searchTerm: "",
+  searchTerm: null,
   address: {},
   distance: null,
   positionPoint: {},

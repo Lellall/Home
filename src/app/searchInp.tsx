@@ -30,7 +30,7 @@ const SearchResults = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 2000;
   display: block;
-
+min-height: 200px;
 `;
 
 const SearchResultItem = styled.div`
@@ -91,7 +91,7 @@ const Search = () => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      {/* {searchTerm && ( */}
+      {searchTerm !== null && (
         <SearchResults>
           {productsSearched?.map((result, index) => (
             <SearchResultItem key={index} onClick={() => handleItemClick(result)}>
@@ -99,7 +99,7 @@ const Search = () => {
             </SearchResultItem>
           ))}
         </SearchResults>
-      {/* )} */}
+      )}
     </SearchContainer>
   );
 };
