@@ -91,7 +91,7 @@ const Search = () => {
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      {searchTerm && (
+      {/* {searchTerm && ( */}
         <SearchResults>
           {productsSearched?.map((result, index) => (
             <SearchResultItem key={index} onClick={() => handleItemClick(result)}>
@@ -99,7 +99,7 @@ const Search = () => {
             </SearchResultItem>
           ))}
         </SearchResults>
-      )}
+      {/* )} */}
     </SearchContainer>
   );
 };
