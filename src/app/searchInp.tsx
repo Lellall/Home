@@ -20,7 +20,7 @@ const SearchInput = styled.input`
 
 const SearchResults = styled.div`
   position: absolute;
-  top: 40px;
+  top: calc(100% + 10px);
   left: 0;
   width: 100%;
   background-color: #fff;
