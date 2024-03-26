@@ -34,14 +34,16 @@ const SearchableListContainer = styled.div`
   margin-top: 20px;
   position: absolute;
   top: 10px;
-  min-height: 400px;
+  // min-height: 400px;
+  height: ${({ show }) => (show ? '300px' : '0')}; /* Forcefully set display property */
+
   // backg
   left: 30%;
   z-index: 10000000;
   background: #fff;
   @media (max-width: 912px) {
-   left: 22%;
-   width: 40%;
+    left: 22%;
+    width: 40%;
   }
 `;
 
@@ -75,7 +77,7 @@ const SearchableList = ({ categories }) => {
   const searchTerm = useProductStore((state) => state.searchTerm);
   const productsSearched = useProductStore((state) => state.productsSearched);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-  console.log(productsSearched,'productsSearched');
+  console.log(productsSearched, "productsSearched");
   const handleSearchChange = (e) => {
     const newSearchTerm = e.target.value;
     setSearchTerm(newSearchTerm);
@@ -87,23 +89,26 @@ const SearchableList = ({ categories }) => {
 
     return () => clearTimeout(delay);
   };
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
-    <SearchableListContainer>
+    <SearchableListContainer show={isInputFocused}>
       <SearchInp
         type="text"
         placeholder="What are you looking for?"
         value={searchTerm}
         onChange={handleSearchChange}
       />
-      <div style={{background:'#fff', width:'100%'}}>
+      <div style={{ background: "#fff", width: "100%" }}>
+        {productsSearched.map((product) => (
+          <ListItem onClick={() => navigate(`product/${product?.id}`)}>
+            <div>{product?.name}</div>
+            <div>NGN{product?.price}</div>
+          </ListItem>
+        ))}
 
-      {isInputFocused &&
-        productsSearched.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
-          <div >{product?.name}</div>
-          <div >NGN{product?.price}</div>
-        </ListItem>)}
+        {/* {isInputFocused &&
+       )} */}
       </div>
     </SearchableListContainer>
   );
