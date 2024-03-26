@@ -30,13 +30,11 @@ const SearchInp = styled.input`
 `;
 
 const SearchableListContainer = styled.div`
-  width: 400px;
+  width: 40%;
   margin-top: 20px;
   position: absolute;
   top: 10px;
-  // min-height: 400px;
-  min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '300px' : '0')};
-  // display: ${({ searchTerm }) => (searchTerm ? 'block' : 'none')}; /* Forcefully set display property */
+  min-height: 400px;
   // backg
   left: 30%;
   z-index: 10000000;
@@ -58,14 +56,11 @@ const ListItem = styled.div`
   // width: 100%;
   // background: #000;
   color: #000;
-  // display: ${({ searchTerm }) => (searchTerm ? 'flex' : 'block')};
-  min-height: ${({ searchTerm }) => (searchTerm?.length > 0  ? '20px' : '0')};
   &:hover {
     // background-color: #f0f0f0;
   }
   @media (max-width: 912px) {
     font-size: 9px;
-    display: block;
   }
 `;
 
@@ -95,7 +90,7 @@ const SearchableList = ({ categories }) => {
   const navigate = useNavigate()
 
   return (
-    <SearchableListContainer searchTerm={searchTerm}>
+    <SearchableListContainer>
       <SearchInp
         type="text"
         placeholder="What are you looking for?"
@@ -104,8 +99,8 @@ const SearchableList = ({ categories }) => {
       />
       <div style={{background:'#fff', width:'100%'}}>
 
-      {
-        productsSearched?.map((product) => <ListItem  searchTerm={searchTerm}  onClick={() => navigate(`product/${product?.id}`)}>
+      {isInputFocused &&
+        productsSearched.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
           <div >{product?.name}</div>
           <div >NGN{product?.price}</div>
         </ListItem>)}
