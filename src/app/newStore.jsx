@@ -13,7 +13,6 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { ColorRing } from "react-loader-spinner";
 import AlertCards from "../features/newshop/AlertCard";
 import ModalVerified from "./Welcome";
-import Search from "./searchInp";
 
 const TopSnacker = styled.div`
   display: flex;
@@ -157,8 +156,7 @@ const NewStore = () => {
           <div>
             <MultipleProducts />
           </div>
-          <Search
-            />
+          
           <ContainerInf>
             <InfiniteScroll
               style={{ float: "center" }}
