@@ -1,107 +1,57 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import useProductStore from './productStore';
+import AsyncSelect from 'react-select/async';
+import debounce from 'lodash.debounce';
+import { BaseUrl } from '../utils/config';
 
-const SearchContainer = styled.div`
-  position: relative;
-  z-index: 2000;
- 
-`;
+const SearchComponent = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-const SearchInput = styled.input`
-  width: 400px;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  z-index: 2000;
-  background: red;
-`;
+  const fetchOptions = async (inputValue, callback) => {
+    setIsLoading(true);
 
-const SearchResults = styled.div`
-  position: absolute;
-  top: calc(100% + 10px);
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  border: 1px solid red;
-  border-top: none;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  z-index: 2000;
-  display: block;
-min-height: 200px;
-`;
+    try {
+      const response = await fetch(`${BaseUrl}/products?page=0&size=10&filter=${inputValue}`);
+      const data = await response.json();
 
-const SearchResultItem = styled.div`
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: #f0f0f0;
-  }
-`;
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
 
-const Search = () => {
-  const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [filterText, setFilterText] = useState("");
-
-  const setSearchTerm = useProductStore((state) => state.setSearchTerm);
-  const searchProducts = useProductStore((state) => state.searchProducts);
-  const searchTerm = useProductStore((state) => state.searchTerm);
-  const productsSearched = useProductStore((state) => state.productsSearched);
-
-//   const handleSearchChange = (e) => {
-//     const newSearchTerm = e.target.value;
-//     setQuery(newSearchTerm);
-
-//     // Debounce the search action
-//     const delay = setTimeout(() => {
-//       searchProducts();
-//     }, 300);
-
-//     return () => clearTimeout(delay);
-//   };
-
-  const handleSearchChange = (e) => {
-    const newSearchTerm = e.target.value;
-    setSearchTerm(newSearchTerm);
-    setFilterText(newSearchTerm);
-    // Debounce the search action
-    const delay = setTimeout(() => {
-      searchProducts();
-    }, 300);
-
-    return () => clearTimeout(delay);
-  };
-  const handleItemClick = (item) => {
-    // Do something when an item is clicked
-    console.log(item);
+      if (data.data.length === 0) {
+        callback([]); // Invoke the callback with an empty array
+      } else {
+        const options = data.data.map(option => ({
+          value: option.id,
+          label: option.name
+        }));
+        callback(options); // Invoke the callback with the fetched options
+      }
+    } catch (error) {
+      console.error("Error fetching options:", error);
+      callback([]); // Invoke the callback with an empty array in case of error
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  console.log('====================================');
-  console.log(searchTerm,'searchTerm');
-  console.log('====================================');
+  const debouncedFetchOptions = debounce(fetchOptions, 250);
 
   return (
-    <SearchContainer>
-      <SearchInput
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearchChange}
+    <div  style={{ minWidth: '300px', margin:'0 auto' }}>
+
+      <AsyncSelect
+       
+        value={selectedOption}
+        onChange={setSelectedOption}
+        loadOptions={debouncedFetchOptions}
+        placeholder="Search for a product..."
+        isClearable
+        isSearchable
+        isLoading={isLoading}
       />
-      {searchTerm !== null && (
-        <SearchResults>
-          {productsSearched?.map((result, index) => (
-            <SearchResultItem key={index} onClick={() => handleItemClick(result)}>
-              {result?.name}
-            </SearchResultItem>
-          ))}
-        </SearchResults>
-      )}
-    </SearchContainer>
+    </div>
   );
 };
 
-export default Search;
+export default SearchComponent;

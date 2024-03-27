@@ -3,7 +3,8 @@ import styled from "styled-components";
 import useProductStore from "../../../../app/productStore";
 import { ViewportWidth } from "../../../../utils/enums";
 import { useNavigate } from "react-router-dom";
-
+import debounce from "lodash.debounce";
+import AsyncSelect from "react-select/async";
 const SearchInp = styled.input`
   width: 94%;
   height: 30px;
@@ -40,8 +41,8 @@ const SearchableListContainer = styled.div`
   z-index: 10000000;
   background: #fff;
   @media (max-width: 912px) {
-   left: 22%;
-   width: 40%;
+    left: 22%;
+    width: 40%;
   }
 `;
 
@@ -75,35 +76,67 @@ const SearchableList = ({ categories }) => {
   const searchTerm = useProductStore((state) => state.searchTerm);
   const productsSearched = useProductStore((state) => state.productsSearched);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-  console.log(productsSearched,'productsSearched');
-  const handleSearchChange = (e) => {
-    const newSearchTerm = e.target.value;
-    setSearchTerm(newSearchTerm);
-    setFilterText(newSearchTerm);
-    // Debounce the search action
-    const delay = setTimeout(() => {
-      searchProducts();
-    }, 300);
-
-    return () => clearTimeout(delay);
+  
+  const loadOptions = async (inputValue) => {
+    // console.log("====================================");
+    // console.log(inputValue, "inputValue");
+    // console.log("====================================");
+    searchProducts(inputValue);
+    console.log(productsSearched, "productsSearched");
+     const res =  [
+      { value: "chocolate", label: "Chocolate" },
+      { value: "strawberry", label: "Strawberry" },
+      { value: "vanilla", label: "Vanilla" },
+    ];
+    const newres = await res
+    return newres
   };
-  const navigate = useNavigate()
+  const debouncedLoadOptions = debounce(loadOptions, 500);
+  const [inputValue, setInputValue] = useState("");
+
+  const handleInputChange = (newValue) => {
+    const inputValue = newValue.replace(/\\\\W/g, "");
+    setInputValue(inputValue);
+    return inputValue;
+  };
+
+  // const handleSearchChange = (e) => {
+  //   const newSearchTerm = e.target.value;
+  //   setSearchTerm(newSearchTerm);
+  //   setFilterText(newSearchTerm);
+  //   // Debounce the search action
+  //   const delay = setTimeout(() => {
+  //     searchProducts();
+  //   }, 300);
+
+  //   return () => clearTimeout(delay);
+  // };
+  const navigate = useNavigate();
 
   return (
     <SearchableListContainer>
-      <SearchInp
+      {/* <SearchInp
         type="text"
         placeholder="What are you looking for?"
         value={searchTerm}
         onChange={handleSearchChange}
+      /> */}
+      <AsyncSelect
+        cacheOptions
+        // value={selectedOption}
+        loadOptions={debouncedLoadOptions}
+        defaultOptions
+        // inputValue={inputValue}
+        onInputChange={handleInputChange}
       />
-      <div style={{background:'#fff', width:'100%'}}>
-
-      {isInputFocused &&
-        productsSearched.map((product) => <ListItem   onClick={() => navigate(`product/${product?.id}`)}>
-          <div >{product?.name}</div>
-          <div >NGN{product?.price}</div>
-        </ListItem>)}
+      <div style={{ background: "#fff", width: "100%" }}>
+        {isInputFocused &&
+          productsSearched.map((product) => (
+            <ListItem onClick={() => navigate(`product/${product?.id}`)}>
+              <div>{product?.name}</div>
+              <div>NGN{product?.price}</div>
+            </ListItem>
+          ))}
       </div>
     </SearchableListContainer>
   );

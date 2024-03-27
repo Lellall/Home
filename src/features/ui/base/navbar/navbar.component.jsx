@@ -22,7 +22,6 @@ import {
   ShopNav,
   MobileNav,
   QuantityContainer,
-  SearchInp,
 } from "./navbar.styles";
 import { getItemFromLocalForage } from "../../../../utils/getItem";
 import styled from "styled-components";
@@ -32,6 +31,8 @@ import useProductStore from "../../../../app/productStore";
 import SearchableList from "./searchble";
 import useAuthStore from "../../../../app/authStore";
 import useAuth from "../../../../app/useAuth";
+import SearchInp from './searchble'
+import SearK from "../../../../app/searchInp";
 
 const MenuList = styled.div`
   position: relative;
@@ -197,7 +198,7 @@ console.log('====================================');
               </Profile>
           </MobileNav>
           <div className="input-container">
-            <SearchableList
+            <SearK
             />
           </div>
         </Wrapper>
@@ -210,11 +211,11 @@ console.log('====================================');
               className="logo"
               onClick={() => navigate("/")}
             />
-             <SearchableList
+             <SearK
             />
             <Nav>
               {/* <ColContainer>
-                <SubText>Delivery to</SubText>
+                <SubText>Delivery to</SubText> 
                 <StyledSelect name="location">
                   <option>Abuja</option>
                 </StyledSelect>

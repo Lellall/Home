@@ -30,11 +30,11 @@ const useProductStore = create((set) => ({
       console.error("Error fetching products:", error);
     }
   },
-  searchProducts: async () => {
+  searchProducts: async (val) => {
     const searchTerm = useProductStore.getState().searchTerm;
     try {
       const response = await axios.get(
-        `${BaseUrl}/products?page=0&size=10&filter=${searchTerm}`
+        `${BaseUrl}/products?page=0&size=10&filter=${val}`
       );
       set({ productsSearched: response?.data?.data });
     } catch (error) {
