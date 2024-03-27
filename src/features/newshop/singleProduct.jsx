@@ -19,12 +19,13 @@ import {
   ProductPriceSpan,
   CartButton,
 } from "./product";
-import { Footer, Navbar } from "../ui";
+import { Footer } from "../ui";
 import { useNavigate, useParams } from "react-router-dom";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
 import useShoppingCart from "../../app/useShoppingCart";
 import { formatCurrency } from "../../utils/currencyFormat";
+import Navbar from "../../app/Nav";
 
 const Product = () => {
   const [count, setCount] = useState(0);

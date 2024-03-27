@@ -9,7 +9,6 @@ import {
   CountDisplay,
   CounterContainer,
 } from "./product";
-import { Navbar } from "../ui";
 import { AddCircle, MinusCirlce, Trash } from "iconsax-react";
 import { ViewportWidth } from "../../utils/enums";
 import useAuth from "../../app/useAuth";
@@ -26,6 +25,7 @@ import AlertCards from "./AlertCard";
 import { BaseUrl } from "../../utils/config";
 import { toast,ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import Navbar from "../../app/Nav";
 
 
 const CartContainer = styled.div`
