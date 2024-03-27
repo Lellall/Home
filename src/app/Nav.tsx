@@ -121,7 +121,7 @@ const Navbar = () => {
 
   return (
     <NavbarContainer>
-      <Logo src="/assets/lellall-colored.svg" alt="Logo" />
+      <Logo onClick={() => navigate('/')} src="/assets/lellall-colored.svg" alt="Logo" />
       <SearchComponent />
       <div>
         <MenuButton onClick={toggleMenu}>
