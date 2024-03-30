@@ -1,43 +1,39 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const Container = styled.main`
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 15px;
   display: flex;
-  margin-top: 8rem;
-  margin-bottom: 10rem;
-  font-family: open sans;
-  max-height: 700px;
+  justify-content: space-around;
+  align-items: center;
+  margin: 7rem auto;
+  max-width: 1200px;
+  padding: 2rem;
+  max-height: 500px;
+  gap: 20px;
   @media (max-width: 768px) {
     flex-direction: column;
-    justify-content: center;
+    max-height: 100vh;
   }
 `;
 
 const LeftColumn = styled.div`
-  width: 60%;
-  position: relative;
-  max-height: 300px;
-  margin-right: 50px;
-
-  @media (max-width: 912px) {
-    // width: 100%;
-    // margin-right: 0;
-    // margin-bottom: 20px;
+  /* width: 50%; */
+  min-width: 500px;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  img {
+    width: 100%;
   }
   @media (max-width: 768px) {
     width: 100%;
-    margin-right: 0;
-    margin-bottom: 20px;
   }
 `;
 
 const RightColumn = styled.div`
-  width: 35%;
-
+  width: 50%;
+  margin: 10px 30px;
   @media (max-width: 768px) {
-    width: 100%;
+    width: 90%;
   }
 `;
 
@@ -46,14 +42,15 @@ const LeftColumnImage = styled.img`
   // position: absolute;
   overflow: hidden;
   // max-height: 300px;
-  float:left;
+  float: left;
   // right: 50px;
   // top: 30px;
   opacity: 0;
   border-radius: 8px;
   max-width: 80%;
   transition: all 0.3s ease;
-  @media (max-width: 912px) {
+  height: 400px;
+  /* @media (max-width: 912px) {
     width: 100%;
     margin-right: 0;
     margin-bottom: 50px;
@@ -62,7 +59,7 @@ const LeftColumnImage = styled.img`
     float: center;
     width: 100%;
     margin-top: 70px;
-  }
+  } */
 
   &.active {
     opacity: 1;
@@ -180,7 +177,7 @@ const CableConfigA = styled.a`
   display: inline-block;
 
   &:before {
-    content: "?";
+    content: '?';
     height: 15px;
     width: 15px;
     border-radius: 50%;
@@ -203,14 +200,13 @@ const ProductPrice = styled.div`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-  
 `;
 
 const ProductPriceSpan = styled.span`
   font-size: 16px;
   font-weight: 300;
   color: #43474d;
-//   margin-right: 20px;
+  //   margin-right: 20px;
 `;
 
 const CartButton = styled.button`
@@ -247,7 +243,7 @@ const CircleButton = styled.button`
   border: none;
   margin: 0 10px;
   cursor: pointer;
-  opacity: ${props => (props.disabled ? '0.5' : '1')};
+  opacity: ${(props) => (props.disabled ? '0.5' : '1')};
 `;
 
 const CountDisplay = styled.span`
