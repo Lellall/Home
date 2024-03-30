@@ -1,11 +1,12 @@
+/* eslint-disable react/jsx-key */
 // CategoriesList.js
-import axios from "axios";
-import { ArrowRight2 } from "iconsax-react";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import useProductStore from "./productStore";
-import { useNavigate } from "react-router-dom";
-import { BaseUrl } from "../utils/config";
+import axios from 'axios';
+import { ArrowRight2, CloseCircle } from 'iconsax-react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import useProductStore from './productStore';
+import { useNavigate } from 'react-router-dom';
+import { BaseUrl } from '../utils/config';
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +17,7 @@ const Container = styled.div`
   border-width: 80%;
 `;
 
-const Category = styled.div` 
+const Category = styled.div`
   width: 98%;
   // border-bottom: 1px solid #ddd;
   border-width: 20%;
@@ -38,7 +39,8 @@ const Category = styled.div`
 
 const CategoriesList = () => {
   const [categories, setCategories] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const [isCategory, setIsCategory] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -48,40 +50,63 @@ const CategoriesList = () => {
         );
         setCategories(response.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
     fetchData();
   }, []);
 
-  const searchProducts = useProductStore((state) => state.searchProductsByCategory);
+  const searchProducts = useProductStore(
+    (state) => state.searchProductsByCategory
+  );
 
   const handleCategorySearch = (category) => {
-    console.log(category,'lll');
-    navigate(`?cat=${category?.name}`)
-    searchProducts(category.id)
-  }
+    navigate(`?cat=${category?.name}`);
+    searchProducts(category.id);
+    setIsCategory(true);
+  };
+  const handleCategoryCloseSearch = () => {
+    navigate('/');
+    searchProducts('');
+    setIsCategory(false);
+  };
 
   return (
     <Container>
       {categories?.data?.slice(0, 8).map((category, index) => (
-        <div onClick={() => handleCategorySearch(category)} style={{display:"flex", justifyContent:"space-around"}}>
+        <div
+          onClick={() => handleCategorySearch(category)}
+          style={{ display: 'flex', justifyContent: 'space-around' }}
+        >
           <Category key={category?.id}>{category?.name} </Category>
           <div>
-            <ArrowRight2 style={{ marginTop: "12px" }} size="16" />
+            <ArrowRight2 style={{ marginTop: '12px' }} size='16' />
           </div>
         </div>
       ))}
+
       <p
         style={{
-          fontSize: "10px",
-          color: "",
-          cursor: "pointer",
-          marginLeft: "30px",
+          fontSize: 'small',
+          color: isCategory ? 'red' : '',
+          cursor: 'pointer',
+          marginLeft: '30px',
+          // borderBottom: isCategory ? '1px solid #F06D05' : '',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          padding: '10px  0px',
+          // background: 'red',
+        }}
+        onClick={() => {
+          isCategory ? handleCategoryCloseSearch() : {};
         }}
       >
-        View more
+        {isCategory ? 'Close' : 'View more'}
+        {isCategory && (
+          <CloseCircle style={{ marginLeft: '10px' }} size='16' color='red' />
+        )}
       </p>
     </Container>
   );

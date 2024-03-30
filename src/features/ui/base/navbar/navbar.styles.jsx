@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Container, Typography, Button } from "@mui/material";
-import { ViewportWidth } from "../../../../utils/enums";
-import { StyledInput } from "../../../../components/Input/Input";
+import styled from 'styled-components';
+import { Container, Typography, Button } from '@mui/material';
+import { ViewportWidth } from '../../../../utils/enums';
+import { StyledInput } from '../../../../components/Input/Input';
 
 export const Wrapper = styled.div`
   display: flex !important;
@@ -55,8 +55,8 @@ export const MainContainer = styled.div`
   }
   @media (max-width: 768px) {
     .logo {
-    width: 10px;
-   }
+      width: 10px;
+    }
   }
 `;
 
@@ -93,9 +93,7 @@ export const MobileNav = styled(Container)`
   }
 `;
 
-export const SubContainer = styled.div`
- 
-`;
+export const SubContainer = styled.div``;
 
 export const ShopNav = styled(Button)`
   display: flex !important;
@@ -106,9 +104,9 @@ export const ShopNav = styled(Button)`
   text-transform: capitalize !important;
   gap: 5px !important;
   color: ${(props) =>
-    props.active ? "#00A661" : "rgba(47, 49, 63, 0.30)"} !important;
-  background: ${(props) => (props.active ? "#EAFEF1" : "")} !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+    props.active ? '#00A661' : 'rgba(47, 49, 63, 0.30)'} !important;
+  background: ${(props) => (props.active ? '#EAFEF1' : '')} !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Open Sans !important;
   font-size: 14px !important;
   font-style: normal !important;
@@ -148,7 +146,7 @@ export const InputContainer = styled(Container)`
 
 export const Input = styled(StyledInput)`
   color: rgba(18, 29, 43, 0.6) !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Open Sans !important;
   font-size: 14px !important;
   font-style: normal !important;
@@ -186,8 +184,8 @@ export const StyledSelect = styled.select`
   font-family: Raleway !important;
   color: #0e5d37;
   cursor: pointer;
-  background: url("/assets/arrow.svg") 96% / 15% no-repeat #fff;
-  font-feature-settings: "clig" off, "liga" off;
+  background: url('/assets/arrow.svg') 96% / 15% no-repeat #fff;
+  font-feature-settings: 'clig' off, 'liga' off;
   border: 0px solid #fff;
   padding: 5px;
   width: 70px;
@@ -198,7 +196,7 @@ export const StyledSelect = styled.select`
 
 export const SubText = styled(Typography)`
   // color: #fff !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Open Sans !important;
   font-size: 12px !important;
   font-style: normal !important;
@@ -213,7 +211,7 @@ export const Profile = styled.div`
 
   p {
     color: #2f313f;
-    font-feature-settings: "clig" off, "liga" off;
+    font-feature-settings: 'clig' off, 'liga' off;
     font-style: normal;
     font-weight: 400;
     margin: 0;
@@ -254,7 +252,7 @@ export const Profile = styled.div`
 
     p {
       color: #2f313f;
-      font-feature-settings: "clig" off, "liga" off;
+      font-feature-settings: 'clig' off, 'liga' off;
       font-family: Open Sans;
       font-size: 14px;
       font-style: normal;
@@ -276,11 +274,10 @@ export const QuantityContainer = styled.div`
   position: absolute;
   top: 0;
   right: 0;
-  
 
   p {
     color: #fff;
-    font-feature-settings: "clig" off, "liga" off;
+    font-feature-settings: 'clig' off, 'liga' off;
     font-family: Raleway;
     font-size: 7px;
     font-style: normal;
@@ -291,7 +288,7 @@ export const QuantityContainer = styled.div`
 
 export const SearchInp = styled.input`
   width: 40%;
-  height:30px;
+  height: 30px;
   display: flex;
   padding: 7px 12px 7px 20px;
   outline: none;
@@ -301,10 +298,10 @@ export const SearchInp = styled.input`
   justify-content: center;
   align-items: center;
   gap: 10px;
-  border:none;
+  border: none;
   &::placeholder {
-    color: #ccc; 
-    // font-style: italic; 
+    color: #ccc;
+    // font-style: italic;
   }
 
   position: relative;
@@ -315,12 +312,11 @@ export const SearchInp = styled.input`
 `;
 
 export const Icon = styled.div`
-position: absolute;
-top: 5px;
-left: 5px;
-// color: #fff !important;
-
-`
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  // color: #fff !important;
+`;
 export const Cover = styled.div`
-position: relative;
-`
+  position: relative;
+`;

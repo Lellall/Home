@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import Slider from "react-slick";
-import { Card } from "./FavStores";
-import NewProducts, { ProdCard } from "./Surface";
-import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import { ShopCard } from "./features/shop/components";
-import styled from "styled-components";
-import { BaseUrl } from "./utils/config";
+import React, { useEffect, useState } from 'react';
+import Slider from 'react-slick';
+import { Card } from './FavStores';
+import NewProducts, { ProdCard } from './Surface';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { ShopCard } from './features/shop/components';
+import styled from 'styled-components';
+import { BaseUrl } from './utils/config';
 
 const MultipleItems = () => {
   const settings = {
@@ -55,7 +55,7 @@ const MultipleItems = () => {
   // console.log(shopData,'shopData');
 
   return (
-    <div style={{ width: "90%", margin: "0 auto", borderRadius: "8px" }}>
+    <div style={{ width: '90%', margin: '0 auto', borderRadius: '8px' }}>
       <Slider {...settings}>
         {/* {[...Array(6)].map((_, index) => (
           <div key={index}>
@@ -66,12 +66,12 @@ const MultipleItems = () => {
         {shopData?.map((shop) => (
           <div
             style={{
-              marginBottom: "20px",
-              display: "flex",
-              justifyContent: "center",
+              marginBottom: '20px',
+              display: 'flex',
+              justifyContent: 'center',
             }}
           >
-            <ShopCard width="10px" shop={shop} />
+            <ShopCard width='10px' shop={shop} />
           </div>
         ))}
       </Slider>
@@ -123,33 +123,30 @@ const MultipleProducts = () => {
   };
 
   const [shopsData, setShopsData] = useState([]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Function to fetch data using Axios
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${BaseUrl}/products`
-        );
+        const response = await axios.get(`${BaseUrl}/products`);
         // Set the fetched data in the state
         setShopsData(response?.data?.data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error('Error fetching data:', error);
       }
     };
 
     // Call the fetchData function when the component mounts
     fetchData();
   }, []);
-  console.log(shopsData,'shopsData');
 
   return (
     <div
       style={{
-        background: "transparent",
-        width: "100%",
-        borderRadius: "8px",
+        background: 'transparent',
+        width: '100%',
+        borderRadius: '8px',
       }}
     >
       <Slider {...settings}>
@@ -159,7 +156,9 @@ const MultipleProducts = () => {
               <InnerCard>
                 <h1>{shop.name}</h1>
                 <p>{shop?.description}</p>
-                <button onClick={() => navigate(`product/${shop?.id}`)}>Buy Now!</button>
+                <button onClick={() => navigate(`product/${shop?.id}`)}>
+                  Buy Now!
+                </button>
               </InnerCard>
             </ShopCardNew>
           </div>
@@ -192,7 +191,7 @@ const ShopCardNew = styled.div`
 const InnerCard = styled.div`
   position: absolute;
   padding: 30px;
-  border-radius: 0% 100% 100% 0% / 58% 0% 100% 88% ;
+  border-radius: 0% 100% 100% 0% / 58% 0% 100% 88%;
   margin: 0;
   width: 60%;
   z-index: 1;
@@ -237,7 +236,7 @@ const InnerCard = styled.div`
   @media only screen and (max-width: 500px) {
     // background: red;
     font-size: 13px;
-    padding: 0 5  0px;
+    padding: 0 5 0px;
     margin: 0;
     width: 100%;
     height: 100%;
