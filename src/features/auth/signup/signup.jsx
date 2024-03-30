@@ -433,6 +433,21 @@ const Login = () => {
                     </ModButton>
                   </div>
                 </ActionCover> */}
+                <ActionCover>
+                <div>
+                    <ModButton
+                      bgColor="#0E5D37"
+                      textColor="#fff"
+                      outlined
+                      variant="contained"
+                      type="submit"
+                      onClick={onSubmit}
+                      loading={isLoading}
+                    >
+                     {isLoading ? "Signing up...." : "Sign up"}
+                    </ModButton>
+                  </div>
+                </ActionCover>
               </form>
               <hr
                 style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}
