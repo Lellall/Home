@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {
   Container,
   LeftColumn,
@@ -18,20 +18,20 @@ import {
   ProductPrice,
   ProductPriceSpan,
   CartButton,
-} from "./product";
-import { Footer } from "../ui";
-import { useNavigate, useParams } from "react-router-dom";
-import { BaseUrl } from "../../utils/config";
-import axios from "axios";
-import useShoppingCart from "../../app/useShoppingCart";
-import { formatCurrency } from "../../utils/currencyFormat";
-import Navbar from "../../app/Nav";
+} from './product';
+import { Footer } from '../ui';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BaseUrl } from '../../utils/config';
+import axios from 'axios';
+import useShoppingCart from '../../app/useShoppingCart';
+import { formatCurrency } from '../../utils/currencyFormat';
+import Navbar from '../../app/Nav';
 
 const Product = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
   const [localProduct, setLocalProduct] = useState(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     addToCart,
@@ -45,12 +45,12 @@ const Product = () => {
 
   const buyNow = () => {
     if (exists) {
-      navigate('/cart')
-      return
+      navigate('/cart');
+      return;
     }
-    addToCart(localProduct)
-    navigate('/cart')
-  }
+    addToCart(localProduct);
+    navigate('/cart');
+  };
 
   useEffect(() => {
     axios
@@ -59,7 +59,7 @@ const Product = () => {
         setLocalProduct(response.data);
       })
       .catch((error) => {
-        console.error("Error:", error.message);
+        console.error('Error:', error.message);
       });
   }, [id]);
 
@@ -68,10 +68,10 @@ const Product = () => {
   const handleToggleCart = () => {
     if (isProductInCart(localProduct.id)) {
       removeFromCart(localProduct.id);
-      console.log("Item removed from cart:", localProduct.name);
+      console.log('Item removed from cart:', localProduct.name);
     } else {
       addToCart(localProduct);
-      console.log("Item added to cart:", localProduct.name);
+      console.log('Item added to cart:', localProduct.name);
     }
   };
 
@@ -92,19 +92,19 @@ const Product = () => {
   }
   const exists = isProductIdExist(id, cart);
 
-  console.log(exists, "exists");
+  console.log(exists, 'exists');
 
   return (
     <>
       <Navbar />
-      <Container className="container">
+      <Container className='container'>
         {/* Left Column / Headphones Image */}
         <LeftColumn>
           <LeftColumnImage
-            data-image="red"
-            className="active"
+            data-image='red'
+            className='active'
             src={localProduct?.imageUrl}
-            alt=""
+            alt=''
           />
         </LeftColumn>
 
@@ -126,13 +126,13 @@ const Product = () => {
           </ProductDescription>
 
           {/* Product Configuration */}
-          <div className="product-configuration">
+          <div className='product-configuration'>
             {exists && (
               <CableConfig>
-                <CounterContainer style={{ paddingBottom: "20px" }}>
+                <CounterContainer style={{ paddingBottom: '20px' }}>
                   <span>Quantity:</span>
                   <CircleButton
-                    style={{ background: "tomato" }}
+                    style={{ background: 'tomato' }}
                     disabled={foundItem?.qnty === 0}
                     onClick={() => decreaseQuantity(id)}
                   >
@@ -141,7 +141,7 @@ const Product = () => {
                   <CountDisplay>{Number(foundItem?.qnty)}</CountDisplay>
 
                   <CircleButton
-                    style={{ background: "green" }}
+                    style={{ background: 'green' }}
                     onClick={() => increaseQuantity(id)}
                   >
                     +
@@ -150,8 +150,8 @@ const Product = () => {
               </CableConfig>
             )}
           </div>
-          <div className="product-configuration">
-            <CableConfigA href="#">
+          <div className='product-configuration'>
+            <CableConfigA href='#'>
               <ProductPriceSpan>
                 {localProduct?.currency} {localProduct?.price}
               </ProductPriceSpan>
@@ -161,7 +161,7 @@ const Product = () => {
             {exists && (
               <CartButton
                 onClick={() => removeFromCart(id)}
-                className="cart-btn"
+                className='cart-btn'
               >
                 Remove from Cart
               </CartButton>
@@ -169,16 +169,16 @@ const Product = () => {
             {!exists && (
               <CartButton
                 onClick={() => addToCart(localProduct)}
-                className="cart-btn"
+                className='cart-btn'
               >
                 Add to Cart
               </CartButton>
             )}
 
             <CartButton
-              style={{ background: "orange", cursor:"pointer" }}
-              href="#"
-              className="cart-btn"
+              style={{ background: 'orange', cursor: 'pointer' }}
+              href='#'
+              className='cart-btn'
               onClick={buyNow}
             >
               Buy Now
@@ -186,8 +186,8 @@ const Product = () => {
           </ProductPrice>
         </RightColumn>
       </Container>
-      <div style={{ marginTop: "5rem" }}></div>
-      <Footer style={{ marginTop: "50rem" }} />
+      <div style={{ marginTop: '5rem' }}></div>
+      <Footer style={{ marginTop: '50rem' }} />
     </>
   );
 };
