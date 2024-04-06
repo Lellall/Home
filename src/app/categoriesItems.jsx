@@ -76,6 +76,7 @@ const CategoriesList = () => {
     <Container>
       {categories?.data?.slice(0, 8).map((category, index) => (
         <div
+          key={category.id}
           onClick={() => handleCategorySearch(category)}
           style={{ display: 'flex', justifyContent: 'space-around' }}
         >

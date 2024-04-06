@@ -1,19 +1,22 @@
-import styled from "styled-components";
-import { Footer } from "../features";
-import SliderComponent from "../features/newshop/newShop";
-import { MultipleProducts } from "../StoreSlide";
-import CategoriesList from "./categoriesItems";
-import General from "../features/newshop/general";
-import SubCategory from "./subCategories";
-import { useNavigate } from "react-router-dom";
-import useProductStore from "./productStore";
-import { useEffect, useRef, useState } from "react";
-import ReusableCard from "../features/newshop/card";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { ColorRing } from "react-loader-spinner";
-import AlertCards from "../features/newshop/AlertCard";
-import ModalVerified from "./Welcome";
-import Navbar from "./Nav";
+import styled from 'styled-components';
+import { Footer } from '../features';
+import SliderComponent from '../features/newshop/newShop';
+import { MultipleProducts } from '../StoreSlide';
+import CategoriesList from './categoriesItems';
+import General from '../features/newshop/general';
+import SubCategory from './subCategories';
+import { useNavigate } from 'react-router-dom';
+import useProductStore from './productStore';
+import { useEffect, useRef, useState } from 'react';
+import ReusableCard from '../features/newshop/card';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ColorRing } from 'react-loader-spinner';
+import AlertCards from '../features/newshop/AlertCard';
+import ModalVerified from './Welcome';
+import Navbar from './Nav';
+import Modal from './modal';
+import { BaseUrl } from '../utils/config';
+import axios from 'axios';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -60,7 +63,7 @@ const Products = styled.div`
   margin-right: 90px;
   // margin-left: 21%;
   // margin-bottom: 10000px
-  backround: red;
+  /* background: red; */
   min-height: 100vh;
   @media (max-width: 912px) {
     width: 100%;
@@ -103,13 +106,69 @@ const ContainerInf = styled.div`
   }
 `;
 
+const CategoryButton = styled.div`
+  width: 80%;
+  height: 38px;
+  justify-content: center;
+  align-items: center;
+  background-color: #dedede;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20;
+  margin-top: 30px;
+  border-width: 1;
+  border-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px black;
+  cursor: pointer;
+  display: none;
+  &:hover {
+    box-shadow: none;
+    transition: 0.35s ease;
+  }
+  @media (max-width: 912px) {
+    display: flex;
+  }
+`;
+const ModalCategoryCont = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 95%;
+`;
+const ModalCategoryCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  padding: 2px;
+  margin: 5px;
+  box-shadow: 1px 1px 2px black;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    transform: scale(1.05);
+    box-shadow: none;
+    transition: 0.35s ease;
+  }
+`;
 const NewStore = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
+  const categories = useProductStore((state) => state.categories);
   const [modalOpen, setModalOpen] = useState(false);
+  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  const [isSelectCategory, setIsSelectCategory] = useState(false);
 
   const closeModal = () => {
     setModalOpen(false);
@@ -117,8 +176,8 @@ const NewStore = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const user = params.get("user");
-    const token = params.get("token");
+    const user = params.get('user');
+    const token = params.get('token');
     if (user && token) {
       setModalOpen(true);
     }
@@ -133,19 +192,50 @@ const NewStore = () => {
       await fetchProducts(page);
       setPage(page + 1);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   };
 
   const handleAddToWishlist = (productId) => {
     navigate(`/product/${productId}`);
   };
+  // const [categories, setCategories] = useState([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${BaseUrl}/categories/all-categories`
+  //       );
+  //       setCategories(response.data.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
+
+  const searchProducts = useProductStore(
+    (state) => state.searchProductsByCategory
+  );
+  const handleCategorySearch = (category) => {
+    navigate(`?cat=${category?.name}`);
+    searchProducts(category.id);
+    setCategoryModalOpen(false);
+    // setIsCategory(true);
+  };
+  const handleCategoryCloseSearch = () => {
+    navigate('/');
+    searchProducts('');
+    setCategoryModalOpen(false);
+    setIsSelectCategory(false);
+  };
 
   return (
     <>
       <ModalVerified show={modalOpen} onClose={closeModal} />
       <Navbar />
-      <div style={{ marginTop: "10rem" }}></div>
+      <div style={{ marginTop: '10rem' }}></div>
       {/* <AlertCards type="danger">
       Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
       </AlertCards> */}
@@ -157,35 +247,47 @@ const NewStore = () => {
           <div>
             <MultipleProducts />
           </div>
-          
+          <CategoryButton
+            style={{
+              border: isSelectCategory && ' 1px solid red',
+              boxShadow: isSelectCategory && 'none',
+            }}
+            onClick={() => {
+              isSelectCategory
+                ? handleCategoryCloseSearch()
+                : setCategoryModalOpen(true);
+            }}
+          >
+            {isSelectCategory ? 'Close' : 'Categories'}
+          </CategoryButton>
           <ContainerInf>
             <InfiniteScroll
-              style={{ float: "center" }}
+              style={{ float: 'center' }}
               dataLength={products.length}
               next={loadNextPage}
               hasMore={hasMore}
               loader={
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     // height: "10vh",
                   }}
                 >
                   <ColorRing
                     visible={products.length === 0 ? false : true}
-                    height="80"
-                    width="80"
-                    ariaLabel="color-ring-loading"
-                    wrapperStyle={{ float: "center" }}
-                    wrapperClass="color-ring-wrapper"
+                    height='80'
+                    width='80'
+                    ariaLabel='color-ring-loading'
+                    wrapperStyle={{ float: 'center' }}
+                    wrapperClass='color-ring-wrapper'
                     colors={[
-                      "#e15b64",
-                      "#f47e60",
-                      "#f8b26a",
-                      "#abbd81",
-                      "#849b87",
+                      '#e15b64',
+                      '#f47e60',
+                      '#f8b26a',
+                      '#abbd81',
+                      '#849b87',
                     ]}
                   />
                 </div>
@@ -198,7 +300,7 @@ const NewStore = () => {
                     key={index}
                     title={product?.name}
                     price={product?.price}
-                    discount="20% OFF"
+                    discount='20% OFF'
                     imageUrl={product?.imageUrl}
                     onAddToWishlist={() => navigate(`product/${product?.id}`)}
                   />
@@ -265,8 +367,40 @@ const NewStore = () => {
           </TopSnacker>
         </Picks>
       </div> */}
-      <div style={{ marginTop: "5rem" }}>
-        <Footer style={{ zIndex: "2" }} />
+
+      <Modal
+        show={categoryModalOpen}
+        onClose={() => setCategoryModalOpen(false)}
+      >
+        <>
+          <h2>Categories</h2>
+          <ModalCategoryCont>
+            {categories?.map((category) => {
+              return (
+                <div key={category.id} style={{ cursor: 'poiter' }}>
+                  <ModalCategoryCard
+                    onClick={() => {
+                      handleCategorySearch(category);
+                      setIsSelectCategory(true);
+                    }}
+                  >
+                    <img
+                      src={category.imageUrl}
+                      width={50}
+                      height={50}
+                      style={{ borderRadius: '100%' }}
+                    />
+                    {category.name}
+                  </ModalCategoryCard>
+                </div>
+              );
+            })}
+          </ModalCategoryCont>
+        </>
+      </Modal>
+
+      <div style={{ marginTop: '5rem' }}>
+        <Footer style={{ zIndex: '2' }} />
       </div>
     </>
   );
