@@ -8,6 +8,7 @@ import { Button, CircularProgress } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import OrderConfirmation from '../features/verification/message';
 import Subs from "../../assets/Subs.svg";
+import useShoppingCart from './useShoppingCart';
 
 
 const Container = styled.div`
@@ -37,6 +38,9 @@ const TransactionStatusPage = () => {
     const statusParam = urlParams.get('status');
     const txRefParam = urlParams.get('trxref');
     const navigate = useNavigate()
+    const {
+        clearCart
+      } = useShoppingCart();
 
     const { accessToken } = useAuth();
     useEffect(() => {
@@ -51,7 +55,8 @@ const TransactionStatusPage = () => {
                 });
                 const data = response.data;
                 setStatus(data.status);
-                setLoading(false); // Set loading to false when data is fetched
+                clearCart()
+                setLoading(false);
             } catch (error) {
                 setLoading(false);
                 console.error('Error fetching transaction status:', error);
