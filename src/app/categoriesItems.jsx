@@ -38,23 +38,28 @@ const Category = styled.div`
 `;
 
 const CategoriesList = () => {
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [isCategory, setIsCategory] = useState(false);
+  const fetchCategories = useProductStore((state) => state.fetchCategories);
+  const categories = useProductStore((state) => state.categories);
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${BaseUrl}/categories/all-categories`
+  //       );
+  //       setCategories(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${BaseUrl}/categories/all-categories`
-        );
-        setCategories(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+    fetchCategories();
   }, []);
 
   const searchProducts = useProductStore(
@@ -74,7 +79,7 @@ const CategoriesList = () => {
 
   return (
     <Container>
-      {categories?.data?.slice(0, 8).map((category, index) => (
+      {categories?.slice(0, 8).map((category, index) => (
         <div
           key={category.id}
           onClick={() => handleCategorySearch(category)}

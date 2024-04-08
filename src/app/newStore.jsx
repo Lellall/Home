@@ -17,6 +17,7 @@ import Navbar from './Nav';
 import Modal from './modal';
 import { BaseUrl } from '../utils/config';
 import axios from 'axios';
+import { RoundButton } from '../App';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -107,28 +108,13 @@ const ContainerInf = styled.div`
 `;
 
 const CategoryButton = styled.div`
-  width: 80%;
-  height: 38px;
-  justify-content: center;
-  align-items: center;
-  background-color: #dedede;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 20;
-  margin-top: 30px;
-  border-width: 1;
-  border-color: transparent;
+  display: none;
+  /* background: red; */
+  margin-top: 3rem;
+  margin-bottom: -3rem;
   display: flex;
   justify-content: center;
-  align-items: center;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px black;
-  cursor: pointer;
   display: none;
-  &:hover {
-    box-shadow: none;
-    transition: 0.35s ease;
-  }
   @media (max-width: 912px) {
     display: flex;
   }
@@ -138,7 +124,7 @@ const ModalCategoryCont = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  width: 95%;
+  width: 100%;
 `;
 const ModalCategoryCard = styled.div`
   display: flex;
@@ -150,7 +136,7 @@ const ModalCategoryCard = styled.div`
   text-align: center;
   padding: 2px;
   margin: 5px;
-  box-shadow: 1px 1px 2px black;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 8px 0px;
   border-radius: 4px;
   cursor: pointer;
   &:hover {
@@ -158,6 +144,10 @@ const ModalCategoryCard = styled.div`
     box-shadow: none;
     transition: 0.35s ease;
   }
+`;
+const CategoriesHeader = styled.h2`
+  font-weight: 300;
+  color: #43484d;
 `;
 const NewStore = () => {
   const navigate = useNavigate();
@@ -247,18 +237,23 @@ const NewStore = () => {
           <div>
             <MultipleProducts />
           </div>
-          <CategoryButton
-            style={{
-              border: isSelectCategory && ' 1px solid red',
-              boxShadow: isSelectCategory && 'none',
-            }}
-            onClick={() => {
-              isSelectCategory
-                ? handleCategoryCloseSearch()
-                : setCategoryModalOpen(true);
-            }}
-          >
-            {isSelectCategory ? 'Close' : 'Categories'}
+          <CategoryButton>
+            <RoundButton
+              bgColor={isSelectCategory && '#ffb000'}
+              style={{
+                // border: isSelectCategory && ' 1px solid red',
+                boxShadow: isSelectCategory && 'none',
+                width: '150px',
+                color: '#FFFFFF',
+              }}
+              onClick={() => {
+                isSelectCategory
+                  ? handleCategoryCloseSearch()
+                  : setCategoryModalOpen(true);
+              }}
+            >
+              {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
+            </RoundButton>
           </CategoryButton>
           <ContainerInf>
             <InfiniteScroll
@@ -373,7 +368,7 @@ const NewStore = () => {
         onClose={() => setCategoryModalOpen(false)}
       >
         <>
-          <h2>Categories</h2>
+          <CategoriesHeader>Categories</CategoriesHeader>
           <ModalCategoryCont>
             {categories?.map((category) => {
               return (
