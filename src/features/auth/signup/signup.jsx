@@ -302,11 +302,11 @@ const Login = () => {
                           message:
                             "Password must be at least 8 characters long",
                         },
-                        pattern: {
-                          value: /^(?=.*[!@#$%^&*])/,
-                          message:
-                            "Password must contain at least one special character (!@#$%^&*)",
-                        },
+                        // pattern: {
+                        //   // value: /^(?=.*[!@#$%^&*])/,
+                        //   message:
+                        //     "Password must contain at least one special character (!@#$%^&*)",
+                        // },
                       }}
                       render={({ field }) => (
                         <InputWithIcon
