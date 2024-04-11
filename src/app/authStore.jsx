@@ -89,12 +89,12 @@ const useAuthStore = create((set) => ({
       await localforage.setItem("refreshToken", refresh_token);
       await localforage.setItem("user", user);
     } catch (error) {
+      // alert(1)
+      // toast.error(`Error Message Here`, {
+      //   position: toast.POSITION.TOP_RIGHT,
+      // });
       set({ isLoading: false });
-      if (error) {
-        toast.error(`${error?.message}`, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
-      }
+      
      
       throw error;
     }

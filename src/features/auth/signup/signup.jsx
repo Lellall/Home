@@ -250,6 +250,11 @@ const Login = () => {
                       control={control}
                       rules={{
                         required: "Phone number is required",
+                        pattern: {
+                          value: /^\d{11,14}$/,
+                          message:
+                            "Phone number must be between 11 and 14 digits and only number.",
+                        },
                       }}
                       render={({ field }) => (
                         <InputWithIcon
@@ -258,8 +263,10 @@ const Login = () => {
                           type="text"
                           placeholder="Enter your phone number"
                           {...field}
-                          hasError={errors.phone ? true : false}
-                          errorMessage={errors.phone && errors.phone.message}
+                          hasError={errors.phoneNumber ? true : false} // Changed 'phone' to 'phoneNumber'
+                          errorMessage={
+                            errors.phoneNumber && errors.phoneNumber.message
+                          } // Changed 'phone' to 'phoneNumber'
                         />
                       )}
                     />
