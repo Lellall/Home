@@ -139,13 +139,10 @@ const Login = () => {
     watch,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const password = watch("password", "");
-  const {
-    isLoading,
-    register,
-  } = useAuth();
+  const { isLoading, register } = useAuth();
   const onSubmit = async (data) => {
     const { confirmPassword, ...rest } = data;
     const formData = {
@@ -302,11 +299,11 @@ const Login = () => {
                           message:
                             "Password must be at least 8 characters long",
                         },
-                        // pattern: {
-                        //   // value: /^(?=.*[!@#$%^&*])/,
-                        //   message:
-                        //     "Password must contain at least one special character (!@#$%^&*)",
-                        // },
+                        pattern: {
+                          value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
+                          message:
+                            "Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, and one number",
+                        },
                       }}
                       render={({ field }) => (
                         <InputWithIcon
@@ -434,7 +431,7 @@ const Login = () => {
                   </div>
                 </ActionCover> */}
                 <ActionCover>
-                <div>
+                  <div>
                     <ModButton
                       bgColor="#0E5D37"
                       textColor="#fff"
@@ -444,7 +441,7 @@ const Login = () => {
                       onClick={onSubmit}
                       loading={isLoading}
                     >
-                     {isLoading ? "Signing up...." : "Sign up"}
+                      {isLoading ? "Signing up...." : "Sign up"}
                     </ModButton>
                   </div>
                 </ActionCover>
@@ -452,9 +449,23 @@ const Login = () => {
               <hr
                 style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}
               />
-              <div style={{ textAlign: "center", color: "#808080",  }}>
-                <div style={{ color: "#808080", fontSize:'11px',marginBottom:'5px' }}> already have an account</div>
-                <div style={{ color: "#808080", cursor:"pointer" }} onClick={() => navigate('/login')}>Sign in</div>
+              <div style={{ textAlign: "center", color: "#808080" }}>
+                <div
+                  style={{
+                    color: "#808080",
+                    fontSize: "11px",
+                    marginBottom: "5px",
+                  }}
+                >
+                  {" "}
+                  already have an account
+                </div>
+                <div
+                  style={{ color: "#808080", cursor: "pointer" }}
+                  onClick={() => navigate("/login")}
+                >
+                  Sign in
+                </div>
               </div>
             </Cover>
           </Paper>

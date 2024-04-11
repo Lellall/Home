@@ -89,12 +89,13 @@ const useAuthStore = create((set) => ({
       await localforage.setItem("refreshToken", refresh_token);
       await localforage.setItem("user", user);
     } catch (error) {
-      if (error.response && error.response.status === 409) {
-        toast.error("User with this email already exists", {
+      set({ isLoading: false });
+      if (error) {
+        toast.error(`${error?.message}`, {
           position: toast.POSITION.TOP_RIGHT,
         });
       }
-      set({ isLoading: false });
+     
       throw error;
     }
   },
