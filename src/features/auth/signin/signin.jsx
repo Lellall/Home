@@ -1,19 +1,19 @@
-import { useEffect } from "react";
-import { Grid, Paper, createTheme, ThemeProvider, Hidden } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
-import styled from "styled-components";
-import axios from "axios";
+import { useEffect } from 'react';
+import { Grid, Paper, createTheme, ThemeProvider, Hidden } from '@mui/material';
+import { Controller, useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import axios from 'axios';
 
-import InputWithIcon from "../../../components/inputs/input.component";
-import { MessageText, Unlock } from "iconsax-react";
-import { RoundButton } from "../../../App";
-import Logo from "../logo";
-import { getItemFromLocalForage } from "../../../utils/getItem";
-import { ToastContainer, toast } from "react-toastify";
-import useAuth from "../../../app/useAuth";
-import useAuthStore from "../../../app/authStore";
-import { useNavigate, useParams } from "react-router-dom";
-import { BaseUrl } from "../../../utils/config";
+import InputWithIcon from '../../../components/inputs/input.component';
+import { MessageText, Unlock } from 'iconsax-react';
+import { RoundButton } from '../../../App';
+import Logo from '../logo';
+import { getItemFromLocalForage } from '../../../utils/getItem';
+import { ToastContainer, toast } from 'react-toastify';
+import useAuth from '../../../app/useAuth';
+import useAuthStore from '../../../app/authStore';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BaseUrl } from '../../../utils/config';
 
 const ActionCover = styled.div`
   display: flex;
@@ -67,7 +67,7 @@ const ModButton = styled(RoundButton)`
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#0E5D37",
+      main: '#0E5D37',
     },
   },
 });
@@ -77,57 +77,57 @@ const styles = {
     // height: "100vh",
     margin: 0,
     padding: 0,
-    overFlowY: "hidden",
+    overFlowY: 'hidden',
   },
   leftPane: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
     // padding: "20px",
-    border: "none",
+    border: 'none',
     // backgroundColor: theme.palette.primary.main,
-    color: "#fff",
-    boxShadow: "none",
+    color: '#fff',
+    boxShadow: 'none',
   },
   contain: {
-    height: "100dvh",
-    margin: "0 30px",
-    borderRadius: "8px",
+    height: '100dvh',
+    margin: '0 30px',
+    borderRadius: '8px',
     // width: "60dvh",
     backgroundImage: 'url("src/assets/fresh.svg")', // Replace with the path to your image
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "right",
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right',
     // background: "#F06D06",
-    marginRight: "-2rem",
-    width: "100%",
+    marginRight: '-2rem',
+    width: '100%',
   },
   rightPane: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-    height: "100%",
-    boxShadow: "none",
-    border: "none",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    height: '100%',
+    boxShadow: 'none',
+    border: 'none',
   },
   form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100%',
     // margin:"10px 20px",
     // maxWidth: "100%",
-    marginTop: "20px", // Add margin to create space between tabs and form
-    overFlowY: "hidden",
+    marginTop: '20px', // Add margin to create space between tabs and form
+    overFlowY: 'hidden',
   },
   textField: {
-    margin: "10px 0",
+    margin: '10px 0',
   },
   button: {
-    margin: "20px 0",
+    margin: '20px 0',
   },
   tab: {
     // No specific styling for tabs in this example
@@ -137,17 +137,17 @@ const styles = {
 const Login = () => {
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
-  const ref = urlParams.get("ref");
-  console.log(ref, "ref");
+  const ref = urlParams.get('ref');
+  console.log(ref, 'ref');
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/");
+      navigate('/');
     }
   }, [isAuthenticated, navigate]);
   const { isLoading, login, googleLogin } = useAuth();
-  const token = getItemFromLocalForage("accessToken");
+  const token = getItemFromLocalForage('accessToken');
   console.log(token);
   const {
     handleSubmit,
@@ -156,14 +156,19 @@ const Login = () => {
   } = useForm();
   console.log(errors);
   const onSubmit = (data) => {
-   if (ref === 'cart') {
-    login(data, ref);
-   }
-   login(data);
+    if (ref === 'cart') {
+      login(data, ref);
+    }
+    login(data);
     console.log(data);
   };
 
-  const googleAuthURL = `${BaseUrl}/oauth2/google/authorize?organization=${"adamawapoly"}&callback_url=${"https://app.safcerts.com/"}adamawapoly&product=36163e9e-1d43-4bf6-b0d3-83bfa7da097c`;
+  const googleAuthURL = `${BaseUrl}/oauth2/google/authorize?organization=${'adamawapoly'}&callback_url=${'https://app.safcerts.com/'}adamawapoly&product=36163e9e-1d43-4bf6-b0d3-83bfa7da097c`;
+
+  const handleCopyCut = (event) => {
+    event.preventDefault();
+    alert('Password copying/cutting is disabled for security reasons.');
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -182,46 +187,46 @@ const Login = () => {
         <Grid item xs={12} md={7}>
           <Paper elevation={3} style={styles.rightPane}>
             <Logo />
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <div style={{ marginTop: '20px', textAlign: 'center' }}>
               <div
                 style={{
-                  color: "#333",
-                  marginLeft: "-10px",
-                  marginTop: "10px",
-                  fontSize: "18px",
-                  fontWeight: "300",
+                  color: '#333',
+                  marginLeft: '-10px',
+                  marginTop: '10px',
+                  fontSize: '18px',
+                  fontWeight: '300',
                 }}
               >
                 Login
               </div>
               <div
                 style={{
-                  color: "#AAAAAA",
-                  marginLeft: "5px",
-                  marginTop: "15px",
+                  color: '#AAAAAA',
+                  marginLeft: '5px',
+                  marginTop: '15px',
                 }}
               >
                 Log in with your credentials
               </div>
             </div>
-            <Cover style={{ margin: "60px auto" }}>
+            <Cover style={{ margin: '60px auto' }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
-                  name="email"
+                  name='email'
                   control={control}
                   rules={{
-                    required: "Email is required",
+                    required: 'Email is required',
                     pattern: {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "Invalid email address",
+                      message: 'Invalid email address',
                     },
                   }}
                   render={({ field }) => (
                     <InputWithIcon
                       icon={MessageText}
-                      label="Email"
-                      type="email"
-                      placeholder="Enter your email"
+                      label='Email'
+                      type='email'
+                      placeholder='Enter your email'
                       {...field}
                       hasError={errors.email ? true : false}
                       errorMessage={errors.email && errors.email.message}
@@ -230,26 +235,26 @@ const Login = () => {
                 />
 
                 <Controller
-                  name="password"
+                  name='password'
                   control={control}
                   rules={{
-                    required: "Password is required",
+                    required: 'Password is required',
                     minLength: {
                       value: 8,
-                      message: "Password must be at least 8 characters long",
+                      message: 'Password must be at least 8 characters long',
                     },
                     pattern: {
                       // value: /^(?=.*[!@#$%^&*])/,
                       message:
-                        "Password must contain at least one special character (!@#$%^&*)",
+                        'Password must contain at least one special character (!@#$%^&*)',
                     },
                   }}
                   render={({ field }) => (
                     <InputWithIcon
                       icon={Unlock}
-                      label="Password"
-                      type="password"
-                      placeholder="Enter your password"
+                      label='Password'
+                      type='password'
+                      placeholder='Enter your password'
                       {...field}
                       hasError={errors.password ? true : false}
                       errorMessage={errors.password && errors.password.message}
@@ -258,20 +263,20 @@ const Login = () => {
                 />
                 <ActionCover
                   style={{
-                    margin: "25px 0",
-                    cursor: "pointer",
-                    fontSize: "14px",
+                    margin: '25px 0',
+                    cursor: 'pointer',
+                    fontSize: '14px',
                   }}
                 >
-                  <div style={{ color: "#AAAAAA", marginLeft: "5px" }}></div>
-                  <div style={{ color: "#808080", marginRight: "5px" }}>
+                  <div style={{ color: '#AAAAAA', marginLeft: '5px' }}></div>
+                  <div style={{ color: '#808080', marginRight: '5px' }}>
                     Forgot password?
                   </div>
                 </ActionCover>
                 <ActionCover>
-                  <div style={{ color: "#AAAAAA", display: "flex" }}>
-                    <Text style={{ fontSize: "12px" }}>
-                      {" "}
+                  <div style={{ color: '#AAAAAA', display: 'flex' }}>
+                    <Text style={{ fontSize: '12px' }}>
+                      {' '}
                       Other sign in options
                     </Text>
                     {/* <SocialCover>
@@ -332,25 +337,39 @@ const Login = () => {
 
                   <div>
                     <ModButton
-                      bgColor="#0E5D37"
-                      textColor="#fff"
+                      bgColor='#0E5D37'
+                      textColor='#fff'
                       outlined
-                      variant="contained"
-                      type="submit"
+                      variant='contained'
+                      type='submit'
                       onClick={onSubmit}
                       loading={isLoading}
                     >
-                      {isLoading ? "Signing in...." : "Sign In"}
+                      {isLoading ? 'Signing in....' : 'Sign In'}
                     </ModButton>
                   </div>
                 </ActionCover>
               </form>
               <hr
-                style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}
+                style={{ margin: '20px 0', borderTop: '0.2px dotted #ccc' }}
               />
-              <div style={{ textAlign: "center", color: "#808080",  }}>
-                <div style={{ color: "#808080", fontSize:'11px',marginBottom:'5px' }}> or</div>
-                <div style={{ color: "#808080", cursor:"pointer" }} onClick={() => navigate('/register')}>Create an Account</div>
+              <div style={{ textAlign: 'center', color: '#808080' }}>
+                <div
+                  style={{
+                    color: '#808080',
+                    fontSize: '11px',
+                    marginBottom: '5px',
+                  }}
+                >
+                  {' '}
+                  or
+                </div>
+                <div
+                  style={{ color: '#808080', cursor: 'pointer' }}
+                  onClick={() => navigate('/register')}
+                >
+                  Create an Account
+                </div>
               </div>
             </Cover>
           </Paper>

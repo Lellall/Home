@@ -1,17 +1,18 @@
 // src/store/productStore.js
-import create from "zustand";
-import axios from "axios";
-import { BaseUrl } from "../utils/config";
+import create from 'zustand';
+import axios from 'axios';
+import { BaseUrl } from '../utils/config';
 
 const useProductStore = create((set) => ({
   products: [],
   productsSearched: [],
+  categories: [],
   searchTerm: null,
   address: {},
   distance: null,
   positionPoint: {},
-  shppingFee: "",
-  consumerPhoneNumber: "",
+  shppingFee: '',
+  consumerPhoneNumber: '',
   setProducts: (products) => set({ products }),
   setPositionPoint: (pos) => set({ positionPoint: { ...pos } }),
   setDistance: (pos) => set({ distance: pos }),
@@ -27,7 +28,18 @@ const useProductStore = create((set) => ({
       const newData = response.data.data; // Assuming response.data.data is an array of products
       set((state) => ({ products: [...state.products, ...newData] }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
+    }
+  },
+  fetchCategories: async (page) => {
+    try {
+      const response = await axios.get(
+        `${BaseUrl}/categories/all-categories?page=${page}&size=10`
+      );
+      const newData = response.data.data; // Assuming response.data.data is an array of products
+      set(() => ({ categories: newData }));
+    } catch (error) {
+      console.error('Error fetching categories:', error);
     }
   },
   searchProducts: async (val) => {
@@ -38,7 +50,7 @@ const useProductStore = create((set) => ({
       );
       set({ productsSearched: response?.data?.data });
     } catch (error) {
-      console.error("Error searching data:", error);
+      console.error('Error searching data:', error);
     }
   },
   searchProductsByCategory: async (categoryId) => {
@@ -48,7 +60,7 @@ const useProductStore = create((set) => ({
       );
       set({ products: response?.data?.data });
     } catch (error) {
-      console.error("Error searching data:", error);
+      console.error('Error searching data:', error);
     }
   },
 }));
