@@ -7,6 +7,7 @@ import styled from 'styled-components';
 import useProductStore from './productStore';
 import { useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../utils/config';
+import useGlobalModalStore from './useGlobalModal';
 
 const Container = styled.div`
   display: flex;
@@ -43,7 +44,7 @@ const CategoriesList = () => {
   const [isCategory, setIsCategory] = useState(false);
   const fetchCategories = useProductStore((state) => state.fetchCategories);
   const categories = useProductStore((state) => state.categories);
-
+  const { setIsCategoryModalOpen } = useGlobalModalStore();
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -106,7 +107,9 @@ const CategoriesList = () => {
           // background: 'red',
         }}
         onClick={() => {
-          isCategory ? handleCategoryCloseSearch() : {};
+          isCategory
+            ? handleCategoryCloseSearch()
+            : setIsCategoryModalOpen(true);
         }}
       >
         {isCategory ? 'Close' : 'View more'}

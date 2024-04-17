@@ -18,6 +18,8 @@ import Modal from './modal';
 import { BaseUrl } from '../utils/config';
 import axios from 'axios';
 import { RoundButton } from '../App';
+import useGlobalModalStore from './useGlobalModal';
+import moment from 'moment/moment';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -155,14 +157,36 @@ const NewStore = () => {
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-  const categories = useProductStore((state) => state.categories);
+  // const categories = useProductStore((state) => state.categories);
   const [modalOpen, setModalOpen] = useState(false);
-  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  // const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isSelectCategory, setIsSelectCategory] = useState(false);
-
+  const {
+    setIsShopsClose,
+    isShopsClose,
+    isCategoryModalOpen,
+    setIsCategoryModalOpen,
+  } = useGlobalModalStore();
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    const updateWorkingHours = () => {
+      // const now = new Date();
+      const now = moment();
+      let hour = now.hours();
+      hour = hour % 12 || 12;
+      const minute = now.minutes();
+
+      setIsShopsClose(hour >= 10 && hour <= 17 && minute >= 0);
+    };
+    updateWorkingHours();
+    // Update every minute
+    const intervalId = setInterval(updateWorkingHours, 60000);
+
+    return () => clearInterval(intervalId);
+  }, [isShopsClose, setIsShopsClose]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -189,21 +213,21 @@ const NewStore = () => {
   const handleAddToWishlist = (productId) => {
     navigate(`/product/${productId}`);
   };
-  // const [categories, setCategories] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${BaseUrl}/categories/all-categories`
-  //       );
-  //       setCategories(response.data.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${BaseUrl}/categories/all-categories`
+        );
+        setCategories(response.data.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   const searchProducts = useProductStore(
     (state) => state.searchProductsByCategory
@@ -211,13 +235,14 @@ const NewStore = () => {
   const handleCategorySearch = (category) => {
     navigate(`?cat=${category?.name}`);
     searchProducts(category.id);
-    setCategoryModalOpen(false);
+    setIsCategoryModalOpen(false);
+
     // setIsCategory(true);
   };
   const handleCategoryCloseSearch = () => {
     navigate('/');
     searchProducts('');
-    setCategoryModalOpen(false);
+    setIsCategoryModalOpen(false);
     setIsSelectCategory(false);
   };
 
@@ -249,7 +274,7 @@ const NewStore = () => {
               onClick={() => {
                 isSelectCategory
                   ? handleCategoryCloseSearch()
-                  : setCategoryModalOpen(true);
+                  : setIsCategoryModalOpen(true);
               }}
             >
               {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
@@ -297,6 +322,7 @@ const NewStore = () => {
                     price={product?.price}
                     discount='20% OFF'
                     imageUrl={product?.imageUrl}
+                    isShopClose={isShopsClose}
                     onAddToWishlist={() => navigate(`product/${product?.id}`)}
                   />
                 ))}
@@ -364,8 +390,8 @@ const NewStore = () => {
       </div> */}
 
       <Modal
-        show={categoryModalOpen}
-        onClose={() => setCategoryModalOpen(false)}
+        show={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
       >
         <>
           <CategoriesHeader>Categories</CategoriesHeader>
