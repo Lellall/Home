@@ -127,6 +127,7 @@ const ModalCategoryCont = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  /* max-width: 400px; */
 `;
 const ModalCategoryCard = styled.div`
   display: flex;
@@ -157,7 +158,7 @@ const NewStore = () => {
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-  // const categories = useProductStore((state) => state.categories);
+  const categories = useProductStore((state) => state.categories);
   const [modalOpen, setModalOpen] = useState(false);
   // const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isSelectCategory, setIsSelectCategory] = useState(false);
@@ -213,21 +214,21 @@ const NewStore = () => {
   const handleAddToWishlist = (productId) => {
     navigate(`/product/${productId}`);
   };
-  const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `${BaseUrl}/categories/all-categories`
-        );
-        setCategories(response.data.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
+  // const [categories, setCategories] = useState([]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         `${BaseUrl}/categories/all-categories`
+  //       );
+  //       setCategories(response.data.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const searchProducts = useProductStore(
     (state) => state.searchProductsByCategory
@@ -392,6 +393,7 @@ const NewStore = () => {
       <Modal
         show={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
+        style={{ maxWidth: '450px' }}
       >
         <>
           <CategoriesHeader>Categories</CategoriesHeader>

@@ -335,11 +335,11 @@ const CartPage = () => {
                 {cartItems?.map((item) => (
                   <TableRow
                     key={item?.id}
-                    style={{
-                      background: !item.available ? 'D9D9D9' : 'transparent',
-                      opacity: !item.available ? 0.4 : 1,
-                    }}
-                    className={`${!item.available ? 'emptyCartRow' : ''} `}
+                    // style={{
+                    //   background: !item.available ? 'D9D9D9' : 'transparent',
+                    //   opacity: !item.available ? 0.4 : 1,
+                    // }}
+                    // className={`${!item.available ? 'emptyCartRow' : ''} `}
                   >
                     <TableCell>
                       <FlexContainer>

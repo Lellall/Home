@@ -1,7 +1,5 @@
 // AuthModal.js
-import React from 'react';
 import styled from 'styled-components';
-import RoundedButton from './RoundedButton';
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -20,7 +18,7 @@ const ModalContent = styled.div`
   background: white;
   padding: 30px;
   border-radius: 8px;
-  text-align:center;
+  text-align: center;
   position: relative;
 `;
 const CloseButton = styled.button`
@@ -33,7 +31,7 @@ const CloseButton = styled.button`
   cursor: pointer;
   box-shadow: none;
   border: none;
-// width: 2%;
+  // width: 2%;
   &:hover {
     background-color: transparent;
     box-shadow: none;
@@ -41,11 +39,11 @@ const CloseButton = styled.button`
   }
 `;
 
-const AuthModal = ({ onClose, children }) => {
+const AuthModal = ({ onClose, children, style }) => {
   return (
     <ModalContainer>
-      <ModalContent>
-      <CloseButton onClick={onClose}>&times;</CloseButton>
+      <ModalContent style={style}>
+        <CloseButton onClick={onClose}>&times;</CloseButton>
         {children}
       </ModalContent>
     </ModalContainer>

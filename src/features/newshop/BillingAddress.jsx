@@ -300,15 +300,20 @@ const BillingAddress = () => {
         </AuthModal>
       )}
       {isModalOpen && (
-        <AuthModal onClose={() => setIsModalOpen(false)}>
-          <Title style={{ fontSize: 'large', fontWeight: 'bolder' }}>
-            We are currently closed
-          </Title>
-          <p>
-            Our shop is closed for the day. We will resume our regular operating
-            hours tomorrow at 10am until 5pm.
-          </p>
-        </AuthModal>
+        <>
+          <AuthModal
+            onClose={() => setIsModalOpen(false)}
+            style={{ maxWidth: '400px' }}
+          >
+            <Title style={{ fontSize: 'large', fontWeight: 'bolder' }}>
+              We are currently closed
+            </Title>
+            <p>
+              Our shop is closed for the day. We will resume our regular
+              operating hours tomorrow at 10am until 5pm.
+            </p>
+          </AuthModal>
+        </>
       )}
     </>
   );
