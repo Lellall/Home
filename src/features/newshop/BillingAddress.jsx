@@ -177,8 +177,7 @@ const BillingAddress = () => {
     }
   };
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log(isShopsClose, 'isShopsClose');
-  console.log('isModalOpen', isModalOpen);
+
   const onSubmit = async (values) => {
     if (isShopsClose) {
       setIsModalOpen(true);

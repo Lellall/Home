@@ -339,7 +339,7 @@ const CartPage = () => {
                       background: !item.available ? 'D9D9D9' : 'transparent',
                       opacity: !item.available ? 0.4 : 1,
                     }}
-                    className={`${item.available ? 'emptyCartRow' : ''} `}
+                    className={`${!item.available ? 'emptyCartRow' : ''} `}
                   >
                     <TableCell>
                       <FlexContainer>
