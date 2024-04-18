@@ -16,7 +16,7 @@ body {
   border-radius: 5px;
   position: relative;
 }
-.emptyCartRow::after {
+.emptyCartRow::before {
   content: 'OUT OF STOCK';
   color: #000;
   position: absolute;
