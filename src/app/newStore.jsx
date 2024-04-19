@@ -56,7 +56,7 @@ const Categories = styled.div`
   background: #fff;
   top: 10rem;
   // z-index: -1;
-  backround: red;
+
   @media (max-width: 912px) {
     display: none; // Hide the component on screens with a width of 768 pixels or smaller
   }
@@ -179,8 +179,8 @@ const NewStore = () => {
       let hour = now.hours();
       hour = hour % 12 || 12;
       const minute = now.minutes();
-
-      setIsShopsClose(hour >= 10 && hour <= 17 && minute >= 0);
+      let shopsOpen = hour >= 10 && hour <= 17 && minute >= 0;
+      setIsShopsClose(!shopsOpen);
     };
     updateWorkingHours();
     // Update every minute
