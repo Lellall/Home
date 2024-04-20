@@ -174,12 +174,14 @@ const NewStore = () => {
 
   useEffect(() => {
     const updateWorkingHours = () => {
-      // const now = new Date();
       const now = moment();
       let hour = now.hours();
       hour = hour % 12 || 12;
       const minute = now.minutes();
-      let shopsOpen = hour >= 10 && hour <= 17 && minute >= 0;
+      const AMPM = now.format('A');
+      if (AMPM == 'PM' && hour < 12) hour = hour + 12;
+      if (AMPM == 'AM' && hour == 12) hour = hour - 12;
+      let shopsOpen = hour >= 10 && hour < 17 && minute >= 0;
       setIsShopsClose(!shopsOpen);
     };
     updateWorkingHours();
