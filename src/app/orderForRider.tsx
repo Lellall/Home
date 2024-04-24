@@ -14,7 +14,8 @@ import AuthModal from '../features/newshop/authModal';
 import useAuth from './useAuth';
 
 
-const TableWrapper = styled.div`
+export const TableWrapper = styled.div`
+width: 100%;
   font-family: Arial, sans-serif;
 //   border: 1px solid #ccc;
   overflow: hidden;
@@ -22,53 +23,59 @@ const TableWrapper = styled.div`
 //   margin-top:140px;
 `;
 
-const Table = styled.table`
+export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 `;
 
-const TableHead = styled.thead`
+export const TableHead = styled.thead`
   background-color: #f2f2f2;
+  width: 100%;
 `;
 
-const TableHeadRow = styled.tr``;
+export const TableHeadRow = styled.tr`
+width: 100%;`;
 
-const TableHeadCell = styled.th`
+export const TableHeadCell = styled.th`
   font-size: 11px;
   text-transform: uppercase;
   font-weight: 300;
   padding: 20px;
   text-align: left;
+  width: 100%;
 `;
 
-const TableBody = styled.tbody``;
+export const TableBody = styled.tbody`
+width: 100%;
+`;
 
-const TableRow = styled.tr`
+export const TableRow = styled.tr`
   font-size: 11px;
   padding: 20px;
+  width: 100%;
   &:nth-child(even) {
     background-color: #f2f2f2;
   }
 `;
 
-const TableDataCell = styled.td`
-  padding: 12px;
+export const TableDataCell = styled.td`
+  padding: 20px;
   border-top: 1px solid #ccc;
   word-break: break-word;
   white-space: pre-wrap;
 `;
 
-const ExpandableRow = styled.tr`
+export const ExpandableRow = styled.tr`
   background-color: #eafef1;
   color: #00a661;
 `;
 
-const ExpandableDataCell = styled.td`
+export const ExpandableDataCell = styled.td`
   padding: 12px;
   border: 1px solid #ccc;
 `;
 
-const InteractiveIcon = styled(CopyAllOutlined)`
+export const InteractiveIcon = styled(CopyAllOutlined)`
   color: #333;
   cursor: pointer;
   transition: color 0.3s ease;
@@ -76,7 +83,7 @@ const InteractiveIcon = styled(CopyAllOutlined)`
     color: red;
   }
 `;
-const Content = styled.div`
+export const Content = styled.div`
     display: flex;
     flex: 1;
     justify-content: space-between;
@@ -84,7 +91,7 @@ const Content = styled.div`
 `;
 
 
-const copyToClipboard = (text) => {
+export const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text);
 };
 
