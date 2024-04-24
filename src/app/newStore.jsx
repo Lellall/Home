@@ -18,6 +18,8 @@ import Modal from './modal';
 import { BaseUrl } from '../utils/config';
 import axios from 'axios';
 import { RoundButton } from '../App';
+import useGlobalModalStore from './useGlobalModal';
+import moment from 'moment/moment';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -54,7 +56,7 @@ const Categories = styled.div`
   background: #fff;
   top: 10rem;
   // z-index: -1;
-  backround: red;
+
   @media (max-width: 912px) {
     display: none; // Hide the component on screens with a width of 768 pixels or smaller
   }
@@ -125,6 +127,7 @@ const ModalCategoryCont = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  /* max-width: 400px; */
 `;
 const ModalCategoryCard = styled.div`
   display: flex;
@@ -157,12 +160,36 @@ const NewStore = () => {
   const fetchProducts = useProductStore((state) => state.fetchProducts);
   const categories = useProductStore((state) => state.categories);
   const [modalOpen, setModalOpen] = useState(false);
-  const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  // const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isSelectCategory, setIsSelectCategory] = useState(false);
-
+  const {
+    setIsShopsClose,
+    isShopsClose,
+    isCategoryModalOpen,
+    setIsCategoryModalOpen,
+  } = useGlobalModalStore();
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    const updateWorkingHours = () => {
+      const now = moment();
+      let hour = now.hours();
+      hour = hour % 12 || 12;
+      const minute = now.minutes();
+      const AMPM = now.format('A');
+      if (AMPM == 'PM' && hour < 12) hour = hour + 12;
+      if (AMPM == 'AM' && hour == 12) hour = hour - 12;
+      let shopsOpen = hour >= 10 && hour < 17 && minute >= 0;
+      setIsShopsClose(!shopsOpen);
+    };
+    updateWorkingHours();
+    // Update every minute
+    const intervalId = setInterval(updateWorkingHours, 60000);
+
+    return () => clearInterval(intervalId);
+  }, [isShopsClose, setIsShopsClose]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -211,13 +238,14 @@ const NewStore = () => {
   const handleCategorySearch = (category) => {
     navigate(`?cat=${category?.name}`);
     searchProducts(category.id);
-    setCategoryModalOpen(false);
+    setIsCategoryModalOpen(false);
+
     // setIsCategory(true);
   };
   const handleCategoryCloseSearch = () => {
     navigate('/');
     searchProducts('');
-    setCategoryModalOpen(false);
+    setIsCategoryModalOpen(false);
     setIsSelectCategory(false);
   };
 
@@ -249,7 +277,7 @@ const NewStore = () => {
               onClick={() => {
                 isSelectCategory
                   ? handleCategoryCloseSearch()
-                  : setCategoryModalOpen(true);
+                  : setIsCategoryModalOpen(true);
               }}
             >
               {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
@@ -297,6 +325,7 @@ const NewStore = () => {
                     price={product?.price}
                     discount='20% OFF'
                     imageUrl={product?.imageUrl}
+                    isShopClose={isShopsClose}
                     onAddToWishlist={() => navigate(`product/${product?.id}`)}
                   />
                 ))}
@@ -364,8 +393,9 @@ const NewStore = () => {
       </div> */}
 
       <Modal
-        show={categoryModalOpen}
-        onClose={() => setCategoryModalOpen(false)}
+        show={isCategoryModalOpen}
+        onClose={() => setIsCategoryModalOpen(false)}
+        style={{ maxWidth: '450px' }}
       >
         <>
           <CategoriesHeader>Categories</CategoriesHeader>

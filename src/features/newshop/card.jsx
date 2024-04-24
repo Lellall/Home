@@ -1,9 +1,9 @@
 // ReusableCard.js
 
-import { Bookmark } from "iconsax-react";
-import React, { useState } from "react";
-import styled from "styled-components";
-import { formatCurrency } from "../../utils/currencyFormat";
+import { Bookmark } from 'iconsax-react';
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { formatCurrency } from '../../utils/currencyFormat';
 
 const CardWrapper = styled.div`
   position: relative;
@@ -11,7 +11,7 @@ const CardWrapper = styled.div`
   max-width: 180px;
   box-sizing: border-box;
   height: 220px;
-  cursor:pointer;
+  cursor: pointer;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -40,19 +40,17 @@ const CardWrapper = styled.div`
   @media (max-width: 390px) {
     width: 170px;
     margin-left: 10px;
-    margin-bottom: 16px; 
+    margin-bottom: 16px;
   }
   @media (max-width: 375px) {
     width: 160px;
     margin-left: 10px;
-    margin-bottom: 16px; 
+    margin-bottom: 16px;
   }
   @media (max-width: 360px) {
     width: 180px;
     //  margin-left: -20px;
   }
- 
- 
 `;
 
 const Image = styled.img`
@@ -152,6 +150,7 @@ const ReusableCard = ({
   discount,
   imageUrl,
   onAddToWishlist,
+  isShopClose,
 }) => {
   const [addedToCart, setAddedToCart] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -188,21 +187,20 @@ const ReusableCard = ({
     setAddedToCart(false);
   };
 
-
   return (
     <div>
-      <CardWrapper className="card" onClick={onAddToWishlist}>
-        <Image src={imageUrl} alt="Product Image" />
+      <CardWrapper className='card' onClick={onAddToWishlist}>
+        <Image src={imageUrl} alt='Product Image' />
         <CardContent>
           {/* <WishlistIcon onClick={onAddToWishlist}>&#10084;</WishlistIcon> */}
           {/* <Discount>{discount}</Discount> */}
-          {/* <Discount>open</Discount> */}
+          <Discount>{isShopClose ? 'close' : 'open'} </Discount>
           <Title>{title}</Title>
           <div
             style={{
-              display: "flex",
-              flex: "1",
-              justifyContent: "space-between",
+              display: 'flex',
+              flex: '1',
+              justifyContent: 'space-between',
             }}
           >
             <div>
@@ -211,13 +209,13 @@ const ReusableCard = ({
             <div
               style={{
                 // background: "red",
-                padding: "0 4px",
-                borderRadius: "4px",
-                color: "#fff",
-                cursor: "pointer",
+                padding: '0 4px',
+                borderRadius: '4px',
+                color: '#fff',
+                cursor: 'pointer',
               }}
             >
-             <Bookmark size="22" color="#FF8A65"/>
+              <Bookmark size='22' color='#FF8A65' />
               <WishlistIcon onClick={onAddToWishlist}></WishlistIcon>
             </div>
           </div>
