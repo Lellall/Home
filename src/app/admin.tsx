@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { Outlet, NavLink } from "react-router-dom";
 import {
-  ProfileCircle,
   BookSaved,
-  Notification,
+  Additem,
   Heart,
   TicketDiscount,
   Clock,
@@ -341,9 +340,9 @@ const AdminLayout = () => {
     },
     {
       id: 3,
-      icon: <Notification size="20" />,
-      text: "Manage Notification",
-      url: appPaths.notification,
+      icon: <Additem size="20" />,
+      text: "Manage Products",
+      url: appPaths.products,
     },
     {
       id: 4,

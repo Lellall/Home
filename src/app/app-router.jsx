@@ -26,6 +26,7 @@ import OrderForRider from "./orderForRider";
 import TransactionStatusPage from "./transaction";
 import Summary from "./tempSummary";
 import PrivacyPolicy from "./privacy";
+import Products from "../features/user/products";
 
 const theme = createTheme({
   typography: {
@@ -55,7 +56,7 @@ export function AppRouter() {
             </Route>
             <Route path='/check' element={<AdminLayout />}>
               <Route index element={<OrderForRider />} />
-              <Route path={appPaths.notification} element={<UserNotifications />} />
+              <Route path={appPaths.products} element={<Products />} />
               <Route path={appPaths.myOrders} element={<UserOrders />} />
               <Route path={appPaths.favorites} element={<Favorites />} />
             </Route>

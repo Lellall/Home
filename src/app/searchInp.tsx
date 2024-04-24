@@ -4,17 +4,16 @@ import debounce from 'lodash.debounce';
 import { BaseUrl } from '../utils/config';
 import { formatCurrency } from '../utils/currencyFormat';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+
 const SearchComponent = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate()
   useEffect(() => {
-if (selectedOption !== null) {
-  navigate(`/product/${selectedOption.value}`)
-  console.log('====================================');
-  console.log(selectedOption,'selectedOption');
-  console.log('====================================');
-}
+    if (selectedOption !== null) {
+      navigate(`/product/${selectedOption.value}`)
+    }
   }, [selectedOption])
 
 
@@ -89,7 +88,7 @@ if (selectedOption !== null) {
   const debouncedFetchOptions = debounce(fetchOptions, 250);
 
   return (
-    <div style={{ minWidth: '280px', margin: '0 auto' }}>
+    <ResponsiveCard >
 
       <AsyncSelect
 
@@ -101,8 +100,16 @@ if (selectedOption !== null) {
         isSearchable
         isLoading={isLoading}
       />
-    </div>
+    </ResponsiveCard>
   );
 };
 
 export default SearchComponent;
+
+const ResponsiveCard = styled.div`
+  width: 500px;
+  margin: 0 auto ;
+  @media only screen and (max-width: 767px) {
+    width: 250px;
+  }
+`

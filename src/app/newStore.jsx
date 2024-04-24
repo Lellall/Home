@@ -75,7 +75,7 @@ const Products = styled.div`
   }
 `;
 
-const Cover = styled.div`
+export const Cover = styled.div`
   margin-top: 50px;
   margin-bottom: 150px;
   padding: 20px;
@@ -90,7 +90,7 @@ const Picks = styled.div`
   margin: 10px auto;
   width: 100%;
 `;
-const ContainerInf = styled.div`
+export const ContainerInf = styled.div`
   display: flex;
   justify-content: center; /* Center the content horizontally */
   margin: 20px 0px;

@@ -13,6 +13,7 @@ export const appPaths = {
     profile: "/account",
     myOrders: "my-orders",
     notification: "notification",
+    products: "products",
     favorites: "favorites",
     discount: "discount",
     recentlyViewed: "recently-viewed"
