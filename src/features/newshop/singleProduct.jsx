@@ -26,6 +26,7 @@ import axios from 'axios';
 import useShoppingCart from '../../app/useShoppingCart';
 import { formatCurrency } from '../../utils/currencyFormat';
 import Navbar from '../../app/Nav';
+import useGlobalModalStore from '../../app/useGlobalModal';
 
 const Product = () => {
   const [count, setCount] = useState(0);
@@ -62,8 +63,6 @@ const Product = () => {
         console.error('Error:', error.message);
       });
   }, [id]);
-
-  // console.log(foundItem, "foundItem");
 
   const handleToggleCart = () => {
     if (isProductInCart(localProduct.id)) {

@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from "react";
-import GooglePlacesAutocomplete from "react-google-places-autocomplete";
-import { geocodeByAddress, getLatLng } from "react-google-places-autocomplete";
-import styled from "styled-components";
-import useProductStore from "../../app/productStore";
-import InputWithIcon from "../../components/inputs/input.component";
-import { Mobile } from "iconsax-react";
-import { Controller, useForm } from "react-hook-form";
-import useAuth from "../../app/useAuth";
-import useShoppingCart from "../../app/useShoppingCart";
-import axios from "axios";
-import AuthModal from "./authModal";
-import RoundedButton from "./RoundedButton";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import { BaseUrl } from "../../utils/config";
+import React, { useEffect, useState } from 'react';
+import GooglePlacesAutocomplete from 'react-google-places-autocomplete';
+import { geocodeByAddress, getLatLng } from 'react-google-places-autocomplete';
+import styled from 'styled-components';
+import useProductStore from '../../app/productStore';
+import InputWithIcon from '../../components/inputs/input.component';
+import { Mobile } from 'iconsax-react';
+import { Controller, useForm } from 'react-hook-form';
+import useAuth from '../../app/useAuth';
+import useShoppingCart from '../../app/useShoppingCart';
+import axios from 'axios';
+import AuthModal from './authModal';
+import RoundedButton from './RoundedButton';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { BaseUrl } from '../../utils/config';
+import useGlobalModalStore from '../../app/useGlobalModal';
 const Title = styled.p`
   font-size: 14px;
   margin-bottom: 15px;
@@ -23,12 +24,12 @@ const Title = styled.p`
 const BillingAddress = () => {
   const lat1 = 9.0698368;
   const lon1 = 7.464775700000001;
-  const [customerPosition, setCustomerPosition] = useState("");
+  const [customerPosition, setCustomerPosition] = useState('');
   const [value, setValue] = useState(null);
   const [mapError, setMapError] = useState(false);
   const [formData, setFormData] = useState({
-    landmark: "",
-    house: "",
+    landmark: '',
+    house: '',
   });
 
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const BillingAddress = () => {
     distance,
     consumerPhoneNumber,
   } = useProductStore();
+  const isShopsClose = useGlobalModalStore((state) => state.isShopsClose);
 
   function calculateDistance(lat1, lon1, lat2, lon2) {
     // Earth's mean radius in kilometers
@@ -144,11 +146,11 @@ const BillingAddress = () => {
 
       try {
         setLoading(true);
-        console.log(data, "data");
+        console.log(data, 'data');
         const response = await axios.post(`${BaseUrl}/orders`, data, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         });
         // await initiateCheckout(response.data.orderId);
@@ -159,8 +161,8 @@ const BillingAddress = () => {
         }
       } catch (error) {
         if (error?.response?.status === 500) {
-          toast.error("Please Try one more time.", {
-            position: "top-right",
+          toast.error('Please Try one more time.', {
+            position: 'top-right',
           });
           refreshAccessToken();
         }
@@ -174,46 +176,51 @@ const BillingAddress = () => {
       setShowModal(true);
     }
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const onSubmit = async (values) => {
-    console.log(values);
+    if (isShopsClose) {
+      setIsModalOpen(true);
+      return;
+    }
     if (value === null) {
       setMapError(true);
-      return
+      return;
     }
-    if(!values.phone) {
-      return
+    if (!values.phone) {
+      return;
     }
-    await handleCheckoutClick(values.phone); 
+    await handleCheckoutClick(values.phone);
   };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label
-          style={{ fontSize: "13px", color: "#808080", marginBottom: "10px" }}
+          style={{ fontSize: '13px', color: '#808080', marginBottom: '10px' }}
         >
           Search Address
         </label>
         <div
-          style={{ fontSize: "13px", color: "#808080", marginBottom: "5px" }}
+          style={{ fontSize: '13px', color: '#808080', marginBottom: '5px' }}
         ></div>
         <div>
           <GooglePlacesAutocomplete
-            apiKey="AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY"
+            apiKey='AIzaSyBrdpKCFrR1oMxYds0rkd80BWkhzREXmSY'
             selectProps={{
               value,
               onChange: setValue,
-              placeholder: "Search address",
+              placeholder: 'Search address',
               styles: {
                 control: (provided) => ({
                   ...provided,
-                  border: mapError ? "1px solid red" : "1px solid initial",
-                  fontSize: "11px",
+                  border: mapError ? '1px solid red' : '1px solid initial',
+                  fontSize: '11px',
                 }),
                 input: (provided) => ({
                   ...provided,
-                  width: "200px !important",
-                  fontSize: "11px",
+                  width: '200px !important',
+                  fontSize: '11px',
                 }),
                 option: (provided) => ({
                   ...provided,
@@ -225,33 +232,33 @@ const BillingAddress = () => {
             }}
           />
           {mapError && (
-            <p style={{ color: "red", fontSize: "9px" }}>
+            <p style={{ color: 'red', fontSize: '9px' }}>
               please enter your delivery address.
             </p>
           )}
         </div>
         <div
-          style={{ fontSize: "13px", color: "#808080", marginBottom: "15px" }}
+          style={{ fontSize: '13px', color: '#808080', marginBottom: '15px' }}
         ></div>
         <Controller
-          name="phone"
+          name='phone'
           control={control}
           rules={{
-            required: "Phone number is required",
+            required: 'Phone number is required',
             validate: {
-              validPhoneNumber: value => {
+              validPhoneNumber: (value) => {
                 return /^[0-9]{11}$/.test(value);
-              }
-            }
+              },
+            },
           }}
           render={({ field }) => (
             <InputWithIcon
               icon={Mobile}
-              label="Phone Number"
-              type="text"
-              placeholder="Enter your phone number"
+              label='Phone Number'
+              type='text'
+              placeholder='Enter your phone number'
               rules={{
-                required: "Phone Number is required",
+                required: 'Phone Number is required',
               }}
               {...field}
               hasError={errors.phone ? true : false}
@@ -260,12 +267,13 @@ const BillingAddress = () => {
           )}
         />
         <div
-          style={{ fontSize: "13px", color: "#808080", marginBottom: "15px" }}
+          style={{ fontSize: '13px', color: '#808080', marginBottom: '15px' }}
         ></div>
-        <RoundedButton type="submit"
-          backgroundColor="#0E5D37"
+        <RoundedButton
+          type='submit'
+          backgroundColor='#0E5D37'
           onClick={onSubmit}
-          spaceBottom="10px"
+          spaceBottom='10px'
           loading={isLoading}
         >
           Proceed to checkout
@@ -275,21 +283,37 @@ const BillingAddress = () => {
         <AuthModal onClose={() => setShowModal(false)}>
           <Title>Please sign in or sign up to proceed.</Title>
           <RoundedButton
-            backgroundColor="#0E5D37"
-            onClick={() => navigate("/login?ref=cart")}
-            spaceBottom="10px"
+            backgroundColor='#0E5D37'
+            onClick={() => navigate('/login?ref=cart')}
+            spaceBottom='10px'
           >
             Sign In
           </RoundedButton>
           <RoundedButton
-            backgroundColor="#F06D06"
-            onClick={() => navigate("/register?ref=cart")}
-            spaceTop="10px"
-            spaceBottom="10px"
+            backgroundColor='#F06D06'
+            onClick={() => navigate('/register?ref=cart')}
+            spaceTop='10px'
+            spaceBottom='10px'
           >
             Sign Up
           </RoundedButton>
         </AuthModal>
+      )}
+      {isModalOpen && (
+        <>
+          <AuthModal
+            onClose={() => setIsModalOpen(false)}
+            style={{ maxWidth: '400px' }}
+          >
+            <Title style={{ fontSize: 'large', fontWeight: 'bolder' }}>
+              We are currently closed
+            </Title>
+            <p>
+              Our shop is closed for the day. We will resume our regular
+              operating hours tomorrow at 10am until 5pm.
+            </p>
+          </AuthModal>
+        </>
       )}
     </>
   );

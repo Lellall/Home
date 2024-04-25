@@ -1,32 +1,31 @@
 // CartPage.js
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import useShoppingCart from "../../app/useShoppingCart";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
+import useShoppingCart from '../../app/useShoppingCart';
 import {
   CableConfig,
   CartButton,
   CircleButton,
   CountDisplay,
   CounterContainer,
-} from "./product";
-import { AddCircle, MinusCirlce, Trash } from "iconsax-react";
-import { ViewportWidth } from "../../utils/enums";
-import useAuth from "../../app/useAuth";
-import AuthModal from "./authModal";
-import RoundedButton from "./RoundedButton";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import useOrderStore from "../../app/orderStore";
-import { EmptyState } from "../user/my-orders/orders.styles";
-import useProductStore from "../../app/productStore";
-import BillingAddress from "./BillingAddress";
-import { formatCurrency } from "../../utils/currencyFormat";
-import AlertCards from "./AlertCard";
-import { BaseUrl } from "../../utils/config";
-import { toast,ToastContainer } from 'react-toastify';
-import "react-toastify/dist/ReactToastify.css";
-import Navbar from "../../app/Nav";
-
+} from './product';
+import { AddCircle, MinusCirlce, Trash } from 'iconsax-react';
+import { ViewportWidth } from '../../utils/enums';
+import useAuth from '../../app/useAuth';
+import AuthModal from './authModal';
+import RoundedButton from './RoundedButton';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import useOrderStore from '../../app/orderStore';
+import { EmptyState } from '../user/my-orders/orders.styles';
+import useProductStore from '../../app/productStore';
+import BillingAddress from './BillingAddress';
+import { formatCurrency } from '../../utils/currencyFormat';
+import AlertCards from './AlertCard';
+import { BaseUrl } from '../../utils/config';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '../../app/Nav';
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -84,7 +83,7 @@ const TableRow = styled.tr`
     height: 52px;
     padding: 24px 39px 24px 40px;
     border-radius: 4px;
-    background: #fff;
+    /* background: #fff; */
 
     /* Categogy/5 */
     box-shadow: 0px 1px 13px 0px rgba(0, 0, 0, 0.05);
@@ -179,7 +178,7 @@ const CartPage = () => {
   const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
   const [isLoading, setLoading] = useState(false);
 
-  const { addOrder,orders, } = useOrderStore();
+  const { addOrder, orders } = useOrderStore();
   const initStore = useOrderStore((state) => state.init);
 
   useEffect(() => {
@@ -187,12 +186,13 @@ const CartPage = () => {
     initStore();
   }, []);
 
-  const { shppingFee, address, positionPoint, distance ,consumerPhoneNumber} = useProductStore();
+  const { shppingFee, address, positionPoint, distance, consumerPhoneNumber } =
+    useProductStore();
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.qnty,
     0
   );
-  const [showModal, setShowModal] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
   const orderData = cartItems.map((item) => {
     return {
@@ -207,11 +207,14 @@ const CartPage = () => {
 
   const handleCheckoutClick = async () => {
     if (address === null || consumerPhoneNumber === '') {
-      toast.error("Please ensure all required fields are filled out correctly and try again.", {
-        position: 'top-right',
-      });
+      toast.error(
+        'Please ensure all required fields are filled out correctly and try again.',
+        {
+          position: 'top-right',
+        }
+      );
       return;
-    } 
+    }
     // refreshAccessToken();
     if (isAuthenticated && orderData?.length > 0) {
       const data = {
@@ -221,32 +224,27 @@ const CartPage = () => {
         },
         distance: Number(distance?.toFixed(1)),
         deliveryPoint: positionPoint,
-        consumerPhoneNumber
+        consumerPhoneNumber,
       };
-
 
       try {
         setLoading(true);
 
-        const response = await axios.post(
-          `${BaseUrl}/orders`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Content-Type": "application/json",
-            },
-          }
-        );
+        const response = await axios.post(`${BaseUrl}/orders`, data, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+        });
         // await initiateCheckout(response.data.orderId);
 
         // addOrder(response.data);
         if (response.status === 201) {
-          navigate(`/summary?id=${response.data.orderId}`)
+          navigate(`/summary?id=${response.data.orderId}`);
         }
       } catch (error) {
         if (error.response.status === 500) {
-          toast.error("Please Try one more time.", {
+          toast.error('Please Try one more time.', {
             position: 'top-right',
           });
           await refreshAccessToken()
@@ -261,12 +259,12 @@ const CartPage = () => {
     } else {
       // Show the modal for sign-in or sign-up
 
-      setShowModal(true);
+      setShowAuthModal(true);
     }
   };
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowAuthModal(false);
   };
 
   const initiateCheckout = async (orderId) => {
@@ -280,7 +278,7 @@ const CartPage = () => {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -293,7 +291,7 @@ const CartPage = () => {
     } catch (error) {
       setLoading(false);
 
-      console.error("Error initiating checkout:", error);
+      console.error('Error initiating checkout:', error);
     } finally {
       setLoading(false);
     }
@@ -315,9 +313,9 @@ const CartPage = () => {
         {cartItems?.length < 1 ? (
           <>
             <EmptyState>
-              <img src="/src/assets/emptycart.svg" alt="favorites" />
-              <div className="text-container">
-                <p className="bold">Empty Cart!</p>
+              <img src='/src/assets/emptycart.svg' alt='favorites' />
+              <div className='text-container'>
+                <p className='bold'>Empty Cart!</p>
                 <p>Your shopping cart is empty</p>
               </div>
             </EmptyState>
@@ -336,18 +334,25 @@ const CartPage = () => {
               </thead>
               <tbody>
                 {cartItems?.map((item) => (
-                  <TableRow key={item?.id}>
+                  <TableRow
+                    key={item?.id}
+                    // style={{
+                    //   background: !item.available ? 'D9D9D9' : 'transparent',
+                    //   opacity: !item.available ? 0.4 : 1,
+                    // }}
+                    // className={`${!item.available ? 'emptyCartRow' : ''} `}
+                  >
                     <TableCell>
                       <FlexContainer>
                         <div>
-                          {" "}
+                          {' '}
                           <img
                             src={item.imageUrl}
                             alt={item.name}
                             style={{
-                              width: "50px",
+                              width: '50px',
                               // marginTop: "15px",
-                              margin: "0 15px",
+                              margin: '0 15px',
                             }}
                           />
                         </div>
@@ -355,7 +360,7 @@ const CartPage = () => {
                           <div
                             style={{
                               // width: "50px",
-                              marginTop: "10px",
+                              marginTop: '10px',
                               // marginLeft: "15px",
                             }}
                           >
@@ -370,7 +375,7 @@ const CartPage = () => {
                         <CounterContainer>
                           {/* <span>Q</span> */}
                           <CircleButton
-                            style={{ background: "tomato" }}
+                            style={{ background: 'tomato' }}
                             disabled={item?.qnty === 0}
                             onClick={() => decreaseQuantity(item?.productId)}
                           >
@@ -379,7 +384,7 @@ const CartPage = () => {
                           <CountDisplay>{Number(item?.qnty)}</CountDisplay>
 
                           <CircleButton
-                            style={{ background: "green" }}
+                            style={{ background: 'green' }}
                             onClick={() => handleIncrement(item)}
                           >
                             +
@@ -393,9 +398,9 @@ const CartPage = () => {
                     <TableCell>
                       <CircleButton
                         onClick={() => removeFromCart(item?.productId)}
-                        style={{ background: "transparent" }}
+                        style={{ background: 'transparent' }}
                       >
-                        <Trash size="22" color="red" />
+                        <Trash size='22' color='red' />
                       </CircleButton>
                     </TableCell>
                   </TableRow>
@@ -411,24 +416,19 @@ const CartPage = () => {
             )} */}
             <TotalContainer>
               <TotalCover>
-                <div>
-                
-                </div>
+                <div></div>
               </TotalCover>
               <TotalCover>
-              <ListItem>
+                <ListItem>
                   <div>Total:</div>
-                  <div>
-                    {" "}
-                    {formatCurrency(Number(subtotal))}
-                  </div>
+                  <div> {formatCurrency(Number(subtotal))}</div>
                 </ListItem>
-              <BillingAddress />
+                <BillingAddress />
                 {/* <ListItem>
                   <div>Subtotal:</div>
                   <div> {formatCurrency(subtotal)}</div>
                 </ListItem> */}
-               
+
                 {/* <BtnCover>
                   <ModCartButton
                     loading={isLoading}
@@ -444,24 +444,24 @@ const CartPage = () => {
           </div>
         )}
       </CartContainer>
-      {showModal && (
+      {showAuthModal && (
         <AuthModal onClose={closeModal}>
           <Title>Please sign in or sign up to proceed.</Title>
           <RoundedButton
-            backgroundColor="#0E5D37"
-            onClick={() => navigate("/login?ref=cart")}
+            backgroundColor='#0E5D37'
+            onClick={() => navigate('/login?ref=cart')}
             // loading={loading}
             // spaceTop="10px"
-            spaceBottom="10px"
+            spaceBottom='10px'
           >
             Sign In
           </RoundedButton>
           <RoundedButton
-            backgroundColor="#F06D06"
-            onClick={() => navigate("/register?ref=cart")}
+            backgroundColor='#F06D06'
+            onClick={() => navigate('/register?ref=cart')}
             // loading={loading}
-            spaceTop="10px"
-            spaceBottom="10px"
+            spaceTop='10px'
+            spaceBottom='10px'
           >
             Sign Up
           </RoundedButton>
