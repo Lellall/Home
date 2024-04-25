@@ -249,7 +249,7 @@ const CartPage = () => {
           toast.error("Please Try one more time.", {
             position: 'top-right',
           });
-          refreshAccessToken()
+          await refreshAccessToken()
 
         }
         setLoading(false);
