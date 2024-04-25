@@ -11,13 +11,16 @@ import {
 import OrderTable from './orderTable';
 import useOrderStore from '../../../app/orderStore';
 import useOrdersHistory from '../../../app/useOrdersHistory';
+import Pagination from 'rc-pagination';
 const Main = () => {
   const [currentTab, setCurrentTab] = useState(1);
-  const { ordersHistory, fetchOrdersHistory } = useOrdersHistory();
-  console.log('ordersHistory', ordersHistory);
+  const { ordersHistory, resultTotals, fetchOrdersHistory } =
+    useOrdersHistory();
+  console.log('ordersHistory', resultTotals);
   // const options = ['Pending (2)', 'Completed (0)'];
   // const [filteredOrders, setFilteredOrders] = useState([]);
   const [page, setPage] = useState(1);
+  const [status, setStatus] = useState('PENDING');
 
   // const { addOrder, orders } = useOrderStore();
   const initStore = useOrderStore((state) => state.init);
@@ -51,7 +54,8 @@ const Main = () => {
   };
   const acceptedFN = () => {
     setCurrentTab(2);
-    fetchOrdersHistory(page, 'ACCEPTED');
+    setStatus('ACCEPTED');
+    // fetchOrdersHistory(page, 'ACCEPTED');
   };
   const ongoingFN = () => {
     setCurrentTab(3);
@@ -66,6 +70,10 @@ const Main = () => {
     fetchOrdersHistory(page, 'CANCELED');
   };
 
+  const onChange = (pageNumber) => {
+    setPage(pageNumber);
+    fetchOrdersHistory(pageNumber, status);
+  };
   return (
     <MainContainer>
       <HeadingContainer>
@@ -90,7 +98,16 @@ const Main = () => {
       </TabContainer>
       <>
         {ordersHistory ? (
-          <OrderTable orders={ordersHistory} />
+          <>
+            <OrderTable orders={ordersHistory} />
+
+            <Pagination
+              onChange={onChange}
+              current={page}
+              total={resultTotals}
+              style={{ marginTop: 10, marginBottom: 10 }}
+            />
+          </>
         ) : (
           <EmptyState>
             <img src='/assets/user-order.svg' alt='favorites' />

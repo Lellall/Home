@@ -51,13 +51,16 @@ const OrderTable = ({ orders }) => {
           </tr>
         </thead>
         <tbody>
-          {orders.map((order) => (
+          {orders?.map((order) => (
             <tr key={order.orderId}>
               <Td>{order.paymentItems[0].productName}</Td>
               <StatusTd status={order.status}>{order.status}</StatusTd>
               <Td>&#x20A6;{order.paymentItems[0].price}</Td>
               <Td>{order.distance} km</Td>
-              <StatusTd style={{cursor:"pointer"}} status={order.status}> continue</StatusTd>
+              <StatusTd style={{ cursor: 'pointer' }} status={order.status}>
+                {' '}
+                continue
+              </StatusTd>
             </tr>
           ))}
         </tbody>

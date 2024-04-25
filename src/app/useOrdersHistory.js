@@ -6,6 +6,7 @@ import localforage from 'localforage';
 //expected status parameters: PENDING, ACCEPTED, ON_GOING, COMPLETED, CANCELED
 const useOrdersHistory = create((set) => ({
   ordersHistory: [],
+  resultTotals: 0,
 
   setOrdersHistory: (val) => set({ val }),
 
@@ -26,7 +27,10 @@ const useOrdersHistory = create((set) => ({
           'localforage.getItem::::',
           localforage.getItem('accessToken')
         );
-        set(() => ({ ordersHistory: newData }));
+        set(() => ({
+          ordersHistory: newData,
+          resultTotals: response.data.resultTotal,
+        }));
       } catch (error) {
         console.error('Error fetching orders:', error);
       }
