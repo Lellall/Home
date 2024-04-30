@@ -133,9 +133,6 @@ const BillingAddress = () => {
     //   return;
     // }
     // refreshAccessToken();
-    console.log('====================================');
-    console.log(orderData,'orderData');
-    console.log('====================================');
     if (isAuthenticated && orderData?.length > 0) {
       const data = {
         paymentItems: orderData,
@@ -163,7 +160,7 @@ const BillingAddress = () => {
           navigate(`/summary?id=${response.data.orderId}`);
         }
       } catch (error) {
-        if (error?.response?.status === 500) {
+        if (error?.response?.status === 401) {
           toast.error('Please Try one more time.', {
             position: 'top-right',
           });
