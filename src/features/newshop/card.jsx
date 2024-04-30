@@ -194,7 +194,9 @@ const ReusableCard = ({
         <CardContent>
           {/* <WishlistIcon onClick={onAddToWishlist}>&#10084;</WishlistIcon> */}
           {/* <Discount>{discount}</Discount> */}
-          <Discount>{isShopClose ? 'close' : 'open'} </Discount>
+          <Discount style={{ color: isShopClose ? '#FF8A65' : '#0E5D37' }}>
+            {isShopClose ? 'close' : 'open'}{' '}
+          </Discount>
           <Title>{title}</Title>
           <div
             style={{
