@@ -42,8 +42,10 @@ const Product = () => {
     increaseQuantity,
     decreaseQuantity,
   } = useShoppingCart();
-  const foundItem = cart.find((item) => item?.productId === id);
-
+  const foundItem = cart.find((item) => item?.id === id);
+console.log('====================================');
+console.log(foundItem);
+console.log('====================================');
   const buyNow = () => {
     if (exists) {
       navigate('/cart');
@@ -83,7 +85,7 @@ const Product = () => {
   };
   function isProductIdExist(id, cart) {
     for (const product of cart) {
-      if (product.productId === id) {
+      if (product.id === id) {
         return true; // Found a match
       }
     }

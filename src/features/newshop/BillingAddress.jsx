@@ -103,7 +103,7 @@ const BillingAddress = () => {
 
   const orderData = cartItems.map((item) => {
     return {
-      productId: item?.productId,
+      productId: item?.id,
       count: item?.qnty,
       productName: item?.name,
       price: item?.price * item?.qnty,
@@ -133,6 +133,9 @@ const BillingAddress = () => {
     //   return;
     // }
     // refreshAccessToken();
+    console.log('====================================');
+    console.log(orderData,'orderData');
+    console.log('====================================');
     if (isAuthenticated && orderData?.length > 0) {
       const data = {
         paymentItems: orderData,
