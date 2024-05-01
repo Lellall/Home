@@ -3,6 +3,7 @@ import create from "zustand";
 import axios from "axios";
 import { BaseUrl } from "../utils/config";
 import localforage from "localforage";
+import { toast } from "react-toastify";
 
 const useProductStore = create((set) => ({
   products: [],
@@ -89,6 +90,9 @@ const useProductStore = create((set) => ({
           },
         }
       );
+      toast.success(`Record updated successfully`, {
+        position: 'top-right',
+      });
       set({ isLoading: false, isOpen: false });
     } catch (error) {
       set({ isLoading: false, isOpen: false });

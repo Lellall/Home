@@ -77,7 +77,7 @@ const EditForm = ({ product, fetchProducts, current }) => {
   const updateProduct = useProductStore((state) => state.updateProduct);
 
   const handleSubmit = async () => {
-    await updateProduct({ available: selectedOption.value, price, id: product.productId });
+    await updateProduct({ available: selectedOption.value, price, id: product.id });
     await fetchProducts(current)
   };
 

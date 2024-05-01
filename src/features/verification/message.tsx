@@ -5,7 +5,7 @@ const Container = styled.div`
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #EAFEF1;
+  background-color: #eafef1;
   border: 1px solid #ddd;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -62,27 +62,35 @@ const OrderConfirmation = () => {
     <Container>
       <Title>Confirmation of Your Order and Next Steps</Title>
       <Message>
-        Thank you for your recent purchase with us. We are delighted to confirm that your payment was successfully processed.
+        Thank you for your recent purchase with us. We are delighted to confirm
+        that your payment was successfully processed.
       </Message>
       <Message>
-        Our team is dedicated to ensuring your satisfaction, and we want to assure you that we are already working on processing your order promptly. To provide you with the best service possible, a member of our team will be reaching out to you shortly to discuss the details of your order and confirm any specific requirements you may have.
+        Our team is dedicated to ensuring your satisfaction, and we want to
+        assure you that we are already working on processing your order
+        promptly. To provide you with the best service possible, a member of our
+        team will be reaching out to you shortly to discuss the details of your
+        order and confirm any specific requirements you may have.
       </Message>
       <Message>
-        Alternatively, if you have any urgent inquiries or wish to provide additional information, please don't hesitate to contact us directly at:
+        Alternatively, if you have any urgent inquiries or wish to provide
+        additional information, please don't hesitate to contact us directly at:
       </Message>
       <ContactInfo>
         <ContactHeading>Contact Information:</ContactHeading>
         <ContactMethod>
           <Icon>📞</Icon>
-          <PhoneNumber href="tel:09032254277">0903 225 4277</PhoneNumber>
+          <PhoneNumber href='tel:08100909430'>0810 090 9430</PhoneNumber>
         </ContactMethod>
         <ContactMethod>
           <Icon>✉️</Icon>
-          <EmailAddress href="mailto:Support@lellall.com">Support@lellall.com</EmailAddress>
+          <EmailAddress href='mailto:Support@lellall.com'>
+            Support@lellall.com
+          </EmailAddress>
         </ContactMethod>
       </ContactInfo>
     </Container>
   );
-}
+};
 
 export default OrderConfirmation;

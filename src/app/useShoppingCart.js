@@ -24,7 +24,7 @@ const useShoppingCart = create((set) => {
       }),
     removeFromCart: (id) =>
       set((state) => {
-        const updatedCart = state.cart.filter((item) => item.productId !== id);
+        const updatedCart = state.cart.filter((item) => item.id !== id);
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return { cart: updatedCart };
       }),
@@ -32,7 +32,7 @@ const useShoppingCart = create((set) => {
       set((state) => {
         console.log(id, "updatedCart");
         const updatedCart = state.cart.map((item) =>
-          item.productId === id ? { ...item, qnty: item.qnty + 1 } : item
+          item.id === id ? { ...item, qnty: item.qnty + 1 } : item
         );
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return { cart: updatedCart };
@@ -41,7 +41,7 @@ const useShoppingCart = create((set) => {
       set((state) => {
         console.log(id, "updatedCart");
         const updatedCart = state.cart.map((item) =>
-          item.productId === id && item.qnty > 1
+          item.id === id && item.qnty > 1
             ? { ...item, qnty: item.qnty - 1 }
             : item
         );

@@ -21,6 +21,7 @@ import { SearchInp } from "../ui/base/navbar/navbar.styles";
 import Modal from "../../app/modal";
 import { useForm } from "react-hook-form";
 import EditForm from "../../app/editForm";
+import { ToastContainer } from "react-toastify";
 
 const Products = () => {
   // const fetchProducts = useProductStore((state) => state.fetchProducts);
@@ -70,9 +71,10 @@ const Products = () => {
     setSelected(product);
     openView();
   };
-  console.log(selected, "sele");
+
   return (
     <>
+     <ToastContainer />
       <Modal width="40%" show={isOpen} onClose={() => closeView()}>
         Edit Product
         <hr />
