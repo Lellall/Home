@@ -134,7 +134,7 @@ const OrderForRider = () => {
     const [selectedRow, setSelectedRow] = useState();
     // const [showModal, setShowModal] = useState(false);
     const [orderId, setOrderId] = useState('');
-console.log(incompleteOrders,'incompleteOrders');
+    console.log(incompleteOrders, 'incompleteOrders');
 
     const handleComplete = (id) => {
         setOrderId(id)
@@ -167,7 +167,7 @@ console.log(incompleteOrders,'incompleteOrders');
     };
 
     return (
-        <div>
+        <div style={{ width: "100%" }}>
             <TableWrapper>
                 <Table>
                     <TableHead>
