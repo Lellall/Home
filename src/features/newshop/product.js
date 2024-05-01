@@ -11,10 +11,16 @@ const Container = styled.main`
   gap: 20px;
   @media (max-width: 768px) {
     flex-direction: column;
-    max-height: 100vh;
+    max-height: 100%;
   }
 `;
-
+const BackButtonContainer = styled.div`
+  padding: 0.5rem 5rem;
+  margin-top: 7rem;
+  @media (max-width: 768px) {
+    padding: 0.5rem 1.5rem;
+  }
+`;
 const LeftColumn = styled.div`
   /* width: 50%; */
   min-width: 500px;
@@ -177,7 +183,7 @@ const CableConfigA = styled.a`
   display: inline-block;
 
   &:before {
-    content: '?';
+    content: '₦';
     height: 15px;
     width: 15px;
     border-radius: 50%;
@@ -254,6 +260,7 @@ const CountDisplay = styled.span`
 export {
   CounterContainer,
   CircleButton,
+  BackButtonContainer,
   CountDisplay,
   Container,
   LeftColumn,

@@ -1,18 +1,18 @@
-import { useEffect } from "react";
-import { Grid, Paper, createTheme, ThemeProvider, Hidden } from "@mui/material";
+import { useEffect } from 'react';
+import { Grid, Paper, createTheme, ThemeProvider, Hidden } from '@mui/material';
 
-import { Controller, useForm } from "react-hook-form";
-import styled from "styled-components";
-import axios from "axios";
+import { Controller, useForm } from 'react-hook-form';
+import styled from 'styled-components';
+import axios from 'axios';
 
-import InputWithIcon from "../../../components/inputs/input.component";
-import { MessageText, User, Mobile, Unlock } from "iconsax-react";
-import { RoundButton } from "../../../App";
-import Logo from "../logo";
-import useAuthStore from "../../../app/authStore";
-import useAuth from "../../../app/useAuth";
-import { ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import InputWithIcon from '../../../components/inputs/input.component';
+import { MessageText, User, Mobile, Unlock } from 'iconsax-react';
+import { RoundButton } from '../../../App';
+import Logo from '../logo';
+import useAuthStore from '../../../app/authStore';
+import useAuth from '../../../app/useAuth';
+import { ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 const ActionCover = styled.div`
   display: flex;
@@ -65,67 +65,67 @@ const ModButton = styled(RoundButton)`
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#0E5D37",
+      main: '#0E5D37',
     },
   },
 });
 
 const styles = {
   container: {
-    height: "100vh",
+    height: '100vh',
     margin: 0,
     padding: 0,
   },
   leftPane: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-    border: "none",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    border: 'none',
     // backgroundColor: theme.palette.primary.main,
-    color: "#fff",
-    boxShadow: "none",
+    color: '#fff',
+    boxShadow: 'none',
   },
   contain: {
-    height: "100dvh",
-    margin: "0 30px",
-    borderRadius: "8px",
+    height: '100dvh',
+    margin: '0 30px',
+    borderRadius: '8px',
     // width: "60dvh",
-    backgroundImage: 'url("src/assets/fresh.svg")', // Replace with the path to your image
-    backgroundSize: "contain",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "right",
+    backgroundImage: 'url("src/assets/NewLogin.svg")', // Replace with the path to your image
+    backgroundSize: 'contain',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right',
     // background: "#F06D06",
-    marginRight: "-2rem",
-    width: "100%",
+    marginRight: '-2rem',
+    width: '90%',
   },
   rightPane: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px",
-    height: "100%",
-    boxShadow: "none",
-    border: "none",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: '20px',
+    height: '100%',
+    boxShadow: 'none',
+    border: 'none',
     // width: '60%',
   },
   form: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    width: "100%",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    width: '100%',
     // margin:"10px 20px",
     // maxWidth: "100%",
-    marginTop: "20px", // Add margin to create space between tabs and form
-    overFlowY: "hidden",
+    marginTop: '20px', // Add margin to create space between tabs and form
+    overFlowY: 'hidden',
   },
   textField: {
-    margin: "10px 0",
+    margin: '10px 0',
   },
   button: {
-    margin: "20px 0",
+    margin: '20px 0',
   },
   tab: {
     // No specific styling for tabs in this example
@@ -141,14 +141,14 @@ const Login = () => {
   } = useForm();
   const navigate = useNavigate();
 
-  const password = watch("password", "");
+  const password = watch('password', '');
   const { isLoading, register } = useAuth();
   const onSubmit = async (data) => {
     const { confirmPassword, ...rest } = data;
     const formData = {
       ...rest,
-      platformType: "WEB",
-      role: "CONSUMER",
+      platformType: 'WEB',
+      role: 'CONSUMER',
     };
     console.log(rest);
     try {
@@ -175,44 +175,44 @@ const Login = () => {
         <Grid item xs={12} md={6}>
           <Paper elevation={3} style={styles.rightPane}>
             <Logo />
-            <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <div style={{ marginTop: '20px', textAlign: 'center' }}>
               <div
                 style={{
-                  color: "#333",
-                  marginLeft: "-10px",
-                  marginTop: "10px",
-                  fontSize: "18px",
-                  fontWeight: "bold",
+                  color: '#333',
+                  marginLeft: '-10px',
+                  marginTop: '10px',
+                  fontSize: '18px',
+                  fontWeight: 'bold',
                 }}
               >
                 Sign Up
               </div>
               <div
                 style={{
-                  color: "#AAAAAA",
-                  marginLeft: "5px",
-                  marginTop: "15px",
+                  color: '#AAAAAA',
+                  marginLeft: '5px',
+                  marginTop: '15px',
                 }}
               >
                 Create Your Account - Sign Up Now
               </div>
             </div>
-            <Cover style={{ margin: "60px auto" }}>
+            <Cover style={{ margin: '60px auto' }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
                     <Controller
-                      name="firstName"
+                      name='firstName'
                       control={control}
                       rules={{
-                        required: "First name is required",
+                        required: 'First name is required',
                       }}
                       render={({ field }) => (
                         <InputWithIcon
                           icon={User}
-                          label="First Name"
-                          type="text"
-                          placeholder="Enter first name"
+                          label='First Name'
+                          type='text'
+                          placeholder='Enter first name'
                           {...field}
                           hasError={errors.firstName ? true : false}
                           errorMessage={
@@ -224,17 +224,17 @@ const Login = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Controller
-                      name="lastName"
+                      name='lastName'
                       control={control}
                       rules={{
-                        required: "Last name is required",
+                        required: 'Last name is required',
                       }}
                       render={({ field }) => (
                         <InputWithIcon
                           icon={User}
-                          label="Last Name"
-                          type="text"
-                          placeholder="Enter Last name"
+                          label='Last Name'
+                          type='text'
+                          placeholder='Enter Last name'
                           {...field}
                           hasError={errors.lastName ? true : false}
                           errorMessage={
@@ -246,22 +246,22 @@ const Login = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Controller
-                      name="phoneNumber"
+                      name='phoneNumber'
                       control={control}
                       rules={{
-                        required: "Phone number is required",
+                        required: 'Phone number is required',
                         pattern: {
                           value: /^\d{11,14}$/,
                           message:
-                            "Phone number must be between 11 and 14 digits and only number.",
+                            'Phone number must be between 11 and 14 digits and only number.',
                         },
                       }}
                       render={({ field }) => (
                         <InputWithIcon
                           icon={Mobile}
-                          label="Phone Number"
-                          type="text"
-                          placeholder="Enter your phone number"
+                          label='Phone Number'
+                          type='text'
+                          placeholder='Enter your phone number'
                           {...field}
                           hasError={errors.phoneNumber ? true : false} // Changed 'phone' to 'phoneNumber'
                           errorMessage={
@@ -273,21 +273,21 @@ const Login = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Controller
-                      name="email"
+                      name='email'
                       control={control}
                       rules={{
-                        required: "Email is required",
+                        required: 'Email is required',
                         pattern: {
                           value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                          message: "Invalid email address",
+                          message: 'Invalid email address',
                         },
                       }}
                       render={({ field }) => (
                         <InputWithIcon
                           icon={MessageText}
-                          label="Email"
-                          type="email"
-                          placeholder="Enter your email"
+                          label='Email'
+                          type='email'
+                          placeholder='Enter your email'
                           {...field}
                           hasError={errors.email ? true : false}
                           errorMessage={errors.email && errors.email.message}
@@ -297,27 +297,27 @@ const Login = () => {
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <Controller
-                      name="password"
+                      name='password'
                       control={control}
                       rules={{
-                        required: "Password is required",
+                        required: 'Password is required',
                         minLength: {
                           value: 8,
                           message:
-                            "Password must be at least 8 characters long",
+                            'Password must be at least 8 characters long',
                         },
                         pattern: {
                           value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/,
                           message:
-                            "Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, and one number",
+                            'Password must contain a minimum of eight characters, at least one uppercase letter, one lowercase letter, and one number',
                         },
                       }}
                       render={({ field }) => (
                         <InputWithIcon
                           icon={Unlock}
-                          label="Password"
-                          type="password"
-                          placeholder="Enter your password"
+                          label='Password'
+                          type='password'
+                          placeholder='Enter your password'
                           {...field}
                           hasError={!!errors.password}
                           errorMessage={
@@ -331,19 +331,19 @@ const Login = () => {
                   {/* Confirm Password field */}
                   <Grid item xs={12} sm={6}>
                     <Controller
-                      name="confirmPassword"
+                      name='confirmPassword'
                       control={control}
                       rules={{
-                        required: "Confirm Password is required",
+                        required: 'Confirm Password is required',
                         validate: (value) =>
-                          value === password || "Passwords do not match",
+                          value === password || 'Passwords do not match',
                       }}
                       render={({ field }) => (
                         <InputWithIcon
                           icon={Unlock}
-                          label="Confirm Password"
-                          type="password"
-                          placeholder="Enter your password"
+                          label='Confirm Password'
+                          type='password'
+                          placeholder='Enter your password'
                           {...field}
                           hasError={!!errors.confirmPassword}
                           errorMessage={
@@ -357,12 +357,12 @@ const Login = () => {
                 </Grid>
                 <ActionCover
                   style={{
-                    margin: "15px 0",
-                    cursor: "pointer",
-                    fontSize: "14px",
+                    margin: '15px 0',
+                    cursor: 'pointer',
+                    fontSize: '14px',
                   }}
                 >
-                  <div style={{ color: "#AAAAAA", marginLeft: "5px" }}></div>
+                  <div style={{ color: '#AAAAAA', marginLeft: '5px' }}></div>
                 </ActionCover>
                 {/* <ActionCover>
                   <div style={{ color: "#AAAAAA", display: "flex" }}>
@@ -440,36 +440,36 @@ const Login = () => {
                 <ActionCover>
                   <div>
                     <ModButton
-                      bgColor="#0E5D37"
-                      textColor="#fff"
+                      bgColor='#0E5D37'
+                      textColor='#fff'
                       outlined
-                      variant="contained"
-                      type="submit"
+                      variant='contained'
+                      type='submit'
                       onClick={onSubmit}
                       loading={isLoading}
                     >
-                      {isLoading ? "Signing up...." : "Sign up"}
+                      {isLoading ? 'Signing up....' : 'Sign up'}
                     </ModButton>
                   </div>
                 </ActionCover>
               </form>
               <hr
-                style={{ margin: "20px 0", borderTop: "0.2px dotted #ccc" }}
+                style={{ margin: '20px 0', borderTop: '0.2px dotted #ccc' }}
               />
-              <div style={{ textAlign: "center", color: "#808080" }}>
+              <div style={{ textAlign: 'center', color: '#808080' }}>
                 <div
                   style={{
-                    color: "#808080",
-                    fontSize: "11px",
-                    marginBottom: "5px",
+                    color: '#808080',
+                    fontSize: '11px',
+                    marginBottom: '5px',
                   }}
                 >
-                  {" "}
+                  {' '}
                   already have an account
                 </div>
                 <div
-                  style={{ color: "#808080", cursor: "pointer" }}
-                  onClick={() => navigate("/login")}
+                  style={{ color: '#808080', cursor: 'pointer' }}
+                  onClick={() => navigate('/login')}
                 >
                   Sign in
                 </div>
