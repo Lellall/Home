@@ -134,6 +134,7 @@ const OrderForRider = () => {
     const [selectedRow, setSelectedRow] = useState();
     // const [showModal, setShowModal] = useState(false);
     const [orderId, setOrderId] = useState('');
+    console.log(incompleteOrders, 'incompleteOrders');
 
     const handleComplete = (id) => {
         setOrderId(id)
@@ -166,7 +167,7 @@ const OrderForRider = () => {
     };
 
     return (
-        <div>
+        <div style={{ width: "100%" }}>
             <TableWrapper>
                 <Table>
                     <TableHead>
@@ -181,7 +182,7 @@ const OrderForRider = () => {
                         </TableHeadRow>
                     </TableHead>
                     <TableBody>
-                        {incompleteOrders?.map((item, ind) => (
+                        {incompleteOrders?.data?.map((item, ind) => (
                             <React.Fragment key={item.id}>
                                 <TableRow onClick={() => toggleExpand({ id: item.id, ind })}>
                                     <TableDataCell>{item.reference}</TableDataCell>

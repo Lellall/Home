@@ -1,7 +1,9 @@
 // src/store/productStore.js
-import create from 'zustand';
-import axios from 'axios';
-import { BaseUrl } from '../utils/config';
+import create from "zustand";
+import axios from "axios";
+import { BaseUrl } from "../utils/config";
+import localforage from "localforage";
+import { toast } from "react-toastify";
 
 const useProductStore = create((set) => ({
   products: [],
@@ -11,8 +13,10 @@ const useProductStore = create((set) => ({
   address: {},
   distance: null,
   positionPoint: {},
-  shppingFee: '',
-  consumerPhoneNumber: '',
+  shppingFee: "",
+  consumerPhoneNumber: "",
+  isLoading: false,
+  isOpen: false,
   setProducts: (products) => set({ products }),
   setPositionPoint: (pos) => set({ positionPoint: { ...pos } }),
   setDistance: (pos) => set({ distance: pos }),
@@ -28,7 +32,7 @@ const useProductStore = create((set) => ({
       const newData = response.data.data; // Assuming response.data.data is an array of products
       set((state) => ({ products: [...state.products, ...newData] }));
     } catch (error) {
-      console.error('Error fetching products:', error);
+      console.error("Error fetching products:", error);
     }
   },
   fetchCategories: async (page) => {
@@ -39,7 +43,7 @@ const useProductStore = create((set) => ({
       const newData = response.data.data; // Assuming response.data.data is an array of products
       set(() => ({ categories: newData }));
     } catch (error) {
-      console.error('Error fetching categories:', error);
+      console.error("Error fetching categories:", error);
     }
   },
   searchProducts: async (val) => {
@@ -50,7 +54,7 @@ const useProductStore = create((set) => ({
       );
       set({ productsSearched: response?.data?.data });
     } catch (error) {
-      console.error('Error searching data:', error);
+      console.error("Error searching data:", error);
     }
   },
   searchProductsByCategory: async (categoryId) => {
@@ -60,7 +64,38 @@ const useProductStore = create((set) => ({
       );
       set({ products: response?.data?.data });
     } catch (error) {
-      console.error('Error searching data:', error);
+      console.error("Error searching data:", error);
+    }
+  },
+  openView: async () => {
+    set({ isOpen: true });
+  },
+  closeView: async () => {
+    set({ isOpen: false });
+  },
+  updateProduct: async (product) => {
+    const token = await localforage.getItem("accessToken");
+    try {
+      set({ isLoading: true });
+      await axios.patch(
+        `${BaseUrl}/products/${product.id}`,
+        {
+          isAvailable: product.available,
+          price: product.price,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      toast.success(`Record updated successfully`, {
+        position: 'top-right',
+      });
+      set({ isLoading: false, isOpen: false });
+    } catch (error) {
+      set({ isLoading: false, isOpen: false });
     }
   },
 }));

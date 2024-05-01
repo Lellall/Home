@@ -95,13 +95,13 @@ const styles = {
     margin: '0 30px',
     borderRadius: '8px',
     // width: "60dvh",
-    backgroundImage: 'url("src/assets/fresh.svg")', // Replace with the path to your image
+    backgroundImage: 'url("src/assets/NewLogin.svg")', // Replace with the path to your image
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'right',
-    // background: "#F06D06",
+    // background: '#F06D06',
     marginRight: '-2rem',
-    width: '100%',
+    width: '90%',
   },
   rightPane: {
     display: 'flex',

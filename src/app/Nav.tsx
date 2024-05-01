@@ -50,14 +50,15 @@ const SearchBar = styled.input`
 const MenuList = styled.ul`
   display: flex;
   list-style-type: none;
+
   margin: 0;
   padding: 0;
   transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
   transition: transform 0.3s ease;
-
+  align-items: right;
   @media (max-width: 768px) {
     flex-direction: column;
-    align-items: stretch;
+    // align-items: stretch;
     position: absolute;
     top: 60px;
     left: 0;

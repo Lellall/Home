@@ -103,7 +103,7 @@ const BillingAddress = () => {
 
   const orderData = cartItems.map((item) => {
     return {
-      productId: item?.productId,
+      productId: item?.id,
       count: item?.qnty,
       productName: item?.name,
       price: item?.price * item?.qnty,
@@ -160,7 +160,7 @@ const BillingAddress = () => {
           navigate(`/summary?id=${response.data.orderId}`);
         }
       } catch (error) {
-        if (error?.response?.status === 500) {
+        if (error?.response?.status === 401) {
           toast.error('Please Try one more time.', {
             position: 'top-right',
           });
