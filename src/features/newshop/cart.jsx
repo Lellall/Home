@@ -3,13 +3,14 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useShoppingCart from '../../app/useShoppingCart';
 import {
+  BackButtonContainer,
   CableConfig,
   CartButton,
   CircleButton,
   CountDisplay,
   CounterContainer,
 } from './product';
-import { AddCircle, MinusCirlce, Trash } from 'iconsax-react';
+import { AddCircle, ArrowLeft, MinusCirlce, Trash } from 'iconsax-react';
 import { ViewportWidth } from '../../utils/enums';
 import useAuth from '../../app/useAuth';
 import AuthModal from './authModal';
@@ -32,7 +33,7 @@ const CartContainer = styled.div`
 
   // background:red;
   margin: 0 70px;
-  margin-top: 10rem;
+  /* margin-top: 10rem; */
   padding: 20px;
   font-family: open sans;
   @media (max-width: ${ViewportWidth.sm}px) {
@@ -40,7 +41,7 @@ const CartContainer = styled.div`
     width: 100%;
     margin: 0 10px;
     width: 80%;
-    margin-top: 5rem;
+    /* margin-top: 5rem; */
   }
 `;
 
@@ -247,8 +248,7 @@ const CartPage = () => {
           toast.error('Please Try one more time.', {
             position: 'top-right',
           });
-          await refreshAccessToken()
-
+          await refreshAccessToken();
         }
         setLoading(false);
       } finally {
@@ -308,6 +308,11 @@ const CartPage = () => {
     <>
       <Navbar />
       <ToastContainer />
+      <BackButtonContainer>
+        <h3 onClick={() => navigate('/')}>
+          <ArrowLeft size='32' />
+        </h3>
+      </BackButtonContainer>
       <CartContainer>
         <h2>My Cart</h2>
         {cartItems?.length < 1 ? (
