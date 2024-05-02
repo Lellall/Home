@@ -197,7 +197,7 @@ const CartPage = () => {
 
   const orderData = cartItems.map((item) => {
     return {
-      productId: item?.productId,
+      productId: item?.id,
       count: item?.qnty,
       productName: item?.name,
       price: item?.price * item?.qnty,
@@ -299,7 +299,7 @@ const CartPage = () => {
 
   const handleIncrement = (item) => {
     if (item.qnty < item.quantity) {
-      increaseQuantity(item.productId);
+      increaseQuantity(item.id);
     }
     return;
   };
@@ -382,7 +382,7 @@ const CartPage = () => {
                           <CircleButton
                             style={{ background: 'tomato' }}
                             disabled={item?.qnty === 0}
-                            onClick={() => decreaseQuantity(item?.productId)}
+                            onClick={() => decreaseQuantity(item?.id)}
                           >
                             -
                           </CircleButton>
@@ -402,7 +402,7 @@ const CartPage = () => {
                     </TableCell>
                     <TableCell>
                       <CircleButton
-                        onClick={() => removeFromCart(item?.productId)}
+                        onClick={() => removeFromCart(item?.id)}
                         style={{ background: 'transparent' }}
                       >
                         <Trash size='22' color='red' />
