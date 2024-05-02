@@ -1,11 +1,11 @@
-import axios from "axios";
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { getItemFromLocalForage } from "../utils/getItem";
-import useAuth from "./useAuth";
-import { BaseUrl } from "../utils/config";
-import { formatCurrency } from "../utils/currencyFormat";
-import { Button } from "@mui/material";
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import { getItemFromLocalForage } from '../utils/getItem';
+import useAuth from './useAuth';
+import { BaseUrl } from '../utils/config';
+import { formatCurrency } from '../utils/currencyFormat';
+import { Button } from '@mui/material';
 
 // Styled components for page layout
 const PageContainer = styled.div`
@@ -14,7 +14,7 @@ const PageContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-family: "Roboto", sans-serif; /* Use Roboto font */
+  font-family: 'Roboto', sans-serif; /* Use Roboto font */
 
   @media (max-width: 768px) {
     padding: 20px; /* Add padding for smaller screens */
@@ -56,7 +56,7 @@ const Message = styled.p`
 const Summary = () => {
   const [timeRemaining, setTimeRemaining] = useState(300);
   const [showRetry, setShowRetry] = useState(false);
-  const [status, setStatus] = useState("PENDING");
+  const [status, setStatus] = useState('PENDING');
   const { isAuthenticated, accessToken: token, refreshAccessToken } = useAuth();
   const [details, setDetails] = useState(null);
   const [summary, setSummary] = useState(null);
@@ -64,7 +64,7 @@ const Summary = () => {
   const [loadingOne, setLoadingOne] = useState(false);
 
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id");
+  const id = params.get('id');
 
   useEffect(() => {
     if (token) {
@@ -83,7 +83,7 @@ const Summary = () => {
       const data = response.data;
       setDetails(data);
       setLoadingOne(false);
-      if (data.status === "ACCEPTED") {
+      if (data.status === 'ACCEPTED') {
         initiateCheckout(id);
       } else {
         setStatus(data.status);
@@ -94,7 +94,7 @@ const Summary = () => {
       if (error.response && error.response.status === 500) {
         refreshAccessToken();
       }
-      console.error("Error fetching order status:", error);
+      console.error('Error fetching order status:', error);
     }
   };
 
@@ -110,11 +110,11 @@ const Summary = () => {
 
       const response = await axios.post(
         `${BaseUrl}/checkout/initiate`,
-        { orderId, paymentPlatform: "PAYSTACK" },
+        { orderId, paymentPlatform: 'PAYSTACK' },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
@@ -124,7 +124,7 @@ const Summary = () => {
       window.location.href = paymentUrl;
     } catch (error) {
       setLoading(false);
-      console.error("Error initiating checkout:", error);
+      console.error('Error initiating checkout:', error);
     } finally {
       setLoading(false);
     }
@@ -138,14 +138,14 @@ const Summary = () => {
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
 
       setSummary(response.data);
     } catch (error) {
-      console.error("Error fetching summary:", error);
+      console.error('Error fetching summary:', error);
     }
   };
 
@@ -170,26 +170,26 @@ const Summary = () => {
   const formatTime = (time) => {
     const minutes = Math.floor(time / 60);
     const seconds = time % 60;
-    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
 
   return (
     <PageContainer>
       <Title>Below are your order summary </Title>
-      <Illustration src="src/assets/summ.svg" alt="Illustration" />
+      <Illustration src='src/assets/undraw_receipt.svg' alt='Illustration' />
       <TimerContainer>
         <Message>You can proceed to pay for the items below thanks.</Message>
-        {loadingOne && "Loading summary, please wait..."}
+        {loadingOne && 'Loading summary, please wait...'}
         {summary && (
           <SummaryContainer>
             <SummaryHeader>Checkout summary</SummaryHeader>
             <SummaryItems>
-              {summary.items.map((item, index) => (
+              {summary?.items?.map((item, index) => (
                 <SummaryItem key={index}>
                   <ItemName>{item.name}</ItemName>
                   <ItemDetails>
                     <ItemCost>
-                      {item.type === "CHARGE"
+                      {item.type === 'CHARGE'
                         ? `${formatCurrency(item.amount)}`
                         : `${formatCurrency(item.amount)}`}
                     </ItemCost>
@@ -201,15 +201,15 @@ const Summary = () => {
             <TotalCost>
               <Button
                 style={{
-                  backgroundColor: "#FF725E",
-                  color: "white",
-                  fontSize: "11px",
-                  padding: "5px 10px",
+                  backgroundColor: '#FF725E',
+                  color: 'white',
+                  fontSize: '11px',
+                  padding: '5px 10px',
                 }}
                 onClick={() => initiateCheckout(id)}
                 disabled={loading}
               >
-                {loading ? "Initializing..." : "Proceed to pay now"}
+                {loading ? 'Initializing...' : 'Proceed to pay now'}
               </Button>
             </TotalCost>
           </SummaryContainer>
