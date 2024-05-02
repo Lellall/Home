@@ -92,7 +92,7 @@ const styles = {
     margin: '0 30px',
     borderRadius: '8px',
     // width: "60dvh",
-    backgroundImage: 'url("src/assets/NewLogin.svg")', // Replace with the path to your image
+    backgroundImage: 'url("src/assets/loginImage.png")', // Replace with the path to your image
     backgroundSize: 'contain',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'right',

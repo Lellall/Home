@@ -79,7 +79,7 @@ const Main = () => {
       <HeadingContainer>
         <HeadingText>Orders (2)</HeadingText>
       </HeadingContainer>
-      <TabContainer>
+      {/* <TabContainer>
         <StyledButton onClick={() => pendingFN()} active={currentTab === 1}>
           PENDING
         </StyledButton>
@@ -95,7 +95,7 @@ const Main = () => {
         <StyledButton onClick={() => canceledFN()} active={currentTab === 5}>
           CANCELED
         </StyledButton>
-      </TabContainer>
+      </TabContainer> */}
       <>
         {ordersHistory ? (
           <>

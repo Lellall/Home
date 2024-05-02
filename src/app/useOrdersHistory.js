@@ -15,7 +15,7 @@ const useOrdersHistory = create((set) => ({
     if (token !== null) {
       try {
         const response = await axios.get(
-          `${BaseUrl}/orders/consumer/history?page=${page}&size=10&status=${status}`,
+          `${BaseUrl}/orders/consumer/history?page=${page}&size=10`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
