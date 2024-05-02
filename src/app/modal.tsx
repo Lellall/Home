@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Modal({ onClose, show, children, style }) {
+function Modal({ onClose, show, children, width }) {
   return (
     <>
       {show && (
         <>
           <ModalOverlay>
-            <ModalContent style={style}>
+            <ModalContent width={width}>
               <CloseButton onClick={onClose}>X</CloseButton>
               {children}
             </ModalContent>
@@ -37,8 +37,6 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
-  /* background-color: transparent; */
-  /* background-color: red; */
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -56,9 +54,10 @@ const ModalContent = styled.div`
   align-items: center;
   flex-direction: column;
   position: relative;
-  width: 80%;
+  width: ${({ width }) => (width ? width : '80%')};
 
   @media only screen and (max-width: 768px) {
+    // width: ${({ width }) => (width ? width : '80%')};
     width: 80%;
   }
 `;

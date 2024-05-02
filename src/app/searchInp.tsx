@@ -107,7 +107,7 @@ const SearchComponent = () => {
 export default SearchComponent;
 
 const ResponsiveCard = styled.div`
-  width: 500px;
+  width: 400px;
   margin: 0 auto ;
   @media only screen and (max-width: 767px) {
     width: 250px;

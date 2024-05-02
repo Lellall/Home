@@ -13,11 +13,15 @@ import {
   TableWrapper,
 } from "../../app/orderForRider";
 import { TableBody } from "@mui/material";
-import { ArrowDown2 } from "iconsax-react";
+import { Menu } from "iconsax-react";
 import DropdownTableMenu from "../../app/dropDown";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
 import { SearchInp } from "../ui/base/navbar/navbar.styles";
+import Modal from "../../app/modal";
+import { useForm } from "react-hook-form";
+import EditForm from "../../app/editForm";
+import { ToastContainer } from "react-toastify";
 
 const Products = () => {
   // const fetchProducts = useProductStore((state) => state.fetchProducts);
@@ -41,27 +45,45 @@ const Products = () => {
   useEffect(() => {
     fetchProducts(current);
   }, [current]);
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
   const [isOpenList, setIsOpenList] = useState([]);
 
-  const [openMenuProductId, setOpenMenuProductId] = useState(null);
+  const [selected, setSelected] = useState(null);
 
-  const toggleDropdown = (index, productId) => {
-    setOpenMenuProductId(productId === openMenuProductId ? null : productId);
-    console.log(productId, "productId");
-    const newIsOpenList = [...isOpenList];
-    newIsOpenList[index] = !newIsOpenList[index];
-    setIsOpenList(newIsOpenList);
-  };
-  console.log(products);
+  // const toggleDropdown = (index, productId) => {
+  //   setOpenMenuProductId(productId === openMenuProductId ? null : productId);
+  //   console.log(productId, "productId");
+  //   const newIsOpenList = [...isOpenList];
+  //   newIsOpenList[index] = !newIsOpenList[index];
+  //   setIsOpenList(newIsOpenList);
+  // };
 
-  const menuItems = ["Change Availability", "Change Price"];
+  // const menuItems = ["Change Availability", "Change Price"];
   const handlePageClick = (page) => {
     setCurrent(page);
   };
 
+  const isOpen = useProductStore((state) => state.isOpen);
+  const openView = useProductStore((state) => state.openView);
+  const closeView = useProductStore((state) => state.closeView);
+
+  const openMenu = (product) => {
+    setSelected(product);
+    openView();
+  };
+
   return (
     <>
+     <ToastContainer />
+      <Modal width="40%" show={isOpen} onClose={() => closeView()}>
+        Edit Product
+        <hr />
+        <EditForm
+          product={selected}
+          fetchProducts={fetchProducts}
+          current={current}
+        />
+      </Modal>
       <SearchInp
         type="text"
         placeholder="What are you looking for?"
@@ -92,14 +114,22 @@ const Products = () => {
                   </TableDataCell>
                   <TableDataCell>{product.category?.name}</TableDataCell>
                   <TableDataCell>
-                    <button style={{ textAlign: "center", border: "none" }}>
-                      <DropdownTableMenu
-                        buttonText={<ArrowDown2 size="16" color="#FF8A65" />}
+                    <button
+                      style={{
+                        textAlign: "center",
+                        border: "none",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => openMenu(product)}
+                    >
+                      <Menu size="16" color="#FF8A65" />
+                      {/* <DropdownTableMenu
+                        buttonText={<Menu size="16" color="#FF8A65" />}
                         isOpen={isOpenList[index] || false}
                         toggleDropdown={() => toggleDropdown(index, product.id)} // Pass toggleDropdown function with index
                         menuItems={menuItems}
                         productId={product.id}
-                      />
+                      /> */}
                     </button>
                   </TableDataCell>
                 </TableRow>
