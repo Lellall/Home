@@ -3,4 +3,4 @@ const production = 'https://api.lellall.com';
 
 /// add an environment config to pick off automatically
 
-export const BaseUrl = development;
+export const BaseUrl = production;
