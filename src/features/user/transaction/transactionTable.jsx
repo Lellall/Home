@@ -22,6 +22,28 @@ const Td = styled.td`
   border-bottom: 1px solid #ddd;
 `;
 
+const Tag = styled.div`
+  padding: 5px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 14px;
+`;
+
+const CustomTag = styled(Tag)`
+  background: ${({ status }) => {
+    switch (status) {
+      case 'PENDING':
+        return '#ffa6004a';
+      case 'PROCESSING':
+        return '#0000ff55';
+      case 'COMPLETED':
+        return '#00800063';
+      default:
+        return 'transparent';
+    }
+  }};
+`;
+
 const StatusTd = styled(Td)`
   color: ${({ status }) => {
     switch (status) {
@@ -29,7 +51,7 @@ const StatusTd = styled(Td)`
         return 'orange';
       case 'PROCESSING':
         return 'blue';
-      case 'DELIVERED':
+      case 'COMPLETED':
         return 'green';
       default:
         return 'black';
@@ -44,28 +66,27 @@ const TransactionTable = ({ transactions }) => {
       <Table>
         <thead>
           <tr>
-            <Th>User Id</Th>
-            <Th>Amount</Th>
-            <Th>Status</Th>
+            <Th>S/N</Th>
             <Th>Order Id</Th>
+            <Th>Amount</Th>
+            <Th>Total Items</Th>
+            <Th>Status</Th>
             <Th> Platform</Th>
             <Th>Reference</Th>
           </tr>
         </thead>
         <tbody>
-          {transactions?.map((order) => (
+          {transactions?.map((order, index) => (
             <tr key={order.orderId}>
-              <Td>{order.userId}</Td>
-              <Td>{order.amount}</Td>
-              <StatusTd status={order.status}>{order.status}</StatusTd>
-              {/* <Td>&#x20A6;{order.paymentItems[0].price}</Td> */}
+              <Td>{++index}</Td>
               <Td>{order.orderId} </Td>
+              <Td>{order.amount}</Td>
+              <Td>{order.items.length}</Td>
+              <StatusTd status={order.status}>
+                <CustomTag status={order.status}>{order.status}</CustomTag>
+              </StatusTd>
               <Td>{order.paymentPlatform} </Td>
               <Td>{order.reference} </Td>
-              <StatusTd style={{ cursor: 'pointer' }}>
-                {' '}
-                {/* {order?.paymentItems?.length} */}
-              </StatusTd>
             </tr>
           ))}
         </tbody>

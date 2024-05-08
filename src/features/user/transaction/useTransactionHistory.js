@@ -22,9 +22,8 @@ const useTransactionHistory = create((set) => ({
             },
           }
         );
-        const newData = response.data.data;
         set(() => ({
-          transactionHistory: newData,
+          transactionHistory: response.data.data,
           resultTotals: response.data.resultTotal,
         }));
       } catch (error) {
