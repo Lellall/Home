@@ -20,47 +20,41 @@ import axios from "axios";
 import { RoundButton } from "../App";
 import useGlobalModalStore from "./useGlobalModal";
 import moment from "moment/moment";
-import ProductCarousel from "./bundle/bundle";
+import OTPInput from "react-otp-input";
+import Otp from "../assets/otp.svg";
+import "./input.css";
+import { ModButton } from "../features/auth/signup/signup";
 
 const TopSnacker = styled.div`
   display: flex;
-  // flex: 1;
-  justify-content: center;
-  // width: 100vw;
-  margin: 10px 10px;
-  @media (max-width: 768px) {
-   margin-top: 70px;
-  }
+  flex: 1;
+  // justify-content: space-between;
+  width: 100vw;
+  margin: 10px 15px;
 `;
 
 const TopSnackerColor = styled.div`
-  width: 70px;
+  width: 20px;
   border-radius: 4px;
-  background: #FF6F00;
+  background: #ffb000;
   color: transparent;
   height: 30px;
-  font-family: Raleway;
   margin-bottom: 20px;
-  clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%);
-  @media (max-width: 768px) {
-    margin: 0 5px;
-   }
 `;
 
 const Container = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
-  // margin: 20px 40px;
+  margin: 20px 40px;
   width: 100vw;
   @media (max-width: 912px) {
-    // margin: 20px 0px;
+    margin: 20px 0px;
   }
 `;
 const Categories = styled.div`
   width: 20%;
   // position: fixed;
-  // color: #FF6F00;
   box-sizing: border-box;
   // min-height: 100vh;
   background: #fff;
@@ -96,9 +90,11 @@ export const Cover = styled.div`
     padding: 0;
   }
 `;
-const Picks = styled.div`
-  margin: 10px auto;
-  width: 100%;
+const Timer = styled.div`
+  text-align: center;
+  font-size: 16px;
+  margin: 10px 0;
+  cursor: pointer;
 `;
 export const ContainerInf = styled.div`
   display: flex;
@@ -162,16 +158,41 @@ const CategoriesHeader = styled.h2`
   font-weight: 300;
   color: #43484d;
 `;
-const Text = styled.div`
-marginLeft: "10px",
-marginRight:'10px',
-fontSize: "25px",
-fontWeight: "400",
-color: "#004225",
-@media (max-width: 768px) {
-  fontSize: "15px",
-}
+const ModOtp = styled(OTPInput)`
+  .inputStyle {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+    border-radius: 9px;
+    border: 1px solid #dfe2e8;
+  }
+
+  @media (max-width: 768px) {
+    .inputStyle {
+      width: 30px;
+      height: 30px;
+      margin: 5px;
+      border-radius: 6px;
+    }
+  }
 `;
+const inputStyle = {
+  width: "50px",
+  height: "50px",
+  margin: "10px",
+  borderRadius: "9px",
+  border: "1px solid #DFE2E8",
+  "@media (max-width: 768px)": {
+    width: "10px",
+    height: "10px",
+    margin: "5px",
+    borderRadius: "6px",
+  },
+};
+
+const mediaQueryStyle = {};
+
+const mergedStyles = { ...inputStyle };
 
 const NewStore = () => {
   const navigate = useNavigate();
@@ -181,8 +202,32 @@ const NewStore = () => {
   const fetchProducts = useProductStore((state) => state.fetchProducts);
   const categories = useProductStore((state) => state.categories);
   const [modalOpen, setModalOpen] = useState(false);
+  const [otp, setOtp] = useState("");
   // const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isSelectCategory, setIsSelectCategory] = useState(false);
+  const [timer, setTimer] = useState(120); // 120 seconds = 2 minutes
+  const [buttonActive, setButtonActive] = useState(false);
+
+  useEffect(() => {
+    let intervalId;
+
+    if (timer > 0) {
+      intervalId = setInterval(() => {
+        setTimer(timer - 1);
+      }, 1000);
+    } else {
+      setButtonActive(true);
+    }
+
+    return () => clearInterval(intervalId);
+  }, [timer]);
+
+  const handleResendOTP = () => {
+    // Reset timer and button state
+    setTimer(120);
+    setButtonActive(false);
+  };
+
   const {
     setIsShopsClose,
     isShopsClose,
@@ -304,20 +349,6 @@ const NewStore = () => {
               {isSelectCategory ? "Clear Categories" : "Choose Categories"}
             </RoundButton>
           </CategoryButton>
-          {/* <div
-            style={{
-              marginTop: "60px",
-            }}
-          >
-            <TopSnacker>
-              <TopSnackerColor>heeo</TopSnackerColor>
-              <Text>Special Bundle Packages</Text>
-              <TopSnackerColor>heeo</TopSnackerColor>
-            </TopSnacker>
-          </div>
-          <div>
-            <ProductCarousel />
-          </div> */}
           <ContainerInf>
             <InfiniteScroll
               style={{ float: "center" }}
@@ -456,6 +487,44 @@ const NewStore = () => {
               );
             })}
           </ModalCategoryCont>
+        </>
+      </Modal>
+      <Modal
+        show={false}
+        onClose={() => setIsCategoryModalOpen(false)}
+        style={{ maxWidth: "650px" }}
+        width="650px"
+      >
+        <>
+          <CategoriesHeader>
+            <div>
+              <img width="150px" height="150px" src={Otp} alt="otp" />
+            </div>
+            <div style={{ textAlign: "center" }}>ENTER OTP</div>
+          </CategoriesHeader>
+          <ModalCategoryCont>
+            <ModOtp
+              value={otp}
+              onChange={setOtp}
+              numInputs={6}
+              containerStyle="otp-container"
+              inputStyle="inputStyle"
+              renderInput={(props) => <input {...props} />}
+            />
+          </ModalCategoryCont>
+          <Timer>Resend OTP in {timer} sec</Timer>
+          <ModButton
+            bgColor="#0E5D37"
+            textColor="#fff"
+            outlined
+            variant="contained"
+            type="submit"
+            // onClick={onSubmit}
+            // loading={isLoading}
+          >
+            {/* {isLoading ? "Signing up...." : "Sign up"} */}
+            Submit
+          </ModButton>
         </>
       </Modal>
 

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Slider from 'react-slick';
-import { Card } from './FavStores';
-import NewProducts, { ProdCard } from './Surface';
-import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
-import { ShopCard } from './features/shop/components';
-import styled from 'styled-components';
-import { BaseUrl } from './utils/config';
+import React, { useEffect, useState } from "react";
+import Slider from "react-slick";
+import { Card } from "./FavStores";
+import NewProducts, { ProdCard } from "./Surface";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import { ShopCard } from "./features/shop/components";
+import styled from "styled-components";
+import { BaseUrl } from "./utils/config";
 
 const MultipleItems = () => {
   const settings = {
@@ -55,7 +55,7 @@ const MultipleItems = () => {
   // console.log(shopData,'shopData');
 
   return (
-    <div style={{ width: '90%', margin: '0 auto', borderRadius: '8px' }}>
+    <div style={{ width: "90%", margin: "0 auto", borderRadius: "8px" }}>
       <Slider {...settings}>
         {/* {[...Array(6)].map((_, index) => (
           <div key={index}>
@@ -66,12 +66,12 @@ const MultipleItems = () => {
         {shopData?.map((shop) => (
           <div
             style={{
-              marginBottom: '20px',
-              display: 'flex',
-              justifyContent: 'center',
+              marginBottom: "20px",
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            <ShopCard width='10px' shop={shop} />
+            <ShopCard width="10px" shop={shop} />
           </div>
         ))}
       </Slider>
@@ -133,7 +133,7 @@ const MultipleProducts = () => {
         // Set the fetched data in the state
         setShopsData(response?.data?.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -144,9 +144,9 @@ const MultipleProducts = () => {
   return (
     <div
       style={{
-        background: 'transparent',
-        width: '100%',
-        borderRadius: '8px',
+        background: "transparent",
+        width: "100%",
+        borderRadius: "8px",
       }}
     >
       <Slider {...settings}>
@@ -154,9 +154,14 @@ const MultipleProducts = () => {
           <div key={index}>
             <ShopCardNew style={{ backgroundImage: `url(${shop.imageUrl})` }}>
               <InnerCard>
-                <h1>{shop.name}</h1>
-                <p>{shop?.description}</p>
-                <button onClick={() => navigate(`product/${shop?.id}`)}>
+                <StyledText style={{ fontSize: "25px" }}>
+                  {shop.name}
+                </StyledText>
+                <StyledText>{shop?.description}</StyledText>
+                <button
+                  style={{ marginLeft:'15px' }}
+                  onClick={() => navigate(`product/${shop?.id}`)}
+                >
                   Buy Now!
                 </button>
               </InnerCard>
@@ -172,7 +177,7 @@ export default MultipleProducts;
 
 export { MultipleItems, MultipleProducts };
 
-const ShopCardNew = styled.div`
+export const ShopCardNew = styled.div`
   // background-image: url(https://images.unsplash.com/photo-1488459716781-31db52582fe9?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D);
   background-repeat: no-repeat;
   overflow-x: hidden !important;
@@ -186,9 +191,12 @@ const ShopCardNew = styled.div`
   position: relative;
   overflow: hidden;
   color: #fff;
+  @media (max-width: 1044px) {
+    min-height: 30vh;
+  }
 `;
 
-const InnerCard = styled.div`
+export const InnerCard = styled.div`
   position: absolute;
   padding: 30px;
   border-radius: 0% 100% 100% 0% / 58% 0% 100% 88%;
@@ -210,7 +218,7 @@ const InnerCard = styled.div`
   height: 100%;
   // border-radius: 0% 100% 40% 60% / 100% 0% 100% 0%;
   // clip-path: polygon(0 0, 100% 0%, 75% 100%, 0 100%);
-  background-color: #004f0257;
+  background-color: #3a1900b0;
   // background-color: #ffffffcc;
   h1 {
     color: #fff;
@@ -245,5 +253,25 @@ const InnerCard = styled.div`
     /* padding-top: 10px; */
     box-shadow: none;
     border-radius: 0;
+  }
+`;
+
+const StyledText = styled.div`
+  font-size: 20px;
+  line-height: 1.5;
+  color: #fff;
+  padding: 20px;
+  font-weight: 500;
+  max-width: 1000px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+    padding: 10px;
+  }
+
+  @media (max-width: 576px) {
+    font-size: 16px;
+    padding: 5px;
   }
 `;

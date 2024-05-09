@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   Container,
   LeftColumn,
@@ -19,15 +19,16 @@ import {
   ProductPriceSpan,
   CartButton,
   BackButtonContainer,
-} from './product';
-import { Footer } from '../ui';
-import { useNavigate, useParams } from 'react-router-dom';
-import { BaseUrl } from '../../utils/config';
-import axios from 'axios';
-import useShoppingCart from '../../app/useShoppingCart';
-import { formatCurrency } from '../../utils/currencyFormat';
-import Navbar from '../../app/Nav';
-import { ArrowLeft } from 'iconsax-react';
+} from "./product";
+import { Footer } from "../ui";
+import { useNavigate, useParams } from "react-router-dom";
+import { BaseUrl } from "../../utils/config";
+import axios from "axios";
+import useShoppingCart from "../../app/useShoppingCart";
+import { formatCurrency } from "../../utils/currencyFormat";
+import Navbar from "../../app/Nav";
+import { ArrowLeft } from "iconsax-react";
+import ImageGallery from "react-image-gallery";
 
 const Product = () => {
   const [count, setCount] = useState(0);
@@ -44,16 +45,16 @@ const Product = () => {
     decreaseQuantity,
   } = useShoppingCart();
   const foundItem = cart.find((item) => item?.id === id);
-  console.log('====================================');
+  console.log("====================================");
   console.log(foundItem);
-  console.log('====================================');
+  console.log("====================================");
   const buyNow = () => {
     if (exists) {
-      navigate('/cart');
+      navigate("/cart");
       return;
     }
     addToCart(localProduct);
-    navigate('/cart');
+    navigate("/cart");
   };
 
   useEffect(() => {
@@ -63,17 +64,17 @@ const Product = () => {
         setLocalProduct(response.data);
       })
       .catch((error) => {
-        console.error('Error:', error.message);
+        console.error("Error:", error.message);
       });
   }, [id]);
 
   const handleToggleCart = () => {
     if (isProductInCart(localProduct.id)) {
       removeFromCart(localProduct.id);
-      console.log('Item removed from cart:', localProduct.name);
+      console.log("Item removed from cart:", localProduct.name);
     } else {
       addToCart(localProduct);
-      console.log('Item added to cart:', localProduct.name);
+      console.log("Item added to cart:", localProduct.name);
     }
   };
 
@@ -94,27 +95,40 @@ const Product = () => {
   }
   const exists = isProductIdExist(id, cart);
 
-  console.log(exists, 'exists');
-
+  const images = [
+    {
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+  ];
   return (
     <>
       <Navbar />
 
       <>
         <BackButtonContainer>
-          <h3 onClick={() => navigate('/')}>
-            <ArrowLeft size='32' />
+          <h3 onClick={() => navigate("/")}>
+            <ArrowLeft size="32" />
           </h3>
         </BackButtonContainer>
-        <Container style={{ margin: '1rem auto' }} className='container'>
+        <Container style={{ margin: "1rem auto" }} className="container">
           {/* Left Column / Headphones Image */}
           <LeftColumn>
-            <LeftColumnImage
-              data-image='red'
-              className='active'
+            {/* <LeftColumnImage
+              data-image="red"
+              className="active"
               src={localProduct?.imageUrl}
-              alt=''
-            />
+              alt=""
+            /> */}
+            <ImageGallery items={images} />
           </LeftColumn>
 
           {/* Right Column */}
@@ -135,13 +149,13 @@ const Product = () => {
             </ProductDescription>
 
             {/* Product Configuration */}
-            <div className='product-configuration'>
+            <div className="product-configuration">
               {exists && (
                 <CableConfig>
-                  <CounterContainer style={{ paddingBottom: '20px' }}>
+                  <CounterContainer style={{ paddingBottom: "20px" }}>
                     <span>Quantity:</span>
                     <CircleButton
-                      style={{ background: 'tomato' }}
+                      style={{ background: "tomato" }}
                       disabled={foundItem?.qnty === 0}
                       onClick={() => decreaseQuantity(id)}
                     >
@@ -150,7 +164,7 @@ const Product = () => {
                     <CountDisplay>{Number(foundItem?.qnty)}</CountDisplay>
 
                     <CircleButton
-                      style={{ background: 'green' }}
+                      style={{ background: "green" }}
                       onClick={() => increaseQuantity(id)}
                     >
                       +
@@ -159,8 +173,8 @@ const Product = () => {
                 </CableConfig>
               )}
             </div>
-            <div className='product-configuration'>
-              <CableConfigA href='#'>
+            <div className="product-configuration">
+              <CableConfigA href="#">
                 <ProductPriceSpan>
                   {localProduct?.currency} {localProduct?.price}
                 </ProductPriceSpan>
@@ -170,7 +184,7 @@ const Product = () => {
               {exists && (
                 <CartButton
                   onClick={() => removeFromCart(id)}
-                  className='cart-btn'
+                  className="cart-btn"
                 >
                   Remove from Cart
                 </CartButton>
@@ -178,16 +192,16 @@ const Product = () => {
               {!exists && (
                 <CartButton
                   onClick={() => addToCart(localProduct)}
-                  className='cart-btn'
+                  className="cart-btn"
                 >
                   Add to Cart
                 </CartButton>
               )}
 
               <CartButton
-                style={{ background: 'orange', cursor: 'pointer' }}
-                href='#'
-                className='cart-btn'
+                style={{ background: "orange", cursor: "pointer" }}
+                href="#"
+                className="cart-btn"
                 onClick={buyNow}
               >
                 Buy Now
@@ -197,8 +211,8 @@ const Product = () => {
         </Container>
       </>
 
-      <div style={{ marginTop: '5rem' }}></div>
-      <Footer style={{ marginTop: '50rem' }} />
+      <div style={{ marginTop: "5rem" }}></div>
+      <Footer style={{ marginTop: "50rem" }} />
     </>
   );
 };
