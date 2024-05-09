@@ -122,13 +122,13 @@ const Product = () => {
         <Container style={{ margin: "1rem auto" }} className="container">
           {/* Left Column / Headphones Image */}
           <LeftColumn>
-            {/* <LeftColumnImage
+            <LeftColumnImage
               data-image="red"
               className="active"
               src={localProduct?.imageUrl}
               alt=""
-            /> */}
-            <ImageGallery items={images} />
+            />
+            {/* <ImageGallery items={images} /> */}
           </LeftColumn>
 
           {/* Right Column */}
