@@ -192,7 +192,6 @@ const NewStore = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
-
   useEffect(() => {
     const updateWorkingHours = () => {
       const now = moment();
@@ -269,6 +268,38 @@ const NewStore = () => {
     setIsCategoryModalOpen(false);
     setIsSelectCategory(false);
   };
+  const [load, setLoad] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoad(false);
+    }, 3000);
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  if (load) {
+    return (
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <ColorRing
+          height='80'
+          width='80'
+          ariaLabel='color-ring-loading'
+          wrapperStyle={{ float: 'center' }}
+          wrapperClass='color-ring-wrapper'
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
+        />
+      </div>
+    );
+  }
 
   return (
     <>
