@@ -102,7 +102,7 @@ const ProductCarousel = ({ productsPerPage, products }) => {
               discount="20% OFF"
               imageUrl={product?.coverImageUrl}
               // isShopClose={isShopsClose}
-              onAddToWishlist={() => navigate(`product/${product?.id}`)}
+              onAddToWishlist={() => navigate(`bundle/${product?.id}`)}
             />
           </>
         ))}

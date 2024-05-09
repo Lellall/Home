@@ -21,6 +21,13 @@ const CardWrapper = styled.div`
     transform: scale(1.05);
   }
 
+  @media (max-width: 1280px) {
+    width: 90% !important;
+    max-width: 90% !important;
+    height: 300px;
+    margin: 20px;
+    margin-bottom: 16px;
+  }
   @media (max-width: 1044px) {
     width: 90% !important;
     max-width: 90% !important;
@@ -39,6 +46,10 @@ const Image = styled.img`
   width: 100%;
   height: 200px; /* Adjust the height as needed */
   object-fit: cover;
+  @media (max-width: 1280px) {
+    height: 220px;
+
+  }
   @media (max-width: 1044px) {
     height: 270px;
   }
