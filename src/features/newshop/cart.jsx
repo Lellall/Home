@@ -27,6 +27,7 @@ import { BaseUrl } from '../../utils/config';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../../app/Nav';
+import useGlobalModalStore from '../../app/useGlobalModal';
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -178,6 +179,7 @@ const CartPage = () => {
   } = useShoppingCart();
   const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
   const [isLoading, setLoading] = useState(false);
+  const isShopsClose = useGlobalModalStore((state) => state.isShopsClose);
 
   const { addOrder, orders } = useOrderStore();
   const initStore = useOrderStore((state) => state.init);
@@ -185,7 +187,7 @@ const CartPage = () => {
   useEffect(() => {
     // Initialize the store with data from localforage
     initStore();
-  }, []);
+  }, [isShopsClose]);
 
   const { shppingFee, address, positionPoint, distance, consumerPhoneNumber } =
     useProductStore();
@@ -428,7 +430,7 @@ const CartPage = () => {
                   <div>Total:</div>
                   <div> {formatCurrency(Number(subtotal))}</div>
                 </ListItem>
-                <BillingAddress />
+                <BillingAddress isShopsClose={isShopsClose} />
                 {/* <ListItem>
                   <div>Subtotal:</div>
                   <div> {formatCurrency(subtotal)}</div>
