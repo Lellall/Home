@@ -1,4 +1,5 @@
 import "./App.css";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 import { Button, Container, Typography } from "@mui/material";
 import BG from "../assets/BG.svg";

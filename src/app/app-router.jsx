@@ -35,6 +35,7 @@ import Summary from './tempSummary';
 import PrivacyPolicy from './privacy';
 import Products from '../features/user/products';
 import Transaction from '../features/user/transaction/transaction';
+import SingleBundle from './bundle/singleBundle';
 
 const theme = createTheme({
   typography: {
@@ -84,6 +85,7 @@ export function AppRouter() {
             <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route path='/check' element={<ProfessionalTable />} />
             <Route path='/product/:id' element={<Product />} />
+            <Route path='/bundle/:id' element={<SingleBundle />} />
             <Route
               path='/checkout/status'
               element={<TransactionStatusPage />}

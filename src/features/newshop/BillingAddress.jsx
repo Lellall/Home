@@ -21,7 +21,7 @@ const Title = styled.p`
   color: #333;
 `;
 
-const BillingAddress = () => {
+const BillingAddress = ({ isShopsClose }) => {
   const lat1 = 9.0698368;
   const lon1 = 7.464775700000001;
   const [customerPosition, setCustomerPosition] = useState('');
@@ -46,7 +46,7 @@ const BillingAddress = () => {
     distance,
     consumerPhoneNumber,
   } = useProductStore();
-  const isShopsClose = useGlobalModalStore((state) => state.isShopsClose);
+  // const isShopsClose = useGlobalModalStore((state) => state.isShopsClose);
 
   function calculateDistance(lat1, lon1, lat2, lon2) {
     // Earth's mean radius in kilometers
