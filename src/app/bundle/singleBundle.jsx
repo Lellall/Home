@@ -11,16 +11,14 @@ import {
   CounterContainer,
   CircleButton,
   CountDisplay,
-  CableChoose,
-  CableChooseButton,
   CableConfig,
   CableConfigA,
   ProductPrice,
   ProductPriceSpan,
   CartButton,
   BackButtonContainer,
-} from "./product";
-import { Footer } from "../ui";
+} from "../../features/newshop/product";
+import { Footer } from "../../features/ui";
 import { useNavigate, useParams } from "react-router-dom";
 import { BaseUrl } from "../../utils/config";
 import axios from "axios";
@@ -30,10 +28,10 @@ import Navbar from "../../app/Nav";
 import { ArrowLeft } from "iconsax-react";
 import ImageGallery from "react-image-gallery";
 
-const Product = () => {
+const SingleBundle = () => {
   const [count, setCount] = useState(0);
   const { id } = useParams();
-  const [localProduct, setLocalProduct] = useState(null);
+  const [localProduct, setLocalProduct] = useState([]);
   const navigate = useNavigate();
 
   const {
@@ -59,7 +57,7 @@ const Product = () => {
 
   useEffect(() => {
     axios
-      .get(`${BaseUrl}/products/${id}`)
+      .get(`${BaseUrl}/bundles/${id}`)
       .then((response) => {
         setLocalProduct(response.data);
       })
@@ -95,20 +93,13 @@ const Product = () => {
   }
   const exists = isProductIdExist(id, cart);
 
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+  const images = [...localProduct.images[0].map((img) => {
+    return  {
+        original: img,
+        thumbnail: img,
+      }
+  })]
+  console.log(images,'images');
   return (
     <>
       <Navbar />
@@ -120,15 +111,9 @@ const Product = () => {
           </h3>
         </BackButtonContainer>
         <Container style={{ margin: "1rem auto" }} className="container">
-          {/* Left Column / Headphones Image */}
           <LeftColumn>
-            <LeftColumnImage
-              data-image="red"
-              className="active"
-              src={localProduct?.imageUrl}
-              alt=""
-            />
-            {/* <ImageGallery items={images} /> */}
+          {localProduct?.length > 0 &&
+            <ImageGallery items={images ?? []} />}
           </LeftColumn>
 
           {/* Right Column */}
@@ -189,17 +174,9 @@ const Product = () => {
                   Remove from Cart
                 </CartButton>
               )}
-              {!exists && (
-                <CartButton
-                  onClick={() => addToCart(localProduct)}
-                  className="cart-btn"
-                >
-                  Add to Cart
-                </CartButton>
-              )}
 
               <CartButton
-                style={{ background: "orange", cursor: "pointer" }}
+                style={{ background: "orange", cursor: "pointer",width:"100%" }}
                 href="#"
                 className="cart-btn"
                 onClick={buyNow}
@@ -217,4 +194,4 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default SingleBundle;

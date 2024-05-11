@@ -27,6 +27,7 @@ import { BaseUrl } from '../../utils/config';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../../app/Nav';
+import useGlobalModalStore from '../../app/useGlobalModal';
 
 const CartContainer = styled.div`
   //   max-width: 600px;
@@ -178,6 +179,7 @@ const CartPage = () => {
   } = useShoppingCart();
   const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
   const [isLoading, setLoading] = useState(false);
+  const isShopsClose = useGlobalModalStore((state) => state.isShopsClose);
 
   const { addOrder, orders } = useOrderStore();
   const initStore = useOrderStore((state) => state.init);
@@ -185,7 +187,7 @@ const CartPage = () => {
   useEffect(() => {
     // Initialize the store with data from localforage
     initStore();
-  }, []);
+  }, [isShopsClose]);
 
   const { shppingFee, address, positionPoint, distance, consumerPhoneNumber } =
     useProductStore();
@@ -197,7 +199,7 @@ const CartPage = () => {
 
   const orderData = cartItems.map((item) => {
     return {
-      productId: item?.productId,
+      productId: item?.id,
       count: item?.qnty,
       productName: item?.name,
       price: item?.price * item?.qnty,
@@ -299,7 +301,7 @@ const CartPage = () => {
 
   const handleIncrement = (item) => {
     if (item.qnty < item.quantity) {
-      increaseQuantity(item.productId);
+      increaseQuantity(item.id);
     }
     return;
   };
@@ -386,7 +388,7 @@ const CartPage = () => {
                           <CircleButton
                             style={{ background: 'tomato' }}
                             disabled={item?.qnty === 0}
-                            onClick={() => decreaseQuantity(item?.productId)}
+                            onClick={() => decreaseQuantity(item?.id)}
                           >
                             -
                           </CircleButton>
@@ -406,7 +408,7 @@ const CartPage = () => {
                     </TableCell>
                     <TableCell>
                       <CircleButton
-                        onClick={() => removeFromCart(item?.productId)}
+                        onClick={() => removeFromCart(item?.id)}
                         style={{ background: 'transparent' }}
                       >
                         <Trash size='22' color='red' />
@@ -432,7 +434,7 @@ const CartPage = () => {
                   <div>Total:</div>
                   <div> {formatCurrency(Number(subtotal))}</div>
                 </ListItem>
-                <BillingAddress />
+                <BillingAddress isShopsClose={isShopsClose} />
                 {/* <ListItem>
                   <div>Subtotal:</div>
                   <div> {formatCurrency(subtotal)}</div>

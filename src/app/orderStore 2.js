@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import create from 'zustand';
 import localforage from 'localforage';
 
 const useOrderStore = create((set) => ({
@@ -19,9 +19,7 @@ const useOrderStore = create((set) => ({
   addOrder: async (order) => {
     set((state) => {
       // Check if an order with the same ID exists
-      const existingOrderIndex = state.orders.findIndex(
-        (o) => o.id === order.id
-      );
+      const existingOrderIndex = state.orders.findIndex((o) => o.id === order.id);
 
       if (existingOrderIndex !== -1) {
         // If an order with the same ID exists, replace it
