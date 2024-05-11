@@ -318,15 +318,19 @@ const CartPage = () => {
       <CartContainer>
         <h2>My Cart</h2>
         {cartItems?.length < 1 ? (
-          <>
+          <div>
             <EmptyState>
-              <img src='/src/assets/emptycart.svg' alt='favorites' />
+              <img
+                src='/src/assets/undraw_empty.svg'
+                alt='favorites'
+                width={'70%'}
+              />
               <div className='text-container'>
                 <p className='bold'>Empty Cart!</p>
                 <p>Your shopping cart is empty</p>
               </div>
             </EmptyState>
-          </>
+          </div>
         ) : (
           <div>
             <CartTable>
