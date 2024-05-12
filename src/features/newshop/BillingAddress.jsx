@@ -309,8 +309,9 @@ const BillingAddress = ({ isShopsClose }) => {
               We are currently closed
             </Title>
             <p>
-              Our shop is closed for the day. We will resume our regular
-              operating hours tomorrow at 10am until 5pm.
+              Our shop is closed for today. We will resume our regular operating
+              hours from Monday to Saturday, opening at 10 am and closing at 5
+              pm.
             </p>
           </AuthModal>
         </>
