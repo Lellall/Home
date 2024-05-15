@@ -338,7 +338,7 @@ const NewStore = () => {
                   : setIsCategoryModalOpen(true);
               }}
             >
-              {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
+              {isSelectCategory ? 'Clear Categories' : 'Choose Categories.'}
             </RoundButton>
           </CategoryButton>
           {/* <div
@@ -476,6 +476,10 @@ const NewStore = () => {
               return (
                 <div key={category.id} style={{ cursor: 'poiter' }}>
                   <ModalCategoryCard
+                    onTouchStart={() => {
+                      handleCategorySearch(category);
+                      setIsSelectCategory(true);
+                    }}
                     onClick={() => {
                       handleCategorySearch(category);
                       setIsSelectCategory(true);
