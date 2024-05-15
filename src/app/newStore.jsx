@@ -139,7 +139,8 @@ const ModalCategoryCont = styled.div`
   width: 100%;
   /* max-width: 400px; */
 `;
-const ModalCategoryCard = styled.div`
+const ModalCategoryCard = styled.button`
+  all: unset;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -476,10 +477,6 @@ const NewStore = () => {
               return (
                 <div key={category.id} style={{ cursor: 'poiter' }}>
                   <ModalCategoryCard
-                    onTouchStart={() => {
-                      handleCategorySearch(category);
-                      setIsSelectCategory(true);
-                    }}
                     onClick={() => {
                       handleCategorySearch(category);
                       setIsSelectCategory(true);
