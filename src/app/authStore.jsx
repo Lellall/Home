@@ -34,7 +34,9 @@ const useAuthStore = create((set) => ({
       await localforage.setItem("user", user);
     } catch (error) {
       set({ isLoading: false });
-      toast.error(`${error?.response?.data.message}`);
+      if (error?.response) {
+        toast.error(`${error?.response?.data.message}`);
+      }
       throw error;
     }
   },
@@ -86,12 +88,11 @@ const useAuthStore = create((set) => ({
       await localforage.setItem("user", user);
     } catch (error) {
       if (error.response) {
-        toast(`${error?.response?.data?.message}`)
+        toast(`${error?.response?.data?.message}`);
       }
-      
+
       set({ isLoading: false });
-      
-     
+
       throw error;
     }
   },
