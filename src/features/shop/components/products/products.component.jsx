@@ -1,32 +1,30 @@
 /* eslint-disable react/prop-types */
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid';
 import {
   MainContainer,
   StyledProducts,
   CategoryContainer,
   Category,
-} from "./products.styles";
-import SingleProduct from "../product/product.component";
+} from './products.styles';
+import SingleProduct from '../product/product.component';
 
-import { useState, useMemo } from "react";
+import { useState, useMemo } from 'react';
 
-import { Pagination } from "../../../ui";
-
+import { Pagination } from '../../../ui';
 
 let PageSize = 8;
 
 export default function Products({ products }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentCategory, setCurrentCategory] = useState("Top Sellers");
+  const [currentCategory, setCurrentCategory] = useState('Top Sellers');
 
   const categories = [
-    "Top Sellers",
-    "Drinks",
-    "Best Treats",
-    "Packaging",
-    "Reviews",
+    'Top Sellers',
+    'Drinks',
+    'Best Treats',
+    'Packaging',
+    'Reviews',
   ];
-
 
   // const currentProductsData = useMemo(() => {
   //   const firstPageIndex = (currentPage - 1) * PageSize;
@@ -38,8 +36,8 @@ export default function Products({ products }) {
   return (
     <MainContainer>
       <CategoryContainer>
-        <p className="heading">{currentCategory}</p>
-        <div className="categories">
+        <p className='heading'>{currentCategory}</p>
+        <div className='categories'>
           {categories.map((category, i) => (
             <Category
               key={i}
@@ -52,11 +50,7 @@ export default function Products({ products }) {
         </div>
       </CategoryContainer>
       <StyledProducts>
-        <Grid
-          container
-          rowSpacing={{ xs: 2, sm: 5, md: 5 }}
-          spacing={4}
-        >
+        <Grid container rowSpacing={{ xs: 2, sm: 5, md: 5 }} spacing={4}>
           {products?.map((product) => (
             <Grid item xs={12} sm={4} md={4} lg={3} key={product.id}>
               <SingleProduct product={product} />

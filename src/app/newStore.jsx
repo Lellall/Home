@@ -21,6 +21,7 @@ import { RoundButton } from '../App';
 import useGlobalModalStore from './useGlobalModal';
 import moment from 'moment/moment';
 import ProductCarousel from './bundle/bundle';
+import Pagination from 'rc-pagination';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -135,9 +136,9 @@ const ModalCategoryCont = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  /* max-width: 400px; */
+  justify-content: space-between;
+  /* width: 100%; */
+  max-width: 700px;
 `;
 const ModalCategoryCard = styled.div`
   display: flex;
@@ -176,10 +177,13 @@ color: "#004225",
 const NewStore = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
+  const [categoriesPage, setCategoriesPage] = useState(0);
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
   const categories = useProductStore((state) => state.categories);
+  const fetchCategories = useProductStore((state) => state.fetchCategories);
+  const categoriesTotal = useProductStore((state) => state.categoriesTotal);
   const [modalOpen, setModalOpen] = useState(false);
   // const [categoryModalOpen, setCategoryModalOpen] = useState(false);
   const [isSelectCategory, setIsSelectCategory] = useState(false);
@@ -192,6 +196,11 @@ const NewStore = () => {
   const closeModal = () => {
     setModalOpen(false);
   };
+
+  useEffect(() => {
+    fetchCategories(categoriesPage);
+  }, [categoriesPage]);
+
   useEffect(() => {
     const updateWorkingHours = () => {
       const now = moment();
@@ -306,6 +315,10 @@ const NewStore = () => {
       </div>
     );
   }
+
+  const onChange = (currentPage) => {
+    setCategoriesPage(currentPage - 1);
+  };
 
   return (
     <>
@@ -468,6 +481,7 @@ const NewStore = () => {
         show={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
         style={{ maxWidth: '450px' }}
+        width={'700px'}
       >
         <>
           <CategoriesHeader>Categories</CategoriesHeader>
@@ -494,6 +508,14 @@ const NewStore = () => {
             })}
           </ModalCategoryCont>
         </>
+
+        <Pagination
+          onChange={onChange}
+          current={categoriesPage + 1}
+          total={categoriesTotal}
+          showTitle={true}
+          defaultCurrent={1}
+        />
       </Modal>
 
       <div style={{ marginTop: '5rem' }}>

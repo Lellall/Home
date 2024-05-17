@@ -1,20 +1,21 @@
 // src/store/productStore.js
-import create from "zustand";
-import axios from "axios";
-import { BaseUrl } from "../utils/config";
-import localforage from "localforage";
-import { toast } from "react-toastify";
+import create from 'zustand';
+import axios from 'axios';
+import { BaseUrl } from '../utils/config';
+import localforage from 'localforage';
+import { toast } from 'react-toastify';
 
 const useProductStore = create((set) => ({
   products: [],
   productsSearched: [],
   categories: [],
+  categoriesTotal: 0,
   searchTerm: null,
   address: {},
   distance: null,
   positionPoint: {},
-  shppingFee: "",
-  consumerPhoneNumber: "",
+  shppingFee: '',
+  consumerPhoneNumber: '',
   isLoading: false,
   isOpen: false,
   setProducts: (products) => set({ products }),
@@ -32,18 +33,23 @@ const useProductStore = create((set) => ({
       const newData = response.data.data; // Assuming response.data.data is an array of products
       set((state) => ({ products: [...state.products, ...newData] }));
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   },
   fetchCategories: async (page) => {
+    console.log('page', page);
     try {
       const response = await axios.get(
-        `${BaseUrl}/categories/all-categories?page=${page}&size=10`
+        `${BaseUrl}/categories/all-categories?pageNo=${page}&pageSize=10`
       );
       const newData = response.data.data; // Assuming response.data.data is an array of products
-      set(() => ({ categories: newData }));
+      console.log('response', newData);
+      set(() => ({
+        categories: newData,
+        categoriesTotal: response.data.resultTotal,
+      }));
     } catch (error) {
-      console.error("Error fetching categories:", error);
+      console.error('Error fetching categories:', error);
     }
   },
   searchProducts: async (val) => {
@@ -54,7 +60,7 @@ const useProductStore = create((set) => ({
       );
       set({ productsSearched: response?.data?.data });
     } catch (error) {
-      console.error("Error searching data:", error);
+      console.error('Error searching data:', error);
     }
   },
   searchProductsByCategory: async (categoryId) => {
@@ -64,7 +70,7 @@ const useProductStore = create((set) => ({
       );
       set({ products: response?.data?.data });
     } catch (error) {
-      console.error("Error searching data:", error);
+      console.error('Error searching data:', error);
     }
   },
   openView: async () => {
@@ -74,7 +80,7 @@ const useProductStore = create((set) => ({
     set({ isOpen: false });
   },
   updateProduct: async (product) => {
-    const token = await localforage.getItem("accessToken");
+    const token = await localforage.getItem('accessToken');
     try {
       set({ isLoading: true });
       await axios.patch(
@@ -86,7 +92,7 @@ const useProductStore = create((set) => ({
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
         }
       );
