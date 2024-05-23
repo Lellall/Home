@@ -19,7 +19,6 @@ const persistConfig = {
   storage,
 };
 const combineReducer = combineReducers({
-  //  add  combineReducers
   [baseApi.reducerPath]: baseApi.reducer,
 });
 const rootReducer = (state, action) => {
@@ -29,8 +28,6 @@ const rootReducer = (state, action) => {
   }
   return combineReducer(state, action);
 };
-
-// const middleWares = [authApi.middleware];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({

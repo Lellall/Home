@@ -1,10 +1,9 @@
-import { baseApi } from '../../redux/base-api';
+import { baseApi } from "../../redux/base-api";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     login: builder.query({
-      query: () => 'auth/login',
-      //   providesTags: [''],
+      query: () => "auth/login",
       async onQueryStarted(_args, { queryFulfilled: qf }) {
         qf.then((res) => {
           console.log(res);
@@ -13,19 +12,24 @@ export const authApi = baseApi.injectEndpoints({
     }),
     postLogin: builder.mutation({
       query: (data) => ({
-        url: 'auth/login',
-        method: 'post',
+        url: "auth/login",
+        method: "post",
         body: data,
       }),
-      //   invalidatesTags: ['student'],
+    }),
+    forgotPassword: builder.mutation({
+      query: (data) => ({
+        url: "users/password-reset-request",
+        method: "post",
+        body: data,
+      }),
     }),
     postSignup: builder.mutation({
       query: (data) => ({
-        url: 'auth/register',
-        method: 'post',
+        url: "auth/register",
+        method: "post",
         body: data,
       }),
-      //   invalidatesTags: ['student'],
       async onQueryStarted(_args, { queryFulfilled: qf }) {
         qf.then((res) => {
           console.log(res);
@@ -33,8 +37,11 @@ export const authApi = baseApi.injectEndpoints({
       },
     }),
   }),
-  //   overrideExisting: true,
 });
 
-export const { usePostLoginMutation, useLoginQuery, usePostSignupMutation } =
-  authApi;
+export const {
+  usePostLoginMutation,
+  useLoginQuery,
+  usePostSignupMutation,
+  useForgotPasswordMutation,
+} = authApi;

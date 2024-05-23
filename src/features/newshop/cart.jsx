@@ -187,7 +187,7 @@ const CartPage = () => {
   useEffect(() => {
     // Initialize the store with data from localforage
     initStore();
-  }, [isShopsClose]);
+  }, []);
 
   const { shppingFee, address, positionPoint, distance, consumerPhoneNumber } =
     useProductStore();

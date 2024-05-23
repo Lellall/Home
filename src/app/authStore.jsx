@@ -13,6 +13,22 @@ const useAuthStore = create((set) => ({
   isLoading: false,
   user: null,
 
+  saveLogin: async (data) => {
+    try {
+      console.log(data, "ii");
+      const { access_token, refresh_token, user } = data;
+      await set({
+        accessToken: access_token,
+        refreshToken: refresh_token,
+        isAuthenticated: true,
+        user,
+        isLoading: false,
+      });
+      await localforage.setItem("accessToken", access_token);
+      await localforage.setItem("refreshToken", refresh_token);
+      await localforage.setItem("user", user);
+    } catch (error) {}
+  },
   login: async (data) => {
     try {
       set({ isLoading: true });
