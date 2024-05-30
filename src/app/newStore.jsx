@@ -1,27 +1,29 @@
-import styled from "styled-components";
-import { Footer } from "../features";
-import SliderComponent from "../features/newshop/newShop";
-import { MultipleProducts } from "../StoreSlide";
-import CategoriesList from "./categoriesItems";
-import General from "../features/newshop/general";
-import SubCategory from "./subCategories";
-import { useNavigate } from "react-router-dom";
-import useProductStore from "./productStore";
-import { useEffect, useRef, useState } from "react";
-import ReusableCard from "../features/newshop/card";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { ColorRing } from "react-loader-spinner";
-import AlertCards from "../features/newshop/AlertCard";
-import ModalVerified from "./Welcome";
-import Navbar from "./Nav";
-import Modal from "./modal";
-import { BaseUrl } from "../utils/config";
-import axios from "axios";
-import { RoundButton } from "../App";
-import useGlobalModalStore from "./useGlobalModal";
-import moment from "moment/moment";
-import ProductCarousel from "./bundle/bundle";
-import useAuth from "./useAuth";
+import styled from 'styled-components';
+import { Footer } from '../features';
+import SliderComponent from '../features/newshop/newShop';
+import { MultipleProducts } from '../StoreSlide';
+import CategoriesList from './categoriesItems';
+import General from '../features/newshop/general';
+import SubCategory from './subCategories';
+import { useNavigate } from 'react-router-dom';
+import useProductStore from './productStore';
+import { useEffect, useRef, useState } from 'react';
+import ReusableCard from '../features/newshop/card';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ColorRing } from 'react-loader-spinner';
+import AlertCards from '../features/newshop/AlertCard';
+import ModalVerified from './Welcome';
+import Navbar from './Nav';
+import Modal from './modal';
+import { BaseUrl } from '../utils/config';
+import axios from 'axios';
+import { RoundButton } from '../App';
+import useGlobalModalStore from './useGlobalModal';
+import moment from 'moment/moment';
+import ProductCarousel from './bundle/bundle';
+import useAuth from './useAuth';
+import { useGetCategoriesQuery } from '../features/newshop/categories-api';
+import Pagination from 'rc-pagination';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -138,6 +140,7 @@ const ModalCategoryCont = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
+  min-height: 300px;
   /* max-width: 400px; */
 `;
 const ModalCategoryCard = styled.div`
@@ -180,9 +183,17 @@ const NewStore = () => {
   const [hasMore, setHasMore] = useState(true);
   const products = useProductStore((state) => state.products);
   const fetchProducts = useProductStore((state) => state.fetchProducts);
-  const categories = useProductStore((state) => state.categories);
   const [modalOpen, setModalOpen] = useState(false);
-  // const [categoryModalOpen, setCategoryModalOpen] = useState(false);
+  const [categoriesPage, setCategoriesPage] = useState(0);
+
+  const { data: categories, isFetching: isFetchingCategories } =
+    useGetCategoriesQuery(categoriesPage, {
+      refetchOnMountOrArgChange: true,
+    });
+  const onChange = (currentPage) => {
+    setCategoriesPage(currentPage - 1);
+    refetch();
+  };
   const { user, fetchWithAuth, isTokenExpired } = useAuth();
   useEffect(() => {
     if (isTokenExpired) {
@@ -190,7 +201,6 @@ const NewStore = () => {
     }
   }, [isTokenExpired]);
 
-  console.log(user, "user");
   const [isSelectCategory, setIsSelectCategory] = useState(false);
   const {
     setIsShopsClose,
@@ -205,17 +215,17 @@ const NewStore = () => {
     const updateWorkingHours = () => {
       const now = moment();
       let hour = now.hours();
-      const dayName = moment().format("dddd");
-      if (dayName === "Sunday") {
+      const dayName = moment().format('dddd');
+      if (dayName === 'Sunday') {
         setIsShopsClose(true);
         return;
       }
 
       hour = hour % 12 || 12;
       const minute = now.minutes();
-      const AMPM = now.format("A");
-      if (AMPM == "PM" && hour < 12) hour = hour + 12;
-      if (AMPM == "AM" && hour == 12) hour = hour - 12;
+      const AMPM = now.format('A');
+      if (AMPM == 'PM' && hour < 12) hour = hour + 12;
+      if (AMPM == 'AM' && hour == 12) hour = hour - 12;
       let shopsOpen = hour >= 10 && hour < 19 && minute >= 0;
       setIsShopsClose(!shopsOpen);
     };
@@ -224,12 +234,12 @@ const NewStore = () => {
     const intervalId = setInterval(updateWorkingHours, 60000);
 
     return () => clearInterval(intervalId);
-  }, [ setIsShopsClose]);
+  }, [setIsShopsClose]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const user = params.get("user");
-    const token = params.get("token");
+    const user = params.get('user');
+    const token = params.get('token');
     if (user && token) {
       setModalOpen(true);
     }
@@ -244,7 +254,7 @@ const NewStore = () => {
       await fetchProducts(page);
       setPage(page + 1);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   };
 
@@ -278,8 +288,8 @@ const NewStore = () => {
     // setIsCategory(true);
   };
   const handleCategoryCloseSearch = () => {
-    navigate("/");
-    searchProducts("");
+    navigate('/');
+    searchProducts('');
     setIsCategoryModalOpen(false);
     setIsSelectCategory(false);
   };
@@ -298,19 +308,19 @@ const NewStore = () => {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
         }}
       >
         <ColorRing
-          height="80"
-          width="80"
-          ariaLabel="color-ring-loading"
-          wrapperStyle={{ float: "center" }}
-          wrapperClass="color-ring-wrapper"
-          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          height='80'
+          width='80'
+          ariaLabel='color-ring-loading'
+          wrapperStyle={{ float: 'center' }}
+          wrapperClass='color-ring-wrapper'
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />
       </div>
     );
@@ -320,7 +330,7 @@ const NewStore = () => {
     <>
       <ModalVerified show={modalOpen} onClose={closeModal} />
       <Navbar />
-      <div style={{ marginTop: "10rem" }}></div>
+      <div style={{ marginTop: '10rem' }}></div>
       {/* <AlertCards type="danger">
       Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
       </AlertCards> */}
@@ -334,12 +344,13 @@ const NewStore = () => {
           </div>
           <CategoryButton>
             <RoundButton
-              bgColor={isSelectCategory && "#ffb000"}
+              bgColor={isSelectCategory && '#ffb000'}
               style={{
                 // border: isSelectCategory && ' 1px solid red',
-                boxShadow: isSelectCategory && "none",
-                width: "150px",
-                color: "#FFFFFF",
+                boxShadow: isSelectCategory && 'none',
+                width: '255px',
+                color: '#FFFFFF',
+                fontSize: '15px',
               }}
               onClick={() => {
                 isSelectCategory
@@ -347,7 +358,7 @@ const NewStore = () => {
                   : setIsCategoryModalOpen(true);
               }}
             >
-              {isSelectCategory ? "Clear Categories" : "Choose Categories"}
+              {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
             </RoundButton>
           </CategoryButton>
           {/* <div
@@ -366,32 +377,32 @@ const NewStore = () => {
           </div> */}
           <ContainerInf>
             <InfiniteScroll
-              style={{ float: "center" }}
+              style={{ float: 'center' }}
               dataLength={products.length}
               next={loadNextPage}
               hasMore={hasMore}
               loader={
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     // height: "10vh",
                   }}
                 >
                   <ColorRing
                     visible={products.length === 0 ? false : true}
-                    height="80"
-                    width="80"
-                    ariaLabel="color-ring-loading"
-                    wrapperStyle={{ float: "center" }}
-                    wrapperClass="color-ring-wrapper"
+                    height='80'
+                    width='80'
+                    ariaLabel='color-ring-loading'
+                    wrapperStyle={{ float: 'center' }}
+                    wrapperClass='color-ring-wrapper'
                     colors={[
-                      "#e15b64",
-                      "#f47e60",
-                      "#f8b26a",
-                      "#abbd81",
-                      "#849b87",
+                      '#e15b64',
+                      '#f47e60',
+                      '#f8b26a',
+                      '#abbd81',
+                      '#849b87',
                     ]}
                   />
                 </div>
@@ -404,7 +415,7 @@ const NewStore = () => {
                     key={index}
                     title={product?.name}
                     price={product?.price}
-                    discount="20% OFF"
+                    discount='20% OFF'
                     imageUrl={product?.imageUrl}
                     isShopClose={isShopsClose}
                     onAddToWishlist={() => navigate(`product/${product?.id}`)}
@@ -462,7 +473,7 @@ const NewStore = () => {
             <div
               style={{
                 marginLeft: "10px",
-                fontSize: "13px",
+                fointSize: "13px",
                 fontWeight: "400",
                 color: "#004225",
               }}
@@ -476,14 +487,16 @@ const NewStore = () => {
       <Modal
         show={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
-        style={{ maxWidth: "450px" }}
+        style={{ maxWidth: '450px' }}
       >
         <>
-          <CategoriesHeader>Categories</CategoriesHeader>
+          <CategoriesHeader>
+            {isFetchingCategories ? 'Loading...' : 'Categories'}
+          </CategoriesHeader>
           <ModalCategoryCont>
-            {categories?.map((category) => {
+            {categories?.data?.map((category) => {
               return (
-                <div key={category.id} style={{ cursor: "poiter" }}>
+                <div key={category.id} style={{ cursor: 'poiter' }}>
                   <ModalCategoryCard
                     onClick={() => {
                       handleCategorySearch(category);
@@ -494,7 +507,7 @@ const NewStore = () => {
                       src={category.imageUrl}
                       width={50}
                       height={50}
-                      style={{ borderRadius: "100%" }}
+                      style={{ borderRadius: '100%' }}
                     />
                     {category.name}
                   </ModalCategoryCard>
@@ -503,10 +516,20 @@ const NewStore = () => {
             })}
           </ModalCategoryCont>
         </>
+        <>
+          <Pagination
+            onChange={onChange}
+            current={categoriesPage + 1}
+            total={categories?.resultTotal}
+            showTitle={true}
+            defaultCurrent={1}
+            style={{ marginTop: '20px' }}
+          />
+        </>
       </Modal>
 
-      <div style={{ marginTop: "5rem" }}>
-        <Footer style={{ zIndex: "2" }} />
+      <div style={{ marginTop: '5rem' }}>
+        <Footer style={{ zIndex: '2' }} />
       </div>
     </>
   );

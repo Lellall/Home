@@ -8,6 +8,7 @@ import useProductStore from './productStore';
 import { useNavigate } from 'react-router-dom';
 import { BaseUrl } from '../utils/config';
 import useGlobalModalStore from './useGlobalModal';
+import { useGetCategoriesQuery } from '../features/newshop/categories-api';
 
 const Container = styled.div`
   display: flex;
@@ -42,9 +43,12 @@ const CategoriesList = () => {
   // const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   const [isCategory, setIsCategory] = useState(false);
-  const fetchCategories = useProductStore((state) => state.fetchCategories);
-  const categories = useProductStore((state) => state.categories);
+  // const fetchCategories = useProductStore((state) => state.fetchCategories);
+  // const categories = useProductStore((state) => state.categories);
   const { setIsCategoryModalOpen } = useGlobalModalStore();
+  const { data: categories } = useGetCategoriesQuery(0, {
+    refetchOnMountOrArgChange: true,
+  });
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -59,9 +63,6 @@ const CategoriesList = () => {
 
   //   fetchData();
   // }, []);
-  useEffect(() => {
-    fetchCategories();
-  }, []);
 
   const searchProducts = useProductStore(
     (state) => state.searchProductsByCategory
@@ -80,7 +81,7 @@ const CategoriesList = () => {
 
   return (
     <Container>
-      {categories?.slice(0, 8).map((category, index) => (
+      {categories?.data?.slice(0, 8).map((category, index) => (
         <div
           key={category.id}
           onClick={() => handleCategorySearch(category)}
