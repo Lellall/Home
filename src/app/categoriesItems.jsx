@@ -39,30 +39,12 @@ const Category = styled.div`
   }
 `;
 
-const CategoriesList = () => {
-  // const [categories, setCategories] = useState([]);
+const CategoriesList = ({ isCategory, setIsCategory }) => {
   const navigate = useNavigate();
-  const [isCategory, setIsCategory] = useState(false);
-  // const fetchCategories = useProductStore((state) => state.fetchCategories);
-  // const categories = useProductStore((state) => state.categories);
   const { setIsCategoryModalOpen } = useGlobalModalStore();
   const { data: categories } = useGetCategoriesQuery(0, {
     refetchOnMountOrArgChange: true,
   });
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${BaseUrl}/categories/all-categories`
-  //       );
-  //       setCategories(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
 
   const searchProducts = useProductStore(
     (state) => state.searchProductsByCategory

@@ -140,7 +140,7 @@ const ModalCategoryCont = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  min-height: 300px;
+  min-height: 350px;
   /* max-width: 400px; */
 `;
 const ModalCategoryCard = styled.div`
@@ -226,7 +226,7 @@ const NewStore = () => {
       const AMPM = now.format('A');
       if (AMPM == 'PM' && hour < 12) hour = hour + 12;
       if (AMPM == 'AM' && hour == 12) hour = hour - 12;
-      let shopsOpen = hour >= 10 && hour < 19 && minute >= 0;
+      let shopsOpen = hour >= 10 && hour < 17 && minute >= 0;
       setIsShopsClose(!shopsOpen);
     };
     updateWorkingHours();
@@ -336,7 +336,10 @@ const NewStore = () => {
       </AlertCards> */}
       <Container>
         <Categories>
-          <CategoriesList />
+          <CategoriesList
+            isCategory={isSelectCategory}
+            setIsCategory={setIsSelectCategory}
+          />
         </Categories>
         <Products>
           <div>
@@ -488,6 +491,7 @@ const NewStore = () => {
         show={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
         style={{ maxWidth: '450px' }}
+        width={'550px'}
       >
         <>
           <CategoriesHeader>
