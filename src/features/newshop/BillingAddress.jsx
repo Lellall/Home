@@ -6,7 +6,6 @@ import useProductStore from "../../app/productStore";
 import InputWithIcon from "../../components/inputs/input.component";
 import { Mobile } from "iconsax-react";
 import { Controller, useForm } from "react-hook-form";
-import useAuth from "../../app/useAuth";
 import useShoppingCart from "../../app/useShoppingCart";
 import axios from "axios";
 import AuthModal from "./authModal";
@@ -17,6 +16,7 @@ import { BaseUrl } from "../../utils/config";
 import useGlobalModalStore from "../../app/useGlobalModal";
 import { useGetSummaryQuery, useOrderItemsMutation } from "./cart.api";
 import { getRefreshToken } from "../../redux/token-utils";
+import { useAuth } from "../auth/auth.context";
 const Title = styled.p`
   font-size: 14px;
   margin-bottom: 15px;
@@ -111,6 +111,12 @@ const BillingAddress = ({ isShopsClose }) => {
     useOrderItemsMutation();
 
   useEffect(() => {
+    if (error?.status === 401) {
+      toast.error(`session expired please logout and login again`, {
+        position: "top-right",
+      });
+      return
+    }
     if (error) {
       toast.error(`${error?.data?.message}`, {
         position: "top-right",
@@ -136,6 +142,14 @@ const BillingAddress = ({ isShopsClose }) => {
   });
 
   const handleOrder = async (phone) => {
+    if (isAuthenticated() === false) {
+      setShowModal(true);
+      return;
+    }
+    // if (isShopsClose) {
+    //   setIsModalOpen(true);
+    //   return;
+    // }
     const data = {
       paymentItems: orderData,
       address: {
@@ -189,7 +203,6 @@ const BillingAddress = ({ isShopsClose }) => {
 
       try {
         setLoading(true);
-        console.log(data, "data");
         const response = await axios.post(`${BaseUrl}/orders`, data, {
           headers: {
             Authorization: `Bearer ${accessToken}`,

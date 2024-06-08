@@ -37,6 +37,7 @@ import Products from '../features/user/products';
 import Transaction from '../features/user/transaction/transaction';
 import SingleBundle from './bundle/singleBundle';
 import ForgotPassword from '../features/auth/signin/forgot-password';
+import NewPassword from '../features/auth/signin/new-password';
 
 const theme = createTheme({
   typography: {
@@ -76,6 +77,7 @@ export function AppRouter() {
             </Route>
             <Route path='/login' element={<SplitLogin />} />
             <Route path='/forgot' element={<ForgotPassword />} />
+            <Route path='/users/password-reset' element={<NewPassword />} />
             <Route path='/admin' element={<AdminLogin />} />
             <Route path='/register' element={<SignUp />} />
             <Route path='/success' element={<VerificationPage />} />

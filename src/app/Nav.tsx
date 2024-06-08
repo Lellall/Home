@@ -5,8 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { QuantityContainer } from '../features/ui/base/navbar/navbar.styles';
 import useShoppingCart from './useShoppingCart';
 import SearchComponent from './searchInp';
-import useAuth from './useAuth';
 import { getItemFromLocalForage } from '../utils/getItem';
+import { useAuth } from '../features/auth/auth.context';
 
 const NavbarContainer = styled.nav`
   position: fixed;

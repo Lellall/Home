@@ -4,16 +4,15 @@ import { Controller, useForm } from "react-hook-form";
 import styled from "styled-components";
 
 import InputWithIcon from "../../../components/inputs/input.component";
-import { MessageText, Unlock } from "iconsax-react";
+import { MessageText, TickSquare, Unlock } from "iconsax-react";
 import { RoundButton } from "../../../App";
 import Logo from "../logo";
-import { getItemFromLocalForage } from "../../../utils/getItem";
 import { ToastContainer, toast } from "react-toastify";
-import useAuthStore from "../../../app/authStore";
-import { useNavigate, useParams } from "react-router-dom";
-import { BaseUrl } from "../../../utils/config";
-import { useRequestPasswordResetMutation } from "../auth-api";
-import { useAuth } from "../auth.context";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  useRequestPasswordResetMutation,
+  useResetPasswordMutation,
+} from "../auth-api";
 
 const ActionCover = styled.div`
   display: flex;
@@ -25,28 +24,6 @@ margin: 20px 32px;  */
   @media only screen and (max-width: 767px) {
     flex-direction: column-reverse;
     justify-content: center;
-  }
-`;
-
-const CircleButton = styled.button`
-  width: 40px; /* Set the width and height to create a perfect circle */
-  height: 40px;
-  border-radius: 50%; /* Set the border-radius to 50% to make it a circle */
-  background-color: #fff; /* Set the background color */
-  color: #cccccc; /* Set the text color */
-  font-size: 16px; /* Set the font size */
-  cursor: pointer; /* Set cursor to pointer for better user experience */
-  border: 1px solid #ccc; /* Remove border for a cleaner look */
-  outline: none; /* Remove default focus outline */
-  margin-right: 15px;
-  /* Add hover effect */
-  &:hover {
-    background-color: #ccc; /* Change background color on hover */
-  }
-  padding-top: 5%;
-  @media only screen and (max-width: 767px) {
-    //  justify-content: center;
-    padding-top: 1%;
   }
 `;
 
@@ -130,43 +107,27 @@ const styles = {
   },
 };
 
-const ForgotPassword = () => {
+const NewPassword = () => {
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
+  const query = useQuery();
+  const token = query.get("token");
+  const email = query.get("email");
   const navigate = useNavigate();
+  const [resetPassword, { isLoading, isSuccess, error }] =
+    useResetPasswordMutation();
   const {
-    handleSubmit,
     control,
+    handleSubmit,
+    watch,
     formState: { errors },
   } = useForm();
-  const [statusCode, setStatusCode] = useState(null);
-  const [timer, setTimer] = useState(0);
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
-
-
-  const onSubmit = (data) => {
-    handlePasswordReset(data.email);
-    // console.log(data);
-  };
-  const [requestPasswordReset, { isLoading, isSuccess, isError, error, data }] =
-    useRequestPasswordResetMutation();
-
-  const handlePasswordReset = async (email) => {
-    try {
-      if (email) {
-        const result = await requestPasswordReset(email).unwrap(); // unwrap() to handle fulfilled or rejected state
-        setStatusCode(result);
-      }
-    } catch (err) {
-      console.error("Failed to send password reset request:", err);
-      setStatusCode(err.originalStatus); // Extract and set the status code from error
-    }
-  };
-
-
+  const password = watch("password");
 
   useEffect(() => {
     if (isSuccess) {
-      toast.success(`A reset link has been sent to your email.`);
+      toast.success(`Password reset successful. Please login.`);
     }
   }, [isSuccess]);
   useEffect(() => {
@@ -174,24 +135,48 @@ const ForgotPassword = () => {
       toast.error(`${error?.data?.message}`);
     }
   }, [error]);
-  useEffect(() => {
-    let interval;
-    if (isSuccess === 200) {
-      setIsButtonDisabled(true);
-      setTimer(60);
-      interval = setInterval(() => {
-        setTimer((prev) => prev - 1);
-      }, 1000);
-    }
 
-    return () => clearInterval(interval);
-  }, [isSuccess]);
-
-  useEffect(() => {
-    if (timer === 0 && isButtonDisabled) {
-      setIsButtonDisabled(false);
+  const onSubmit = async (data) => {
+    await console.log(data);
+    try {
+      await resetPassword({
+        email,
+        token,
+        newPassword: data.password,
+        confirmPassword: data.confirmPassword,
+      }).unwrap();
+      // Handle success (e.g., display a success message or redirect)
+    } catch (err) {
+      // Handle error (e.g., display an error message)
     }
-  }, [timer, isButtonDisabled]);
+  };
+
+  if (isSuccess) {
+    return (
+      <div style={{ textAlign: "center", padding: "20px", marginTop:"100px" }}>
+        <TickSquare size="32" color="green" />
+        <h2>Password Reset Successful!</h2>
+        <p>
+          Your password has been reset. You can now log in with your new
+          password.
+        </p>
+        <button
+          onClick={() => history.push("/login")}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            backgroundColor: "#4CAF50",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: "pointer",
+          }}
+        >
+          Go to Login
+        </button>
+      </div>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -220,7 +205,7 @@ const ForgotPassword = () => {
                   fontWeight: "300",
                 }}
               >
-                Forgot Password?
+                Set Up Your New Password
               </div>
               <div
                 style={{
@@ -230,40 +215,64 @@ const ForgotPassword = () => {
                   width: "350px",
                 }}
               >
-                Enter your email below, we will send a password reset link to
-                your email.
+                Create a strong new password to keep your account safe.
               </div>
             </div>
             <Cover style={{ margin: "60px auto" }}>
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
-                  name="email"
+                  name="password"
                   control={control}
                   rules={{
-                    required: "Email is required",
+                    required: "Password is required",
+                    minLength: {
+                      value: 8,
+                      message: "Password must be at least 8 characters long",
+                    },
                     pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                      message: "Invalid email address",
+                      value: /^(?=.*[!@#$%^&*])/,
+                      message:
+                        "Password must contain at least one special character (!@#$%^&*)",
                     },
                   }}
                   render={({ field }) => (
                     <InputWithIcon
-                      icon={MessageText}
-                      label="Email"
-                      type="email"
-                      placeholder="Enter your email"
+                      icon={Unlock}
+                      label="Password"
+                      type="password"
+                      placeholder="Enter your password"
                       {...field}
-                      hasError={errors.email ? true : false}
-                      errorMessage={errors.email && errors.email.message}
+                      hasError={!!errors.password}
+                      errorMessage={errors.password && errors.password.message}
                     />
                   )}
                 />
+
+                <Controller
+                  name="confirmPassword"
+                  control={control}
+                  rules={{
+                    required: "Please confirm your password",
+                    validate: (value) =>
+                      value === password || "Passwords do not match",
+                  }}
+                  render={({ field }) => (
+                    <InputWithIcon
+                      icon={Unlock}
+                      label="Confirm Password"
+                      type="password"
+                      placeholder="Confirm your password"
+                      {...field}
+                      hasError={!!errors.confirmPassword}
+                      errorMessage={
+                        errors.confirmPassword && errors.confirmPassword.message
+                      }
+                    />
+                  )}
+                />
+
                 <ActionCover>
-                  <div
-                    style={{
-                      marginTop: "10px",
-                    }}
-                  >
+                  <div>
                     <ModButton
                       bgColor="#0E5D37"
                       textColor="#fff"
@@ -271,10 +280,9 @@ const ForgotPassword = () => {
                       variant="contained"
                       type="submit"
                       onClick={onSubmit}
-                      loading={isLoading || isButtonDisabled}
+                      loading={isLoading}
                     >
-                      {isLoading ? "Sending Link...." : `Send Link `}{" "}
-                      {timer > 0 && `again in (${timer}s)`}
+                      {isLoading ? "Loading...." : "Change Password"}
                     </ModButton>
                   </div>
                 </ActionCover>
@@ -308,7 +316,7 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default NewPassword;
 
 const Cover = styled.div`
   width: 450px;

@@ -183,7 +183,7 @@ export function AuthProvider(props) {
         login,
         register,
         logout,
-        isAuthenticated: isAuthenticated(),
+        isAuthenticated,
         isLoggingIn,
         isLoginSuccess,
         loginError,

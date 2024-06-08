@@ -2,22 +2,24 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { BaseUrl } from "../utils/config";
 import { getAccessToken, isTokenExpired, refreshTokens } from "./token-utils";
 
+const excludePaths = [
+  "auth/login",
+  "auth/register",
+  "auth/password-reset/request",
+];
+
 const baseQuery = fetchBaseQuery({
   baseUrl: BaseUrl,
   prepareHeaders: async (headers, { getState, endpoint }) => {
-    // List of paths to exclude from authorization
-    const excludePaths = [
-      "auth/login",
-      "auth/register",
-      "users/password-reset-request",
-    ];
+    const requestPath = endpoint;
+
+    // If the request path is in the excludePaths, skip token handling
+    if (excludePaths.some((path) => requestPath.includes(path))) {
+      return headers;
+    }
 
     let token = await getAccessToken();
     const tokenExpired = await isTokenExpired(token);
-
-    console.log('====================================');
-    console.log(tokenExpired);
-    console.log('====================================');
 
     if (tokenExpired) {
       try {
@@ -28,10 +30,7 @@ const baseQuery = fetchBaseQuery({
     }
 
     if (token) {
-      const requestPath = endpoint;
-      if (!excludePaths.some((path) => requestPath.includes(path))) {
-        headers.set("Authorization", `Bearer ${token}`);
-      }
+      headers.set("Authorization", `Bearer ${token}`);
     }
 
     return headers;
@@ -39,6 +38,13 @@ const baseQuery = fetchBaseQuery({
 });
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
+  const requestPath = args.url;
+
+  // If the request path is in the excludePaths, skip token handling
+  if (excludePaths.some((path) => requestPath.includes(path))) {
+    return await baseQuery(args, api, extraOptions);
+  }
+
   let result = await baseQuery(args, api, extraOptions);
 
   if (result.error && result.error.status === 401) {

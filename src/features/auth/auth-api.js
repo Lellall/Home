@@ -1,4 +1,5 @@
 import { baseApi } from "../../redux/base-api";
+import { encodeInterpolatedUrl } from "../../utils/encoder";
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -17,13 +18,37 @@ export const authApi = baseApi.injectEndpoints({
         body: data,
       }),
     }),
-    forgotPassword: builder.mutation({
-      query: (data) => ({
-        url: "users/password-reset-request",
-        method: "post",
-        body: data,
+    requestPasswordReset: builder.mutation({
+      query: (email) => ({
+        url: `/auth/password-reset/request`,
+        method: "POST",
+        params: { email },
+        headers: { accept: "*/*" },
+        body: "",
       }),
     }),
+    resetPassword: builder.mutation({
+      query: ({ email, token, newPassword, confirmPassword }) => ({
+        url: `/auth/password-reset`,
+        method: 'PUT',
+        params: { email, token },
+        headers: { 'Content-Type': 'application/json' },
+        body: { newPassword, confirmPassword },
+      }),
+    }),
+    // forgotPassword: builder.mutation({
+    //   query: ({ email }) => {
+    //     if (!email) {
+    //       return
+    //     }
+    //     return {
+    //       url: encodeInterpolatedUrl`auth/password-reset/request?email=yahay.me@gmail.com`,
+    //       method: 'POST',
+    //       data: null
+    //     };
+    //   },
+    // }),
+
     postSignup: builder.mutation({
       query: (data) => ({
         url: "auth/register",
@@ -43,5 +68,6 @@ export const {
   usePostLoginMutation,
   useLoginQuery,
   usePostSignupMutation,
-  useForgotPasswordMutation,
+  useRequestPasswordResetMutation,
+  useResetPasswordMutation
 } = authApi;

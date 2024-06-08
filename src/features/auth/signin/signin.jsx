@@ -169,13 +169,6 @@ const Login = () => {
     // console.log(data);
   };
 
-  const googleAuthURL = `${BaseUrl}/oauth2/google/authorize?organization=${"adamawapoly"}&callback_url=${"https://app.safcerts.com/"}adamawapoly&product=36163e9e-1d43-4bf6-b0d3-83bfa7da097c`;
-
-  const handleCopyCut = (event) => {
-    event.preventDefault();
-    alert("Password copying/cutting is disabled for security reasons.");
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <ToastContainer />
