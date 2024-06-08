@@ -22,17 +22,17 @@ export const authApi = baseApi.injectEndpoints({
       query: (email) => ({
         url: `/auth/password-reset/request`,
         method: "POST",
-        params: { email },
+        params: { email, role: "CONSUMER" },
         headers: { accept: "*/*" },
         body: "",
       }),
     }),
     resetPassword: builder.mutation({
-      query: ({ email, token, newPassword, confirmPassword }) => ({
+      query: ({ email, token, newPassword, confirmPassword, role }) => ({
         url: `/auth/password-reset`,
-        method: 'PUT',
-        params: { email, token },
-        headers: { 'Content-Type': 'application/json' },
+        method: "PUT",
+        params: { email, token, role },
+        headers: { "Content-Type": "application/json" },
         body: { newPassword, confirmPassword },
       }),
     }),
@@ -69,5 +69,5 @@ export const {
   useLoginQuery,
   usePostSignupMutation,
   useRequestPasswordResetMutation,
-  useResetPasswordMutation
+  useResetPasswordMutation,
 } = authApi;

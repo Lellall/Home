@@ -114,6 +114,7 @@ const NewPassword = () => {
   const query = useQuery();
   const token = query.get("token");
   const email = query.get("email");
+  const role = query.get("role");
   const navigate = useNavigate();
   const [resetPassword, { isLoading, isSuccess, error }] =
     useResetPasswordMutation();
@@ -144,6 +145,7 @@ const NewPassword = () => {
         token,
         newPassword: data.password,
         confirmPassword: data.confirmPassword,
+        role,
       }).unwrap();
       // Handle success (e.g., display a success message or redirect)
     } catch (err) {
@@ -153,27 +155,23 @@ const NewPassword = () => {
 
   if (isSuccess) {
     return (
-      <div style={{ textAlign: "center", padding: "20px", marginTop:"100px" }}>
+      <div style={{ textAlign: "center", padding: "20px", marginTop: "200px" }}>
         <TickSquare size="32" color="green" />
         <h2>Password Reset Successful!</h2>
         <p>
           Your password has been reset. You can now log in with your new
           password.
         </p>
-        <button
-          onClick={() => history.push("/login")}
-          style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            backgroundColor: "#4CAF50",
-            color: "white",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
+        <ModButton
+          bgColor="#0E5D37"
+          textColor="#fff"
+          outlined
+          variant="contained"
+          type="submit"
+          onClick={() => navigate("/login")}
         >
           Go to Login
-        </button>
+        </ModButton>
       </div>
     );
   }
