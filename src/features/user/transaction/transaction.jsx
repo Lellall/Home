@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   HeadingContainer,
@@ -9,22 +9,13 @@ import {
 } from './transaction.styles';
 import OrderTable from './transactionTable';
 import Pagination from 'rc-pagination';
-// import useOrderStore from '../../../app/orderStore';
 import { useGetTransactionsQuery } from './transaction.api';
-import { Circle, LocalDining } from '@mui/icons-material';
 
 const Transaction = () => {
   const [page, setPage] = useState(1);
   const { data, isLoading, refetch } = useGetTransactionsQuery({
     page,
   });
-
-  // const initStore = useOrderStore((state) => state.init);
-
-  // useEffect(() => {
-  //   initStore();
-  //   fetchTransactionHistory(page, 10);
-  // }, []);
 
   const onChange = (pageNumber) => {
     setPage(pageNumber);

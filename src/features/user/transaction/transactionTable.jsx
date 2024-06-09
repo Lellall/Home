@@ -1,4 +1,4 @@
-import React from 'react';
+/* eslint-disable react/prop-types */
 import styled from 'styled-components';
 
 const TableContainer = styled.div`
@@ -66,7 +66,6 @@ const TransactionTable = ({ transactions }) => {
       <Table>
         <thead>
           <tr>
-            {/* <Th>S/N</Th> */}
             <Th>Name</Th>
             <Th>Amount</Th>
             <Th>Total Items</Th>
@@ -76,9 +75,8 @@ const TransactionTable = ({ transactions }) => {
           </tr>
         </thead>
         <tbody>
-          {transactions?.map((order, index) => (
+          {transactions?.map((order) => (
             <tr key={order.orderId}>
-              {/* <Td>{++index}</Td> */}
               <Td>
                 {order.user.firstName} {order.user.lastName}{' '}
               </Td>
