@@ -5,27 +5,30 @@ import {
   HeadingText,
   EmptyState,
   MainContainer,
+  LoadingTransaction,
 } from './transaction.styles';
 import OrderTable from './transactionTable';
 import Pagination from 'rc-pagination';
-import useOrderStore from '../../../app/orderStore';
-import useTransactionHistory from './useTransactionHistory';
+// import useOrderStore from '../../../app/orderStore';
+import { useGetTransactionsQuery } from './transaction.api';
+import { Circle, LocalDining } from '@mui/icons-material';
 
 const Transaction = () => {
-  const { transactionHistory, resultTotals, fetchTransactionHistory } =
-    useTransactionHistory();
-
   const [page, setPage] = useState(1);
-  const initStore = useOrderStore((state) => state.init);
+  const { data, isLoading, refetch } = useGetTransactionsQuery({
+    page,
+  });
 
-  useEffect(() => {
-    initStore();
-    fetchTransactionHistory(page, 10);
-  }, []);
+  // const initStore = useOrderStore((state) => state.init);
+
+  // useEffect(() => {
+  //   initStore();
+  //   fetchTransactionHistory(page, 10);
+  // }, []);
 
   const onChange = (pageNumber) => {
     setPage(pageNumber);
-    fetchTransactionHistory(pageNumber);
+    refetch(pageNumber);
   };
   return (
     <MainContainer>
@@ -33,14 +36,18 @@ const Transaction = () => {
         <HeadingText>Transaction History </HeadingText>
       </HeadingContainer>
       <>
-        {transactionHistory?.length ? (
+        {isLoading ? (
+          <LoadingTransaction>
+            <h4>Loading Transaction History</h4>
+          </LoadingTransaction>
+        ) : data?.data?.length ? (
           <>
-            <OrderTable transactions={transactionHistory} />
+            <OrderTable transactions={data.data} />
 
             <Pagination
               onChange={onChange}
               current={page}
-              total={resultTotals}
+              total={data.resultTotal}
               style={{ marginTop: 10, marginBottom: 10 }}
             />
           </>
