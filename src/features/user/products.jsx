@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useProductStore from "../../app/productStore";
-import Pagination from "rc-pagination";
-import "rc-pagination/assets/index.css";
+import React, { useEffect, useState } from 'react';
+import useProductStore from '../../app/productStore';
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
 
 import {
   Table,
@@ -11,40 +11,29 @@ import {
   TableHeadRow,
   TableRow,
   TableWrapper,
-} from "../../app/orderForRider";
-import { TableBody } from "@mui/material";
-import { Menu } from "iconsax-react";
-import DropdownTableMenu from "../../app/dropDown";
-import { BaseUrl } from "../../utils/config";
-import axios from "axios";
-import { SearchInp } from "../ui/base/navbar/navbar.styles";
-import Modal from "../../app/modal";
-import { useForm } from "react-hook-form";
-import EditForm from "../../app/editForm";
-import { ToastContainer } from "react-toastify";
+} from '../../app/orderForRider';
+import { TableBody } from '@mui/material';
+import { Menu } from 'iconsax-react';
+import DropdownTableMenu from '../../app/dropDown';
+import { BaseUrl } from '../../utils/config';
+import axios from 'axios';
+import { SearchInp } from '../ui/base/navbar/navbar.styles';
+import Modal from '../../app/modal';
+import { useForm } from 'react-hook-form';
+import EditForm from '../../app/editForm';
+import { ToastContainer } from 'react-toastify';
+import { useGetProductsQuery } from './product.api';
 
 const Products = () => {
   // const fetchProducts = useProductStore((state) => state.fetchProducts);
-  const [products, setProducts] = useState([]);
-  const [all, setAll] = useState([]);
   const [current, setCurrent] = useState(0);
-  const fetchProducts = async (page) => {
-    try {
-      const response = await axios.get(
-        `${BaseUrl}/products?page=${page}&size=10`
-      );
-      const newData = response.data.data;
-      setProducts(newData);
-      setAll(response.data);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+  const { data, refetch } = useGetProductsQuery({
+    page: current,
+    categoryId: '',
+  });
+
   // const products = useProductStore((state) => state.products);
 
-  useEffect(() => {
-    fetchProducts(current);
-  }, [current]);
   // const [isOpen, setIsOpen] = useState(false);
   const [isOpenList, setIsOpenList] = useState([]);
 
@@ -74,23 +63,19 @@ const Products = () => {
 
   return (
     <>
-     <ToastContainer />
-      <Modal width="40%" show={isOpen} onClose={() => closeView()}>
+      <ToastContainer />
+      <Modal width='40%' show={isOpen} onClose={() => closeView()}>
         Edit Product
         <hr />
-        <EditForm
-          product={selected}
-          fetchProducts={fetchProducts}
-          current={current}
-        />
+        <EditForm product={selected} refetch={refetch} current={current} />
       </Modal>
       <SearchInp
-        type="text"
-        placeholder="What are you looking for?"
+        type='text'
+        placeholder='What are you looking for?'
         // value={searchTerm}
         // onChange={handleSearchChange}
       />
-      <div style={{ width: "100%" }}>
+      <div style={{ width: '100%' }}>
         <TableWrapper>
           <Table>
             <TableHead>
@@ -104,25 +89,25 @@ const Products = () => {
               </TableHeadRow>
             </TableHead>
             <TableBody>
-              {products?.map((product, index) => (
+              {data?.data?.map((product, index) => (
                 <TableRow key={product.id}>
                   <TableDataCell>{product.name}</TableDataCell>
                   <TableDataCell>{product.price}</TableDataCell>
                   <TableDataCell>{product.quantity}</TableDataCell>
                   <TableDataCell>
-                    {product.available ? "Yes" : "No"}
+                    {product.available ? 'Yes' : 'No'}
                   </TableDataCell>
                   <TableDataCell>{product.category?.name}</TableDataCell>
                   <TableDataCell>
                     <button
                       style={{
-                        textAlign: "center",
-                        border: "none",
-                        cursor: "pointer",
+                        textAlign: 'center',
+                        border: 'none',
+                        cursor: 'pointer',
                       }}
                       onClick={() => openMenu(product)}
                     >
-                      <Menu size="16" color="#FF8A65" />
+                      <Menu size='16' color='#FF8A65' />
                       {/* <DropdownTableMenu
                         buttonText={<Menu size="16" color="#FF8A65" />}
                         isOpen={isOpenList[index] || false}
@@ -138,11 +123,11 @@ const Products = () => {
           </Table>
         </TableWrapper>
       </div>
-      <div style={{ float: "right", margin: "10px" }}>
+      <div style={{ float: 'right', margin: '10px' }}>
         <Pagination
           onChange={handlePageClick}
           current={current}
-          total={all?.resultTotal}
+          total={data?.resultTotal}
         />
       </div>
     </>
