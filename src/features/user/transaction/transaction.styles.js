@@ -90,3 +90,10 @@ export const EmptyState = styled(Box)`
     }
   }
 `;
+
+export const LoadingTransaction = styled(Box)`
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

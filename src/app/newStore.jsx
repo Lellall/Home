@@ -190,9 +190,9 @@ const NewStore = () => {
     useGetCategoriesQuery(categoriesPage, {
       refetchOnMountOrArgChange: true,
     });
+
   const onChange = (currentPage) => {
     setCategoriesPage(currentPage - 1);
-    refetch();
   };
   const { user, fetchWithAuth, isTokenExpired } = useAuth();
   useEffect(() => {
@@ -413,7 +413,7 @@ const NewStore = () => {
               endMessage={<p>No more products</p>}
             >
               <Cover>
-                {products.map((product, index) => (
+                {products?.map((product, index) => (
                   <ReusableCard
                     key={index}
                     title={product?.name}

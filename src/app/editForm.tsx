@@ -39,10 +39,9 @@ const PriceInput = styled.input`
   width: 100px;
 `;
 
-
 const SubmitButton = styled.button`
-  background-color: ${props => (props.disabled ? '#ccc' : '#007bff')};
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
+  background-color: ${(props) => (props.disabled ? '#ccc' : '#007bff')};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 12px 20px;
   margin-top: 17px;
   color: white;
@@ -52,13 +51,15 @@ const SubmitButton = styled.button`
 `;
 
 // Example component
-const EditForm = ({ product, fetchProducts, current }) => {
+const EditForm = ({ product, current, refetch }) => {
   const [selectedOption, setSelectedOption] = useState(
-    product?.available ? { value: true, label: 'Available' } : { value: false, label: 'Unavailable' }
+    product?.available
+      ? { value: true, label: 'Available' }
+      : { value: false, label: 'Unavailable' }
   );
   const [price, setPrice] = useState(product?.price);
 
-  // Options for the select component 
+  // Options for the select component
   const options = [
     { value: true, label: 'Available' },
     { value: false, label: 'Unavailable' },
@@ -77,8 +78,12 @@ const EditForm = ({ product, fetchProducts, current }) => {
   const updateProduct = useProductStore((state) => state.updateProduct);
 
   const handleSubmit = async () => {
-    await updateProduct({ available: selectedOption.value, price, id: product.id });
-    await fetchProducts(current)
+    await updateProduct({
+      available: selectedOption.value,
+      price,
+      id: product.id,
+    });
+    refetch();
   };
 
   return (
@@ -95,16 +100,17 @@ const EditForm = ({ product, fetchProducts, current }) => {
         <ColumnContainer>
           <Label>Price:</Label>
           <PriceInput
-            type="number"
-            min="0"
+            type='number'
+            min='0'
             value={price}
             onChange={handlePriceChange}
-            placeholder="Price"
+            placeholder='Price'
           />
         </ColumnContainer>
         <ColumnContainer>
-
-          <SubmitButton disabled={isLoading} onClick={handleSubmit}>Update</SubmitButton>
+          <SubmitButton disabled={isLoading} onClick={handleSubmit}>
+            Update
+          </SubmitButton>
         </ColumnContainer>
       </RowContainer>
     </Container>
