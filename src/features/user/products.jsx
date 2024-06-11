@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import useProductStore from '../../app/productStore';
 import Pagination from 'rc-pagination';
 import 'rc-pagination/assets/index.css';
-
 import {
   Table,
   TableDataCell,
@@ -22,18 +21,29 @@ import Modal from '../../app/modal';
 import { useForm } from 'react-hook-form';
 import EditForm from '../../app/editForm';
 import { ToastContainer } from 'react-toastify';
-import { useGetProductsQuery } from './product.api';
 
 const Products = () => {
   // const fetchProducts = useProductStore((state) => state.fetchProducts);
+  const [products, setProducts] = useState([]);
+  const [all, setAll] = useState([]);
   const [current, setCurrent] = useState(0);
-  const { data, refetch } = useGetProductsQuery({
-    page: current,
-    categoryId: '',
-  });
-
+  const fetchProducts = async (page) => {
+    try {
+      const response = await axios.get(
+        `${BaseUrl}/products?page=${page}&size=10`
+      );
+      const newData = response.data.data;
+      setProducts(newData);
+      setAll(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
   // const products = useProductStore((state) => state.products);
 
+  useEffect(() => {
+    fetchProducts(current);
+  }, [current]);
   // const [isOpen, setIsOpen] = useState(false);
   const [isOpenList, setIsOpenList] = useState([]);
 
@@ -67,7 +77,11 @@ const Products = () => {
       <Modal width='40%' show={isOpen} onClose={() => closeView()}>
         Edit Product
         <hr />
-        <EditForm product={selected} refetch={refetch} current={current} />
+        <EditForm
+          product={selected}
+          fetchProducts={fetchProducts}
+          current={current}
+        />
       </Modal>
       <SearchInp
         type='text'
@@ -89,7 +103,7 @@ const Products = () => {
               </TableHeadRow>
             </TableHead>
             <TableBody>
-              {data?.data?.map((product, index) => (
+              {products?.map((product, index) => (
                 <TableRow key={product.id}>
                   <TableDataCell>{product.name}</TableDataCell>
                   <TableDataCell>{product.price}</TableDataCell>
@@ -127,7 +141,7 @@ const Products = () => {
         <Pagination
           onChange={handlePageClick}
           current={current}
-          total={data?.resultTotal}
+          total={all?.resultTotal}
         />
       </div>
     </>

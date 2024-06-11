@@ -51,12 +51,13 @@ const SubmitButton = styled.button`
 `;
 
 // Example component
-const EditForm = ({ product, current, refetch }) => {
+const EditForm = ({ product, fetchProducts, current }) => {
   const [selectedOption, setSelectedOption] = useState(
     product?.available
       ? { value: true, label: 'Available' }
       : { value: false, label: 'Unavailable' }
   );
+
   const [price, setPrice] = useState(product?.price);
 
   // Options for the select component
@@ -83,7 +84,7 @@ const EditForm = ({ product, current, refetch }) => {
       price,
       id: product.id,
     });
-    refetch();
+    await fetchProducts(current);
   };
 
   return (

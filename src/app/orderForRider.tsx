@@ -1,11 +1,9 @@
+// @ts-nocheck
 import React, { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { CopyAllOutlined } from '@mui/icons-material';
-import {
-  useGetIncompleteOrdersQuery,
-  useCompleteOrderMutation,
-} from './incompleteOrderStore';
+import { useIncompleteStore } from './incompleteOrderStore';
 import { Navbar } from '../features';
 import { Button, ListItem } from '@mui/material';
 import useAvailableOrdersStore from '../features/newshop/availableOrdersStore';
@@ -14,7 +12,6 @@ import Select from 'react-select';
 import { formatCurrency } from '../utils/currencyFormat';
 import AuthModal from '../features/newshop/authModal';
 import useAuth from './useAuth';
-import { toast } from 'react-toastify';
 
 export const TableWrapper = styled.div`
   width: 100%;
@@ -29,7 +26,6 @@ export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
 `;
-
 export const TableHead = styled.thead`
   background-color: #f2f2f2;
   width: 100%;
@@ -60,24 +56,20 @@ export const TableRow = styled.tr`
     background-color: #f2f2f2;
   }
 `;
-
 export const TableDataCell = styled.td`
   padding: 20px;
   border-top: 1px solid #ccc;
   word-break: break-word;
   white-space: pre-wrap;
 `;
-
 export const ExpandableRow = styled.tr`
   background-color: #eafef1;
   color: #00a661;
 `;
-
 export const ExpandableDataCell = styled.td`
   padding: 12px;
   border: 1px solid #ccc;
 `;
-
 export const InteractiveIcon = styled(CopyAllOutlined)`
   color: #333;
   cursor: pointer;
@@ -127,31 +119,43 @@ const formatDateTime = (dateTimeString) => {
 };
 
 const OrderForRider = () => {
-  // const { incompleteOrders, fetchIncompleteOrders, error, completeOrder, showModal, setShowModal, loading } = useIncompleteStore();
-  const { data: incompleteOrders } = useGetIncompleteOrdersQuery('');
-  const [completeOrder, { isLoading: loading }] = useCompleteOrderMutation();
-
+  const {
+    incompleteOrders,
+    fetchIncompleteOrders,
+    error,
+    completeOrder,
+    showModal,
+    setShowModal,
+    loading,
+  } = useIncompleteStore();
   const intervalIdRef = useRef(null);
   const [expandedRow, setExpandedRow] = useState(null);
   const { refreshAccessTokenAdmin, logoutAdmin } = useAuth();
   const [selectedRow, setSelectedRow] = useState();
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
   const [orderId, setOrderId] = useState('');
+  console.log(incompleteOrders, 'incompleteOrders');
 
   const handleComplete = (id) => {
     setOrderId(id);
     setShowModal(true);
   };
 
-  //   useEffect(() => {
-  //     intervalIdRef.current = setInterval(() => {
-  //       fetchIncompleteOrders();
-  //     }, 10000);
+  useEffect(() => {
+    if (error !== null) {
+      // refreshAccessTokenAdmin()
+    }
+  }, [error]);
 
-  //     return () => {
-  //       clearInterval(intervalIdRef.current);
-  //     };
-  //   }, []);
+  useEffect(() => {
+    intervalIdRef.current = setInterval(() => {
+      fetchIncompleteOrders();
+    }, 10000);
+
+    return () => {
+      clearInterval(intervalIdRef.current);
+    };
+  }, []);
 
   const toggleExpand = ({ id, ind }) => {
     setSelectedRow(ind);
@@ -270,10 +274,7 @@ const OrderForRider = () => {
           </Button>
           <Button
             backgroundColor='#F06D06'
-            onClick={() => {
-              completeOrder(orderId);
-              setShowModal(false);
-            }}
+            onClick={() => completeOrder(orderId)}
             loading={loading}
             spaceTop='10px'
             spaceBottom='10px'
@@ -286,5 +287,4 @@ const OrderForRider = () => {
     </div>
   );
 };
-
 export default OrderForRider;
