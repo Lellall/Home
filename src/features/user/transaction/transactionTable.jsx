@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { formatCurrency } from '../../../utils/currencyFormat';
 
 const TableContainer = styled.div`
   width: 100%;
@@ -95,7 +96,7 @@ const TransactionTable = ({ transactions }) => {
               <Td>
                 {order.user.firstName} {order.user.lastName}{' '}
               </Td>
-              <Td>{order.amount}</Td>
+              <Td>{formatCurrency(order.amount)}</Td>
               <Td>{order.items.length}</Td>
               <StatusTd status={order.status}>
                 <CustomTag status={order.status}>{order.status}</CustomTag>
