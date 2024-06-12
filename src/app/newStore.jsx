@@ -340,7 +340,10 @@ const NewStore = () => {
       </AlertCards> */}
       <Container>
         <Categories>
-          <CategoriesList />
+          <CategoriesList
+            isSelectCategory={isSelectCategory}
+            setIsSelectCategory={setIsSelectCategory}
+          />
         </Categories>
         <Products>
           <div>
