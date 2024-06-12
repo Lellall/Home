@@ -186,13 +186,13 @@ const NewStore = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [categoriesPage, setCategoriesPage] = useState(0);
 
-  const { data: categories, isFetching: isFetchingCategories } =
-    useGetCategoriesQuery(categoriesPage, {
-      refetchOnMountOrArgChange: true,
-    });
+  // const { data: categories, isFetching: isFetchingCategories } =
+  //   useGetCategoriesQuery(categoriesPage, {
+  //     refetchOnMountOrArgChange: true,
+  //   });
   const onChange = (currentPage) => {
     setCategoriesPage(currentPage - 1);
-    refetch();
+    // refetch();
   };
   const { user, fetchWithAuth, isTokenExpired } = useAuth();
   useEffect(() => {
@@ -261,21 +261,25 @@ const NewStore = () => {
   const handleAddToWishlist = (productId) => {
     navigate(`/product/${productId}`);
   };
-  // const [categories, setCategories] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${BaseUrl}/categories/all-categories`
-  //       );
-  //       setCategories(response.data.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+  const [categories, setCategories] = useState([]);
+  const [isFetchingCategories, setIsFetchingCategories] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsFetchingCategories(true);
+      try {
+        const response = await axios.get(
+          `${BaseUrl}/categories/all-categories?pageNo=${categoriesPage}&pageSize=10`
+        );
+        setCategories(response.data);
+        setIsFetchingCategories(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsFetchingCategories(false);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, [categoriesPage]);
 
   const searchProducts = useProductStore(
     (state) => state.searchProductsByCategory
@@ -488,6 +492,7 @@ const NewStore = () => {
         show={isCategoryModalOpen}
         onClose={() => setIsCategoryModalOpen(false)}
         style={{ maxWidth: '450px' }}
+        width={'450px'}
       >
         <>
           <CategoriesHeader>
