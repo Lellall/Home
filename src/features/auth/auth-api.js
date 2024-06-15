@@ -11,6 +11,11 @@ export const authApi = baseApi.injectEndpoints({
         }).catch((err) => console.log(err));
       },
     }),
+    getBundles: builder.query({
+      query: () => ({
+        url: `/bundles`,
+      }),
+    }),
     postLogin: builder.mutation({
       query: (data) => ({
         url: "auth/login",
@@ -70,4 +75,5 @@ export const {
   usePostSignupMutation,
   useRequestPasswordResetMutation,
   useResetPasswordMutation,
+  useGetBundlesQuery
 } = authApi;

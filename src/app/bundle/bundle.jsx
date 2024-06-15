@@ -8,36 +8,39 @@ import ReusableCard from "../../features/newshop/card";
 import styled from "styled-components";
 import Card from "./card";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useGetBundlesQuery } from "../../features/auth/auth-api";
 
 const ProductCarousel = ({ productsPerPage, products }) => {
   const [currentPage, setCurrentPage] = useState(0);
   //   const totalPages = Math.ceil(products.length / productsPerPage);
   const totalPages = 3;
-  const [shopsData, setShopsData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Function to fetch data using Axios
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${BaseUrl}/bundles`);
-        // Set the fetched data in the state
-        setShopsData(response?.data?.data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  const { data, isLoading } = useGetBundlesQuery();
+  console.log(data, "data");
 
-    // Call the fetchData function when the component mounts
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   // Function to fetch data using Axios
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`${BaseUrl}/bundles`);
+  //       // Set the fetched data in the state
+  //       setShopsData(response?.data?.data);
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   // Call the fetchData function when the component mounts
+  //   fetchData();
+  // }, []);
 
   const handleNext = () => {
     if (currentPage < totalPages - 1) {
       setCurrentPage(currentPage + 1);
     }
   };
-  console.log(shopsData, "shopsData");
+  // console.log(shopsData, "shopsData");
 
   const handlePrev = () => {
     if (currentPage > 0) {
@@ -50,7 +53,7 @@ const ProductCarousel = ({ productsPerPage, products }) => {
     // centerMode: true,
     infinite: true,
     // centerPadding: "60px",
-    slidesToShow: 2,
+    slidesToShow: 4,
     speed: 500,
     dots: true,
     autoplay: true,
@@ -60,7 +63,7 @@ const ProductCarousel = ({ productsPerPage, products }) => {
       {
         breakpoint: 1999,
         settings: {
-          slidesToShow: 2,
+          slidesToShow:  3,
           slidesToScroll: 2,
           infinite: true,
           dots: true,
@@ -93,7 +96,7 @@ const ProductCarousel = ({ productsPerPage, products }) => {
       }}
     >
       <Slider {...settings}>
-        {shopsData.map((product, index) => (
+        {data?.data?.map((product, index) => (
           <>
             <Card
               key={index}

@@ -23,7 +23,7 @@ const Title = styled.p`
   color: #333;
 `;
 
-const BillingAddress = ({ isShopsClose }) => {
+const BillingAddress = ({ isShopsClose, bundle }) => {
   const lat1 = 9.0698368;
   const lon1 = 7.464775700000001;
   const [customerPosition, setCustomerPosition] = useState("");
@@ -115,7 +115,7 @@ const BillingAddress = ({ isShopsClose }) => {
       toast.error(`session expired please logout and login again`, {
         position: "top-right",
       });
-      return
+      return;
     }
     if (error) {
       toast.error(`${error?.data?.message}`, {
@@ -131,27 +131,40 @@ const BillingAddress = ({ isShopsClose }) => {
 
   // const { data: summaryData, error: summaryError } =
   //   useGetSummaryQuery(orderId);
-
-  const orderData = cartItems.map((item) => {
-    return {
-      productId: item?.id,
-      count: item?.qnty,
-      productName: item?.name,
-      price: item?.price * item?.qnty,
-    };
-  });
+  console.log(bundle, "packagepackage");
+  // const orderData = cartItems.map((item) => {
+  //   return {
+  //     productId: item?.id,
+  //     count: item?.qnty,
+  //     productName: item?.name,
+  //     price: item?.price * item?.qnty,
+  //   };
+  // });
+  const paymentItems =
+    bundle !== undefined
+      ? { bundleId: bundle.id }
+      : {
+          paymentItems: cartItems.map((item) => {
+            return {
+              productId: item?.id,
+              count: item?.qnty,
+              productName: item?.name,
+              price: item?.price * item?.qnty,
+            };
+          }),
+        };
 
   const handleOrder = async (phone) => {
     if (isAuthenticated() === false) {
       setShowModal(true);
       return;
     }
-    // if (isShopsClose) {
-    //   setIsModalOpen(true);
-    //   return;
-    // }
+    if (isShopsClose) {
+      setIsModalOpen(true);
+      return;
+    }
     const data = {
-      paymentItems: orderData,
+      ...paymentItems,
       address: {
         streetName: address,
       },
