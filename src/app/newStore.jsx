@@ -361,20 +361,7 @@ const NewStore = () => {
               {isSelectCategory ? "Clear Categories" : "Choose Categories"}
             </RoundButton>
           </CategoryButton>
-          <div
-            style={{
-              marginTop: "60px",
-            }}
-          >
-            <TopSnacker>
-              <TopSnackerColor>heeo</TopSnackerColor>
-              <Text>Special Bundle Packages</Text>
-              <TopSnackerColor>heeo</TopSnackerColor>
-            </TopSnacker>
-          </div>
-          <div>
-            <ProductCarousel />
-          </div>
+          
           <ContainerInf>
             <InfiniteScroll
               style={{ float: "center" }}
