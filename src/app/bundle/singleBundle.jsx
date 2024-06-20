@@ -27,9 +27,12 @@ import { formatCurrency } from "../../utils/currencyFormat";
 import Navbar from "../../app/Nav";
 import { ArrowLeft } from "iconsax-react";
 import ImageGallery from "react-image-gallery";
+import Modal from "../modal";
+import BillingAddress from "../../features/newshop/BillingAddress";
 
 const SingleBundle = () => {
-  const [count, setCount] = useState(0);
+  const [checkout, setCheckout] = useState(false);
+  const [images, setImages] = useState([]);
   const { id } = useParams();
   const [localProduct, setLocalProduct] = useState([]);
   const navigate = useNavigate();
@@ -43,9 +46,6 @@ const SingleBundle = () => {
     decreaseQuantity,
   } = useShoppingCart();
   const foundItem = cart.find((item) => item?.id === id);
-  console.log("====================================");
-  console.log(foundItem);
-  console.log("====================================");
   const buyNow = () => {
     if (exists) {
       navigate("/cart");
@@ -93,27 +93,31 @@ const SingleBundle = () => {
   }
   const exists = isProductIdExist(id, cart);
 
-  const images = [...localProduct.images[0].map((img) => {
-    return  {
+  useEffect(() => {
+    if (localProduct && localProduct.images && localProduct.images.length > 0) {
+      const mappedImages = localProduct.images[0].map((img) => ({
         original: img,
         thumbnail: img,
-      }
-  })]
-  console.log(images,'images');
+      }));
+      setImages(mappedImages);
+    }
+  }, [localProduct]);
+
+  console.log(images);
+
   return (
     <>
       <Navbar />
 
       <>
         <BackButtonContainer>
-          <h3 onClick={() => navigate("/")}>
+          <h3 style={{ cursor: "pointer" }} onClick={() => navigate("/")}>
             <ArrowLeft size="32" />
           </h3>
         </BackButtonContainer>
         <Container style={{ margin: "1rem auto" }} className="container">
           <LeftColumn>
-          {localProduct?.length > 0 &&
-            <ImageGallery items={images ?? []} />}
+            <ImageGallery items={images ?? []} />
           </LeftColumn>
 
           {/* Right Column */}
@@ -176,10 +180,14 @@ const SingleBundle = () => {
               )}
 
               <CartButton
-                style={{ background: "orange", cursor: "pointer",width:"100%" }}
+                style={{
+                  background: "orange",
+                  cursor: "pointer",
+                  width: "100%",
+                }}
                 href="#"
                 className="cart-btn"
-                onClick={buyNow}
+                onClick={() => setCheckout(true)}
               >
                 Buy Now
               </CartButton>
@@ -190,6 +198,21 @@ const SingleBundle = () => {
 
       <div style={{ marginTop: "5rem" }}></div>
       <Footer style={{ marginTop: "50rem" }} />
+      <Modal
+        show={checkout}
+        onClose={() => setCheckout(false)}
+        style={{ maxWidth: "550px" }}
+        width="450px"
+      >
+        <>
+          <div style={{ margin: "20px 0" }}>
+            <div style={{ fontSize: "18px", textAlign: "center", marginBottom:'10px' }}>
+              Please provide your billing address to continue
+            </div>
+            <BillingAddress bundle={localProduct} />
+          </div>
+        </>
+      </Modal>
     </>
   );
 };

@@ -5,10 +5,10 @@ import { Bookmark } from "iconsax-react";
 
 const CardWrapper = styled.div`
   position: relative;
-  width: 500px;
-  max-width: 490px;
+  width: 300px;
+  max-width: 300px;
   box-sizing: border-box;
-  height: 300px;
+  height: 400px;
   cursor: pointer;
   border-radius: 8px;
   overflow: hidden;
@@ -36,7 +36,8 @@ const CardWrapper = styled.div`
     margin-bottom: 16px;
   }
   @media (max-width: 768px) {
-    width: 90%;
+    width: 90% !important;
+    max-width: 90% !important;
     margin: 20px;
     // margin-bottom: 16px;
   }
@@ -44,16 +45,18 @@ const CardWrapper = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 200px; /* Adjust the height as needed */
+  height: 300px; /* Adjust the height as needed */
   object-fit: cover;
+  image-repeat: no-repeat; /* Corrected to no-repeat */
   @media (max-width: 1280px) {
     height: 220px;
-
   }
   @media (max-width: 1044px) {
     height: 270px;
   }
 `;
+
+
 
 const CardContent = styled.div`
   padding: 12px;
@@ -216,9 +219,9 @@ const Card = ({
   return (
     <div>
       <CardWrapper className="card" onClick={onAddToWishlist}>
-        <InnerCard>
+        {/* <InnerCard>
           <Text>Save up to 20%</Text>
-        </InnerCard>
+        </InnerCard> */}
         <Image src={imageUrl} alt="Product Image" />
         <CardContent>
           <Discount style={{ color: isShopClose ? "#FF8A65" : "#0E5D37" }}>
