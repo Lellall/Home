@@ -39,10 +39,10 @@ const Category = styled.div`
   }
 `;
 
-const CategoriesList = () => {
+const CategoriesList = ({ isSelectCategory, setIsSelectCategory }) => {
   // const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
-  const [isCategory, setIsCategory] = useState(false);
+  // const [isCategory, setIsCategory] = useState(false);
   // const fetchCategories = useProductStore((state) => state.fetchCategories);
   // const categories = useProductStore((state) => state.categories);
   const { setIsCategoryModalOpen } = useGlobalModalStore();
@@ -71,17 +71,17 @@ const CategoriesList = () => {
   const handleCategorySearch = (category) => {
     navigate(`?cat=${category?.name}`);
     searchProducts(category.id);
-    setIsCategory(true);
+    setIsSelectCategory(true);
   };
   const handleCategoryCloseSearch = () => {
     navigate('/');
     searchProducts('');
-    setIsCategory(false);
+    setIsSelectCategory(false);
   };
 
   return (
     <Container>
-      {categories?.data?.slice(0, 8).map((category, index) => (
+      {categories?.data?.slice(0, 8).map((category) => (
         <div
           key={category.id}
           onClick={() => handleCategorySearch(category)}
@@ -97,7 +97,7 @@ const CategoriesList = () => {
       <p
         style={{
           fontSize: 'small',
-          color: isCategory ? 'red' : '',
+          color: isSelectCategory ? 'red' : '',
           cursor: 'pointer',
           marginLeft: '30px',
           // borderBottom: isCategory ? '1px solid #F06D05' : '',
@@ -108,13 +108,13 @@ const CategoriesList = () => {
           // background: 'red',
         }}
         onClick={() => {
-          isCategory
+          isSelectCategory
             ? handleCategoryCloseSearch()
             : setIsCategoryModalOpen(true);
         }}
       >
-        {isCategory ? 'Close' : 'View more'}
-        {isCategory && (
+        {isSelectCategory ? 'Close' : 'View more'}
+        {isSelectCategory && (
           <CloseCircle style={{ marginLeft: '10px' }} size='16' color='red' />
         )}
       </p>
