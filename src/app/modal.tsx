@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Modal({ onClose, show, children, width }) {
+function Modal({ onClose, show, children, width, style }) {
   return (
     <>
       {show && (
         <>
           <ModalOverlay>
-            <ModalContent width={width}>
+            <ModalContent width={width} style={style}>
               <CloseButton onClick={onClose}>X</CloseButton>
               {children}
             </ModalContent>

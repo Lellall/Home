@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useProductStore from "../../app/productStore";
-import Pagination from "rc-pagination";
-import "rc-pagination/assets/index.css";
+import React, { useEffect, useState } from 'react';
+import useProductStore from '../../app/productStore';
+import Pagination from 'rc-pagination';
+import 'rc-pagination/assets/index.css';
 
 import {
   Table,
@@ -11,17 +11,17 @@ import {
   TableHeadRow,
   TableRow,
   TableWrapper,
-} from "../../app/orderForRider";
-import { TableBody } from "@mui/material";
-import { Menu } from "iconsax-react";
-import DropdownTableMenu from "../../app/dropDown";
-import { BaseUrl } from "../../utils/config";
-import axios from "axios";
-import { SearchInp } from "../ui/base/navbar/navbar.styles";
-import Modal from "../../app/modal";
-import { useForm } from "react-hook-form";
-import EditForm from "../../app/editForm";
-import { ToastContainer } from "react-toastify";
+} from '../../app/orderForRider';
+import { TableBody } from '@mui/material';
+import { Menu } from 'iconsax-react';
+import DropdownTableMenu from '../../app/dropDown';
+import { BaseUrl } from '../../utils/config';
+import axios from 'axios';
+import { SearchInp } from '../ui/base/navbar/navbar.styles';
+import Modal from '../../app/modal';
+import { useForm } from 'react-hook-form';
+import EditForm from '../../app/editForm';
+import { ToastContainer } from 'react-toastify';
 
 const Products = () => {
   // const fetchProducts = useProductStore((state) => state.fetchProducts);
@@ -37,7 +37,7 @@ const Products = () => {
       setProducts(newData);
       setAll(response.data);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   };
   // const products = useProductStore((state) => state.products);
@@ -74,8 +74,13 @@ const Products = () => {
 
   return (
     <>
-     <ToastContainer />
-      <Modal width="40%" show={isOpen} onClose={() => closeView()}>
+      <ToastContainer />
+      <Modal
+        width='100%'
+        style={{ maxWidth: '700px' }}
+        show={isOpen}
+        onClose={() => closeView()}
+      >
         Edit Product
         <hr />
         <EditForm
@@ -85,12 +90,12 @@ const Products = () => {
         />
       </Modal>
       <SearchInp
-        type="text"
-        placeholder="What are you looking for?"
+        type='text'
+        placeholder='What are you looking for?'
         // value={searchTerm}
         // onChange={handleSearchChange}
       />
-      <div style={{ width: "100%" }}>
+      <div style={{ width: '100%' }}>
         <TableWrapper>
           <Table>
             <TableHead>
@@ -110,19 +115,19 @@ const Products = () => {
                   <TableDataCell>{product.price}</TableDataCell>
                   <TableDataCell>{product.quantity}</TableDataCell>
                   <TableDataCell>
-                    {product.available ? "Yes" : "No"}
+                    {product.available ? 'Yes' : 'No'}
                   </TableDataCell>
                   <TableDataCell>{product.category?.name}</TableDataCell>
                   <TableDataCell>
                     <button
                       style={{
-                        textAlign: "center",
-                        border: "none",
-                        cursor: "pointer",
+                        textAlign: 'center',
+                        border: 'none',
+                        cursor: 'pointer',
                       }}
                       onClick={() => openMenu(product)}
                     >
-                      <Menu size="16" color="#FF8A65" />
+                      <Menu size='16' color='#FF8A65' />
                       {/* <DropdownTableMenu
                         buttonText={<Menu size="16" color="#FF8A65" />}
                         isOpen={isOpenList[index] || false}
@@ -138,7 +143,7 @@ const Products = () => {
           </Table>
         </TableWrapper>
       </div>
-      <div style={{ float: "right", margin: "10px" }}>
+      <div style={{ float: 'right', margin: '10px' }}>
         <Pagination
           onChange={handlePageClick}
           current={current}
