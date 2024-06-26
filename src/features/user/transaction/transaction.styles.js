@@ -12,9 +12,9 @@ export const MainContainer = styled(Box)`
 export const HeadingContainer = styled(Box)`
   display: flex !important;
   padding: 16px !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: flex-start !important;
+  flex-direction: row !important;
+  justify-content: space-between !important;
+  align-items: center !important;
   gap: 8px !important;
   align-self: stretch !important;
   border-bottom: 1px solid rgba(236, 236, 236, 0.93) !important;

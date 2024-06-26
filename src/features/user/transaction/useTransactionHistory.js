@@ -7,15 +7,18 @@ import { BaseUrl } from '../../../utils/config';
 const useTransactionHistory = create((set) => ({
   transactionHistory: [],
   resultTotals: 0,
-
+  loading: false,
   setTransactionHistory: (val) => set({ val }),
 
-  fetchTransactionHistory: async (page) => {
+  fetchTransactionHistory: async (page, size, status = '') => {
     const token = await localforage.getItem('accessToken');
     if (token !== null) {
+      set(() => ({
+        loading: true,
+      }));
       try {
         const response = await axios.get(
-          `${BaseUrl}/transactions?page=${page}&size=10`,
+          `${BaseUrl}/transactions?page=${page}&size=${size}&status=${status}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -25,9 +28,13 @@ const useTransactionHistory = create((set) => ({
         set(() => ({
           transactionHistory: response.data.data,
           resultTotals: response.data.resultTotal,
+          loading: false,
         }));
       } catch (error) {
         console.error('Error fetching orders:', error);
+        set(() => ({
+          loading: true,
+        }));
       }
     }
   },
