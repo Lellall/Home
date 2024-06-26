@@ -105,7 +105,6 @@ const EditForm = ({ product, fetchProducts, current }) => {
     setPrice(e.target.value);
   };
   const handleDescriptionChange = (e) => {
-    console.log(e.target.value);
     setDescription(e.target.value);
   };
   const isLoading = useProductStore((state) => state.isLoading);
