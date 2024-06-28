@@ -4,27 +4,27 @@ import {
   useContext,
   useEffect,
   useState,
-} from "react";
-import { usePostLoginMutation, usePostSignupMutation } from "./auth-api";
-import { appPaths } from "../../app/app-paths";
-import localforage from "localforage";
-import Cookies from "js-cookie";
-import { toast } from "react-toastify";
-import axios from "axios";
+} from 'react';
+import { usePostLoginMutation, usePostSignupMutation } from './auth-api';
+import { appPaths } from '../../app/app-paths';
+import localforage from 'localforage';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const authContext = createContext({});
 
 const saveDataToLocalForage = (data) => {
-    const { access_token, refresh_token, user } = data;
-    try {
-      localforage.setItem("accessToken", access_token);
-      localforage.setItem("refreshToken", refresh_token);
-      localforage.setItem("user", user);
-    } catch (error) {
-      console.error("Error saving data to localForage:", error);
-      throw error;
-    }
-  };
+  const { access_token, refresh_token, user } = data;
+  try {
+    localforage.setItem('accessToken', access_token);
+    localforage.setItem('refreshToken', refresh_token);
+    localforage.setItem('user', user);
+  } catch (error) {
+    console.error('Error saving data to localForage:', error);
+    throw error;
+  }
+};
 
 export function AuthProvider(props) {
   const [user, setUser] = useState(null);
@@ -32,10 +32,10 @@ export function AuthProvider(props) {
 
   const getUser = async () => {
     try {
-      const value = await localforage.getItem("user");
+      const value = await localforage.getItem('user');
       return value;
     } catch (err) {
-      console.error("Error getting user", err);
+      console.error('Error getting user', err);
       return null;
     }
   };
@@ -45,10 +45,10 @@ export function AuthProvider(props) {
       try {
         const user = await getUser();
         setUser(user);
-        const token = await localforage.getItem("accessToken");
+        const token = await localforage.getItem('accessToken');
         setAccessToken(token);
       } catch (error) {
-        console.error("Error fetching user:", error);
+        console.error('Error fetching user:', error);
       }
     };
 
@@ -86,21 +86,21 @@ export function AuthProvider(props) {
   }, [registerError]);
 
   const login = async (data) => {
-    const dataform = { ...data, role: "CONSUMER" };
+    const dataform = { ...data, role: 'CONSUMER' };
     await loginReq(dataform);
   };
   const register = async (data) => {
-    const dataform = { ...data, role: "CONSUMER", platformType: "WEB" };
+    const dataform = { ...data, role: 'CONSUMER', platformType: 'WEB' };
     await registerReq(dataform);
   };
 
   useEffect(() => {
     const registerRes = registerResponse;
     if (registerRes) {
-      Cookies.set("authToken", registerRes.access_token, {
+      Cookies.set('authToken', registerRes.access_token, {
         secure: false,
-        sameSite: "strict",
-        path: "/",
+        sameSite: 'strict',
+        path: '/',
       });
       saveDataToLocalForage(registerRes);
     }
@@ -109,46 +109,46 @@ export function AuthProvider(props) {
   useEffect(() => {
     const loginRes = loginResponse;
     if (loginRes) {
-      Cookies.set("authToken", loginRes.access_token, {
+      Cookies.set('authToken', loginRes.access_token, {
         secure: false,
-        sameSite: "strict",
-        path: "/",
+        sameSite: 'strict',
+        path: '/',
       });
       saveDataToLocalForage(loginRes);
     }
   }, [loginResponse]);
 
   const logout = useCallback(() => {
-    Cookies.remove("authToken");
-    localforage.removeItem("accessToken");
-    localforage.removeItem("refreshToken");
-    localforage.removeItem("user");
+    Cookies.remove('authToken');
+    localforage.removeItem('accessToken');
+    localforage.removeItem('refreshToken');
+    localforage.removeItem('user');
     window.location.replace(appPaths.login);
   }, []);
 
   const isAuthenticated = () => {
-    const authToken = Cookies.get("authToken");
+    const authToken = Cookies.get('authToken');
     return !!authToken;
   };
 
   const refreshAccessToken = async () => {
     try {
-      const refreshToken = await localforage.getItem("refreshToken");
-      if (!refreshToken) throw new Error("No refresh token found");
-      const response = await axios.post("/auth/refresh-token", {
+      const refreshToken = await localforage.getItem('refreshToken');
+      if (!refreshToken) throw new Error('No refresh token found');
+      const response = await axios.post('/auth/refresh-token', {
         refresh_token: refreshToken,
       });
       const { access_token } = response.data;
-      localforage.setItem("accessToken", access_token);
-      Cookies.set("authToken", access_token, {
+      localforage.setItem('accessToken', access_token);
+      Cookies.set('authToken', access_token, {
         secure: false,
-        sameSite: "strict",
-        path: "/",
+        sameSite: 'strict',
+        path: '/',
       });
       setAccessToken(access_token);
       return access_token;
     } catch (error) {
-      console.error("Failed to refresh access token:", error);
+      console.error('Failed to refresh access token:', error);
       logout();
       return null;
     }
@@ -156,7 +156,7 @@ export function AuthProvider(props) {
 
   const isTokenExpired = (token) => {
     if (!token) return true;
-    const [, payload] = token.split(".");
+    const [, payload] = token.split('.');
     const decoded = JSON.parse(atob(payload));
     return decoded.exp * 1000 < Date.now();
   };
@@ -166,7 +166,7 @@ export function AuthProvider(props) {
     if (isTokenExpired(token)) {
       token = await refreshAccessToken();
       if (!token) {
-        throw new Error("Unable to refresh token");
+        throw new Error('Unable to refresh token');
       }
     }
     options.headers = {
@@ -193,7 +193,9 @@ export function AuthProvider(props) {
         isRegisterSuccess,
         fetchWithAuth,
         isTokenExpired,
-        refreshAccessToken
+        refreshAccessToken,
+        setUser,
+        loginResponse,
       }}
     >
       {props.children}

@@ -9,10 +9,11 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { baseApi } from "./base-api";
+import { baseApi } from './base-api';
 
 import { setupListeners } from '@reduxjs/toolkit/query';
 import storage from 'redux-persist/lib/storage';
+import { userSlice } from '../features/auth/authSlice';
 
 const persistConfig = {
   key: 'root',
@@ -20,6 +21,7 @@ const persistConfig = {
 };
 const combineReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
+  [userSlice.name]: userSlice.reducer,
 });
 const rootReducer = (state, action) => {
   if (action.type === 'clear') {
