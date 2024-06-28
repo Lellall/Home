@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Outlet, NavLink } from "react-router-dom";
+import { useState } from 'react';
+import { Outlet, NavLink } from 'react-router-dom';
 import {
   ProfileCircle,
   BookSaved,
@@ -7,21 +7,21 @@ import {
   Heart,
   TicketDiscount,
   Clock,
-} from "iconsax-react";
-import styled from "styled-components";
-import { Box, Container, Typography } from "@mui/material";
+} from 'iconsax-react';
+import styled from 'styled-components';
+import { Box, Container, Typography } from '@mui/material';
 
-import { Footer, Navbar, Modal } from "../features/ui";
-import { appPaths } from "./app-paths";
-import { ViewportWidth } from "../utils/enums";
-import { useResponsiveValue } from "../lib/use-responsive-value";
+import { Footer, Navbar, Modal } from '../features/ui';
+import { appPaths } from './app-paths';
+import { ViewportWidth } from '../utils/enums';
+import { useResponsiveValue } from '../lib/use-responsive-value';
 
 const MainContainer = styled(Container)`
   display: flex !important;
   align-items: flex-start !important;
-  padding: 40px 60px 200px !important;
+  padding: 8.5rem 60px 200px !important;
   gap: 30px !important;
-  background: url("/assets/background.svg") !important;
+  background: url('/assets/background.svg') !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   background-color: lightgray !important;
@@ -31,12 +31,12 @@ const MainContainer = styled(Container)`
 
   @media (max-width: ${ViewportWidth.md}px) {
     max-width: 1024px !important;
-    padding: 28.623px 38px 120px !important;
+    padding: 6.5rem 38px 120px !important;
     gap: 20px !important;
   }
 
   @media (max-width: ${ViewportWidth.sm}px) {
-    padding: 0 !important;
+    padding: 8.5rem 10px !important;
   }
 `;
 
@@ -144,7 +144,7 @@ const StyledMenuItem = styled(NavLink)`
       font-style: normal;
       font-weight: 400;
       line-height: 24px;
-      font-feature-settings: "clig" off, "liga" off;
+      font-feature-settings: 'clig' off, 'liga' off;
     }
   }
 
@@ -163,7 +163,7 @@ const StyledMenuItem = styled(NavLink)`
   }
 `;
 StyledMenuItem.defaultProps = {
-  className: ({ isActive }) => (isActive ? "active" : ""),
+  className: ({ isActive }) => (isActive ? 'active' : ''),
 };
 
 const ContentContainer = styled(Box)`
@@ -193,7 +193,7 @@ const ContentContainer = styled(Box)`
 
 const MobileNav = styled(NavLink)`
   color: #2f313f !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Raleway !important;
   font-size: 16px !important;
   font-style: normal !important;
@@ -209,13 +209,13 @@ const MobileNav = styled(NavLink)`
   }
 `;
 MobileNav.defaultProps = {
-  className: ({ isActive }) => (isActive ? "active" : ""),
+  className: ({ isActive }) => (isActive ? 'active' : ''),
 };
 
 const ModalHeading = styled(Typography)`
   color: #2f313f !important;
   text-align: center !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Raleway !important;
   font-size: 34px !important;
   font-style: normal !important;
@@ -247,7 +247,7 @@ const ModalContent = styled(Box)`
   .sub-text {
     color: #2f313f !important;
     text-align: center !important;
-    font-feature-settings: "clig" off, "liga" off !important;
+    font-feature-settings: 'clig' off, 'liga' off !important;
     font-family: Open Sans !important;
     font-size: 22px !important;
     font-style: normal !important;
@@ -271,7 +271,7 @@ const ModalContent = styled(Box)`
       justify-content: center;
       align-items: center;
       gap: 10px;
-      font-feature-settings: "clig" off, "liga" off;
+      font-feature-settings: 'clig' off, 'liga' off;
       font-family: Open Sans;
       font-size: 14px;
       font-style: normal;
@@ -323,38 +323,38 @@ const UserLayout = () => {
   const navItems = [
     {
       id: 1,
-      icon: <ProfileCircle size="20" />,
-      text: "Profile",
+      icon: <ProfileCircle size='20' />,
+      text: 'Profile',
       url: appPaths.profile,
     },
     {
       id: 2,
-      icon: <BookSaved size="20" />,
-      text: "My Orders",
+      icon: <BookSaved size='20' />,
+      text: 'My Orders',
       url: appPaths.myOrders,
     },
     {
       id: 3,
-      icon: <Notification size="20" />,
-      text: "Notification",
+      icon: <Notification size='20' />,
+      text: 'Notification',
       url: appPaths.notification,
     },
     {
       id: 4,
-      icon: <Heart size="20" />,
-      text: "Favorites",
+      icon: <Heart size='20' />,
+      text: 'Favorites',
       url: appPaths.favorites,
     },
     {
       id: 5,
-      icon: <TicketDiscount size="20" />,
-      text: "Discount",
+      icon: <TicketDiscount size='20' />,
+      text: 'Discount',
       url: appPaths.discount,
     },
     {
       id: 6,
-      icon: <Clock size="20" />,
-      text: "Recently viewed",
+      icon: <Clock size='20' />,
+      text: 'Recently viewed',
       url: appPaths.recentlyViewed,
     },
   ];
@@ -370,16 +370,16 @@ const UserLayout = () => {
       <Navbar />
       <MainContainer>
         <NavContainer>
-          <div className="nav-items">
+          <div className='nav-items'>
             {navItems.map((item) => (
               <StyledMenuItem key={item.id} to={item.url} end>
-                <div className="main">
+                <div className='main'>
                   {item.icon} <p>{item.text}</p>
                 </div>
               </StyledMenuItem>
             ))}
           </div>
-          <div className="deactivate">
+          <div className='deactivate'>
             <button onClick={() => setShowModal(true)}>
               Deactivate Account
             </button>
@@ -387,7 +387,7 @@ const UserLayout = () => {
         </NavContainer>
         <ContentContainer>
           {isMobile && (
-            <div className="mobile-nav">
+            <div className='mobile-nav'>
               {navItems.map((item) => (
                 <MobileNav key={item.id} to={item.url} end>
                   <p>{item.text}</p>
@@ -399,16 +399,16 @@ const UserLayout = () => {
         </ContentContainer>
       </MainContainer>
       <Footer show={false} />
-      <Modal isOpen={showModal} withCloseButton={false} pad={"20px 10px"}>
+      <Modal isOpen={showModal} withCloseButton={false} pad={'20px 10px'}>
         <ModalContent>
           <ModalHeading>Are you sure?</ModalHeading>
-          <p className="sub-text">
+          <p className='sub-text'>
             Your account will be deactivated, and all your information will be
             cleared.
           </p>
-          <div className="buttons">
-            <button className="danger">Yes, Deactivate Account</button>
-            <button className="cancel" onClick={() => setShowModal(false)}>
+          <div className='buttons'>
+            <button className='danger'>Yes, Deactivate Account</button>
+            <button className='cancel' onClick={() => setShowModal(false)}>
               Cancel
             </button>
           </div>

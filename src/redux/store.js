@@ -9,18 +9,19 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { baseApi } from "./base-api";
+import { baseApi } from './base-api';
 
 import { setupListeners } from '@reduxjs/toolkit/query';
 import storage from 'redux-persist/lib/storage';
+import { userSlice } from '../features/auth/authSlice';
 
 const persistConfig = {
   key: 'root',
   storage,
 };
 const combineReducer = combineReducers({
-  //  add  combineReducers
   [baseApi.reducerPath]: baseApi.reducer,
+  [userSlice.name]: userSlice.reducer,
 });
 const rootReducer = (state, action) => {
   if (action.type === 'clear') {
@@ -29,8 +30,6 @@ const rootReducer = (state, action) => {
   }
   return combineReducer(state, action);
 };
-
-// const middleWares = [authApi.middleware];
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 export const store = configureStore({

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Typography, Box, Button } from "@mui/material";
+import styled from 'styled-components';
+import { Typography, Box, Button } from '@mui/material';
 // import { ViewportWidth } from "../../../utils/enums";
 
 export const MainContainer = styled(Box)`
@@ -22,7 +22,7 @@ export const HeadingContainer = styled(Box)`
 
 export const HeadingText = styled(Typography)`
   color: #2f313f !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Raleway !important;
   font-size: 20px !important;
   font-style: normal !important;
@@ -47,9 +47,9 @@ export const StyledButton = styled(Button)`
   justify-content: center !important;
   align-items: center !important;
   gap: 5px !important;
-  background: ${(props) => (props.active ? "#EAFEF1" : "")} !important;
-  color: ${(props) => (props.active ? "#00A661" : "#ccc")} !important;
-  font-feature-settings: "clig" off, "liga" off !important;
+  background: ${(props) => (props.active ? '#EAFEF1' : '')} !important;
+  color: ${(props) => (props.active ? '#00A661' : '#ccc')} !important;
+  font-feature-settings: 'clig' off, 'liga' off !important;
   font-family: Open Sans !important;
   font-size: 16px !important;
   font-style: normal !important;
@@ -60,7 +60,6 @@ export const StyledButton = styled(Button)`
 `;
 
 export const EmptyState = styled(Box)`
-
   display: flex !important;
   padding: 40px 16px !important;
   flex-direction: column !important;
@@ -68,7 +67,9 @@ export const EmptyState = styled(Box)`
   align-items: center !important;
   gap: 20px !important;
   align-self: stretch !important;
-
+  /* background: red; */
+  width: 500px;
+  margin: auto;
   .text-container {
     display: flex;
     flex-direction: column;
@@ -78,17 +79,19 @@ export const EmptyState = styled(Box)`
 
     p {
       color: #2f313f;
-      font-feature-settings: "clig" off, "liga" off;
+      font-feature-settings: 'clig' off, 'liga' off;
       font-family: Open Sans;
       font-size: 16px;
       font-style: normal;
       font-weight: 400;
       line-height: normal;
-
     }
 
     .bold {
       font-weight: 600 !important;
     }
+  }
+  @media screen and (max-width: 760px) {
+    width: 100%;
   }
 `;

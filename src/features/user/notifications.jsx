@@ -7,9 +7,10 @@ const MainContainer = styled(Box)`
   display: flex !important;
   padding: 30px 0px !important;
   flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
+  justify-content: start !important;
+  align-items: start !important;
   gap: 20px !important;
+  margin: 0 auto;
   flex: 1 0 0 !important;
   align-self: stretch !important;
 
@@ -125,7 +126,7 @@ const HeadingText = styled(Typography)`
   text-align: center !important;
   font-feature-settings: "clig" off, "liga" off !important;
   font-family: Raleway !important;
-  font-size: 34px !important;
+  font-size: 30px !important;
   font-style: normal !important;
   font-weight: 700 !important;
   line-height: 46px !important;
