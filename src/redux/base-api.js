@@ -1,11 +1,11 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { BaseUrl } from "../utils/config";
-import { getAccessToken, isTokenExpired, refreshTokens } from "./token-utils";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BaseUrl } from '../utils/config';
+import { getAccessToken, isTokenExpired, refreshTokens } from './token-utils';
 
 const excludePaths = [
-  "auth/login",
-  "auth/register",
-  "auth/password-reset/request",
+  'auth/login',
+  'auth/register',
+  'auth/password-reset/request',
 ];
 
 const baseQuery = fetchBaseQuery({
@@ -25,12 +25,12 @@ const baseQuery = fetchBaseQuery({
       try {
         token = await refreshTokens();
       } catch (error) {
-        console.error("Token refresh failed:", error);
+        console.error('Token refresh failed:', error);
       }
     }
 
     if (token) {
-      headers.set("Authorization", `Bearer ${token}`);
+      headers.set('Authorization', `Bearer ${token}`);
     }
 
     return headers;
@@ -62,7 +62,7 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
         extraOptions
       );
     } catch (error) {
-      console.error("Failed to refresh token:", error);
+      console.error('Failed to refresh token:', error);
     }
   }
 
@@ -71,8 +71,8 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 
 export const baseApi = createApi({
   baseQuery: baseQueryWithReauth,
-  tagTypes: ["AUTH", "SHOP"],
-  reducerPath: "baseApi",
+  tagTypes: ['AUTH', 'SHOP'],
+  reducerPath: 'baseApi',
   endpoints: () => ({}),
   keepUnusedDataFor: 5000,
 });
