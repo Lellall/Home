@@ -17,6 +17,7 @@ import useGlobalModalStore from '../../app/useGlobalModal';
 import { useGetSummaryQuery, useOrderItemsMutation } from './cart.api';
 import { getRefreshToken } from '../../redux/token-utils';
 import { useAuth } from '../auth/auth.context';
+import { useUserSelector } from '../auth/authSlice';
 const Title = styled.p`
   font-size: 14px;
   margin-bottom: 15px;
@@ -98,7 +99,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     control,
     formState: { errors },
   } = useForm();
-  const { isAuthenticated, accessToken, refreshAccessToken, user } = useAuth();
+  const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
   const { cart: cartItems } = useShoppingCart();
   const [showModal, setShowModal] = useState(false);
   // const refreshTokenss = async () => {
@@ -106,6 +107,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
   //   console.log(refreshToken,refreshToken);
   // };
   // refreshTokenss()
+  const user = useUserSelector();
 
   const [orderItems, { data: res, error, isSuccess, isLoading }] =
     useOrderItemsMutation();
@@ -140,6 +142,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
   //     price: item?.price * item?.qnty,
   //   };
   // });
+
   const paymentItems =
     bundle !== undefined
       ? { bundleId: bundle.id }
@@ -155,14 +158,14 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
         };
   const handleOrder = async (phone) => {
     // refreshAccessToken();
-    if (user === null) {
+    if (!user.isLogin) {
       setShowModal(true);
       return;
     }
-    if (isShopsClose) {
-      setIsModalOpen(true);
-      return;
-    }
+    // if (isShopsClose) {
+    //   setIsModalOpen(true);
+    //   return;
+    // }
     const data = {
       ...paymentItems,
       address: {

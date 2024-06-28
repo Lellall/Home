@@ -7,6 +7,12 @@ import useShoppingCart from './useShoppingCart';
 import SearchComponent from './searchInp';
 import { getItemFromLocalForage } from '../utils/getItem';
 import { useAuth } from '../features/auth/auth.context';
+import {
+  setUser,
+  useUserSelector,
+  initialState,
+} from '../features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 
 const NavbarContainer = styled.nav`
   position: fixed;
@@ -53,7 +59,8 @@ const MenuList = styled.ul`
 
   margin: 0;
   padding: 0;
-  transform: ${({ isOpen }) => (isOpen ? 'translateX(0)' : 'translateX(-100%)')};
+  transform: ${({ isOpen }) =>
+    isOpen ? 'translateX(0)' : 'translateX(-100%)'};
   transition: transform 0.3s ease;
   align-items: right;
   @media (max-width: 768px) {
@@ -97,44 +104,48 @@ const MenuButton = styled.button`
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [user, setUser] = useState("");
-  const navigate = useNavigate()
+  // const [user, setUser] = useState('');
+  const navigate = useNavigate();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
   const { cart } = useShoppingCart();
-  const {
-    logout,
+  const { logout } = useAuth();
+  const user = useUserSelector();
+  const dispatch = useDispatch();
 
-  } = useAuth();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedItem = await getItemFromLocalForage("user");
-        setUser(storedItem);
-      } catch (error) {
-        console.error("Error retrieving item:", error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const storedItem = await getItemFromLocalForage('user');
+  //       setUser(storedItem);
+  //     } catch (error) {
+  //       console.error('Error retrieving item:', error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <NavbarContainer>
-      <Logo onClick={() => navigate('/')} src="/assets/lellall-colored.svg" alt="Logo" />
+      <Logo
+        onClick={() => navigate('/')}
+        src='/assets/lellall-colored.svg'
+        alt='Logo'
+      />
       <SearchComponent />
       <div>
         <MenuButton onClick={toggleMenu}>
           <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="#000000"
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='#000000'
           >
-            <path d="M0 0h24v24H0z" fill="none" />
-            <path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z" />
+            <path d='M0 0h24v24H0z' fill='none' />
+            <path d='M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z' />
           </svg>
         </MenuButton>
       </div>
@@ -142,30 +153,39 @@ const Navbar = () => {
         <MenuList isOpen={isOpen}>
           <MenuItem>
             <div
-              onClick={() => navigate("/cart")}
-              style={{ position: "relative", height: "30px", padding: "5px" }}
+              onClick={() => navigate('/cart')}
+              style={{ position: 'relative', height: '30px', padding: '5px' }}
             >
               <img
-                src="/assets/shopping-cart.svg"
-                alt="cart"
-                className="cart"
+                src='/assets/shopping-cart.svg'
+                alt='cart'
+                className='cart'
               />
               {
                 <QuantityContainer>
-                  <p >{cart?.length}</p>
+                  <p>{cart?.length}</p>
                 </QuantityContainer>
               }
             </div>
           </MenuItem>
-          {user === null && (
+          {user.isLogin === false && (
             <>
               <MenuItem onClick={() => navigate('/login')}>Sign In</MenuItem>
             </>
           )}
-          <MenuItem onClick={() => navigate('/privacy-policy')}>Privacy Policy</MenuItem>
-          {user !== null && (
+          <MenuItem onClick={() => navigate('/privacy-policy')}>
+            Privacy Policy
+          </MenuItem>
+          {user.isLogin === true && (
             <>
-              <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  dispatch(setUser(initialState));
+                  logout();
+                }}
+              >
+                Logout
+              </MenuItem>
             </>
           )}
         </MenuList>
