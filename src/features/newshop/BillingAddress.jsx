@@ -98,7 +98,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     control,
     formState: { errors },
   } = useForm();
-  const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
+  const { isAuthenticated, accessToken, refreshAccessToken, user } = useAuth();
   const { cart: cartItems } = useShoppingCart();
   const [showModal, setShowModal] = useState(false);
   // const refreshTokenss = async () => {
@@ -153,13 +153,12 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
             };
           }),
         };
-
   const handleOrder = async (phone) => {
     // refreshAccessToken();
-    // if (isAuthenticated() === false) {
-    //   setShowModal(true);
-    //   return;
-    // }
+    if (user === null) {
+      setShowModal(true);
+      return;
+    }
     if (isShopsClose) {
       setIsModalOpen(true);
       return;

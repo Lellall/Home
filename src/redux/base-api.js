@@ -46,10 +46,10 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
   }
 
   let result = await baseQuery(args, api, extraOptions);
-
+  let token = await getAccessToken();
   if (result.error && result.error.status === 401) {
     try {
-      const newAccessToken = await refreshTokens();
+      const newAccessToken = await refreshTokens(token);
       result = await baseQuery(
         {
           ...args,
