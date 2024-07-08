@@ -9,6 +9,7 @@ import styled from "styled-components";
 import Card from "./card";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { useGetBundlesQuery } from "../../features/auth/auth-api";
+import { ToastContainer } from "react-toastify";
 
 const ProductCarousel = ({ productsPerPage, products }) => {
   const [currentPage, setCurrentPage] = useState(0);
@@ -86,6 +87,8 @@ const ProductCarousel = ({ productsPerPage, products }) => {
   };
 
   return (
+    <>
+     <ToastContainer />
     <div
       style={{
         height: "50vh",
@@ -111,6 +114,7 @@ const ProductCarousel = ({ productsPerPage, products }) => {
         ))}
       </Slider>
     </div>
+    </>
   );
 };
 

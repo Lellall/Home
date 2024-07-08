@@ -7,6 +7,9 @@ import useShoppingCart from './useShoppingCart';
 import SearchComponent from './searchInp';
 import { getItemFromLocalForage } from '../utils/getItem';
 import { useAuth } from '../features/auth/auth.context';
+import { useSelector } from 'react-redux';
+import { logout } from '../features/auth/auth.slice';
+
 
 const NavbarContainer = styled.nav`
   position: fixed;
@@ -97,29 +100,18 @@ const MenuButton = styled.button`
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [show, setShow] = useState(false);
-  const [user, setUser] = useState("");
+  const user = useSelector((state: any) => state.auth.user);
+
   const navigate = useNavigate()
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
   const { cart } = useShoppingCart();
-  const {
-    logout,
 
-  } = useAuth();
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const storedItem = await getItemFromLocalForage("user");
-        setUser(storedItem);
-      } catch (error) {
-        console.error("Error retrieving item:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+  const logOutUser = () => {
+    logout()
+    window.location.href = '/login';
+  }
   return (
     <NavbarContainer>
       <Logo onClick={() => navigate('/')} src="/assets/lellall-colored.svg" alt="Logo" />
@@ -165,7 +157,7 @@ const Navbar = () => {
           <MenuItem onClick={() => navigate('/privacy-policy')}>Privacy Policy</MenuItem>
           {user !== null && (
             <>
-              <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              <MenuItem onClick={() => logOutUser()}>Logout</MenuItem>
             </>
           )}
         </MenuList>

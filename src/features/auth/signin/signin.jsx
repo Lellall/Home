@@ -13,7 +13,7 @@ import { ToastContainer, toast } from "react-toastify";
 import useAuthStore from "../../../app/authStore";
 import { useNavigate, useParams } from "react-router-dom";
 import { BaseUrl } from "../../../utils/config";
-import { useLoginQuery, usePostLoginMutation } from "../auth-api";
+import {  usePostLoginMutation } from "../auth-api";
 import { useAuth } from "../auth.context";
 
 const ActionCover = styled.div`
