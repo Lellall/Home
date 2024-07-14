@@ -15,6 +15,7 @@ dist-ssr
 *.ignore
 # Editor directories and files
 .vscode/*
+.yarn/*
 !.vscode/extensions.json
 .idea
 .DS_Store

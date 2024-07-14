@@ -11,12 +11,13 @@ import axios from "axios";
 import AuthModal from "./authModal";
 import RoundedButton from "./RoundedButton";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { BaseUrl } from "../../utils/config";
 import useGlobalModalStore from "../../app/useGlobalModal";
 import { useGetSummaryQuery, useOrderItemsMutation } from "./cart.api";
 import { getRefreshToken } from "../../redux/token-utils";
 import { useAuth } from "../auth/auth.context";
+import { useSelector } from "react-redux";
 const Title = styled.p`
   font-size: 14px;
   margin-bottom: 15px;
@@ -98,27 +99,17 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     control,
     formState: { errors },
   } = useForm();
-  const { isAuthenticated, accessToken, refreshAccessToken } = useAuth();
+  const { accessToken, refreshAccessToken } = useAuth();
   const { cart: cartItems } = useShoppingCart();
   const [showModal, setShowModal] = useState(false);
-  // const refreshTokenss = async () => {
-  //   const refreshToken = await getRefreshToken();
-  //   console.log(refreshToken,refreshToken);
-  // };
-  // refreshTokenss()
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const [orderItems, { data: res, error, isSuccess, isLoading }] =
     useOrderItemsMutation();
 
   useEffect(() => {
-    if (error?.status === 401) {
-      toast.error(`session expired please logout and login again`, {
-        position: "top-right",
-      });
-      return;
-    }
     if (error) {
-      toast.error(`${error?.data?.message}`, {
+      toast.error(`${error?.message}`, {
         position: "top-right",
       });
     }
@@ -128,18 +119,6 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
       navigate(`/summary?id=${res.orderId}`);
     }
   }, [isSuccess]);
-
-  // const { data: summaryData, error: summaryError } =
-  //   useGetSummaryQuery(orderId);
-  console.log(bundle, "packagepackage");
-  // const orderData = cartItems.map((item) => {
-  //   return {
-  //     productId: item?.id,
-  //     count: item?.qnty,
-  //     productName: item?.name,
-  //     price: item?.price * item?.qnty,
-  //   };
-  // });
   const paymentItems =
     bundle !== undefined
       ? { bundleId: bundle.id }
@@ -155,7 +134,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
         };
 
   const handleOrder = async (phone) => {
-    if (isAuthenticated() === false) {
+    if (isAuthenticated === false) {
       setShowModal(true);
       return;
     }
@@ -186,65 +165,6 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     }
   }, [value]);
 
-  const handleCheckoutClick = async (phone) => {
-    const data = {
-      paymentItems: orderData,
-      address: {
-        streetName: address,
-      },
-      distance: Number(distance?.toFixed(1)),
-      deliveryPoint: positionPoint,
-      consumerPhoneNumber: phone,
-    };
-    // if (address === null || consumerPhoneNumber === '') {
-    //   toast.error("Please ensure all required fields are filled out correctly and try again.", {
-    //     position: 'top-right',
-    //   });
-    //   return;
-    // }
-    // refreshAccessToken();
-    if (isAuthenticated && orderData?.length > 0) {
-      const data = {
-        paymentItems: orderData,
-        address: {
-          streetName: address,
-        },
-        distance: Number(distance?.toFixed(1)),
-        deliveryPoint: positionPoint,
-        consumerPhoneNumber: phone,
-      };
-
-      try {
-        setLoading(true);
-        const response = await axios.post(`${BaseUrl}/orders`, data, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-          },
-        });
-        // await initiateCheckout(response.data.orderId);
-
-        // addOrder(response.data);
-        if (response?.status === 201) {
-          navigate(`/summary?id=${response.data.orderId}`);
-        }
-      } catch (error) {
-        if (error?.response?.status === 401) {
-          toast.error("Please Try one more time.", {
-            position: "top-right",
-          });
-          refreshAccessToken();
-        }
-        setLoading(false);
-      } finally {
-        setLoading(false);
-      }
-
-      return;
-    } else {
-      setShowModal(true);
-    }
-  };
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onSubmit = async (values) => {
@@ -264,6 +184,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
 
   return (
     <>
+     <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <label
           style={{ fontSize: "13px", color: "#808080", marginBottom: "10px" }}
