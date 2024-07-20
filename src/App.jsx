@@ -1,59 +1,57 @@
 import "./App.css";
+import "react-image-gallery/styles/css/image-gallery.css";
 
 import { Button, Container, Typography } from "@mui/material";
 import BG from "../assets/BG.svg";
 import Tab from "../assets/Tab.svg";
 import NG from "/assets/ng.svg";
-import One from "../assets/1.svg";
-import Two from "../assets/2.svg";
-import Three from "../assets/3.svg";
-import Four from "../assets/4.svg";
+
 import Mobile from "../assets/mobile.svg";
 import styled from "styled-components";
-import CustomerTypes from "./components/CustomerTypes";
-import Services from "./components/Services";
-import MissionStatement from "./components/MissionStatement";
+
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
-import VerticalTabs from "./Promote";
-import RecipeReviewCard from "./cardSamp";
+
 import TabComponent, { ModTitleMain, TitleMain } from "./components/Tabs";
 import NewProducts from "./Surface";
 import MissionCards from "./cardSamp";
 import Stores from "./FavStores";
-import { MultipleProducts,MultipleItems } from "./StoreSlide";
+import { MultipleProducts, MultipleItems } from "./StoreSlide";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import SliderComponent from "./features/newshop/newShop";
+import ComingSoonPage from "./comingSooon";
 
 export const Text = styled(Typography)`
   margin-top: 10px !important;
   margin-bottom: 20px !important;
   line-height: 1.2 !important;
   font-weight: 300 !important;
-  @media only screen and (min-width: 768px){
+  @media only screen and (min-width: 768px) {
     font-size: 12px !important;
-}
+  }
   @media (max-width: 912px) {
     font-size: 44px !important;
   }
-  @media only screen and (min-width: 768px) and (max-width: 1024px) and (max-width: 1180px  ){
+  @media only screen and (min-width: 768px) and (max-width: 1024px) and (max-width: 1180px) {
     border-radius: 0;
-    font-size: 40px !important; 
+    font-size: 40px !important;
   }
-  @media only screen and (min-width: 820px){
+  @media only screen and (min-width: 820px) {
     border-radius: 0;
-    font-size: 50px !important; 
+    font-size: 50px !important;
   }
-  @media only screen and (min-width: 1024px){
+  @media only screen and (min-width: 1024px) {
     border-radius: 0;
     font-size: 64px !important;
   }
-  @media only screen and (max-width: 500px){
+  @media only screen and (max-width: 500px) {
     font-size: 40px !important;
     margin-top: -3.5em !important ;
-}
-@media only screen and (max-width: 360px){
-  /* font-size: 20px !important; */
   }
-
+  @media only screen and (max-width: 360px) {
+    /* font-size: 20px !important; */
+  }
 `;
 
 const Cover = styled(Container)`
@@ -152,16 +150,14 @@ export const RoundButton = styled(Button)`
       props.mobilePad ? props.mobilePad : "12px 25px"} !important;
   }
 
-  @media only screen and (min-width: 768px) and (max-width: 1024px) and (max-width: 1180px  ){
+  @media only screen and (min-width: 768px) and (max-width: 1024px) and (max-width: 1180px) {
     padding: 5px 20px !important;
     font-size: 10px !important;
   }
-  @media only screen and (max-width: 500px){
+  @media only screen and (max-width: 500px) {
     padding: 5px 20px !important;
     font-size: 8px !important;
   }
-
-
 `;
 const ButtonText = styled.p`
   font-size: 18px;
@@ -192,7 +188,7 @@ const Contained = styled.div`
     background-size: cover;
     border-radius: 0px;
   }
-  
+
   &::before {
     content: "";
     position: absolute;
@@ -204,31 +200,30 @@ const Contained = styled.div`
     border-radius: none;
     /* clip-path: polygon(0 0, 100% 0%, 61% 100%, 0% 100%); */
     background-color: #f06d0657;
-    @media only screen and (max-width: 500px){
+    @media only screen and (max-width: 500px) {
       background-color: #00000099;
       border-radius: 0px;
-}
+    }
   }
   overflow-y: hidden;
-  @media only screen and (min-width: 768px) and (max-width: 1024px) and (max-width: 1180px  ){
+  @media only screen and (min-width: 768px) and (max-width: 1024px) and (max-width: 1180px) {
     border-radius: 0;
     height: 10dvh;
     min-height: 44dvh;
     background: url(${Tab});
-  background-repeat: no-repeat; 
-  overflow-x: hidden !important;
-  background-size: cover;
-  background-position: center;
-  border-radius: 10px;
+    background-repeat: no-repeat;
+    overflow-x: hidden !important;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
   }
 
-  @media only screen and (max-width: 768px){
-margin: 0 10px;
-}
-  @media only screen and (max-width: 500px){
-margin: 0;
-}
-
+  @media only screen and (max-width: 768px) {
+    margin: 0 10px;
+  }
+  @media only screen and (max-width: 500px) {
+    margin: 0;
+  }
 `;
 const OverlayContent = styled.div`
   position: absolute;
@@ -243,18 +238,18 @@ const OverlayContent = styled.div`
     border-radius: 0;
     padding: 20px 10px;
     height: 100%;
-     border-radius: 0% 100% 40% 60% / 100% 0% 100% 0%;
-}
-@media only screen and (max-width: 500px){
-background: transparent;
-margin: 0;
-width: 100%;
-height: 100%;
-padding:  0;
-text-align: center;
-/* padding-top: 10px; */
-box-shadow: none;
-}
+    border-radius: 0% 100% 40% 60% / 100% 0% 100% 0%;
+  }
+  @media only screen and (max-width: 500px) {
+    background: transparent;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    text-align: center;
+    /* padding-top: 10px; */
+    box-shadow: none;
+  }
 `;
 
 const HoverBox = styled.div`
@@ -274,13 +269,13 @@ const SubTextCover = styled.div`
   /* font-style: ; */
   color: #fff;
   font-weight: 300;
-  @media only screen and (max-width: 500px){
-text-align: center;
-margin: 0;
-font-size: 19px;
-width: 100%;
-/* padding-top: 50px; */
-}
+  @media only screen and (max-width: 500px) {
+    text-align: center;
+    margin: 0;
+    font-size: 19px;
+    width: 100%;
+    /* padding-top: 50px; */
+  }
 `;
 export const CardCover = styled.div`
   display: flex;
@@ -317,7 +312,7 @@ export const Card = styled.div`
   margin: 5px;
   padding: 0 10px;
   justify-content: space-between;
-  
+
   &:not(:last-child) {
     border-right: 1px solid #e7e7e7;
   }
@@ -346,24 +341,23 @@ export const Card = styled.div`
   }
 `;
 const CenterBox = styled.div`
-
   margin: 25px 70px;
   text-align: left;
   width: 90%;
   ${"" /* background: red; */}
   font-size: 19px;
   color: #141718;
-   ${"" /* box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */}
-   border-radius: 8px;
-   ${"" /* clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */}
-   height: 40px;
-   padding: 20px;
-   border-radius: 50px;
-   ${"" /* color: orange; */}
+  ${"" /* box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */}
+  border-radius: 8px;
+  ${"" /* clip-path: polygon(25% 0%, 100% 0%, 75% 100%, 0% 100%); */}
+  height: 40px;
+  padding: 20px;
+  border-radius: 50px;
+  ${"" /* color: orange; */}
 `;
 
 const MapCover = styled.div`
-width: 100%;
+  width: 100%;
   display: flex;
   flex: 1;
   justify-content: space-between;
@@ -372,14 +366,14 @@ width: 100%;
   padding: 10px;
   border-radius: 50px;
 
-  @media only screen and (max-width: 1024px){
-/* text-align: center;
+  @media only screen and (max-width: 1024px) {
+    /* text-align: center;
 margin: 0;
 font-size: 19px;
 width: 100%; */
-/* padding-top: 50px; */
-display: none;
-}
+    /* padding-top: 50px; */
+    display: none;
+  }
   // border-top: 1px dotted orange;
   ${"" /* box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff; */}
 `;
@@ -455,6 +449,23 @@ const TextWrapper = styled.div`
   text-align: center;
 `;
 
+const TopSnacker = styled.div`
+  display: flex;
+  flex: 1;
+  // justify-content: space-between;
+  width: 100vw;
+  margin: 10px 75px;
+`;
+
+const TopSnackerColor = styled.div`
+  width: 20px;
+  border-radius: 4px;
+  background: #FFB000;
+  color: transparent;
+  height: 50px;
+  margin-bottom: 20px;
+`;
+
 export default function Landing() {
   const services = [
     {
@@ -478,153 +489,105 @@ export default function Landing() {
   ];
 
   return (
-    <>
-      <Navbar />
+    // <>
+    //   <ToastContainer />
+    //   <Navbar />
+    //   <Contained>
+    //     <OverlayContent>
+    //       <HoverBox>
+    //         <Text
+    //           color="#fff"
+    //           variant="h2"
+    //           component="div"
+    //           sx={{ display: { xs: "block", sm: "block" } }}
+    //         >
+    //           Shop wherever <br /> you like,
+    //           <br /> for whatever <br /> you like.
+    //         </Text>
+    //         <SubTextCover>
+    //           <p>
+    //             Léllall is an all-in-one On-demand store, bringing the market to
+    //             your doorstep.
+    //             <br /> Place an order wherever you are and get your delivery
+    //             within minutes.
+    //           </p>
+    //         </SubTextCover>
+    //         <RoundButton
+    //           bgColor="#fff"
+    //           textColor="#000"
+    //           outlined
+    //           variant="contained"
+    //         >
+    //           Visit our store
+    //         </RoundButton>
+    //       </HoverBox>
+    //     </OverlayContent>
+    //   </Contained>
+    //   <TabComponent />
+    //   <TopSnacker>
+    //     <TopSnackerColor>heeo</TopSnackerColor>
+    //     <div style={{marginLeft: '10px', fontSize: '40px', fontWeight:'400', color:'#004225'}}>Today's Pick</div>
+    //   </TopSnacker>
+    //   <MultipleProducts />
 
-      <Contained>
-        <OverlayContent>
-          <HoverBox>
-            <Text
-              color="#fff"
-              variant="h2"
-              component="div"
-              sx={{ display: { xs: "block", sm: "block" } }}
-            >
-              Shop wherever <br /> you like,
-              <br /> for whatever <br /> you like.
-            </Text>
-            <SubTextCover>
-              <p>
-                Léllall is an all-in-one On-demand store, bringing the market to
-                your doorstep.
-                <br /> Place an order wherever you are and get your delivery
-                within minutes.
-              </p>
-            </SubTextCover>
-            <RoundButton
-              bgColor="#fff"
-              textColor="#000"
-              outlined
-              variant="contained"
-            >
-              Visit our store
-            </RoundButton>
-          </HoverBox>
-        </OverlayContent>
-      </Contained>
-      <TabComponent />
-      <CenterBox style={{marginBottom:"100px"}}>
-      <TitleMain> Top Rated Stores</TitleMain>
-    </CenterBox>  
-    <MultipleItems />
-      
-        <TitleMain style={{ textAlign: "center", margin:'50px 0', marginBottom:'0px', fontSize:'20px' }}> Top Trending Products</TitleMain>
-      
-      <MultipleProducts />
-      {/* <CardCover style={{ textAlign: "left", color: "black", padding: '20px 0', marginTop:'100px', marginBottom:'0px' }}>
-      Join Us in Making It Work: Here's Why You Should Partner with Lellall
-    </CardCover> */}
-      {/* <Mission>
-      <NumBox1>
-      <TitleMain
-        style={{
-         fontSize: '20px',
-         textAlign:'center',
-         margin: '20px 20px'
-        }}
-      >
-      Empowering Local & Small Businesses.
-        <br />
-      </TitleMain>
-      <ModTitleMain
-        style={{ fontSize: "11px", textAlign: "center", color: "#0e5d37" }}
-      >
-      Support a community-driven marketplace dedicated to uplifting local
-        businesses. At Lellall, we prioritize and empower small enterprises,
-        fostering economic growth and creating a platform where every
-        purchase makes a positive impact
-      </ModTitleMain>
-    </NumBox1>
-      <NumBox1>
-      <TitleMain
-        style={{
-          fontSize: '20px',
-          textAlign:'center',
-           margin: '20px 20px'
-        }}
-      >
-        Innovative Marketplace Experience.
-        <br />
-      </TitleMain>
-      <ModTitleMain
-        style={{ fontSize: "11px", textAlign: "center", color: "#0e5d37" }}
-      >
-        Explore a cutting-edge platform designed to revolutionize the way
-        you shop, connect, and discover. Discover a seamless and innovative
-        marketplace experience that goes beyond the ordinary.
-      </ModTitleMain>
-    </NumBox1>
-      <NumBox1>
-      <TitleMain
-        style={{
-          fontSize: '20px',
-          textAlign:'center',
-           margin: '20px 20px'
-        }}
-      >
-      Secure Shopping, Trusted Transactions.
-        <br />
-      </TitleMain>
-      <ModTitleMain
-        style={{ fontSize: "11px", textAlign: "center", color: "#0e5d37" }}
-      >
-      At Lellall, we prioritize your security. Enjoy a robust and
-      sophisticated infrastructure for a seamless, worry-free online
-      shopping experience. Shop confidently with every transaction
-      safeguarded, making us your trusted destination for secure online
-      commerce.
-      </ModTitleMain>
-    </NumBox1>
-      </Mission> */}
-      <TitleMain style={{ textAlign: "center", margin:'50px 0', marginBottom:'0px', fontSize:'20px' }}>
-      Join Us in Making It Work: Here's Why You Should Partner with Lellall
-    </TitleMain> 
-      <MissionCards />
-      <MapCover>
-      <div style={{width: '40%'}}>
-      <TitleMain
-      style={{fontSize: '20px', marginLeft:'50px'}}
-      >
-        We're in the Nation's capital and heading to your doorsteps.
-      </TitleMain>
-      <ModTitleMain
-      style={{
-        fontSize: "17px",
-      }}
-    >
-      Léllall is on a mission to revolutionize the shopping experience.
-      We are offering a better alternative for the Nigerian market
-      place. No hassle, no fuss, all your needs delivered to you
-      whenever and wherever you want. Starting in the heart of Nigeria,
-      we are committed to expanding all across Nigeria, until our name
-      is on the lips of every Nigerian.
-    </ModTitleMain>
-      </div>
-        <NGMap>
-      
-        </NGMap>
-     
-      </MapCover>
-     
-      <div>
-     
-        <Footer />
-      </div>
+    //   <TitleMain
+    //     style={{
+    //       textAlign: "center",
+    //       margin: "50px 0",
+    //       marginBottom: "0px",
+    //       fontSize: "20px",
+    //     }}
+    //   >
+    //     {" "}
+    //     {/* Top Trending Products */}
+    //   </TitleMain>
 
-      {/* <CenterBox style={{ textAlign: "left", color: "black" }}>
-        Just In, New Arrivals
-      </CenterBox> */}
-    </>
+    //   <SliderComponent display={6}/>
+      
+    //   <TitleMain
+    //     style={{
+    //       textAlign: "center",
+    //       margin: "50px 0",
+    //       marginBottom: "0px",
+    //       fontSize: "20px",
+    //     }}
+    //   >
+    //     {/* Join Us in Making It Work: Here's Why You Should Partner with Lellall */}
+    //   </TitleMain>
+    //   <MissionCards />
+    //   <MapCover>
+    //     <div style={{ width: "40%" }}>
+    //       <TitleMain style={{ fontSize: "20px", marginLeft: "50px" }}>
+    //         We're in the Nation's capital and heading to your doorsteps.
+    //       </TitleMain>
+    //       <ModTitleMain
+    //         style={{
+    //           fontSize: "17px",
+    //         }}
+    //       >
+    //         Léllall is on a mission to revolutionize the shopping experience. We
+    //         are offering a better alternative for the Nigerian market place. No
+    //         hassle, no fuss, all your needs delivered to you whenever and
+    //         wherever you want. Starting in the heart of Nigeria, we are
+    //         committed to expanding all across Nigeria, until our name is on the
+    //         lips of every Nigerian.
+    //       </ModTitleMain>
+    //     </div>
+    //     <NGMap></NGMap>
+    //   </MapCover>
+
+    //   <div>
+    //     <Footer />
+    //   </div>
+
+    //   {/* <CenterBox style={{ textAlign: "left", color: "black" }}>
+    //     Just In, New Arrivals
+    //   </CenterBox> */}
+    // </>
+    <ComingSoonPage />
   );
 }
 
+
+const centerBtn = styled.div`
+`

@@ -18,7 +18,7 @@ export const CenteredText = styled(Heading)`
 
 export const SubText = styled.p`
   font-size: ${(props) => (props.fontsize ? props.fontsize : "16px")};
-  color: ${(props) => (props.textcolor ? props.textcolor : "#2F313F")};
+  // color: ${(props) => (props.textcolor ? props.textcolor : "#fff")};
   margin: ${(props) => (props.margin ? props.margin : 0)};
   font-weight: ${(props) => (props.fontweight ? props.fontweight : 400)};
 

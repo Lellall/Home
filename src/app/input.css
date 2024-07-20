@@ -1,0 +1,16 @@
+.inputStyle {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 10px;
+    border-radius: 9px;
+    border: 1px solid #DFE2E8;
+  }
+  
+  @media (max-width: 768px) {
+    .inputStyle {
+      width: 30px !important;
+      height: 30px !important;
+      margin: 5px;
+      border-radius: 6px;
+    }
+  }
