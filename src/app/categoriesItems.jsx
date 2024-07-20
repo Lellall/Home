@@ -40,33 +40,29 @@ const Category = styled.div`
 `;
 
 const CategoriesList = ({ isSelectCategory, setIsSelectCategory }) => {
-  // const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
   // const [isCategory, setIsCategory] = useState(false);
   // const fetchCategories = useProductStore((state) => state.fetchCategories);
   // const categories = useProductStore((state) => state.categories);
   const { setIsCategoryModalOpen } = useGlobalModalStore();
-  const { data: categories } = useGetCategoriesQuery(0, {
-    refetchOnMountOrArgChange: true,
-  });
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${BaseUrl}/categories/all-categories`
-  //       );
-  //       setCategories(response.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+  // const { data: categories } = useGetCategoriesQuery(0, {
+  // refetchOnMountOrArgChange: true,
+  // });
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`${BaseUrl}/categories/all-categories`);
+        setCategories(response.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
-  const searchProducts = useProductStore(
-    (state) => state.searchProductsByCategory
-  );
+  const searchProducts = useProductStore((state) => state.searchProductsByCategory);
 
   const handleCategorySearch = (category) => {
     navigate(`?cat=${category?.name}`);
@@ -85,11 +81,10 @@ const CategoriesList = ({ isSelectCategory, setIsSelectCategory }) => {
         <div
           key={category.id}
           onClick={() => handleCategorySearch(category)}
-          style={{ display: 'flex', justifyContent: 'space-around' }}
-        >
+          style={{ display: 'flex', justifyContent: 'space-around' }}>
           <Category key={category?.id}>{category?.name} </Category>
           <div>
-            <ArrowRight2 style={{ marginTop: '12px' }} size='16' />
+            <ArrowRight2 style={{ marginTop: '12px' }} size="16" />
           </div>
         </div>
       ))}
@@ -108,15 +103,10 @@ const CategoriesList = ({ isSelectCategory, setIsSelectCategory }) => {
           // background: 'red',
         }}
         onClick={() => {
-          isSelectCategory
-            ? handleCategoryCloseSearch()
-            : setIsCategoryModalOpen(true);
-        }}
-      >
+          isSelectCategory ? handleCategoryCloseSearch() : setIsCategoryModalOpen(true);
+        }}>
         {isSelectCategory ? 'Close' : 'View more'}
-        {isSelectCategory && (
-          <CloseCircle style={{ marginLeft: '10px' }} size='16' color='red' />
-        )}
+        {isSelectCategory && <CloseCircle style={{ marginLeft: '10px' }} size="16" color="red" />}
       </p>
     </Container>
   );

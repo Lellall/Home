@@ -202,12 +202,7 @@ const NewStore = () => {
   }, [isTokenExpired]);
 
   const [isSelectCategory, setIsSelectCategory] = useState(false);
-  const {
-    setIsShopsClose,
-    isShopsClose,
-    isCategoryModalOpen,
-    setIsCategoryModalOpen,
-  } = useGlobalModalStore();
+  const { setIsShopsClose, isShopsClose, isCategoryModalOpen, setIsCategoryModalOpen } = useGlobalModalStore();
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -267,9 +262,7 @@ const NewStore = () => {
     const fetchData = async () => {
       setIsFetchingCategories(true);
       try {
-        const response = await axios.get(
-          `${BaseUrl}/categories/all-categories?pageNo=${categoriesPage}&pageSize=10`
-        );
+        const response = await axios.get(`${BaseUrl}/categories/all-categories?pageNo=${categoriesPage}&pageSize=10`);
         setCategories(response.data);
         setIsFetchingCategories(false);
       } catch (error) {
@@ -280,9 +273,7 @@ const NewStore = () => {
 
     fetchData();
   }, [categoriesPage]);
-  const searchProducts = useProductStore(
-    (state) => state.searchProductsByCategory
-  );
+  const searchProducts = useProductStore((state) => state.searchProductsByCategory);
   const handleCategorySearch = (category) => {
     navigate(`?cat=${category?.name}`);
     searchProducts(category.id);
@@ -315,14 +306,13 @@ const NewStore = () => {
           justifyContent: 'center',
           alignItems: 'center',
           height: '100vh',
-        }}
-      >
+        }}>
         <ColorRing
-          height='80'
-          width='80'
-          ariaLabel='color-ring-loading'
+          height="80"
+          width="80"
+          ariaLabel="color-ring-loading"
           wrapperStyle={{ float: 'center' }}
-          wrapperClass='color-ring-wrapper'
+          wrapperClass="color-ring-wrapper"
           colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />
       </div>
@@ -339,10 +329,7 @@ const NewStore = () => {
       </AlertCards> */}
       <Container>
         <Categories>
-          <CategoriesList
-            isSelectCategory={isSelectCategory}
-            setIsSelectCategory={setIsSelectCategory}
-          />
+          <CategoriesList isSelectCategory={isSelectCategory} setIsSelectCategory={setIsSelectCategory} />
         </Categories>
         <Products>
           <div>
@@ -359,19 +346,15 @@ const NewStore = () => {
                 fontSize: '15px',
               }}
               onClick={() => {
-                isSelectCategory
-                  ? handleCategoryCloseSearch()
-                  : setIsCategoryModalOpen(true);
-              }}
-            >
+                isSelectCategory ? handleCategoryCloseSearch() : setIsCategoryModalOpen(true);
+              }}>
               {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
             </RoundButton>
           </CategoryButton>
           <div
             style={{
               marginTop: '60px',
-            }}
-          >
+            }}>
             <TopSnacker>
               <TopSnackerColor>heeo</TopSnackerColor>
               <Text>Special Bundle Packages</Text>
@@ -394,34 +377,26 @@ const NewStore = () => {
                     justifyContent: 'center',
                     alignItems: 'center',
                     // height: "10vh",
-                  }}
-                >
+                  }}>
                   <ColorRing
                     visible={products.length === 0 ? false : true}
-                    height='80'
-                    width='80'
-                    ariaLabel='color-ring-loading'
+                    height="80"
+                    width="80"
+                    ariaLabel="color-ring-loading"
                     wrapperStyle={{ float: 'center' }}
-                    wrapperClass='color-ring-wrapper'
-                    colors={[
-                      '#e15b64',
-                      '#f47e60',
-                      '#f8b26a',
-                      '#abbd81',
-                      '#849b87',
-                    ]}
+                    wrapperClass="color-ring-wrapper"
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
                   />
                 </div>
               }
-              endMessage={<p>No more products</p>}
-            >
+              endMessage={<p>No more products</p>}>
               <Cover>
                 {products.map((product, index) => (
                   <ReusableCard
                     key={index}
                     title={product?.name}
                     price={product?.price}
-                    discount='20% OFF'
+                    discount="20% OFF"
                     imageUrl={product?.imageUrl}
                     isShopClose={isShopsClose}
                     onAddToWishlist={() => navigate(`product/${product?.id}`)}
@@ -490,15 +465,9 @@ const NewStore = () => {
         </Picks>
       </div> */}
 
-      <Modal
-        show={isCategoryModalOpen}
-        onClose={() => setIsCategoryModalOpen(false)}
-        style={{ maxWidth: '450px' }}
-      >
+      <Modal show={isCategoryModalOpen} onClose={() => setIsCategoryModalOpen(false)} style={{ maxWidth: '450px' }}>
         <>
-          <CategoriesHeader>
-            {isFetchingCategories ? 'Loading...' : 'Categories'}
-          </CategoriesHeader>
+          <CategoriesHeader>{isFetchingCategories ? 'Loading...' : 'Categories'}</CategoriesHeader>
           <ModalCategoryCont>
             {categories?.data?.map((category) => {
               return (
@@ -507,14 +476,8 @@ const NewStore = () => {
                     onClick={() => {
                       handleCategorySearch(category);
                       setIsSelectCategory(true);
-                    }}
-                  >
-                    <img
-                      src={category.imageUrl}
-                      width={50}
-                      height={50}
-                      style={{ borderRadius: '100%' }}
-                    />
+                    }}>
+                    <img src={category.imageUrl} width={50} height={50} style={{ borderRadius: '100%' }} />
                     {category.name}
                   </ModalCategoryCard>
                 </div>
