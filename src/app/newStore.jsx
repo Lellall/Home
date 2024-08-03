@@ -331,10 +331,10 @@ const NewStore = () => {
       <ModalVerified show={modalOpen} onClose={closeModal} />
       <Navbar />
       <div style={{ marginTop: "10rem" }}></div>
-      <AlertCards type="danger">
+      {/* <AlertCards type="danger">
         Due to an ongoing protest in the country, our services are temporarily
         down until further notice. Thank you for your understanding <b>stay safe</b>.
-      </AlertCards>
+      </AlertCards> */}
       <Container>
         <Categories>
           <CategoriesList />
