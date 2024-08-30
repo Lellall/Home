@@ -331,9 +331,9 @@ const NewStore = () => {
       <ModalVerified show={modalOpen} onClose={closeModal} />
       <Navbar />
       <div style={{ marginTop: "10rem" }}></div>
-      <AlertCards type="danger">
+      {/* <AlertCards type="danger">
       Due to a recent security issue at Wuse Market, our services are temporarily unavailable until further notice. We appreciate your understanding. Stay safe.
-      </AlertCards>
+      </AlertCards> */}
       <Container>
         <Categories>
           <CategoriesList />
