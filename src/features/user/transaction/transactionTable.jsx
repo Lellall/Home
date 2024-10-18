@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { formatCurrency } from '../../../utils/currencyFormat';
 
 const TableContainer = styled.div`
   width: 100%;
@@ -59,6 +60,18 @@ const StatusTd = styled(Td)`
   }};
 `;
 
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-indexed
+  const year = String(date.getFullYear()).slice(-2);
+  const hour = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+  const seconds = String(date.getSeconds()).padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hour}:${minutes}:${seconds}`;
+}
+
 // eslint-disable-next-line react/prop-types
 const TransactionTable = ({ transactions }) => {
   return (
@@ -66,27 +79,31 @@ const TransactionTable = ({ transactions }) => {
       <Table>
         <thead>
           <tr>
-            <Th>S/N</Th>
-            <Th>Order Id</Th>
+            {/* <Th>S/N</Th> */}
+            <Th>User Name</Th>
             <Th>Amount</Th>
             <Th>Total Items</Th>
             <Th>Status</Th>
-            <Th> Platform</Th>
+            {/* <Th> Platform</Th> */}
             <Th>Reference</Th>
+            <Th>Date</Th>
           </tr>
         </thead>
         <tbody>
           {transactions?.map((order, index) => (
-            <tr key={order.orderId}>
-              <Td>{++index}</Td>
-              <Td>{order.orderId} </Td>
-              <Td>{order.amount}</Td>
+            <tr key={order.id}>
+              {/* <Td>{++index}</Td> */}
+              <Td>
+                {order.user.firstName} {order.user.lastName}{' '}
+              </Td>
+              <Td>{formatCurrency(order.amount)}</Td>
               <Td>{order.items.length}</Td>
               <StatusTd status={order.status}>
                 <CustomTag status={order.status}>{order.status}</CustomTag>
               </StatusTd>
-              <Td>{order.paymentPlatform} </Td>
+              {/* <Td>{order.paymentPlatform} </Td> */}
               <Td>{order.reference} </Td>
+              <Td>{formatDate(order.createdAt)} </Td>
             </tr>
           ))}
         </tbody>

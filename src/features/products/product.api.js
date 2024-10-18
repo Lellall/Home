@@ -1,5 +1,5 @@
-import { baseApi } from "../../redux/base-api";
-import { BaseUrl } from "../../utils/config";
+import { baseApi } from '../../redux/base-api';
+import { BaseUrl } from '../../utils/config';
 
 export const productsApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({

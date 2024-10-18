@@ -1,29 +1,29 @@
-import styled from "styled-components";
-import { Footer } from "../features";
-import SliderComponent from "../features/newshop/newShop";
-import { MultipleProducts } from "../StoreSlide";
-import CategoriesList from "./categoriesItems";
-import General from "../features/newshop/general";
-import SubCategory from "./subCategories";
-import { useNavigate } from "react-router-dom";
-import useProductStore from "./productStore";
-import { useEffect, useRef, useState } from "react";
-import ReusableCard from "../features/newshop/card";
-import InfiniteScroll from "react-infinite-scroll-component";
-import { ColorRing } from "react-loader-spinner";
-import AlertCards from "../features/newshop/AlertCard";
-import ModalVerified from "./Welcome";
-import Navbar from "./Nav";
-import Modal from "./modal";
-import { BaseUrl } from "../utils/config";
-import axios from "axios";
-import { RoundButton } from "../App";
-import useGlobalModalStore from "./useGlobalModal";
-import moment from "moment/moment";
-import ProductCarousel from "./bundle/bundle";
-import useAuth from "./useAuth";
-import { useGetCategoriesQuery } from "../features/newshop/categories-api";
-import Pagination from "rc-pagination";
+import styled from 'styled-components';
+import { Footer } from '../features';
+import SliderComponent from '../features/newshop/newShop';
+import { MultipleProducts } from '../StoreSlide';
+import CategoriesList from './categoriesItems';
+import General from '../features/newshop/general';
+import SubCategory from './subCategories';
+import { useNavigate } from 'react-router-dom';
+import useProductStore from './productStore';
+import { useEffect, useRef, useState } from 'react';
+import ReusableCard from '../features/newshop/card';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ColorRing } from 'react-loader-spinner';
+import AlertCards from '../features/newshop/AlertCard';
+import ModalVerified from './Welcome';
+import Navbar from './Nav';
+import Modal from './modal';
+import { BaseUrl } from '../utils/config';
+import axios from 'axios';
+import { RoundButton } from '../App';
+import useGlobalModalStore from './useGlobalModal';
+import moment from 'moment/moment';
+import ProductCarousel from './bundle/bundle';
+import useAuth from './useAuth';
+import { useGetCategoriesQuery } from '../features/newshop/categories-api';
+import Pagination from 'rc-pagination';
 
 const TopSnacker = styled.div`
   display: flex;
@@ -186,13 +186,13 @@ const NewStore = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [categoriesPage, setCategoriesPage] = useState(0);
 
-  const { data: categories, isFetching: isFetchingCategories } =
-    useGetCategoriesQuery(categoriesPage, {
-      refetchOnMountOrArgChange: true,
-    });
+  // const { data: categories, isFetching: isFetchingCategories } =
+  //   useGetCategoriesQuery(categoriesPage, {
+  //     refetchOnMountOrArgChange: true,
+  //   });
   const onChange = (currentPage) => {
     setCategoriesPage(currentPage - 1);
-    refetch();
+    // refetch();
   };
   const { user, fetchWithAuth, isTokenExpired } = useAuth();
   useEffect(() => {
@@ -202,12 +202,7 @@ const NewStore = () => {
   }, [isTokenExpired]);
 
   const [isSelectCategory, setIsSelectCategory] = useState(false);
-  const {
-    setIsShopsClose,
-    isShopsClose,
-    isCategoryModalOpen,
-    setIsCategoryModalOpen,
-  } = useGlobalModalStore();
+  const { setIsShopsClose, isShopsClose, isCategoryModalOpen, setIsCategoryModalOpen } = useGlobalModalStore();
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -215,17 +210,17 @@ const NewStore = () => {
     const updateWorkingHours = () => {
       const now = moment();
       let hour = now.hours();
-      const dayName = moment().format("dddd");
-      if (dayName === "Sunday") {
+      const dayName = moment().format('dddd');
+      if (dayName === 'Sunday') {
         setIsShopsClose(true);
         return;
       }
 
       hour = hour % 12 || 12;
       const minute = now.minutes();
-      const AMPM = now.format("A");
-      if (AMPM == "PM" && hour < 12) hour = hour + 12;
-      if (AMPM == "AM" && hour == 12) hour = hour - 12;
+      const AMPM = now.format('A');
+      if (AMPM == 'PM' && hour < 12) hour = hour + 12;
+      if (AMPM == 'AM' && hour == 12) hour = hour - 12;
       let shopsOpen = hour >= 10 && hour < 19 && minute >= 0;
       setIsShopsClose(!shopsOpen);
     };
@@ -238,8 +233,8 @@ const NewStore = () => {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const user = params.get("user");
-    const token = params.get("token");
+    const user = params.get('user');
+    const token = params.get('token');
     if (user && token) {
       setModalOpen(true);
     }
@@ -254,32 +249,31 @@ const NewStore = () => {
       await fetchProducts(page);
       setPage(page + 1);
     } catch (error) {
-      console.error("Error fetching products:", error);
+      console.error('Error fetching products:', error);
     }
   };
 
   const handleAddToWishlist = (productId) => {
     navigate(`/product/${productId}`);
   };
-  // const [categories, setCategories] = useState([]);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         `${BaseUrl}/categories/all-categories`
-  //       );
-  //       setCategories(response.data.data);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   };
+  const [categories, setCategories] = useState([]);
+  const [isFetchingCategories, setIsFetchingCategories] = useState(false);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsFetchingCategories(true);
+      try {
+        const response = await axios.get(`${BaseUrl}/categories/all-categories?pageNo=${categoriesPage}&pageSize=10`);
+        setCategories(response.data);
+        setIsFetchingCategories(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsFetchingCategories(false);
+      }
+    };
 
-  //   fetchData();
-  // }, []);
-
-  const searchProducts = useProductStore(
-    (state) => state.searchProductsByCategory
-  );
+    fetchData();
+  }, [categoriesPage]);
+  const searchProducts = useProductStore((state) => state.searchProductsByCategory);
   const handleCategorySearch = (category) => {
     navigate(`?cat=${category?.name}`);
     searchProducts(category.id);
@@ -288,8 +282,8 @@ const NewStore = () => {
     // setIsCategory(true);
   };
   const handleCategoryCloseSearch = () => {
-    navigate("/");
-    searchProducts("");
+    navigate('/');
+    searchProducts('');
     setIsCategoryModalOpen(false);
     setIsSelectCategory(false);
   };
@@ -308,19 +302,18 @@ const NewStore = () => {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}>
         <ColorRing
           height="80"
           width="80"
           ariaLabel="color-ring-loading"
-          wrapperStyle={{ float: "center" }}
+          wrapperStyle={{ float: 'center' }}
           wrapperClass="color-ring-wrapper"
-          colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
+          colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
         />
       </div>
     );
@@ -330,13 +323,13 @@ const NewStore = () => {
     <>
       <ModalVerified show={modalOpen} onClose={closeModal} />
       <Navbar />
-      <div style={{ marginTop: "10rem" }}></div>
+      <div style={{ marginTop: '10rem' }}></div>
       {/* <AlertCards type="danger">
       Due to a recent security issue at Wuse Market, our services are temporarily unavailable until further notice. We appreciate your understanding. Stay safe.
       </AlertCards> */}
       <Container>
         <Categories>
-          <CategoriesList />
+          <CategoriesList isSelectCategory={isSelectCategory} setIsSelectCategory={setIsSelectCategory} />
         </Categories>
         <Products>
           <div>
@@ -344,28 +337,24 @@ const NewStore = () => {
           </div>
           <CategoryButton>
             <RoundButton
-              bgColor={isSelectCategory && "#ffb000"}
+              bgColor={isSelectCategory && '#ffb000'}
               style={{
                 // border: isSelectCategory && ' 1px solid red',
-                boxShadow: isSelectCategory && "none",
-                width: "255px",
-                color: "#FFFFFF",
-                fontSize: "15px",
+                boxShadow: isSelectCategory && 'none',
+                width: '255px',
+                color: '#FFFFFF',
+                fontSize: '15px',
               }}
               onClick={() => {
-                isSelectCategory
-                  ? handleCategoryCloseSearch()
-                  : setIsCategoryModalOpen(true);
-              }}
-            >
-              {isSelectCategory ? "Clear Categories" : "Choose Categories"}
+                isSelectCategory ? handleCategoryCloseSearch() : setIsCategoryModalOpen(true);
+              }}>
+              {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
             </RoundButton>
           </CategoryButton>
           <div
             style={{
-              marginTop: "60px",
-            }}
-          >
+              marginTop: '60px',
+            }}>
             <TopSnacker>
               <TopSnackerColor>heeo</TopSnackerColor>
               <Text>Special Bundle Packages</Text>
@@ -377,38 +366,30 @@ const NewStore = () => {
           </div>
           <ContainerInf>
             <InfiniteScroll
-              style={{ float: "center" }}
+              style={{ float: 'center' }}
               dataLength={products.length}
               next={loadNextPage}
               hasMore={hasMore}
               loader={
                 <div
                   style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
                     // height: "10vh",
-                  }}
-                >
+                  }}>
                   <ColorRing
                     visible={products.length === 0 ? false : true}
                     height="80"
                     width="80"
                     ariaLabel="color-ring-loading"
-                    wrapperStyle={{ float: "center" }}
+                    wrapperStyle={{ float: 'center' }}
                     wrapperClass="color-ring-wrapper"
-                    colors={[
-                      "#e15b64",
-                      "#f47e60",
-                      "#f8b26a",
-                      "#abbd81",
-                      "#849b87",
-                    ]}
+                    colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
                   />
                 </div>
               }
-              endMessage={<p>No more products</p>}
-            >
+              endMessage={<p>No more products</p>}>
               <Cover>
                 {products.map((product, index) => (
                   <ReusableCard
@@ -484,31 +465,19 @@ const NewStore = () => {
         </Picks>
       </div> */}
 
-      <Modal
-        show={isCategoryModalOpen}
-        onClose={() => setIsCategoryModalOpen(false)}
-        style={{ maxWidth: "450px" }}
-      >
+      <Modal show={isCategoryModalOpen} onClose={() => setIsCategoryModalOpen(false)} style={{ maxWidth: '450px' }}>
         <>
-          <CategoriesHeader>
-            {isFetchingCategories ? "Loading..." : "Categories"}
-          </CategoriesHeader>
+          <CategoriesHeader>{isFetchingCategories ? 'Loading...' : 'Categories'}</CategoriesHeader>
           <ModalCategoryCont>
             {categories?.data?.map((category) => {
               return (
-                <div key={category.id} style={{ cursor: "poiter" }}>
+                <div key={category.id} style={{ cursor: 'poiter' }}>
                   <ModalCategoryCard
                     onClick={() => {
                       handleCategorySearch(category);
                       setIsSelectCategory(true);
-                    }}
-                  >
-                    <img
-                      src={category.imageUrl}
-                      width={50}
-                      height={50}
-                      style={{ borderRadius: "100%" }}
-                    />
+                    }}>
+                    <img src={category.imageUrl} width={50} height={50} style={{ borderRadius: '100%' }} />
                     {category.name}
                   </ModalCategoryCard>
                 </div>
@@ -523,13 +492,13 @@ const NewStore = () => {
             total={categories?.resultTotal}
             showTitle={true}
             defaultCurrent={1}
-            style={{ marginTop: "20px" }}
+            style={{ marginTop: '20px' }}
           />
         </>
       </Modal>
 
-      <div style={{ marginTop: "5rem" }}>
-        <Footer style={{ zIndex: "2" }} />
+      <div style={{ marginTop: '5rem' }}>
+        <Footer style={{ zIndex: '2' }} />
       </div>
     </>
   );

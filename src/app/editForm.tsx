@@ -6,19 +6,36 @@ import useProductStore from './productStore';
 // Styled components for styling
 const Container = styled.div`
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
+  justify-content: center;
+  width: 100%;
 `;
 
 const RowContainer = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-around;
+  width: 100%;
   margin-bottom: 10px;
+  @media screen and (max-width: 760px) {
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+    div {
+      width: 100%;
+    }
+    input {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
 `;
 
 const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 20px;
+  /* background: red; */
 `;
 
 const Label = styled.label`
@@ -38,11 +55,22 @@ const PriceInput = styled.input`
   font-size: 11px;
   width: 100px;
 `;
-
+const DescriptionInput = styled.textarea`
+  padding: 12px;
+  border: 1px solid hsl(0, 0%, 80%);
+  border-radius: 4px;
+  font-size: 11px;
+  height: 20px;
+  /* width: 100px; */
+  /* background: red; */
+  @media screen and (max-width: 760px) {
+    height: 60px;
+  }
+`;
 
 const SubmitButton = styled.button`
-  background-color: ${props => (props.disabled ? '#ccc' : '#007bff')};
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
+  background-color: ${(props) => (props.disabled ? '#ccc' : '#007bff')};
+  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
   padding: 12px 20px;
   margin-top: 17px;
   color: white;
@@ -54,11 +82,14 @@ const SubmitButton = styled.button`
 // Example component
 const EditForm = ({ product, fetchProducts, current }) => {
   const [selectedOption, setSelectedOption] = useState(
-    product?.available ? { value: true, label: 'Available' } : { value: false, label: 'Unavailable' }
+    product?.available
+      ? { value: true, label: 'Available' }
+      : { value: false, label: 'Unavailable' }
   );
   const [price, setPrice] = useState(product?.price);
+  const [description, setDescription] = useState(product?.description);
 
-  // Options for the select component 
+  // Options for the select component
   const options = [
     { value: true, label: 'Available' },
     { value: false, label: 'Unavailable' },
@@ -73,12 +104,21 @@ const EditForm = ({ product, fetchProducts, current }) => {
   const handlePriceChange = (e) => {
     setPrice(e.target.value);
   };
+  const handleDescriptionChange = (e) => {
+    setDescription(e.target.value);
+  };
   const isLoading = useProductStore((state) => state.isLoading);
   const updateProduct = useProductStore((state) => state.updateProduct);
 
   const handleSubmit = async () => {
-    await updateProduct({ available: selectedOption.value, price, id: product.id });
-    await fetchProducts(current)
+    await updateProduct({
+      available: selectedOption.value,
+      price,
+      id: product.id,
+      description,
+    });
+
+    await fetchProducts(current);
   };
 
   return (
@@ -95,16 +135,25 @@ const EditForm = ({ product, fetchProducts, current }) => {
         <ColumnContainer>
           <Label>Price:</Label>
           <PriceInput
-            type="number"
-            min="0"
+            type='number'
+            min='0'
             value={price}
             onChange={handlePriceChange}
-            placeholder="Price"
+            placeholder='Price'
+          />
+        </ColumnContainer>
+        <ColumnContainer style={{ width: '100%' }}>
+          <Label>Description:</Label>
+          <DescriptionInput
+            value={description}
+            onChange={handleDescriptionChange}
+            placeholder='description'
           />
         </ColumnContainer>
         <ColumnContainer>
-
-          <SubmitButton disabled={isLoading} onClick={handleSubmit}>Update</SubmitButton>
+          <SubmitButton disabled={isLoading} onClick={handleSubmit}>
+            Update
+          </SubmitButton>
         </ColumnContainer>
       </RowContainer>
     </Container>
