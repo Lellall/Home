@@ -351,7 +351,7 @@ const NewStore = () => {
               {isSelectCategory ? 'Clear Categories' : 'Choose Categories'}
             </RoundButton>
           </CategoryButton>
-          <div
+          {/* <div
             style={{
               marginTop: '60px',
             }}>
@@ -363,7 +363,7 @@ const NewStore = () => {
           </div>
           <div>
             <ProductCarousel />
-          </div>
+          </div> */}
           <ContainerInf>
             <InfiniteScroll
               style={{ float: 'center' }}
