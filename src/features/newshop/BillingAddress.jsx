@@ -69,9 +69,9 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(lat1Rad) *
-        Math.cos(lat2Rad) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
+      Math.cos(lat2Rad) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
     // Return the distance in kilometers
@@ -123,15 +123,15 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     bundle !== undefined
       ? { bundleId: bundle.id }
       : {
-          paymentItems: cartItems.map((item) => {
-            return {
-              productId: item?.id,
-              count: item?.qnty,
-              productName: item?.name,
-              price: item?.price * item?.qnty,
-            };
-          }),
-        };
+        paymentItems: cartItems.map((item) => {
+          return {
+            productId: item?.id,
+            count: item?.qnty,
+            productName: item?.name,
+            price: item?.price * item?.qnty,
+          };
+        }),
+      };
 
   const handleOrder = async (phone) => {
     if (isAuthenticated === false) {
@@ -165,7 +165,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
     }
   }, [value]);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const onSubmit = async (values) => {
     // if (isShopsClose) {
@@ -184,7 +184,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
 
   return (
     <>
-     <ToastContainer />
+      <ToastContainer />
       <form onSubmit={handleSubmit(onSubmit)}>
         <label
           style={{ fontSize: "13px", color: "#808080", marginBottom: "10px" }}
@@ -296,12 +296,10 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
             style={{ maxWidth: "400px" }}
           >
             <Title style={{ fontSize: "large", fontWeight: "bolder" }}>
-              We are currently closed
+              Dear Customers,
             </Title>
             <p>
-              Our shop is closed for today. We will resume our regular operating
-              hours from Monday to Saturday, opening at 10 am and closing at 5
-              pm.
+              We are temporarily closed for the holiday season from now until January 5, 2025. We wish everyone a joyful holiday and a prosperous New Year!
             </p>
           </AuthModal>
         </>
