@@ -327,9 +327,9 @@ const NewStore = () => {
       {/* <AlertCards type="danger">
       Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
       </AlertCards> */}
-      <AlertCards type="danger">
+      {/* <AlertCards type="danger">
         Dear Customers,
-        We will be temporarily closed for the holiday season from now until January 5, 2025. We wish everyone a joyful holiday and a prosperous New Year!      </AlertCards>
+        We will be temporarily closed for the holiday season from now until January 5, 2025. We wish everyone a joyful holiday and a prosperous New Year!      </AlertCards> */}
       <Container>
         <Categories>
           <CategoriesList isSelectCategory={isSelectCategory} setIsSelectCategory={setIsSelectCategory} />
