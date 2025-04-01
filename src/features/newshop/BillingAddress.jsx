@@ -138,10 +138,10 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
       setShowModal(true);
       return;
     }
-    if (isShopsClose) {
-      setIsModalOpen(true);
-      return;
-    }
+    // if (isShopsClose) {
+    //   setIsModalOpen(true);
+    //   return;
+    // }
     const data = {
       ...paymentItems,
       address: {
@@ -259,7 +259,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
         <div
           style={{ fontSize: "13px", color: "#808080", marginBottom: "15px" }}
         ></div>
-        <RoundedButton
+        {/* <RoundedButton
           type="submit"
           backgroundColor="#0E5D37"
           onClick={onSubmit}
@@ -267,7 +267,7 @@ const BillingAddress = ({ isShopsClose, bundle }) => {
           loading={isLoading}
         >
           Proceed to checkout
-        </RoundedButton>
+        </RoundedButton> */}
       </form>
       {showModal && (
         <AuthModal onClose={() => setShowModal(false)}>
