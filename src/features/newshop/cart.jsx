@@ -316,7 +316,7 @@ const CartPage = () => {
           <ArrowLeft size='32' />
         </h3>
       </BackButtonContainer>
-      <AlertCards type="danger">
+      {/* <AlertCards type="danger">
   <strong>Eid Announcement: 🌙✨</strong>
   <br />
   We will be temporarily closed in celebration of <strong>Eid al-Fitr</strong> from now until <strong>02/04/2025</strong>. 🎉  
@@ -324,7 +324,7 @@ const CartPage = () => {
   Wishing everyone a joyous Eid filled with happiness, peace, and prosperity! 🌟  
   <br /><br />
   <strong>Eid Mubarak! 🕌🥳</strong>
-</AlertCards>
+</AlertCards> */}
       <CartContainer>
         <h2>My Cart</h2>
         {cartItems?.length < 1 ? (
