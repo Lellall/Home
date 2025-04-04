@@ -327,7 +327,7 @@ const NewStore = () => {
       {/* <AlertCards type="danger">
       Payment System Maintenance Notice: Our payment system is currently undergoing maintenance for improved performance and security. We apologize for any inconvenience. Please bear with us as we work to resolve this issue. Thank you for your understanding.
       </AlertCards> */}
-     <AlertCards type="danger">
+     {/* <AlertCards type="danger">
   <strong>Eid Announcement: 🌙✨</strong>
   <br />
   We will be temporarily closed in celebration of <strong>Eid al-Fitr</strong> from now until <strong>02/04/2025</strong>. 🎉  
@@ -335,7 +335,7 @@ const NewStore = () => {
   Wishing everyone a joyous Eid filled with happiness, peace, and prosperity! 🌟  
   <br /><br />
   <strong>Eid Mubarak! 🕌🥳</strong>
-</AlertCards>
+</AlertCards> */}
 
       <Container>
         <Categories>
